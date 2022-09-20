@@ -5,14 +5,18 @@ import { Sidebar } from "../Components/Sidebar";
 
 const useStyles = createStyles(() => ({
   wrapper: {
-    background: "orange",
+    display: "flex",
+    justifyContent: "space-between",
+    gap: "1rem",
+    paddingBottom: "5rem",
+    paddingTop: "0.5rem",
   },
 }));
 export const Home = () => {
   const { classes } = useStyles();
 
   return (
-    <Container className={classes.wrapper}>
+    <Container px={5} className={classes.wrapper}>
       <PostFeed />
       <Sidebar />
     </Container>

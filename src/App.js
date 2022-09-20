@@ -4,7 +4,7 @@ import { Hero } from "./views/Components/Hero";
 import { Home } from "./views/Home/Home";
 function App() {
   return (
-    <div>
+    <div className="App">
       <Navbar />
       <Hero />
       <Home />

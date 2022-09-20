@@ -2,6 +2,10 @@ import { useState } from "react";
 import { createStyles, Header, Container, Group } from "@mantine/core";
 
 const useStyles = createStyles((theme) => ({
+  root: {
+    position: "sticky",
+    zIndex: 99,
+  },
   header: {
     display: "flex",
     justifyContent: "space-between",
@@ -75,7 +79,7 @@ export function Navbar() {
   ));
 
   return (
-    <Header height={60} mb={0}>
+    <Header height={60} mb={0} className={classes.root}>
       <Container className={classes.header}>
         momos
         <Group spacing={5} className={classes.links}>

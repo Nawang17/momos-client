@@ -8,6 +8,9 @@ const useStyles = createStyles(() => ({
     display: "flex",
     flexDirection: "column",
     gap: "0.5rem",
+    "@media (max-width: 700px)": {
+      flex: 1,
+    },
   },
 }));
 export const PostFeed = () => {
@@ -16,10 +19,6 @@ export const PostFeed = () => {
   return (
     <div className={classes.wrapper}>
       <Post />
-      <Post />
-      <Post />
-      <Post />
-
       <Post />
 
       <Post />

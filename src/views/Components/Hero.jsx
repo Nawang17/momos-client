@@ -43,25 +43,11 @@ const useStyles = createStyles((theme) => ({
     marginTop: theme.spacing.lg,
     display: "flex",
     justifyContent: "center",
-
-    "@media (max-width: 520px)": {
-      flexDirection: "column",
-    },
   },
 
   control: {
     "&:not(:first-of-type)": {
       marginLeft: theme.spacing.md,
-    },
-
-    "@media (max-width: 520px)": {
-      height: 42,
-      fontSize: theme.fontSizes.md,
-
-      "&:not(:first-of-type)": {
-        marginTop: theme.spacing.md,
-        marginLeft: 0,
-      },
     },
   },
 }));
@@ -80,7 +66,7 @@ export function Hero() {
         </Title>
 
         <Container p={0} size={600}>
-          <Text size="lg" color="dimmed" className={classes.description}>
+          <Text size="lg" className={classes.description}>
             Connect with people around the world.
           </Text>
         </Container>
@@ -88,13 +74,13 @@ export function Hero() {
         <div className={classes.controls}>
           <Button
             className={classes.control}
-            size="md"
+            size="sm"
             variant="default"
             color="gray"
           >
             Login
           </Button>
-          <Button className={classes.control} size="md">
+          <Button className={classes.control} size="sm">
             Register
           </Button>
         </div>

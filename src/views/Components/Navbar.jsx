@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createStyles, Header, Container, Group } from "@mantine/core";
+import { createStyles, Header, Container, Group, Text } from "@mantine/core";
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -81,7 +81,9 @@ export function Navbar() {
   return (
     <Header height={60} mb={0} className={classes.root}>
       <Container className={classes.header}>
-        momos
+        <Text size="lg" weight="600">
+          momos
+        </Text>
         <Group spacing={5} className={classes.links}>
           {items}
         </Group>

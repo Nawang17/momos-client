@@ -4,12 +4,17 @@ const useStyles = createStyles(() => ({
   wrapper: {
     width: "100%",
     flex: 0.3,
+    "@media (max-width: 700px)": {
+      flex: 0,
+      display: "none",
+    },
   },
   mainwrapper: {
     top: "65px",
     position: "sticky",
     background: "white",
     paddingBottom: "1rem",
+    borderRadius: "4px",
   },
   accounts: {
     paddingTop: "0.5rem",
@@ -49,41 +54,34 @@ export const Sidebar = () => {
         <div className={classes.accounts}>
           <div className={classes.account}>
             <img
+              loading="lazy"
               className={classes.avatar}
               src="https://res.cloudinary.com/dwzjfylgh/image/upload/v1648215217/dd23namcxikmc35qewa2.jpg"
               alt=""
             />
-            <Text weight={500} size="md">
+            <Text weight={500} size="15px">
               katoph
             </Text>
           </div>
           <div className={classes.account}>
             <img
+              loading="lazy"
               className={classes.avatar}
               src="https://res.cloudinary.com/dwzjfylgh/image/upload/v1648215217/dd23namcxikmc35qewa2.jpg"
               alt=""
             />
-            <Text weight={500} size="md">
+            <Text weight={500} size="15px">
               katoph
             </Text>
           </div>
           <div className={classes.account}>
             <img
+              loading="lazy"
               className={classes.avatar}
               src="https://res.cloudinary.com/dwzjfylgh/image/upload/v1648215217/dd23namcxikmc35qewa2.jpg"
               alt=""
             />
-            <Text weight={500} size="md">
-              katoph
-            </Text>
-          </div>
-          <div className={classes.account}>
-            <img
-              className={classes.avatar}
-              src="https://res.cloudinary.com/dwzjfylgh/image/upload/v1648215217/dd23namcxikmc35qewa2.jpg"
-              alt=""
-            />
-            <Text weight={500} size="md">
+            <Text weight={500} size="15px">
               katoph
             </Text>
           </div>

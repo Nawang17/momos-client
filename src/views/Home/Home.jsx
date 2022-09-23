@@ -16,7 +16,7 @@ export const Home = () => {
   const { classes } = useStyles();
 
   return (
-    <Container px={5} className={classes.wrapper}>
+    <Container px={10} className={classes.wrapper}>
       <PostFeed />
       <Sidebar />
     </Container>

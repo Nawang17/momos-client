@@ -1,6 +1,7 @@
 import React from "react";
 import { createStyles, Text } from "@mantine/core";
 import { ChatCircle, DotsThree, Heart } from "phosphor-react";
+import { PostMenu } from "./PostMenu";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -71,7 +72,7 @@ export const Post = () => {
             </Text>
           </div>
           <div className={classes.hRight}>
-            <DotsThree size={20} />
+            <PostMenu />
           </div>
         </div>
         <div className={classes.body}>
@@ -88,12 +89,16 @@ export const Post = () => {
         /> */}
         <div className={classes.footer}>
           <div className={classes.fLeft}>
-            <Heart weight="light" size={21} />
-            <Text size="15px"> 1 </Text>
+            <Heart color="gray" weight="light" size={19} />
+            <Text color={"gray"} size="14px">
+              1
+            </Text>
           </div>
           <div className={classes.fRight}>
-            <ChatCircle weight="light" size={20} />
-            <Text size="15px">1</Text>
+            <ChatCircle color="gray" weight="light" size={17} />
+            <Text size="14px" color={"gray"}>
+              1
+            </Text>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createStyles, Header, Container, Group, Text } from "@mantine/core";
-
+import { Link, useNavigate } from "react-router-dom";
 const useStyles = createStyles((theme) => ({
   root: {
     position: "sticky",
@@ -55,13 +55,12 @@ const useStyles = createStyles((theme) => ({
 export function Navbar() {
   const links = [
     { label: "Home", link: "/" },
-
     // { label: "Login", link: "/Login" },
     // { label: "Register", link: "/Register" },
   ];
   const [active, setActive] = useState(links[0].link);
   const { classes, cx } = useStyles();
-
+  const navigate = useNavigate();
   const items = links.map((link) => (
     <a
       key={link.label}
@@ -72,6 +71,7 @@ export function Navbar() {
       onClick={(event) => {
         event.preventDefault();
         setActive(link.link);
+        navigate(link.link);
       }}
     >
       {link.label}
@@ -81,9 +81,14 @@ export function Navbar() {
   return (
     <Header height={60} mb={0} className={classes.root}>
       <Container className={classes.header}>
-        <Text size="lg" weight="600">
-          momos
-        </Text>
+        <Link
+          style={{ textDecoration: "none", cursor: "pointer", color: "black" }}
+          to="/"
+        >
+          <Text size="lg" weight="600">
+            momos
+          </Text>
+        </Link>
         <Group spacing={5} className={classes.links}>
           {items}
         </Group>

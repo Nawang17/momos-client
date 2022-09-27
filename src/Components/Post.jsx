@@ -2,6 +2,7 @@ import React from "react";
 import { createStyles, Text } from "@mantine/core";
 import { ChatCircle, Heart } from "phosphor-react";
 import { PostMenu } from "./PostMenu";
+import { Link } from "react-router-dom";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -54,12 +55,14 @@ export const Post = () => {
   return (
     <div className={classes.wrapper}>
       <div className={classes.left}>
-        <img
-          loading="lazy"
-          className={classes.avatar}
-          src="https://res.cloudinary.com/dwzjfylgh/image/upload/v1648215217/dd23namcxikmc35qewa2.jpg"
-          alt=""
-        />
+        <Link to={`/Profile`}>
+          <img
+            loading="lazy"
+            className={classes.avatar}
+            src="https://res.cloudinary.com/dwzjfylgh/image/upload/v1648215217/dd23namcxikmc35qewa2.jpg"
+            alt=""
+          />
+        </Link>
       </div>
       <div className={classes.right}>
         <div className={classes.header}>
@@ -94,12 +97,14 @@ export const Post = () => {
               1
             </Text>
           </div>
-          <div className={classes.fRight}>
-            <ChatCircle color="gray" weight="light" size={17} />
-            <Text size="14px" color={"gray"}>
-              1
-            </Text>
-          </div>
+          <Link style={{ textDecoration: "none" }} to={`/Post`}>
+            <div className={classes.fRight}>
+              <ChatCircle color="gray" weight="light" size={17} />
+              <Text size="14px" color={"gray"}>
+                1
+              </Text>
+            </div>
+          </Link>
         </div>
       </div>
     </div>

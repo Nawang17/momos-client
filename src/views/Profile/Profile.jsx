@@ -41,7 +41,7 @@ export const Profile = () => {
           </Tabs.Panel>
 
           <Tabs.Panel value="messages" pt="xs">
-            Liked posts
+            <PostFeed />
           </Tabs.Panel>
         </Tabs>
       </div>

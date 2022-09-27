@@ -1,4 +1,5 @@
 import { createStyles, Title, Text, Button, Container } from "@mantine/core";
+import { Link } from "react-router-dom";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -72,17 +73,14 @@ export function Hero() {
         </Container>
 
         <div className={classes.controls}>
-          <Button
-            className={classes.control}
-            size="sm"
-            variant="default"
-            color="gray"
-          >
-            Login
-          </Button>
-          <Button className={classes.control} size="sm">
-            Register
-          </Button>
+          <Link className={classes.control} to={"/Login"}>
+            <Button size="sm" variant="default" color="gray">
+              Login
+            </Button>
+          </Link>
+          <Link className={classes.control} to={"/Register"}>
+            <Button size="sm">Register</Button>
+          </Link>
         </div>
       </div>
     </Container>

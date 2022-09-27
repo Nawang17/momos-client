@@ -2,6 +2,7 @@ import React from "react";
 import { Container, createStyles } from "@mantine/core";
 import { PostFeed } from "../../Components/PostFeed";
 import { Sidebar } from "../../Components/Sidebar";
+import { Hero } from "../../Components/Hero";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -22,11 +23,15 @@ export const Home = () => {
   const { classes } = useStyles();
 
   return (
-    <Container px={10} className={classes.wrapper}>
-      <div className={classes.leftWrapper}>
-        <PostFeed />
-      </div>
-      <Sidebar />
-    </Container>
+    <>
+      <Hero />
+
+      <Container px={10} className={classes.wrapper}>
+        <div className={classes.leftWrapper}>
+          <PostFeed />
+        </div>
+        <Sidebar />
+      </Container>
+    </>
   );
 };

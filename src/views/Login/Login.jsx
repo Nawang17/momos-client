@@ -10,6 +10,7 @@ import {
   Group,
   Button,
 } from "@mantine/core";
+import { Link } from "react-router-dom";
 
 export function Login() {
   return (
@@ -26,13 +27,9 @@ export function Login() {
         </Title>
         <Text color="dimmed" size="sm" align="center" mt={5}>
           Do not have an account yet?{" "}
-          <Anchor
-            href="#"
-            size="sm"
-            onClick={(event) => event.preventDefault()}
-          >
-            Create account
-          </Anchor>
+          <Link style={{ textDecoration: "none" }} to="/Register">
+            <Anchor size="sm">Create account</Anchor>
+          </Link>
         </Text>
 
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">

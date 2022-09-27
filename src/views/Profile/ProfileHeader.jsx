@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, createStyles, Text, ActionIcon } from "@mantine/core";
 import { ArrowLeft } from "phosphor-react";
-
+import { useNavigate } from "react-router-dom";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -22,12 +22,13 @@ const useStyles = createStyles(() => ({
   },
 }));
 export const ProfileHeader = () => {
+  const navigate = useNavigate();
   const { classes } = useStyles();
 
   return (
     <>
       <div style={{ background: "white", padding: "1rem 0rem 0rem 1rem" }}>
-        <ActionIcon>
+        <ActionIcon onClick={() => navigate(-1)}>
           <ArrowLeft size="20px" />
         </ActionIcon>
       </div>
@@ -61,7 +62,7 @@ export const ProfileHeader = () => {
             </Text>
           </div>
 
-          <Text color={"gray"}> This is a description</Text>
+          <Text color={"gray"}>This is a description</Text>
         </div>
       </div>
     </>

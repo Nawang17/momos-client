@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, createStyles } from "@mantine/core";
-import { PostFeed } from "../../Components/PostFeed";
 import { Sidebar } from "../../Components/Sidebar";
+import { SinglePostFeed } from "./SinglePostFeed";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -12,12 +12,12 @@ const useStyles = createStyles(() => ({
     paddingTop: "0.5rem",
   },
 }));
-export const Home = () => {
+export const SinglePost = () => {
   const { classes } = useStyles();
 
   return (
     <Container px={10} className={classes.wrapper}>
-      <PostFeed />
+      <SinglePostFeed />
       <Sidebar />
     </Container>
   );

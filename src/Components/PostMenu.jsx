@@ -1,4 +1,4 @@
-import { Menu } from "@mantine/core";
+import { ActionIcon, Menu } from "@mantine/core";
 
 import {
   CopySimple,

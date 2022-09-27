@@ -11,13 +11,21 @@ const useStyles = createStyles(() => ({
     paddingBottom: "5rem",
     paddingTop: "0.5rem",
   },
+  leftWrapper: {
+    flex: 0.7,
+    "@media (max-width: 700px)": {
+      flex: 1,
+    },
+  },
 }));
 export const Home = () => {
   const { classes } = useStyles();
 
   return (
     <Container px={10} className={classes.wrapper}>
-      <PostFeed />
+      <div className={classes.leftWrapper}>
+        <PostFeed />
+      </div>
       <Sidebar />
     </Container>
   );

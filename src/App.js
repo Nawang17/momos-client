@@ -5,13 +5,15 @@ import { Home } from "./views/Home/Home";
 import { Login } from "./views/Login/Login";
 import { Register } from "./views/Register/Register";
 import { SinglePost } from "./views/SinglePost/SinglePost";
+import { Profile } from "./views/Profile/Profile";
 function App() {
   return (
     <div className="App">
       <Navbar />
       {/* <Hero /> */}
       {/* <Home /> */}
-      <SinglePost />
+      {/* <SinglePost /> */}
+      <Profile />
       {/* <Login /> */}
       {/* <Register /> */}
     </div>

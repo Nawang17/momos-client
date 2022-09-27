@@ -56,8 +56,8 @@ export function Navbar() {
   const links = [
     { label: "Home", link: "/" },
 
-    { label: "Login", link: "/Login" },
-    { label: "Register", link: "/Register" },
+    // { label: "Login", link: "/Login" },
+    // { label: "Register", link: "/Register" },
   ];
   const [active, setActive] = useState(links[0].link);
   const { classes, cx } = useStyles();

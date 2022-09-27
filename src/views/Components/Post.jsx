@@ -1,6 +1,6 @@
 import React from "react";
 import { createStyles, Text } from "@mantine/core";
-import { ChatCircle, DotsThree, Heart } from "phosphor-react";
+import { ChatCircle, Heart } from "phosphor-react";
 import { PostMenu } from "./PostMenu";
 const useStyles = createStyles(() => ({
   wrapper: {

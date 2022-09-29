@@ -1,9 +1,8 @@
-import React from "react";
+import { useEffect } from "react";
 import { Container, createStyles } from "@mantine/core";
 import { PostFeed } from "../../Components/PostFeed";
 import { Sidebar } from "../../Components/Sidebar";
-import { Hero } from "../../Components/Hero";
-
+import { useLocation } from "react-router-dom";
 const useStyles = createStyles(() => ({
   wrapper: {
     display: "flex",
@@ -21,11 +20,13 @@ const useStyles = createStyles(() => ({
 }));
 export const Home = () => {
   const { classes } = useStyles();
+  const { pathname } = useLocation();
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
   return (
     <>
-      <Hero />
-
       <Container px={10} className={classes.wrapper}>
         <div className={classes.leftWrapper}>
           <PostFeed />

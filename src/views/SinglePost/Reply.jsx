@@ -10,6 +10,7 @@ const Reply = () => {
         display: "flex",
         backgroundColor: "white",
         padding: "1rem",
+        alignItems: "center",
         gap: "1rem",
         borderTop: "1px solid #e6e6e6",
         borderBottom: "1px solid #e6e6e6",

@@ -7,6 +7,7 @@ import { SinglePost } from "./views/SinglePost/SinglePost";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Profile } from "./views/Profile/Profile";
 import { RouteError } from "./Components/RouteError";
+import { Hero } from "./Components/Hero";
 function App() {
   const router = createBrowserRouter([
     {
@@ -14,6 +15,7 @@ function App() {
       element: (
         <>
           <Navbar />
+          <Hero />
           <Home />
         </>
       ),

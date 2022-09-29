@@ -1,9 +1,12 @@
-import React from "react";
+import { useEffect } from "react";
+
 import { Container, createStyles, Tabs } from "@mantine/core";
 import { PostFeed } from "../../Components/PostFeed";
 import { Sidebar } from "../../Components/Sidebar";
 import { ProfileHeader } from "./ProfileHeader";
 import { Heart, Note } from "phosphor-react";
+import { useLocation } from "react-router-dom";
+
 const useStyles = createStyles(() => ({
   wrapper: {
     display: "flex",
@@ -21,7 +24,11 @@ const useStyles = createStyles(() => ({
 }));
 export const Profile = () => {
   const { classes } = useStyles();
+  const { pathname } = useLocation();
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
   return (
     <Container px={10} className={classes.wrapper}>
       <div className={classes.leftWrapper}>

@@ -2,7 +2,7 @@ import React from "react";
 import { createStyles, Text } from "@mantine/core";
 import { ChatCircle, Heart } from "phosphor-react";
 import { PostMenu } from "./PostMenu";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -51,23 +51,22 @@ const useStyles = createStyles(() => ({
 }));
 export const Post = () => {
   const { classes } = useStyles();
-
+  const navigate = useNavigate();
   return (
     <div className={classes.wrapper}>
       <div className={classes.left}>
-        <Link to={`/Profile`}>
-          <img
-            loading="lazy"
-            className={classes.avatar}
-            src="https://res.cloudinary.com/dwzjfylgh/image/upload/v1648215217/dd23namcxikmc35qewa2.jpg"
-            alt=""
-          />
-        </Link>
+        <img
+          onClick={() => navigate(`/Profile`)}
+          loading="lazy"
+          className={classes.avatar}
+          src="https://res.cloudinary.com/dwzjfylgh/image/upload/v1648215217/dd23namcxikmc35qewa2.jpg"
+          alt=""
+        />
       </div>
       <div className={classes.right}>
         <div className={classes.header}>
           <div className={classes.hLeft}>
-            <Text weight={500} size="15px">
+            <Text onClick={() => navigate(`/Profile`)} weight={500} size="15px">
               katoph
             </Text>
             <Text color="dimmed" size="sm">

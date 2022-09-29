@@ -1,6 +1,21 @@
 import { useState } from "react";
-import { createStyles, Header, Container, Group, Text } from "@mantine/core";
+import {
+  createStyles,
+  Header,
+  Container,
+  Group,
+  Text,
+  ActionIcon,
+} from "@mantine/core";
 import { Link, useNavigate } from "react-router-dom";
+import {
+  Bell,
+  ChatCircleDots,
+  House,
+  PlusCircle,
+  UserCircle,
+} from "phosphor-react";
+import { ProfileMenu } from "./ProfileMenu";
 const useStyles = createStyles((theme) => ({
   root: {
     position: "sticky",
@@ -90,7 +105,33 @@ export function Navbar() {
           </Text>
         </Link>
         <Group spacing={5} className={classes.links}>
-          {items}
+          {/* {items} */}
+          <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+            {true && (
+              <>
+                <ActionIcon
+                  onClick={() => {
+                    navigate("/");
+                  }}
+                >
+                  <House size={28} color="black" />
+                </ActionIcon>
+                <ActionIcon>
+                  <PlusCircle size={28} color="black" />
+                </ActionIcon>
+                <ActionIcon>
+                  <ChatCircleDots size={28} color="black" />
+                </ActionIcon>
+                <ActionIcon>
+                  <Bell size={28} color="black" />
+                </ActionIcon>
+              </>
+            )}
+
+            <ActionIcon>
+              <ProfileMenu />
+            </ActionIcon>
+          </div>
         </Group>
       </Container>
     </Header>

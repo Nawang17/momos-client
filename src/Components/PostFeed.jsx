@@ -16,7 +16,10 @@ export const PostFeed = () => {
     <div className={classes.wrapper}>
       <Post />
       <Post />
+      <Post />
 
+      <Post />
+      <Post />
       <Post />
     </div>
   );

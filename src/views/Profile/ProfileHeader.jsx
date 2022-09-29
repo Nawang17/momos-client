@@ -6,7 +6,7 @@ const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
     padding: "1rem",
-    gap: "1rem",
+    gap: "0.5rem",
     display: "flex",
     flexDirection: "column",
   },
@@ -42,27 +42,38 @@ export const ProfileHeader = () => {
           />
         </div>
         <div className={classes.right}>
-          <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-            <Text weight={"bold"} size="lg">
-              {" "}
+          <div
+            style={{
+              display: "flex",
+              gap: "1rem",
+              justifyContent: "space-between",
+              alignItems: "flex-end",
+            }}
+          >
+            <Text weight="bold" size="md">
               Katoph
             </Text>
-            <Button size="xs">Follow</Button>
+
+            <Button radius={"xl"} size="xs">
+              Follow
+            </Button>
           </div>
 
           <div style={{ display: "flex", gap: "1rem" }}>
-            <Text>
+            {/* <Text>
               <span style={{ fontWeight: "500" }}>0</span> Posts
-            </Text>
-            <Text>
+            </Text> */}
+            <Text size="15px">
               <span style={{ fontWeight: "500" }}>0</span> Followers
             </Text>
-            <Text>
+            <Text size="15px">
               <span style={{ fontWeight: "500" }}>0</span> Following
             </Text>
           </div>
 
-          <Text color={"gray"}>This is a description</Text>
+          <Text size="15px" color={"gray"}>
+            This is a description
+          </Text>
         </div>
       </div>
     </>

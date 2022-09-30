@@ -1,17 +1,6 @@
-import { ActionIcon, Menu } from "@mantine/core";
+import { Menu } from "@mantine/core";
 
-import {
-  CopySimple,
-  DotsThree,
-  Export,
-  Gear,
-  Lock,
-  SignIn,
-  Trash,
-  UserCircle,
-  UserMinus,
-  UserPlus,
-} from "phosphor-react";
+import { Gear, SignIn, UserCircle } from "phosphor-react";
 import { useNavigate } from "react-router-dom";
 
 export function ProfileMenu() {

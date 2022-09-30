@@ -62,7 +62,7 @@ export function Hero() {
         <Title className={classes.title}>
           Welcome to{" "}
           <Text component="span" className={classes.highlight} inherit>
-            Momos
+            momos
           </Text>{" "}
         </Title>
 

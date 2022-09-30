@@ -8,14 +8,9 @@ import {
   ActionIcon,
 } from "@mantine/core";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  Bell,
-  ChatCircleDots,
-  House,
-  PlusCircle,
-  UserCircle,
-} from "phosphor-react";
+import { Bell, ChatCircleDots, House, PlusCircle } from "phosphor-react";
 import { ProfileMenu } from "./ProfileMenu";
+import Notis from "../views/Notis/Notis";
 const useStyles = createStyles((theme) => ({
   root: {
     position: "sticky",
@@ -68,30 +63,8 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export function Navbar() {
-  const links = [
-    { label: "Home", link: "/" },
-    // { label: "Login", link: "/Login" },
-    // { label: "Register", link: "/Register" },
-  ];
-  const [active, setActive] = useState(links[0].link);
   const { classes, cx } = useStyles();
   const navigate = useNavigate();
-  const items = links.map((link) => (
-    <a
-      key={link.label}
-      href={link.link}
-      className={cx(classes.link, {
-        [classes.linkActive]: active === link.link,
-      })}
-      onClick={(event) => {
-        event.preventDefault();
-        setActive(link.link);
-        navigate(link.link);
-      }}
-    >
-      {link.label}
-    </a>
-  ));
 
   return (
     <Header height={60} mb={0} className={classes.root}>
@@ -100,7 +73,7 @@ export function Navbar() {
           style={{ textDecoration: "none", cursor: "pointer", color: "black" }}
           to="/"
         >
-          <Text size="lg" weight="600">
+          <Text size="xl" weight="800">
             momos
           </Text>
         </Link>
@@ -122,9 +95,7 @@ export function Navbar() {
                 <ActionIcon>
                   <ChatCircleDots size={28} color="black" />
                 </ActionIcon>
-                <ActionIcon>
-                  <Bell size={28} color="black" />
-                </ActionIcon>
+                <Notis />
               </>
             )}
 

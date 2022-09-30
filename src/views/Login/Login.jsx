@@ -11,8 +11,37 @@ import {
   Button,
 } from "@mantine/core";
 import { Link } from "react-router-dom";
-
+import { useState } from "react";
+import { LoginReq } from "../../api/AUTH";
+import { showNotification } from "@mantine/notifications";
+import { useNavigate } from "react-router-dom";
+import confetti from "canvas-confetti";
 export function Login() {
+  const navigate = useNavigate();
+  const [Username, setUsername] = useState("");
+  const [Password, setPassword] = useState("");
+  const [loading, setloading] = useState(false);
+  const [error, seterror] = useState("");
+  const handlelogin = (e) => {
+    setloading(true);
+    seterror("");
+    e.preventDefault();
+
+    LoginReq(Username, Password)
+      .then((res) => {
+        navigate("/");
+
+        showNotification({
+          title: "Login Successful",
+          message: "Welcome back to momos!",
+          autoClose: 5000,
+        });
+      })
+      .catch((err) => {
+        seterror(err.response.data);
+        setloading(false);
+      });
+  };
   return (
     <div style={{ height: "80vh" }}>
       <Container size={420} my={40}>
@@ -33,27 +62,44 @@ export function Login() {
         </Text>
 
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-          <TextInput label="Username" placeholder="Username" required />
-          <PasswordInput
-            label="Password"
-            placeholder="Password"
-            required
-            mt="md"
-            autoComplete=""
-          />
-          <Group position="apart" mt="md">
-            <Checkbox label="Remember me" />
-            <Anchor
-              onClick={(event) => event.preventDefault()}
-              href="#"
-              size="sm"
-            >
-              Forgot password?
-            </Anchor>
-          </Group>
-          <Button fullWidth mt="xl">
-            Login
-          </Button>
+          <Text weight={"500"} color={"red"} size="sm">
+            {error}
+          </Text>
+
+          <form
+            onSubmit={(e) => {
+              handlelogin(e);
+            }}
+          >
+            <TextInput
+              onChange={(e) => setUsername(e.target.value)}
+              label="Username"
+              placeholder="Username"
+              required
+              autoComplete={true}
+            />
+            <PasswordInput
+              onChange={(e) => setPassword(e.target.value)}
+              label="Password"
+              placeholder="Password"
+              required
+              mt="md"
+              autoComplete={true}
+            />
+            {/* <Group position="apart" mt="md">
+              <Checkbox label="Remember me" />
+              <Anchor
+                onClick={(event) => event.preventDefault()}
+                href="#"
+                size="sm"
+              >
+                Forgot password?
+              </Anchor>
+            </Group> */}
+            <Button disabled={loading} type="submit" fullWidth mt="xl">
+              Login
+            </Button>
+          </form>
         </Paper>
       </Container>
     </div>

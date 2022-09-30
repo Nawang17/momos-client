@@ -11,8 +11,42 @@ import {
   Button,
 } from "@mantine/core";
 import { Link } from "react-router-dom";
-
+import { useState } from "react";
+import { RegisterReq } from "../../api/AUTH";
+import { showNotification } from "@mantine/notifications";
+import { useNavigate } from "react-router-dom";
+import confetti from "canvas-confetti";
 export function Register() {
+  const navigate = useNavigate();
+
+  const [Username, setUsername] = useState("");
+  const [Password, setPassword] = useState("");
+  const [loading, setloading] = useState(false);
+  const [error, seterror] = useState("");
+  const handleRegister = (e) => {
+    setloading(true);
+    seterror("");
+    e.preventDefault();
+    RegisterReq(Username, Password)
+      .then((res) => {
+        navigate("/");
+        confetti({
+          particleCount: 300,
+          spread: 70,
+          origin: { y: 0.6 },
+        });
+
+        showNotification({
+          title: "Register Successful",
+          message: "Welcome to momos!",
+          autoClose: 5000,
+        });
+      })
+      .catch((err) => {
+        seterror(err.response.data);
+        setloading(false);
+      });
+  };
   return (
     <div style={{ height: "80vh" }}>
       <Container size={420} my={40}>
@@ -33,23 +67,28 @@ export function Register() {
         </Text>
 
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-          <TextInput label="Username" placeholder="Username" required />
-          <PasswordInput
-            label="Password"
-            placeholder="Password"
-            required
-            mt="md"
-          />
-          <PasswordInput
-            label="Confirm Password"
-            placeholder="Confirm Password"
-            required
-            mt="md"
-          />
+          <Text weight={"500"} color={"red"} size="sm">
+            {error}
+          </Text>
+          <form onSubmit={(e) => handleRegister(e)}>
+            <TextInput
+              onChange={(e) => setUsername(e.target.value)}
+              label="Username"
+              placeholder="Username"
+              required
+            />
+            <PasswordInput
+              onChange={(e) => setPassword(e.target.value)}
+              label="Password"
+              placeholder="Password"
+              required
+              mt="md"
+            />
 
-          <Button fullWidth mt="xl">
-            Register
-          </Button>
+            <Button disabled={loading} type="submit" fullWidth mt="xl">
+              Register
+            </Button>
+          </form>
         </Paper>
       </Container>
     </div>

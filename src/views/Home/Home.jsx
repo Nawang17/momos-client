@@ -3,6 +3,7 @@ import { Container, createStyles } from "@mantine/core";
 import { PostFeed } from "../../Components/PostFeed";
 import { Sidebar } from "../../Components/Sidebar";
 import { useLocation } from "react-router-dom";
+
 const useStyles = createStyles(() => ({
   wrapper: {
     display: "flex",

@@ -1,22 +1,22 @@
 import {
   TextInput,
   PasswordInput,
-  Checkbox,
   Anchor,
   Paper,
   Title,
   Text,
   Container,
-  Group,
   Button,
 } from "@mantine/core";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { LoginReq } from "../../api/AUTH";
 import { showNotification } from "@mantine/notifications";
+import { AuthContext } from "../../context/Auth";
 import { useNavigate } from "react-router-dom";
-import confetti from "canvas-confetti";
+
 export function Login() {
+  const { setUserInfo } = useContext(AuthContext);
   const navigate = useNavigate();
   const [Username, setUsername] = useState("");
   const [Password, setPassword] = useState("");
@@ -29,6 +29,9 @@ export function Login() {
 
     LoginReq(Username, Password)
       .then((res) => {
+        setUserInfo(res.data.user);
+        localStorage.setItem("token", res.data.token);
+
         navigate("/");
 
         showNotification({

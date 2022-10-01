@@ -11,14 +11,16 @@ import {
   Button,
 } from "@mantine/core";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { RegisterReq } from "../../api/AUTH";
 import { showNotification } from "@mantine/notifications";
 import { useNavigate } from "react-router-dom";
 import confetti from "canvas-confetti";
+import { AuthContext } from "../../context/Auth";
+
 export function Register() {
   const navigate = useNavigate();
-
+  const { setUserInfo } = useContext(AuthContext);
   const [Username, setUsername] = useState("");
   const [Password, setPassword] = useState("");
   const [loading, setloading] = useState(false);
@@ -29,6 +31,8 @@ export function Register() {
     e.preventDefault();
     RegisterReq(Username, Password)
       .then((res) => {
+        setUserInfo(res.data.user);
+        localStorage.setItem("token", res.data.token);
         navigate("/");
         confetti({
           particleCount: 300,

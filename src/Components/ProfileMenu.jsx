@@ -2,31 +2,46 @@ import { Menu } from "@mantine/core";
 
 import { Gear, SignIn, UserCircle } from "phosphor-react";
 import { useNavigate } from "react-router-dom";
-
+import { useContext } from "react";
+import { AuthContext } from "../context/Auth";
+import { showNotification } from "@mantine/notifications";
 export function ProfileMenu() {
+  const { UserInfo, setUserInfo } = useContext(AuthContext);
   const navigate = useNavigate();
 
   return (
     <Menu position="bottom-end" shadow="md" width={200}>
       <Menu.Target>
-        {!true ? (
+        {!UserInfo ? (
           <UserCircle size={28} color="black" />
         ) : (
           <img
             style={{ width: "27px", height: "27px", borderRadius: "50%" }}
-            src="https://res.cloudinary.com/dwzjfylgh/image/upload/v1648215217/dd23namcxikmc35qewa2.jpg"
+            src={UserInfo?.avatar}
             alt=""
           />
         )}
       </Menu.Target>
 
       <Menu.Dropdown>
-        {true ? (
+        {UserInfo ? (
           <>
             <Menu.Item icon={<UserCircle size={14} />}>Profile</Menu.Item>
             <Menu.Item icon={<Gear size={14} />}>Settings</Menu.Item>
             <Menu.Divider />
-            <Menu.Item>Log Out</Menu.Item>
+            <Menu.Item
+              onClick={() => {
+                setUserInfo(null);
+                showNotification({
+                  title: "Logout Successful",
+                  message: "See you soon!",
+                  autoClose: 5000,
+                });
+                localStorage.removeItem("token");
+              }}
+            >
+              Log Out
+            </Menu.Item>
           </>
         ) : (
           <>

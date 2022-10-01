@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   createStyles,
   Header,
@@ -11,6 +11,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { Bell, ChatCircleDots, House, PlusCircle } from "phosphor-react";
 import { ProfileMenu } from "./ProfileMenu";
 import Notis from "../views/Notis/Notis";
+import { AuthContext } from "../context/Auth";
+
 const useStyles = createStyles((theme) => ({
   root: {
     position: "sticky",
@@ -63,6 +65,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export function Navbar() {
+  const { UserInfo } = useContext(AuthContext);
   const { classes, cx } = useStyles();
   const navigate = useNavigate();
 
@@ -80,7 +83,7 @@ export function Navbar() {
         <Group spacing={5} className={classes.links}>
           {/* {items} */}
           <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-            {true && (
+            {UserInfo && (
               <>
                 <ActionIcon
                   onClick={() => {

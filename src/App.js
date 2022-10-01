@@ -1,4 +1,5 @@
 import "./App.css";
+import { useState } from "react";
 import { Navbar } from "./Components/Navbar";
 import { Home } from "./views/Home/Home";
 import { Login } from "./views/Login/Login";
@@ -8,14 +9,17 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Profile } from "./views/Profile/Profile";
 import { RouteError } from "./Components/RouteError";
 import { Hero } from "./Components/Hero";
+import { AuthContext } from "./context/Auth";
 function App() {
+  const [UserInfo, setUserInfo] = useState(null);
   const router = createBrowserRouter([
     {
       path: "/",
       element: (
         <>
           <Navbar />
-          <Hero />
+          {!UserInfo && <Hero />}
+
           <Home />
         </>
       ),
@@ -64,7 +68,14 @@ function App() {
   ]);
   return (
     <div className="App">
-      <RouterProvider router={router} />
+      <AuthContext.Provider
+        value={{
+          UserInfo,
+          setUserInfo,
+        }}
+      >
+        <RouterProvider router={router} />
+      </AuthContext.Provider>
     </div>
   );
 }

@@ -1,13 +1,10 @@
 import {
   TextInput,
   PasswordInput,
-  Checkbox,
-  Anchor,
   Paper,
   Title,
   Text,
   Container,
-  Group,
   Button,
 } from "@mantine/core";
 import { Link } from "react-router-dom";
@@ -42,12 +39,16 @@ export function Register() {
 
         showNotification({
           title: "Register Successful",
-          message: "Welcome to momos!",
+          message: `Welcome to momos ${res.data.user.username} !`,
           autoClose: 5000,
         });
       })
       .catch((err) => {
-        seterror(err.response.data);
+        if (err.response.status === 0) {
+          seterror("Internal Server Error");
+        } else {
+          seterror(err.response.data);
+        }
         setloading(false);
       });
   };
@@ -65,8 +66,11 @@ export function Register() {
         </Title>
         <Text color="dimmed" size="sm" align="center" mt={5}>
           Already have an account?{" "}
-          <Link style={{ textDecoration: "none" }} to="/Login">
-            <Anchor size="sm">Login</Anchor>
+          <Link
+            style={{ textDecoration: "none", color: "#1c7ed6" }}
+            to="/Login"
+          >
+            <span>Login</span>
           </Link>
         </Text>
 

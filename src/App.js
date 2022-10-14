@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Navbar } from "./Components/Navbar";
 import { Home } from "./views/Home/Home";
 import { Login } from "./views/Login/Login";
@@ -10,8 +10,25 @@ import { Profile } from "./views/Profile/Profile";
 import { RouteError } from "./Components/RouteError";
 import { Hero } from "./Components/Hero";
 import { AuthContext } from "./context/Auth";
+import { LoginStatus } from "./api/AUTH";
+import { showNotification } from "@mantine/notifications";
 function App() {
   const [UserInfo, setUserInfo] = useState(null);
+  useEffect(() => {
+    LoginStatus()
+      .then((res) => {
+        setUserInfo(res.data.user);
+        showNotification({
+          title: `You are logged in as ${res.data.user.username}`,
+          message: "Welcome back to momos!",
+
+          autoClose: 5000,
+        });
+      })
+      .catch(() => {
+        setUserInfo(null);
+      });
+  }, []);
   const router = createBrowserRouter([
     {
       path: "/",

@@ -13,3 +13,11 @@ export const RegisterReq = async (username, password) => {
     password,
   });
 };
+
+export const LoginStatus = async () => {
+  return await api.get("/userinfo", {
+    headers: {
+      Authorization: `${localStorage.getItem("token")}`,
+    },
+  });
+};

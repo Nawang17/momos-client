@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import {
   createStyles,
   Header,
@@ -8,7 +8,7 @@ import {
   ActionIcon,
 } from "@mantine/core";
 import { Link, useNavigate } from "react-router-dom";
-import { Bell, ChatCircleDots, House, PlusCircle } from "phosphor-react";
+import { ChatCircleDots, House, PlusCircle } from "phosphor-react";
 import { ProfileMenu } from "./ProfileMenu";
 import Notis from "../views/Notis/Notis";
 import { AuthContext } from "../context/Auth";

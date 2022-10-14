@@ -33,8 +33,7 @@ export function ProfileMenu() {
               onClick={() => {
                 setUserInfo(null);
                 showNotification({
-                  title: "Logout Successful",
-                  message: "See you soon!",
+                  title: "You have been logged out",
                   autoClose: 5000,
                 });
                 localStorage.removeItem("token");

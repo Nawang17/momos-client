@@ -66,7 +66,12 @@ export const Post = () => {
       <div className={classes.right}>
         <div className={classes.header}>
           <div className={classes.hLeft}>
-            <Text onClick={() => navigate(`/Profile`)} weight={500} size="15px">
+            <Text
+              style={{ cursor: "pointer" }}
+              onClick={() => navigate(`/Profile`)}
+              weight={500}
+              size="15px"
+            >
               katoph
             </Text>
             <Text color="dimmed" size="sm">

@@ -41,7 +41,11 @@ export function Login() {
         });
       })
       .catch((err) => {
-        seterror(err.response.data);
+        if (err.response.status === 0) {
+          seterror("Internal Server Error");
+        } else {
+          seterror(err.response.data);
+        }
         setloading(false);
       });
   };
@@ -59,8 +63,11 @@ export function Login() {
         </Title>
         <Text color="dimmed" size="sm" align="center" mt={5}>
           Do not have an account yet?{" "}
-          <Link style={{ textDecoration: "none" }} to="/Register">
-            <Anchor size="sm">Create account</Anchor>
+          <Link
+            style={{ textDecoration: "none", color: "#1c7ed6" }}
+            to="/Register"
+          >
+            <span>Create account</span>
           </Link>
         </Text>
 
@@ -79,7 +86,7 @@ export function Login() {
               label="Username"
               placeholder="Username"
               required
-              autoComplete={true}
+              autoComplete="username"
             />
             <PasswordInput
               onChange={(e) => setPassword(e.target.value)}
@@ -87,7 +94,7 @@ export function Login() {
               placeholder="Password"
               required
               mt="md"
-              autoComplete={true}
+              autoComplete="current-password"
             />
             {/* <Group position="apart" mt="md">
               <Checkbox label="Remember me" />

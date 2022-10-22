@@ -31,7 +31,7 @@ const Reply = () => {
               weight="bold"
               color="blue"
               size={20}
-              style={{ display: "block", opacity: 0.5, paddingBottom: "5px" }}
+              style={{ display: "block", opacity: 0.5 }}
             />
           )
         }

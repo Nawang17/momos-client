@@ -3,6 +3,7 @@ import { Container, createStyles } from "@mantine/core";
 import { PostFeed } from "../../Components/PostFeed";
 import { Sidebar } from "../../Components/Sidebar";
 import { useLocation } from "react-router-dom";
+import CreatePost from "../../Components/CreatePost";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -30,6 +31,7 @@ export const Home = () => {
     <>
       <Container px={10} className={classes.wrapper}>
         <div className={classes.leftWrapper}>
+          <CreatePost />
           <PostFeed />
         </div>
         <Sidebar />

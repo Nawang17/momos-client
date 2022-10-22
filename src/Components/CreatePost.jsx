@@ -15,7 +15,7 @@ const CreatePost = () => {
       >
         <div
           style={{
-            display: "flex", //test2
+            display: "flex", //test3
             gap: "0.5rem",
           }}
         >

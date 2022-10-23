@@ -52,39 +52,21 @@ export const Sidebar = () => {
           Suggested accounts
         </Text>
         <div className={classes.accounts}>
-          <div className={classes.account}>
-            <img
-              loading="lazy"
-              className={classes.avatar}
-              src="https://res.cloudinary.com/dwzjfylgh/image/upload/v1648215217/dd23namcxikmc35qewa2.jpg"
-              alt=""
-            />
-            <Text weight={500} size="15px">
-              katoph
-            </Text>
-          </div>
-          <div className={classes.account}>
-            <img
-              loading="lazy"
-              className={classes.avatar}
-              src="https://res.cloudinary.com/dwzjfylgh/image/upload/v1648215217/dd23namcxikmc35qewa2.jpg"
-              alt=""
-            />
-            <Text weight={500} size="15px">
-              katoph
-            </Text>
-          </div>
-          <div className={classes.account}>
-            <img
-              loading="lazy"
-              className={classes.avatar}
-              src="https://res.cloudinary.com/dwzjfylgh/image/upload/v1648215217/dd23namcxikmc35qewa2.jpg"
-              alt=""
-            />
-            <Text weight={500} size="15px">
-              katoph
-            </Text>
-          </div>
+          {new Array(4).fill(0).map(() => {
+            return (
+              <div className={classes.account}>
+                <img
+                  loading="lazy"
+                  className={classes.avatar}
+                  src="https://res.cloudinary.com/dwzjfylgh/image/upload/v1648215217/dd23namcxikmc35qewa2.jpg"
+                  alt=""
+                />
+                <Text weight={500} size="15px">
+                  katoph
+                </Text>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

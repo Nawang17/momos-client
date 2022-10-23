@@ -36,7 +36,7 @@ export function Login() {
 
         showNotification({
           title: "Login Successful",
-          message: "Welcome back to momos!",
+          message: `Welcome back to momos, ${res.data.user.username}!`,
           autoClose: 5000,
         });
       })

@@ -1,6 +1,5 @@
-import { Button, Textarea } from "@mantine/core";
 import React from "react";
-
+import "../App.css";
 const CreatePost = () => {
   return (
     //TODO : continue working on create post component
@@ -25,21 +24,27 @@ const CreatePost = () => {
             alt=""
           />
           <div style={{ width: "100%" }}>
-            <Textarea
-              placeholder="What's on your mind, Katoph?"
-              autosize
-              minRows={1}
-              maxRows={15}
-            />
+            <div
+              className="createpostdiv"
+              style={{
+                cursor: "pointer",
+
+                borderRadius: "18px",
+
+                padding: "0.7rem",
+                color: "#666",
+                fontSize: "15px",
+              }}
+            >
+              What's on your mind, Katoph?{" "}
+            </div>
             <div
               style={{
                 display: "flex",
                 justifyContent: "flex-end",
                 paddingTop: "0.5rem",
               }}
-            >
-              <Button>Post</Button>
-            </div>
+            ></div>
           </div>
         </div>
       </div>

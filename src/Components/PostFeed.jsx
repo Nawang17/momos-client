@@ -1,5 +1,5 @@
 import React from "react";
-import { createStyles } from "@mantine/core";
+import { createStyles, Text } from "@mantine/core";
 import { Post } from "./Post";
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -21,6 +21,9 @@ export const PostFeed = () => {
       <Post />
       <Post />
       <Post />
+      <Text align="center" weight={"500"}>
+        End of Posts
+      </Text>
     </div>
   );
 };

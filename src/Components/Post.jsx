@@ -49,7 +49,7 @@ const useStyles = createStyles(() => ({
     gap: "0.2rem",
   },
 }));
-export const Post = () => {
+export const Post = ({ post }) => {
   const { classes } = useStyles();
   const navigate = useNavigate();
   return (
@@ -59,7 +59,7 @@ export const Post = () => {
           onClick={() => navigate(`/Profile`)}
           loading="lazy"
           className={classes.avatar}
-          src="https://res.cloudinary.com/dwzjfylgh/image/upload/v1648215217/dd23namcxikmc35qewa2.jpg"
+          src={post.user.avatar}
           alt=""
         />
       </div>
@@ -72,33 +72,36 @@ export const Post = () => {
               weight={500}
               size="15px"
             >
-              katoph
+              {post.user.username}
             </Text>
             <Text color="dimmed" size="sm">
-              10 min ago
+              {post.createdAt}
             </Text>
           </div>
           <div className={classes.hRight}>
             <PostMenu />
           </div>
         </div>
-        <div className={classes.body}>
-          <Text size="15px">
-            Hello world. My name is Nawang Sherpa. Welcome to Momos.
-          </Text>
-        </div>
+        {post.text && (
+          <div className={classes.body}>
+            <Text size="15px">{post?.text}</Text>
+          </div>
+        )}
 
-        {/* <img
-          loading="lazy"
-          className={classes.image}
-          src="https://res.cloudinary.com/dwzjfylgh/image/upload/v1660619196/ib9t8qphlwyzdlfi86ks.webp"
-          alt=""
-        /> */}
+        {post.image && (
+          <img
+            loading="lazy"
+            className={classes.image}
+            src={post?.image}
+            alt=""
+          />
+        )}
+
         <div className={classes.footer}>
           <div className={classes.fLeft}>
             <Heart color="gray" weight="light" size={19} />
             <Text color={"gray"} size="14px">
-              1
+              {post.likes.length}
             </Text>
           </div>
           <Link style={{ textDecoration: "none" }} to={`/Post`}>

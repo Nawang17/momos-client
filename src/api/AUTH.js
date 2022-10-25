@@ -1,9 +1,10 @@
 import { api } from "./config";
 
-export const LoginReq = async (username, password) => {
+export const LoginReq = async (username, password, stayloggedin) => {
   return await api.post("/auth/login", {
     username,
     password,
+    stayloggedin: stayloggedin,
   });
 };
 

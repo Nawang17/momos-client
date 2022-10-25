@@ -1,12 +1,13 @@
 import {
   TextInput,
   PasswordInput,
-  Anchor,
   Paper,
   Title,
   Text,
   Container,
   Button,
+  Checkbox,
+  Group,
 } from "@mantine/core";
 import { Link } from "react-router-dom";
 import { useState, useContext } from "react";
@@ -22,12 +23,13 @@ export function Login() {
   const [Password, setPassword] = useState("");
   const [loading, setloading] = useState(false);
   const [error, seterror] = useState("");
+  const [stayloggedin, setstayloggedin] = useState(false);
   const handlelogin = (e) => {
     setloading(true);
     seterror("");
     e.preventDefault();
 
-    LoginReq(Username, Password)
+    LoginReq(Username, Password, stayloggedin)
       .then((res) => {
         setUserInfo(res.data.user);
         localStorage.setItem("token", res.data.token);
@@ -96,16 +98,15 @@ export function Login() {
               mt="md"
               autoComplete="current-password"
             />
-            {/* <Group position="apart" mt="md">
-              <Checkbox label="Remember me" />
-              <Anchor
-                onClick={(event) => event.preventDefault()}
-                href="#"
-                size="sm"
-              >
-                Forgot password?
-              </Anchor>
-            </Group> */}
+            <Group position="apart" mt="md">
+              <Checkbox
+                checked={stayloggedin}
+                onChange={(e) => {
+                  setstayloggedin(e.target.checked);
+                }}
+                label="Stay logged in"
+              />
+            </Group>
             <Button disabled={loading} type="submit" fullWidth mt="xl">
               Login
             </Button>

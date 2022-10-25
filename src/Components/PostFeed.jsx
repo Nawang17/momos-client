@@ -9,21 +9,16 @@ const useStyles = createStyles(() => ({
     gap: "0.5rem",
   },
 }));
-export const PostFeed = () => {
+export const PostFeed = ({ posts }) => {
   const { classes } = useStyles();
 
   return (
     <div className={classes.wrapper}>
-      <Post />
-      <Post />
-      <Post />
+      {posts.map((post) => {
+        return <Post key={post.id} post={post} />;
+      })}
 
-      <Post />
-      <Post />
-      <Post />
-      <Text align="center" weight={"500"}>
-        End of Posts
-      </Text>
+      {/* <Text align="center">End of Posts</Text> */}
     </div>
   );
 };

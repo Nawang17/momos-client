@@ -1,5 +1,5 @@
 import React from "react";
-import { createStyles, ActionIcon } from "@mantine/core";
+import { createStyles, ActionIcon, Skeleton } from "@mantine/core";
 import { Post } from "../../Components/Post";
 import Reply from "./Reply";
 import { ArrowLeft } from "phosphor-react";
@@ -17,7 +17,7 @@ const useStyles = createStyles(() => ({
     },
   },
 }));
-export const SinglePostFeed = () => {
+export const SinglePostFeed = ({ singlePostData, loading }) => {
   const navigate = useNavigate();
 
   const { classes } = useStyles();
@@ -29,11 +29,25 @@ export const SinglePostFeed = () => {
           <ArrowLeft size="20px" />
         </ActionIcon>
       </div>
-      <Post />
-      <Reply />
-      <Comments />
-      <Comments />
+      {!loading ? (
+        <Post post={singlePostData} />
+      ) : (
+        <div
+          style={{
+            background: "white",
+            padding: "1rem",
 
+            borderRadius: "4px",
+          }}
+        >
+          <Skeleton height={50} circle mb="xl" />
+          <Skeleton height={8} radius="xl" />
+          <Skeleton height={8} mt={15} radius="xl" />
+          <Skeleton height={8} mt={15} width="70%" radius="xl" />
+        </div>
+      )}
+
+      <Reply />
       <Comments />
     </div>
   );

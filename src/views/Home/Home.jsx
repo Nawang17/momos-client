@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom";
 import CreatePost from "../../Components/CreatePost";
 import { HomePosts } from "../../api/GET";
 import { AuthContext } from "../../context/Auth";
-
+import { showNotification } from "@mantine/notifications";
 const useStyles = createStyles(() => ({
   wrapper: {
     display: "flex",
@@ -27,19 +27,42 @@ export const Home = () => {
   const { pathname } = useLocation();
   const [homePosts, setHomePosts] = useState([]);
   const { UserInfo } = useContext(AuthContext);
+  const [loading, setloading] = useState(true);
+
   useEffect(() => {
     window.scrollTo(0, 0);
-    HomePosts().then((res) => {
-      setHomePosts(res.data.homeposts);
-    });
+    setloading(true);
+    HomePosts()
+      .then((res) => {
+        setHomePosts(res.data.homeposts);
+        setloading(false);
+      })
+      .catch((err) => {
+        if (err.response.status === 0) {
+          showNotification({
+            color: "red",
+            title: "Internal Server Error",
+
+            autoClose: 7000,
+          });
+        } else {
+          showNotification({
+            color: "red",
+            title: err.response.data,
+            autoClose: 7000,
+          });
+        }
+      });
   }, [pathname]);
   return (
     <>
       <Container px={10} className={classes.wrapper}>
         <div className={classes.leftWrapper}>
-          {UserInfo && <CreatePost setHomePosts={setHomePosts} />}
+          {UserInfo && (
+            <CreatePost setHomePosts={setHomePosts} UserInfo={UserInfo} />
+          )}
 
-          <PostFeed posts={homePosts} />
+          <PostFeed posts={homePosts} loading={loading} />
         </div>
         <Sidebar />
       </Container>

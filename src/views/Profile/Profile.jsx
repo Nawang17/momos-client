@@ -1,11 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { Container, createStyles, Tabs } from "@mantine/core";
 import { PostFeed } from "../../Components/PostFeed";
 import { Sidebar } from "../../Components/Sidebar";
 import { ProfileHeader } from "./ProfileHeader";
 import { Heart, Note } from "phosphor-react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
+import { profileinfo } from "../../api/GET";
+import { showNotification } from "@mantine/notifications";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -23,16 +25,46 @@ const useStyles = createStyles(() => ({
   },
 }));
 export const Profile = () => {
+  const { userprofile } = useParams();
   const { classes } = useStyles();
   const { pathname } = useLocation();
-
+  const [posts, setposts] = useState([]);
+  const [profileInfo, setprofileInfo] = useState({});
+  const [loading, setloading] = useState(true);
   useEffect(() => {
+    profileinfo({ username: userprofile })
+      .then((res) => {
+        setposts(res.data.userPosts);
+        setprofileInfo(res.data.userInfo);
+        setloading(false);
+      })
+      .catch((err) => {
+        setprofileInfo({
+          username: userprofile,
+          avatar:
+            "https://res.cloudinary.com/dwzjfylgh/image/upload/v1650822495/jbnmm5pv4eavhhj8jufu.jpg",
+        });
+        if (err.response.status === 0) {
+          showNotification({
+            color: "red",
+            title: "Internal Server Error",
+
+            autoClose: 7000,
+          });
+        } else {
+          showNotification({
+            color: "red",
+            title: err.response.data,
+            autoClose: 7000,
+          });
+        }
+      });
     window.scrollTo(0, 0);
   }, [pathname]);
   return (
     <Container px={10} className={classes.wrapper}>
       <div className={classes.leftWrapper}>
-        <ProfileHeader />
+        <ProfileHeader profileInfo={profileInfo} />
         <Tabs defaultValue="gallery">
           <Tabs.List style={{ background: "white" }}>
             <Tabs.Tab value="gallery" icon={<Note size={14} />}>
@@ -44,11 +76,11 @@ export const Profile = () => {
           </Tabs.List>
 
           <Tabs.Panel value="gallery" pt="xs">
-            <PostFeed />
+            <PostFeed posts={posts} loading={loading} />
           </Tabs.Panel>
 
           <Tabs.Panel value="messages" pt="xs">
-            <PostFeed />
+            <PostFeed posts={posts} loading={loading} />
           </Tabs.Panel>
         </Tabs>
       </div>

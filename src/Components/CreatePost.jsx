@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../App.css";
 import CreatePostModal from "./CreatePostModal";
-const CreatePost = ({ setHomePosts }) => {
+const CreatePost = ({ setHomePosts, UserInfo }) => {
   const [opened, setOpened] = useState(false);
 
   return (
@@ -22,7 +22,7 @@ const CreatePost = ({ setHomePosts }) => {
         >
           <img
             style={{ width: "40px", height: "40px", borderRadius: "50%" }}
-            src="https://res.cloudinary.com/dwzjfylgh/image/upload/v1648215217/dd23namcxikmc35qewa2.jpg"
+            src={UserInfo.avatar}
             alt=""
           />
 
@@ -40,7 +40,7 @@ const CreatePost = ({ setHomePosts }) => {
               fontSize: "15px",
             }}
           >
-            What's on your mind, Katoph?{" "}
+            What's on your mind, {UserInfo.username}?
           </div>
         </div>
       </div>
@@ -48,6 +48,7 @@ const CreatePost = ({ setHomePosts }) => {
         setHomePosts={setHomePosts}
         opened={opened}
         setOpened={setOpened}
+        UserInfo={UserInfo}
       />
     </>
   );

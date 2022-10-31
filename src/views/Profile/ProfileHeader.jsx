@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, createStyles, Text, ActionIcon } from "@mantine/core";
-import { ArrowLeft } from "phosphor-react";
+import { ArrowLeft, CircleWavyCheck } from "phosphor-react";
 import { useNavigate } from "react-router-dom";
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -21,7 +21,7 @@ const useStyles = createStyles(() => ({
     gap: "1rem",
   },
 }));
-export const ProfileHeader = () => {
+export const ProfileHeader = ({ profileInfo }) => {
   const navigate = useNavigate();
   const { classes } = useStyles();
 
@@ -37,7 +37,7 @@ export const ProfileHeader = () => {
           <img
             loading="lazy"
             className={classes.avatar}
-            src="https://res.cloudinary.com/dwzjfylgh/image/upload/v1648215217/dd23namcxikmc35qewa2.jpg"
+            src={profileInfo.avatar}
             alt=""
           />
         </div>
@@ -50,9 +50,16 @@ export const ProfileHeader = () => {
               alignItems: "flex-end",
             }}
           >
-            <Text weight="bold" size="md">
-              Katoph
-            </Text>
+            <div
+              style={{ display: "flex", alignItems: "center", gap: "0.2rem" }}
+            >
+              <Text weight="bold" size="md">
+                {profileInfo.username}
+              </Text>
+              {profileInfo.verified && (
+                <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
+              )}
+            </div>
 
             <Button radius={"xl"} size="xs">
               Follow
@@ -70,10 +77,11 @@ export const ProfileHeader = () => {
               <span style={{ fontWeight: "500" }}>0</span> Following
             </Text>
           </div>
-
-          <Text size="15px" color={"gray"}>
-            This is a description
-          </Text>
+          {profileInfo.description && (
+            <Text size="15px" color={"gray"}>
+              {profileInfo.description}
+            </Text>
+          )}
         </div>
       </div>
     </>

@@ -1,6 +1,6 @@
 import React from "react";
 import { createStyles, Text } from "@mantine/core";
-import { ChatCircle, Heart } from "phosphor-react";
+import { ChatCircle, CircleWavyCheck, Heart } from "phosphor-react";
 import { PostMenu } from "./PostMenu";
 import { Link, useNavigate } from "react-router-dom";
 const useStyles = createStyles(() => ({
@@ -15,6 +15,7 @@ const useStyles = createStyles(() => ({
     width: "40px",
     height: "40px",
     borderRadius: "50%",
+    cursor: "pointer",
   },
   header: {
     display: "flex",
@@ -56,7 +57,7 @@ export const Post = ({ post }) => {
     <div className={classes.wrapper}>
       <div className={classes.left}>
         <img
-          onClick={() => navigate(`/Profile`)}
+          onClick={() => navigate(`/${post.user.username}`)}
           loading="lazy"
           className={classes.avatar}
           src={post.user.avatar}
@@ -66,14 +67,22 @@ export const Post = ({ post }) => {
       <div className={classes.right}>
         <div className={classes.header}>
           <div className={classes.hLeft}>
-            <Text
-              style={{ cursor: "pointer" }}
-              onClick={() => navigate(`/Profile`)}
-              weight={500}
-              size="15px"
+            <div
+              style={{ display: "flex", alignItems: "center", gap: "0.2rem" }}
             >
-              {post.user.username}
-            </Text>
+              <Text
+                style={{ cursor: "pointer" }}
+                onClick={() => navigate(`/${post.user.username}`)}
+                weight={500}
+                size="15px"
+              >
+                {post.user.username}
+              </Text>
+              {post.user.verified && (
+                <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
+              )}
+            </div>
+
             <Text color="dimmed" size="sm">
               {post.createdAt}
             </Text>
@@ -104,7 +113,7 @@ export const Post = ({ post }) => {
               {post.likes.length}
             </Text>
           </div>
-          <Link style={{ textDecoration: "none" }} to={`/Post`}>
+          <Link style={{ textDecoration: "none" }} to={`/post/${post.id}`}>
             <div className={classes.fRight}>
               <ChatCircle color="gray" weight="light" size={17} />
               <Text size="14px" color={"gray"}>

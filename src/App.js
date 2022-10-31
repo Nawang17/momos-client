@@ -43,7 +43,7 @@ function App() {
       errorElement: <RouteError />,
     },
     {
-      path: "/Post",
+      path: "/post/:postid",
       element: (
         <>
           <Navbar />
@@ -52,8 +52,9 @@ function App() {
       ),
       errorElement: <RouteError />,
     },
+    //profile page
     {
-      path: "/Profile",
+      path: "/:userprofile",
       element: (
         <>
           <Navbar />

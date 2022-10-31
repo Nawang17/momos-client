@@ -3,7 +3,12 @@ import { Modal, Textarea, Group, Divider, Button, Text } from "@mantine/core";
 import { ImageSquare, X, XCircle } from "phosphor-react";
 import { AddNewPost } from "../api/POST";
 import { showNotification } from "@mantine/notifications";
-export default function CreatePostModal({ opened, setOpened, setHomePosts }) {
+export default function CreatePostModal({
+  opened,
+  setOpened,
+  setHomePosts,
+  UserInfo,
+}) {
   const [flieInputState, setFileInputState] = useState("");
 
   const [previewSource, setPreviewSource] = useState("");
@@ -82,7 +87,7 @@ export default function CreatePostModal({ opened, setOpened, setHomePosts }) {
           >
             <img
               style={{ width: "40px", height: "40px", borderRadius: "50%" }}
-              src="https://res.cloudinary.com/dwzjfylgh/image/upload/v1648215217/dd23namcxikmc35qewa2.jpg"
+              src={UserInfo.avatar}
               alt=""
             />
             <div
@@ -96,7 +101,7 @@ export default function CreatePostModal({ opened, setOpened, setHomePosts }) {
                 onChange={(e) => settext(e.target.value)}
                 maxLength={255}
                 variant="unstyled"
-                placeholder="What's on your mind, Katoph?"
+                placeholder={`What's on your mind, ${UserInfo.username}?`}
                 autosize
                 minRows={2}
                 maxRows={14}

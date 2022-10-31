@@ -17,7 +17,7 @@ const useStyles = createStyles(() => ({
     },
   },
 }));
-export const SinglePostFeed = ({ singlePostData, loading }) => {
+export const SinglePostFeed = ({ singlePostData, loading, setPosts }) => {
   const navigate = useNavigate();
 
   const { classes } = useStyles();
@@ -30,7 +30,7 @@ export const SinglePostFeed = ({ singlePostData, loading }) => {
         </ActionIcon>
       </div>
       {!loading ? (
-        <Post post={singlePostData} />
+        <Post post={singlePostData} setPosts={setPosts} />
       ) : (
         <div
           style={{

@@ -9,14 +9,14 @@ const useStyles = createStyles(() => ({
     gap: "0.5rem",
   },
 }));
-export const PostFeed = ({ posts, loading }) => {
+export const PostFeed = ({ setPosts, posts, loading }) => {
   const { classes } = useStyles();
 
   return (
     <div className={classes.wrapper}>
       {!loading
         ? posts.map((post) => {
-            return <Post key={post.id} post={post} />;
+            return <Post key={post.id} post={post} setPosts={setPosts} />;
           })
         : new Array(6).fill(0).map((_, i) => {
             return (

@@ -76,11 +76,11 @@ export const Profile = () => {
           </Tabs.List>
 
           <Tabs.Panel value="gallery" pt="xs">
-            <PostFeed posts={posts} loading={loading} />
+            <PostFeed posts={posts} loading={loading} setPosts={setposts} />
           </Tabs.Panel>
 
           <Tabs.Panel value="messages" pt="xs">
-            <PostFeed posts={posts} loading={loading} />
+            <PostFeed posts={posts} loading={loading} setPosts={setposts} />
           </Tabs.Panel>
         </Tabs>
       </div>

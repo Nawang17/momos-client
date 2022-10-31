@@ -21,3 +21,19 @@
   top: 0;
   opacity: 0;
 }
+.dpm {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  gap: 1rem;
+}
+.dpm-header {
+  font-weight: 700;
+}
+
+.dpm-footer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.7rem;
+}

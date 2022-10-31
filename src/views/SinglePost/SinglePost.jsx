@@ -49,7 +49,11 @@ export const SinglePost = () => {
   }, [pathname]);
   return (
     <Container px={10} className={classes.wrapper}>
-      <SinglePostFeed singlePostData={singlePostData} loading={loading} />
+      <SinglePostFeed
+        singlePostData={singlePostData}
+        setPosts={setSinglePostData}
+        loading={loading}
+      />
       <Sidebar />
     </Container>
   );

@@ -149,7 +149,7 @@ export default function CreatePostModal({
                 }}
               >
                 <div>
-                  <span class="upload-btn-wrapper">
+                  <span className="upload-btn-wrapper">
                     <div
                       style={{
                         display: "flex",

@@ -62,7 +62,11 @@ export const Home = () => {
             <CreatePost setHomePosts={setHomePosts} UserInfo={UserInfo} />
           )}
 
-          <PostFeed posts={homePosts} loading={loading} />
+          <PostFeed
+            setPosts={setHomePosts}
+            posts={homePosts}
+            loading={loading}
+          />
         </div>
         <Sidebar />
       </Container>

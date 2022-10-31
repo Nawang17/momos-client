@@ -50,7 +50,7 @@ const useStyles = createStyles(() => ({
     gap: "0.2rem",
   },
 }));
-export const Post = ({ post }) => {
+export const Post = ({ post, setPosts }) => {
   const { classes } = useStyles();
   const navigate = useNavigate();
   return (
@@ -88,7 +88,7 @@ export const Post = ({ post }) => {
             </Text>
           </div>
           <div className={classes.hRight}>
-            <PostMenu />
+            <PostMenu postinfo={post} setPosts={setPosts} />
           </div>
         </div>
         {post.text && (

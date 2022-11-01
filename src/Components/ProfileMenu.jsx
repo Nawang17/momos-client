@@ -37,9 +37,7 @@ export function ProfileMenu() {
           <>
             <Menu.Item
               onClick={() => {
-                if (pathname !== `/${UserInfo?.username}`) {
-                  navigate(`${UserInfo?.username}`);
-                }
+                navigate(`/${UserInfo?.username}`);
               }}
               icon={<UserCircle size={14} />}
             >

@@ -6,3 +6,10 @@ export const deletePost = async ({ postid }) => {
     },
   });
 };
+export const deleteComment = async ({ commentid }) => {
+  return await api.delete(`/deletecomment/${commentid}`, {
+    headers: {
+      Authorization: `${localStorage.getItem("token")}`,
+    },
+  });
+};

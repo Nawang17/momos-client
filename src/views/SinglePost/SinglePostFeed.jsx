@@ -54,7 +54,7 @@ export const SinglePostFeed = ({
       )}
 
       <Reply singlePostData={singlePostData} setComments={setComments} />
-      <Comments comments={comments} />
+      <Comments comments={comments} setComments={setComments} />
     </div>
   );
 };

@@ -9,31 +9,40 @@ const Reply = ({ singlePostData, setComments }) => {
   const [reply, setReply] = useState("");
   const { UserInfo } = useContext(AuthContext);
   const handlereply = () => {
-    addComment({ text: reply, postid: singlePostData.id })
-      .then((res) => {
-        setReply("");
-        setComments((prev) => [res.data.comment, ...prev]);
-        showNotification({
-          title: "Comment added",
-          autoClose: 4000,
-        });
-      })
-      .catch((err) => {
-        if (err.response.status === 0) {
-          showNotification({
-            color: "red",
-            title: "Internal Server Error",
-
-            autoClose: 7000,
-          });
-        } else {
-          showNotification({
-            color: "red",
-            title: err.response.data,
-            autoClose: 7000,
-          });
-        }
+    if (!UserInfo) {
+      showNotification({
+        color: "red",
+        title: "You need to login to comment",
+        autoClose: 4000,
       });
+      return;
+    } else {
+      addComment({ text: reply, postid: singlePostData.id })
+        .then((res) => {
+          setReply("");
+          setComments((prev) => [res.data.comment, ...prev]);
+          showNotification({
+            title: "Comment added",
+            autoClose: 4000,
+          });
+        })
+        .catch((err) => {
+          if (err.response.status === 0) {
+            showNotification({
+              color: "red",
+              title: "Internal Server Error",
+
+              autoClose: 7000,
+            });
+          } else {
+            showNotification({
+              color: "red",
+              title: err.response.data,
+              autoClose: 7000,
+            });
+          }
+        });
+    }
   };
 
   return (

@@ -3,6 +3,8 @@ import { createStyles, Text } from "@mantine/core";
 import { PostMenu } from "../../Components/PostMenu";
 import { CircleWavyCheck } from "phosphor-react";
 import { formatDistanceToNow } from "date-fns";
+import { CommentMenu } from "../../Components/CommentMenu";
+import { useNavigate } from "react-router-dom";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -50,9 +52,9 @@ const useStyles = createStyles(() => ({
     gap: "0.2rem",
   },
 }));
-export const Comments = ({ comments }) => {
+export const Comments = ({ comments, setComments }) => {
   const { classes } = useStyles();
-
+  const navigate = useNavigate();
   return (
     <>
       {/* commentfeed */}
@@ -61,6 +63,10 @@ export const Comments = ({ comments }) => {
           <div className={classes.wrapper}>
             <div className={classes.left}>
               <img
+                onClick={() => {
+                  navigate(`/${comment.user.username}`);
+                }}
+                style={{ cursor: "pointer" }}
                 loading="lazy"
                 className={classes.avatar}
                 src={comment.user.avatar}
@@ -70,7 +76,14 @@ export const Comments = ({ comments }) => {
             <div className={classes.right}>
               <div className={classes.header}>
                 <div className={classes.hLeft}>
-                  <Text weight={500} size="15px">
+                  <Text
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      navigate(`/${comment.user.username}`);
+                    }}
+                    weight={500}
+                    size="15px"
+                  >
                     {comment.user.username}
                   </Text>
                   {comment.user.verified && (
@@ -78,7 +91,7 @@ export const Comments = ({ comments }) => {
                   )}
                 </div>
                 <div className={classes.hRight}>
-                  <PostMenu />
+                  <CommentMenu postinfo={comment} setComments={setComments} />
                 </div>
               </div>
               <div className={classes.body}>

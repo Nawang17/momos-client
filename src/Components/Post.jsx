@@ -6,6 +6,7 @@ import { useContext } from "react";
 import { AuthContext } from "../context/Auth";
 import { likePost } from "../api/POST";
 import { showNotification } from "@mantine/notifications";
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -150,7 +151,10 @@ export const Post = ({ post, setPosts }) => {
             </div>
 
             <Text color="dimmed" size="sm">
-              {post.createdAt}
+              {formatDistanceToNow(new Date(post.createdAt), {
+                addSuffix: true,
+                includeSeconds: true,
+              })}
             </Text>
           </div>
           <div className={classes.hRight}>
@@ -192,7 +196,7 @@ export const Post = ({ post, setPosts }) => {
             <div className={classes.fRight}>
               <ChatCircle color="gray" weight="light" size={17} />
               <Text className="unclickablevalue" size="14px" color={"gray"}>
-                1
+                {post.comments.length}
               </Text>
             </div>
           </Link>

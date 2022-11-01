@@ -17,7 +17,13 @@ const useStyles = createStyles(() => ({
     },
   },
 }));
-export const SinglePostFeed = ({ singlePostData, loading, setPosts }) => {
+export const SinglePostFeed = ({
+  singlePostData,
+  loading,
+  setPosts,
+  comments,
+  setComments,
+}) => {
   const navigate = useNavigate();
 
   const { classes } = useStyles();
@@ -47,8 +53,8 @@ export const SinglePostFeed = ({ singlePostData, loading, setPosts }) => {
         </div>
       )}
 
-      <Reply />
-      <Comments />
+      <Reply singlePostData={singlePostData} setComments={setComments} />
+      <Comments comments={comments} />
     </div>
   );
 };

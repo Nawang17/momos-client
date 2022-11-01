@@ -32,6 +32,7 @@ export const Profile = () => {
   const [profileInfo, setprofileInfo] = useState({});
   const [loading, setloading] = useState(true);
   const [userlikedposts, setuserlikedposts] = useState([]);
+  const [Tab, setTab] = useState("posts");
   useEffect(() => {
     profileinfo({ username: userprofile })
       .then((res) => {
@@ -62,26 +63,26 @@ export const Profile = () => {
         }
       });
     window.scrollTo(0, 0);
-  }, [pathname]);
+  }, [pathname, Tab]);
   return (
     <Container px={10} className={classes.wrapper}>
       <div className={classes.leftWrapper}>
         <ProfileHeader profileInfo={profileInfo} />
-        <Tabs defaultValue="gallery">
+        <Tabs value={Tab} onTabChange={setTab}>
           <Tabs.List style={{ background: "white" }}>
-            <Tabs.Tab value="gallery" icon={<Note size={14} />}>
+            <Tabs.Tab value="posts" icon={<Note size={14} />}>
               Posts
             </Tabs.Tab>
-            <Tabs.Tab value="messages" icon={<Heart size={14} />}>
+            <Tabs.Tab value="likedposts" icon={<Heart size={14} />}>
               Likes
             </Tabs.Tab>
           </Tabs.List>
 
-          <Tabs.Panel value="gallery" pt="xs">
+          <Tabs.Panel value="posts" pt="xs">
             <PostFeed posts={posts} loading={loading} setPosts={setposts} />
           </Tabs.Panel>
 
-          <Tabs.Panel value="messages" pt="xs">
+          <Tabs.Panel value="likedposts" pt="xs">
             <PostFeed
               posts={userlikedposts}
               loading={loading}

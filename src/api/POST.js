@@ -29,3 +29,17 @@ export const likePost = async ({ postid }) => {
     }
   );
 };
+export const addComment = async ({ text, postid }) => {
+  return await api.post(
+    "/newcomment",
+    {
+      postId: postid,
+      text: text,
+    },
+    {
+      headers: {
+        Authorization: `${localStorage.getItem("token")}`,
+      },
+    }
+  );
+};

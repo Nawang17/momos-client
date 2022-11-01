@@ -22,7 +22,7 @@ export const SinglePost = () => {
   const { postid } = useParams();
   const [singlePostData, setSinglePostData] = useState({});
   const [loading, setloading] = useState(true);
-
+  const [comments, setComments] = useState([]);
   useEffect(() => {
     window.scrollTo(0, 0);
 
@@ -30,6 +30,7 @@ export const SinglePost = () => {
       .then((res) => {
         setSinglePostData(res.data.singlepost);
         setloading(false);
+        setComments(res.data.singlepost[0].comments);
       })
       .catch((err) => {
         if (err.response.status === 0) {
@@ -54,6 +55,8 @@ export const SinglePost = () => {
         singlePostData={singlePostData[0]}
         setPosts={setSinglePostData}
         loading={loading}
+        comments={comments}
+        setComments={setComments}
       />
       <Sidebar />
     </Container>

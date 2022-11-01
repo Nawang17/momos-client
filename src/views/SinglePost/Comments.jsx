@@ -1,6 +1,8 @@
 import React from "react";
 import { createStyles, Text } from "@mantine/core";
 import { PostMenu } from "../../Components/PostMenu";
+import { CircleWavyCheck } from "phosphor-react";
+import { formatDistanceToNow } from "date-fns";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -42,51 +44,65 @@ const useStyles = createStyles(() => ({
     wordBreak: "break-word",
     whiteSpace: "pre-wrap",
   },
+  hLeft: {
+    display: "flex",
+    alignItems: "center",
+    gap: "0.2rem",
+  },
 }));
-export const Comments = () => {
+export const Comments = ({ comments }) => {
   const { classes } = useStyles();
 
   return (
     <>
       {/* commentfeed */}
-      <div className={classes.wrapper}>
-        <div className={classes.left}>
-          <img
-            loading="lazy"
-            className={classes.avatar}
-            src="https://res.cloudinary.com/dwzjfylgh/image/upload/v1648215217/dd23namcxikmc35qewa2.jpg"
-            alt=""
-          />
-        </div>
-        <div className={classes.right}>
-          <div className={classes.header}>
-            <div className={classes.hLeft}>
-              <Text weight={500} size="15px">
-                katoph
-              </Text>
+      {comments.map((comment) => {
+        return (
+          <div className={classes.wrapper}>
+            <div className={classes.left}>
+              <img
+                loading="lazy"
+                className={classes.avatar}
+                src={comment.user.avatar}
+                alt=""
+              />
             </div>
-            <div className={classes.hRight}>
-              <PostMenu />
+            <div className={classes.right}>
+              <div className={classes.header}>
+                <div className={classes.hLeft}>
+                  <Text weight={500} size="15px">
+                    {comment.user.username}
+                  </Text>
+                  {comment.user.verified && (
+                    <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
+                  )}
+                </div>
+                <div className={classes.hRight}>
+                  <PostMenu />
+                </div>
+              </div>
+              <div className={classes.body}>
+                <Text size="15px">{comment.text}</Text>
+              </div>
+              <div style={{ display: "flex", gap: "0.5rem" }}>
+                <Text color="dimmed" size="13px">
+                  {formatDistanceToNow(new Date(comment.createdAt), {
+                    addSuffix: true,
+                    includeSeconds: true,
+                  })}
+                </Text>
+                <Text color="dimmed" weight={"500"} size="13px">
+                  Reply
+                </Text>
+              </div>
             </div>
           </div>
-          <div className={classes.body}>
-            <Text size="15px">
-              Hello world. My name is Nawang Sherpa. Welcome to Momos.
-            </Text>
-          </div>
-          <div style={{ display: "flex", gap: "0.5rem" }}>
-            <Text color="dimmed" size="13px">
-              1h
-            </Text>
-            <Text color="dimmed" weight={"500"} size="13px">
-              Reply
-            </Text>
-          </div>
-        </div>
-      </div>
+        );
+      })}
+
       {/* repliesfeed */}
 
-      <div className={classes.replywrapper}>
+      {/* <div className={classes.replywrapper}>
         <div className={classes.left}>
           <img
             loading="lazy"
@@ -118,7 +134,7 @@ export const Comments = () => {
             </Text>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

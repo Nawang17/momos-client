@@ -12,9 +12,14 @@ import { Hero } from "./Components/Hero";
 import { AuthContext } from "./context/Auth";
 import { LoginStatus } from "./api/AUTH";
 import { showNotification } from "@mantine/notifications";
+import { likedPosts } from "./api/GET";
 function App() {
   const [UserInfo, setUserInfo] = useState(null);
+  const [likedpostIds, setLikedpostIds] = useState([]);
   useEffect(() => {
+    likedPosts().then((res) => {
+      setLikedpostIds(res.data.likedposts);
+    });
     LoginStatus()
       .then((res) => {
         setUserInfo(res.data.user);
@@ -90,6 +95,8 @@ function App() {
         value={{
           UserInfo,
           setUserInfo,
+          likedpostIds,
+          setLikedpostIds,
         }}
       >
         <RouterProvider router={router} />

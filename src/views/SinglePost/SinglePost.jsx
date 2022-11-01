@@ -22,6 +22,7 @@ export const SinglePost = () => {
   const { postid } = useParams();
   const [singlePostData, setSinglePostData] = useState({});
   const [loading, setloading] = useState(true);
+
   useEffect(() => {
     window.scrollTo(0, 0);
 
@@ -50,7 +51,7 @@ export const SinglePost = () => {
   return (
     <Container px={10} className={classes.wrapper}>
       <SinglePostFeed
-        singlePostData={singlePostData}
+        singlePostData={singlePostData[0]}
         setPosts={setSinglePostData}
         loading={loading}
       />

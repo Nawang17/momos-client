@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Button, Input, Text } from "@mantine/core";
 import { ArrowCircleUp, PaperPlane } from "phosphor-react";
+import { AuthContext } from "../../context/Auth";
 
 const Reply = () => {
-  const [reply, setReply] = React.useState("");
+  const [reply, setReply] = useState("");
+  const { UserInfo } = useContext(AuthContext);
   return (
     <div
       style={{
@@ -18,7 +20,11 @@ const Reply = () => {
     >
       <img
         style={{ width: "40px", height: "40px", borderRadius: "50%" }}
-        src="https://res.cloudinary.com/dwzjfylgh/image/upload/v1648215217/dd23namcxikmc35qewa2.jpg"
+        src={
+          UserInfo?.avatar
+            ? UserInfo.avatar
+            : "https://res.cloudinary.com/dwzjfylgh/image/upload/v1650822495/jbnmm5pv4eavhhj8jufu.jpg"
+        }
         alt=""
       />
       <Input

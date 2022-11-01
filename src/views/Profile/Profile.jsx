@@ -31,11 +31,13 @@ export const Profile = () => {
   const [posts, setposts] = useState([]);
   const [profileInfo, setprofileInfo] = useState({});
   const [loading, setloading] = useState(true);
+  const [userlikedposts, setuserlikedposts] = useState([]);
   useEffect(() => {
     profileinfo({ username: userprofile })
       .then((res) => {
         setposts(res.data.userPosts);
         setprofileInfo(res.data.userInfo);
+        setuserlikedposts(res.data.likedposts);
         setloading(false);
       })
       .catch((err) => {
@@ -80,7 +82,11 @@ export const Profile = () => {
           </Tabs.Panel>
 
           <Tabs.Panel value="messages" pt="xs">
-            <PostFeed posts={posts} loading={loading} setPosts={setposts} />
+            <PostFeed
+              posts={userlikedposts}
+              loading={loading}
+              setPosts={setuserlikedposts}
+            />
           </Tabs.Panel>
         </Tabs>
       </div>

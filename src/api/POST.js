@@ -15,3 +15,17 @@ export const AddNewPost = async (text, imageblob) => {
     }
   );
 };
+
+export const likePost = async ({ postid }) => {
+  return await api.post(
+    "/likepost",
+    {
+      postId: postid,
+    },
+    {
+      headers: {
+        Authorization: `${localStorage.getItem("token")}`,
+      },
+    }
+  );
+};

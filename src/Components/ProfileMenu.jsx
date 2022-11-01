@@ -1,14 +1,23 @@
 import { Menu } from "@mantine/core";
 
 import { Gear, SignIn, UserCircle } from "phosphor-react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/Auth";
 import { showNotification } from "@mantine/notifications";
 export function ProfileMenu() {
-  const { UserInfo, setUserInfo } = useContext(AuthContext);
+  const { UserInfo, setUserInfo, setLikedpostIds } = useContext(AuthContext);
   const navigate = useNavigate();
-
+  const { pathname } = useLocation();
+  const handlelogout = () => {
+    setUserInfo(null);
+    localStorage.removeItem("token");
+    setLikedpostIds([]);
+    showNotification({
+      title: "You have been logged out",
+      autoClose: 5000,
+    });
+  };
   return (
     <Menu position="bottom-end" shadow="md" width={200}>
       <Menu.Target>
@@ -26,17 +35,21 @@ export function ProfileMenu() {
       <Menu.Dropdown>
         {UserInfo ? (
           <>
-            <Menu.Item icon={<UserCircle size={14} />}>Profile</Menu.Item>
+            <Menu.Item
+              onClick={() => {
+                if (pathname !== `/${UserInfo?.username}`) {
+                  navigate(`${UserInfo?.username}`);
+                }
+              }}
+              icon={<UserCircle size={14} />}
+            >
+              Profile
+            </Menu.Item>
             <Menu.Item icon={<Gear size={14} />}>Settings</Menu.Item>
             <Menu.Divider />
             <Menu.Item
               onClick={() => {
-                setUserInfo(null);
-                showNotification({
-                  title: "You have been logged out",
-                  autoClose: 5000,
-                });
-                localStorage.removeItem("token");
+                handlelogout();
               }}
             >
               Log Out

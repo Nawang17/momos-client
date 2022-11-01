@@ -11,3 +11,11 @@ export const profileinfo = async ({ username }) => {
 export const singlePost = async ({ postid }) => {
   return await api.get(`/post/${postid}`);
 };
+
+export const likedPosts = async () => {
+  return await api.get("/likedposts", {
+    headers: {
+      Authorization: `${localStorage.getItem("token")}`,
+    },
+  });
+};

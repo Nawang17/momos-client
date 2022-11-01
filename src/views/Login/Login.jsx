@@ -15,9 +15,10 @@ import { LoginReq } from "../../api/AUTH";
 import { showNotification } from "@mantine/notifications";
 import { AuthContext } from "../../context/Auth";
 import { useNavigate } from "react-router-dom";
+import { likedPosts } from "../../api/GET";
 
 export function Login() {
-  const { setUserInfo } = useContext(AuthContext);
+  const { setUserInfo, setLikedpostIds } = useContext(AuthContext);
   const navigate = useNavigate();
   const [Username, setUsername] = useState("");
   const [Password, setPassword] = useState("");
@@ -33,7 +34,9 @@ export function Login() {
       .then((res) => {
         setUserInfo(res.data.user);
         localStorage.setItem("token", res.data.token);
-
+        likedPosts().then((res) => {
+          setLikedpostIds(res.data.likedposts);
+        });
         navigate("/");
 
         showNotification({

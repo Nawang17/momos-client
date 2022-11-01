@@ -1,4 +1,4 @@
-import { ActionIcon, Button, Menu, Modal } from "@mantine/core";
+import { Button, Menu, Modal } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
 
 import {
@@ -30,7 +30,6 @@ export function PostMenu({ postinfo, setPosts }) {
           title: "Your post was deleted",
           autoClose: 4000,
         });
-        console.log(pathname);
         if (pathname === `/post/${postinfo?.id}`) {
           navigate("/");
         }

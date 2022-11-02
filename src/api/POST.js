@@ -43,3 +43,19 @@ export const addComment = async ({ text, postid }) => {
     }
   );
 };
+export const addnestedComment = async ({ replyinfo, text }) => {
+  return await api.post(
+    "/newnestedcomment",
+    {
+      postId: replyinfo.postId,
+      replytouserId: replyinfo.replyingtouserid,
+      commentId: replyinfo.commentId,
+      text,
+    },
+    {
+      headers: {
+        Authorization: `${localStorage.getItem("token")}`,
+      },
+    }
+  );
+};

@@ -6,7 +6,8 @@ import { useContext } from "react";
 import { AuthContext } from "../context/Auth";
 import { likePost } from "../api/POST";
 import { showNotification } from "@mantine/notifications";
-import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
+import locale from "date-fns/locale/en-US";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -28,7 +29,7 @@ const useStyles = createStyles(() => ({
   right: {
     display: "flex",
     flexDirection: "column",
-    gap: "0.5rem",
+    gap: "0.3rem",
     width: "100%",
   },
   image: {
@@ -57,6 +58,40 @@ const useStyles = createStyles(() => ({
   },
 }));
 export const Post = ({ post, setPosts }) => {
+  const formatDistanceLocale = {
+    lessThanXSeconds: "{{count}}s",
+    xSeconds: "{{count}}s",
+    halfAMinute: "30s",
+    lessThanXMinutes: "{{count}}m",
+    xMinutes: "{{count}}m",
+    aboutXHours: "{{count}}h",
+    xHours: "{{count}}h",
+    xDays: "{{count}}d",
+    aboutXWeeks: "{{count}}w",
+    xWeeks: "{{count}}w",
+    aboutXMonths: "{{count}}m",
+    xMonths: "{{count}}m",
+    aboutXYears: "{{count}}y",
+    xYears: "{{count}}y",
+    overXYears: "{{count}}y",
+    almostXYears: "{{count}}y",
+  };
+
+  function formatDistance(token, count, options) {
+    options = options || {};
+
+    const result = formatDistanceLocale[token].replace("{{count}}", count);
+
+    if (options.addSuffix) {
+      if (options.comparison > 0) {
+        return "in " + result;
+      } else {
+        return result + " ago";
+      }
+    }
+
+    return result;
+  }
   const { classes } = useStyles();
   const navigate = useNavigate();
   const { likedpostIds, setLikedpostIds, UserInfo } = useContext(AuthContext);
@@ -148,14 +183,16 @@ export const Post = ({ post, setPosts }) => {
               {post.user.verified && (
                 <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
               )}
+              <Text color="dimmed">·</Text>
+              <Text color="dimmed" size="sm">
+                {formatDistanceToNowStrict(new Date(post.createdAt), {
+                  locale: {
+                    ...locale,
+                    formatDistance,
+                  },
+                })}
+              </Text>
             </div>
-
-            <Text color="dimmed" size="sm">
-              {formatDistanceToNow(new Date(post.createdAt), {
-                addSuffix: true,
-                includeSeconds: true,
-              })}
-            </Text>
           </div>
           <div className={classes.hRight}>
             <PostMenu postinfo={post} setPosts={setPosts} />

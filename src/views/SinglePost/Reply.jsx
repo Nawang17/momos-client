@@ -17,10 +17,10 @@ const Reply = ({ singlePostData, setComments }) => {
       });
       return;
     } else {
-      addComment({ text: reply, postid: singlePostData.id })
+      addComment({ text: reply, postid: singlePostData?.id })
         .then((res) => {
           setReply("");
-          setComments((prev) => [res.data.comment, ...prev]);
+          setComments((prev) => [...prev, res.data.comment]);
           showNotification({
             title: "Comment added",
             autoClose: 4000,

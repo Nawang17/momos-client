@@ -23,6 +23,7 @@ export const SinglePost = () => {
   const [singlePostData, setSinglePostData] = useState({});
   const [loading, setloading] = useState(true);
   const [comments, setComments] = useState([]);
+
   useEffect(() => {
     window.scrollTo(0, 0);
 

@@ -37,7 +37,18 @@ export const PostFeed = ({ setPosts, posts, loading }) => {
             );
           })}
       {posts.length === 0 && !loading && (
-        <Text align="center">No posts created yet</Text>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: "0.5rem",
+            alignItems: "center",
+          }}
+        >
+          <Text weight="500" align="center">
+            No posts found
+          </Text>
+        </div>
       )}
     </div>
   );

@@ -19,3 +19,11 @@ export const likedPosts = async () => {
     },
   });
 };
+
+export const notis = async () => {
+  return await api.get("/notis", {
+    headers: {
+      Authorization: `${localStorage.getItem("token")}`,
+    },
+  });
+};

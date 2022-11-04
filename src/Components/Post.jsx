@@ -102,7 +102,7 @@ export const Post = ({ post, setPosts }) => {
         autoClose: 4000,
       });
     } else {
-      likePost({ postid: post.id })
+      likePost({ postid: post.id, targetid: post.user.id })
         .then((res) => {
           if (res.data.liked) {
             setPosts((prev) =>

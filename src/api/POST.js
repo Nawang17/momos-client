@@ -16,11 +16,12 @@ export const AddNewPost = async (text, imageblob) => {
   );
 };
 
-export const likePost = async ({ postid }) => {
+export const likePost = async ({ postid, targetid }) => {
   return await api.post(
     "/likepost",
     {
       postId: postid,
+      targetid: targetid,
     },
     {
       headers: {

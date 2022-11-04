@@ -9,6 +9,7 @@ import locale from "date-fns/locale/en-US";
 import NestedReplyModal from "../../Components/NestedReplyModal";
 import { AuthContext } from "../../context/Auth";
 import { showNotification } from "@mantine/notifications";
+import { NestedCommentMenu } from "../../Components/NestedCommentMenu";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -251,7 +252,12 @@ export const Comments = ({ comments, setComments }) => {
                           </div>
                         </div>
                         <div className={classes.hRight}>
-                          <PostMenu />
+                          <NestedCommentMenu
+                            setComments={setComments}
+                            commentuser={data?.user.username}
+                            commentId={data?.id}
+                            replyingtoId={data.commentId}
+                          />
                         </div>
                       </div>
                       <div className={classes.body}>

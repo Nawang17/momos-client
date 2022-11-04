@@ -98,7 +98,10 @@ export default function CreatePostModal({
               }}
             >
               <Textarea
-                onChange={(e) => settext(e.target.value)}
+                onChange={(e) => {
+                  setError("");
+                  settext(e.target.value);
+                }}
                 maxLength={255}
                 variant="unstyled"
                 placeholder={`What's on your mind, ${UserInfo.username}?`}

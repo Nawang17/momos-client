@@ -13,3 +13,10 @@ export const deleteComment = async ({ commentid }) => {
     },
   });
 };
+export const deleteNestedComment = async ({ commentid }) => {
+  return await api.delete(`/deletenestedcomment/${commentid}`, {
+    headers: {
+      Authorization: `${localStorage.getItem("token")}`,
+    },
+  });
+};

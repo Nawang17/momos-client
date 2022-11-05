@@ -12,9 +12,10 @@ import {
 import { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { deletePost } from "../api/DELETE";
+import { follow } from "../api/POST";
 import { AuthContext } from "../context/Auth";
 export function PostMenu({ postinfo, setPosts }) {
-  const { UserInfo } = useContext(AuthContext);
+  const { UserInfo, followingdata, setfollowingdata } = useContext(AuthContext);
   const [opened, setOpened] = useState(false);
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -51,6 +52,47 @@ export function PostMenu({ postinfo, setPosts }) {
         }
       });
   };
+  const handleFollow = () => {
+    follow({ followingid: postinfo?.user.id })
+      .then((res) => {
+        if (res.data.followed) {
+          setfollowingdata((prev) => [
+            ...prev,
+            res.data.newFollowing.following.username,
+          ]);
+          showNotification({
+            message: `You are now following ${postinfo?.user.username}`,
+            autoClose: 4000,
+          });
+        } else {
+          showNotification({
+            message: `You are no longer following ${postinfo?.user.username}`,
+            autoClose: 4000,
+          });
+
+          setfollowingdata((prev) => {
+            return prev.filter((item) => item !== postinfo?.user.username);
+          });
+        }
+      })
+      .catch((err) => {
+        if (err.response.status === 0) {
+          showNotification({
+            color: "red",
+            title: "Internal Server Error",
+
+            autoClose: 7000,
+          });
+        } else {
+          showNotification({
+            color: "red",
+            title: err.response.data,
+            autoClose: 7000,
+          });
+        }
+      });
+  };
+
   return (
     <>
       <Menu position="bottom-end" shadow="md" width={200}>
@@ -70,9 +112,27 @@ export function PostMenu({ postinfo, setPosts }) {
               Delete
             </Menu.Item>
           )}
+          {UserInfo?.username !== postinfo?.user.username &&
+            (followingdata?.includes(postinfo?.user.username) ? (
+              <Menu.Item
+                onClick={() => {
+                  handleFollow();
+                }}
+                icon={<UserMinus size={14} />}
+              >
+                Unfollow {postinfo?.user.username}
+              </Menu.Item>
+            ) : (
+              <Menu.Item
+                onClick={() => {
+                  handleFollow();
+                }}
+                icon={<UserPlus size={14} />}
+              >
+                Follow {postinfo?.user.username}
+              </Menu.Item>
+            ))}
 
-          <Menu.Item icon={<UserMinus size={14} />}>Unfollow Katoph</Menu.Item>
-          <Menu.Item icon={<UserPlus size={14} />}>Follow Katoph</Menu.Item>
           <Menu.Item icon={<CopySimple size={14} />}>
             Copy link to Post
           </Menu.Item>

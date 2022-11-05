@@ -60,3 +60,17 @@ export const addnestedComment = async ({ replyinfo, text }) => {
     }
   );
 };
+
+export const follow = async ({ followingid }) => {
+  return await api.post(
+    "/follow",
+    {
+      followingid,
+    },
+    {
+      headers: {
+        Authorization: `${localStorage.getItem("token")}`,
+      },
+    }
+  );
+};

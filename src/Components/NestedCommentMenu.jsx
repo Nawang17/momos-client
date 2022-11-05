@@ -12,14 +12,16 @@ import {
 import { useContext, useState } from "react";
 
 import { deleteNestedComment } from "../api/DELETE";
+import { follow } from "../api/POST";
 import { AuthContext } from "../context/Auth";
 export function NestedCommentMenu({
   commentuser,
   setComments,
   commentId,
   replyingtoId,
+  userid,
 }) {
-  const { UserInfo } = useContext(AuthContext);
+  const { UserInfo, followingdata, setfollowingdata } = useContext(AuthContext);
   const [opened, setOpened] = useState(false);
 
   const handlePostDelete = () => {
@@ -62,6 +64,46 @@ export function NestedCommentMenu({
         }
       });
   };
+  const handleFollow = () => {
+    follow({ followingid: userid })
+      .then((res) => {
+        if (res.data.followed) {
+          setfollowingdata((prev) => [
+            ...prev,
+            res.data.newFollowing.following.username,
+          ]);
+          showNotification({
+            message: `You are now following ${commentuser}`,
+            autoClose: 4000,
+          });
+        } else {
+          showNotification({
+            message: `You are no longer following ${commentuser}`,
+            autoClose: 4000,
+          });
+
+          setfollowingdata((prev) => {
+            return prev.filter((item) => item !== commentuser);
+          });
+        }
+      })
+      .catch((err) => {
+        if (err.response.status === 0) {
+          showNotification({
+            color: "red",
+            title: "Internal Server Error",
+
+            autoClose: 7000,
+          });
+        } else {
+          showNotification({
+            color: "red",
+            title: err.response.data,
+            autoClose: 7000,
+          });
+        }
+      });
+  };
   return (
     <>
       <Menu position="bottom-end" shadow="md" width={200}>
@@ -82,8 +124,26 @@ export function NestedCommentMenu({
             </Menu.Item>
           )}
 
-          <Menu.Item icon={<UserMinus size={14} />}>Unfollow Katoph</Menu.Item>
-          <Menu.Item icon={<UserPlus size={14} />}>Follow Katoph</Menu.Item>
+          {UserInfo?.username !== commentuser &&
+            (followingdata?.includes(commentuser) ? (
+              <Menu.Item
+                onClick={() => {
+                  handleFollow();
+                }}
+                icon={<UserMinus size={14} />}
+              >
+                Unfollow {commentuser}
+              </Menu.Item>
+            ) : (
+              <Menu.Item
+                onClick={() => {
+                  handleFollow();
+                }}
+                icon={<UserPlus size={14} />}
+              >
+                Follow {commentuser}
+              </Menu.Item>
+            ))}
           <Menu.Item icon={<CopySimple size={14} />}>
             Copy link to Post
           </Menu.Item>

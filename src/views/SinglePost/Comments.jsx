@@ -257,6 +257,7 @@ export const Comments = ({ comments, setComments }) => {
                             commentuser={data?.user.username}
                             commentId={data?.id}
                             replyingtoId={data.commentId}
+                            userid={data.userId}
                           />
                         </div>
                       </div>

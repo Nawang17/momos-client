@@ -6,13 +6,15 @@ import { useContext } from "react";
 import { AuthContext } from "../context/Auth";
 import { showNotification } from "@mantine/notifications";
 export function ProfileMenu() {
-  const { UserInfo, setUserInfo, setLikedpostIds } = useContext(AuthContext);
+  const { UserInfo, setUserInfo, setLikedpostIds, setfollowingdata } =
+    useContext(AuthContext);
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const handlelogout = () => {
     setUserInfo(null);
     localStorage.removeItem("token");
     setLikedpostIds([]);
+    setfollowingdata([]);
     showNotification({
       title: "You have been logged out",
       autoClose: 5000,

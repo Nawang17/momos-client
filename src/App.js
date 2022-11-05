@@ -12,10 +12,12 @@ import { Hero } from "./Components/Hero";
 import { AuthContext } from "./context/Auth";
 import { LoginStatus } from "./api/AUTH";
 import { showNotification } from "@mantine/notifications";
-import { likedPosts } from "./api/GET";
+import { likedPosts, suggestedusersreq } from "./api/GET";
 function App() {
   const [UserInfo, setUserInfo] = useState(null);
   const [likedpostIds, setLikedpostIds] = useState([]);
+  const [followingdata, setfollowingdata] = useState([]);
+  const [suggestedUsers, setSuggestedusers] = useState([]);
   useEffect(() => {
     likedPosts().then((res) => {
       setLikedpostIds(res.data.likedposts);
@@ -23,9 +25,10 @@ function App() {
     LoginStatus()
       .then((res) => {
         setUserInfo(res.data.user);
+        setfollowingdata(res.data.userfollowingarr);
         showNotification({
           title: `You are logged in as ${res.data.user.username}`,
-          message: "Welcome back to momos!",
+          message: "Welcome back to momos",
 
           autoClose: 5000,
         });
@@ -34,6 +37,13 @@ function App() {
         setUserInfo(null);
       });
   }, []);
+  useEffect(() => {
+    suggestedusersreq({
+      name: UserInfo?.username ? UserInfo.username : "awfafawfawf",
+    }).then((res) => {
+      setSuggestedusers(res.data.suggestedusers);
+    });
+  }, [UserInfo]);
   const router = createBrowserRouter([
     {
       path: "/",
@@ -97,6 +107,10 @@ function App() {
           setUserInfo,
           likedpostIds,
           setLikedpostIds,
+          followingdata,
+          setfollowingdata,
+          suggestedUsers,
+          setSuggestedusers,
         }}
       >
         <RouterProvider router={router} />

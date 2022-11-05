@@ -1,5 +1,9 @@
 import React from "react";
 import { createStyles, Text } from "@mantine/core";
+import { useContext } from "react";
+import { AuthContext } from "../context/Auth";
+import { useNavigate } from "react-router-dom";
+import { CircleWavyCheck } from "phosphor-react";
 const useStyles = createStyles(() => ({
   wrapper: {
     width: "100%",
@@ -43,7 +47,9 @@ const useStyles = createStyles(() => ({
 }));
 export const Sidebar = () => {
   const { classes } = useStyles();
-
+  const { suggestedUsers, UserInfo, setSuggestedusers, followingdata } =
+    useContext(AuthContext);
+  const navigate = useNavigate();
   return (
     <div className={classes.wrapper}>
       <div className={classes.mainwrapper}>
@@ -52,21 +58,51 @@ export const Sidebar = () => {
           Suggested accounts
         </Text>
         <div className={classes.accounts}>
-          {new Array(4).fill(0).map(() => {
-            return (
-              <div className={classes.account}>
-                <img
-                  loading="lazy"
-                  className={classes.avatar}
-                  src="https://res.cloudinary.com/dwzjfylgh/image/upload/v1648215217/dd23namcxikmc35qewa2.jpg"
-                  alt=""
-                />
-                <Text weight={500} size="15px">
-                  katoph
-                </Text>
-              </div>
-            );
-          })}
+          {suggestedUsers
+            .filter((v) => {
+              return (
+                !followingdata.includes(v.username) &&
+                v.username !== UserInfo?.username
+              );
+            })
+            .slice(0, 5)
+            .map((val) => {
+              return (
+                <div
+                  onClick={() => {
+                    navigate(`/${val.username}`);
+                  }}
+                  key={val.id}
+                  className={classes.account}
+                >
+                  <img
+                    loading="lazy"
+                    className={classes.avatar}
+                    src={val.avatar}
+                    alt=""
+                  />
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.2rem",
+                    }}
+                  >
+                    {" "}
+                    <Text weight={500} size="15px">
+                      {val.username}
+                    </Text>
+                    {val.verified && (
+                      <CircleWavyCheck
+                        size={17}
+                        color="#0ba6da"
+                        weight="fill"
+                      />
+                    )}
+                  </div>
+                </div>
+              );
+            })}
         </div>
       </div>
     </div>

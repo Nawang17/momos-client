@@ -85,8 +85,11 @@ export default function Notis() {
               <div
                 onClick={() => {
                   setOpened(false);
-
-                  navigate(`/post/${data.postId}`);
+                  if (data.type === "FOLLOW") {
+                    navigate(`/${data.user.username}`);
+                  } else {
+                    navigate(`/post/${data.postId}`);
+                  }
                 }}
                 key={data.id}
                 style={{
@@ -125,6 +128,32 @@ export default function Notis() {
                         </span>
                         {`
              commented: ${data.text} 
+`}
+                      </Text>
+                    )}
+                    {data.type === "FOLLOW" && (
+                      <Text size="14px">
+                        <span style={{ fontWeight: "500" }}>
+                          {" "}
+                          {`
+              ${data.user.username} 
+`}
+                        </span>
+                        {`
+              started following you.
+`}
+                      </Text>
+                    )}
+                    {data.type === "REPLY" && (
+                      <Text size="14px">
+                        <span style={{ fontWeight: "500" }}>
+                          {" "}
+                          {`
+              ${data.user.username} 
+`}
+                        </span>
+                        {`
+             replied: ${data.text} 
 `}
                       </Text>
                     )}

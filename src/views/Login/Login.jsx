@@ -12,7 +12,7 @@ import {
 } from "@mantine/core";
 import { Link } from "react-router-dom";
 import { useState, useContext } from "react";
-import { GLoginReq, LoginReq } from "../../api/AUTH";
+import { GLoginReq, LoginReq, LoginStatus } from "../../api/AUTH";
 import { showNotification } from "@mantine/notifications";
 import { AuthContext } from "../../context/Auth";
 import { useNavigate } from "react-router-dom";
@@ -20,7 +20,8 @@ import { likedPosts } from "../../api/GET";
 import GoogleLogin from "react-google-login";
 
 export function Login() {
-  const { setUserInfo, setLikedpostIds } = useContext(AuthContext);
+  const { setUserInfo, setLikedpostIds, setfollowingdata } =
+    useContext(AuthContext);
   const navigate = useNavigate();
   const [Username, setUsername] = useState("");
   const [Password, setPassword] = useState("");
@@ -46,6 +47,9 @@ export function Login() {
           message: `Welcome back to momos, ${res.data.user.username}`,
           autoClose: 5000,
         });
+        LoginStatus().then((resp) => {
+          setfollowingdata(resp.data.userfollowingarr);
+        });
       })
       .catch((err) => {
         if (err.response.status === 0) {
@@ -70,6 +74,9 @@ export function Login() {
           title: "Login Successful",
           message: `Welcome back to momos, ${res.data.user.username}`,
           autoClose: 5000,
+        });
+        LoginStatus().then((resp) => {
+          setfollowingdata(resp.data.userfollowingarr);
         });
       })
       .catch((err) => {

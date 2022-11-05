@@ -7,6 +7,9 @@ export const HomePosts = async () => {
 export const profileinfo = async ({ username }) => {
   return await api.get(`/profileinfo/${username}`);
 };
+export const profilefollowdata = async ({ username }) => {
+  return await api.get(`/profileinfo/followdata/${username}`);
+};
 
 export const singlePost = async ({ postid }) => {
   return await api.get(`/post/${postid}`);
@@ -26,4 +29,7 @@ export const notis = async () => {
       Authorization: `${localStorage.getItem("token")}`,
     },
   });
+};
+export const suggestedusersreq = async ({ name }) => {
+  return await api.get(`/suggestedusers/${name}`);
 };

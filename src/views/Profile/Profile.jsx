@@ -32,6 +32,7 @@ export const Profile = () => {
   const [profileInfo, setprofileInfo] = useState({});
   const [loading, setloading] = useState(true);
   const [userlikedposts, setuserlikedposts] = useState([]);
+
   const [Tab, setTab] = useState("posts");
   useEffect(() => {
     profileinfo({ username: userprofile })
@@ -39,6 +40,7 @@ export const Profile = () => {
         setposts(res.data.userPosts);
         setprofileInfo(res.data.userInfo);
         setuserlikedposts(res.data.likedposts);
+
         setloading(false);
       })
       .catch((err) => {

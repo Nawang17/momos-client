@@ -7,11 +7,10 @@ export const LoginReq = async (username, password, stayloggedin) => {
     stayloggedin: stayloggedin,
   });
 };
-
-export const RegisterReq = async (username, password) => {
-  return await api.post("/auth/register", {
+export const GLoginReq = async (username, email) => {
+  return await api.post("/auth/login/glogin", {
     username,
-    password,
+    email,
   });
 };
 
@@ -20,5 +19,18 @@ export const LoginStatus = async () => {
     headers: {
       Authorization: `${localStorage.getItem("token")}`,
     },
+  });
+};
+export const RegisterReq = async (username, password) => {
+  return await api.post("/auth/register", {
+    username,
+    password,
+  });
+};
+export const GRegisterReq = async (username, email, avatar) => {
+  return await api.post("/auth/register/gregister", {
+    username,
+    email,
+    avatar,
   });
 };

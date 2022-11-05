@@ -70,14 +70,23 @@ export default function Notis() {
 
       <Popover.Dropdown>
         <div>
-          <Text size={"sm"} weight="bold">
-            Notifications
-          </Text>
+          {Notis.length === 0 ? (
+            <Text size="15px" weight={"500"}>
+              🔔 You don't have any notifications 🔔
+            </Text>
+          ) : (
+            <Text size={"sm"} weight="bold">
+              Notifications
+            </Text>
+          )}
+
           {Notis.map((data) => {
             return (
               <div
                 onClick={() => {
                   setOpened(false);
+
+                  navigate(`/post/${data.postId}`);
                 }}
                 key={data.id}
                 style={{
@@ -96,9 +105,6 @@ export default function Notis() {
                   }}
                 >
                   <img
-                    onClick={() => {
-                      navigate(`/${data.user.username}`);
-                    }}
                     style={{
                       width: "35px",
                       height: "35px",
@@ -107,11 +113,7 @@ export default function Notis() {
                     src={data.user.avatar}
                     alt=""
                   />
-                  <div
-                    onClick={() => {
-                      navigate(`/post/${data.postId}`);
-                    }}
-                  >
+                  <div>
                     {" "}
                     {data.type === "COMMENT" && (
                       <Text size="14px">
@@ -153,6 +155,26 @@ export default function Notis() {
               </div>
             );
           })}
+          <div
+            onClick={() => {
+              setOpened(false);
+            }}
+            style={{
+              display: "flex",
+              paddingTop: "10px",
+              flexDirection: "column",
+              gap: "1.1rem",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "0.5rem",
+                cursor: "pointer",
+              }}
+            ></div>
+          </div>
         </div>
       </Popover.Dropdown>
     </Popover>

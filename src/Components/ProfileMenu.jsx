@@ -45,7 +45,7 @@ export function ProfileMenu() {
             >
               Profile
             </Menu.Item>
-            <Menu.Item icon={<Gear size={14} />}>Settings</Menu.Item>
+            {/* <Menu.Item icon={<Gear size={14} />}>Settings</Menu.Item> */}
             <Menu.Divider />
             <Menu.Item
               onClick={() => {

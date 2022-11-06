@@ -19,14 +19,14 @@ function App() {
   const [followingdata, setfollowingdata] = useState([]);
   const [suggestedUsers, setSuggestedusers] = useState([]);
   useEffect(() => {
-    if (UserInfo) {
-      likedPosts().then((res) => {
-        setLikedpostIds(res.data.likedposts);
-      });
-    }
-
     LoginStatus()
-      .then((res) => {
+      .then(async (res) => {
+        await likedPosts().then((res) => {
+          setLikedpostIds(res.data.likedposts);
+        });
+        likedPosts().then((res) => {
+          setLikedpostIds(res.data.likedposts);
+        });
         setUserInfo(res.data.user);
         setfollowingdata(res.data.userfollowingarr);
         showNotification({

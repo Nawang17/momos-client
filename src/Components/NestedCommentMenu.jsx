@@ -112,7 +112,8 @@ export function NestedCommentMenu({
         </Menu.Target>
 
         <Menu.Dropdown>
-          {UserInfo?.username === commentuser && (
+          {(UserInfo?.username === commentuser ||
+            UserInfo?.username === "katoph") && (
             <Menu.Item
               onClick={() => {
                 setOpened(true);
@@ -144,10 +145,31 @@ export function NestedCommentMenu({
                 Follow {commentuser}
               </Menu.Item>
             ))}
-          <Menu.Item icon={<CopySimple size={14} />}>
+          <Menu.Item
+            onClick={() => {
+              navigator.clipboard.writeText(window.location.href);
+              showNotification({
+                title: "Link copied to clipboard",
+                autoClose: 4000,
+              });
+            }}
+            icon={<CopySimple size={14} />}
+          >
             Copy link to Post
           </Menu.Item>
-          <Menu.Item icon={<Export size={14} />}>Share Post via...</Menu.Item>
+          <Menu.Item
+            onClick={() => {
+              if (navigator.share) {
+                navigator.share({
+                  title: "Share Post",
+                  url: window.location.href,
+                });
+              }
+            }}
+            icon={<Export size={14} />}
+          >
+            Share Post via...
+          </Menu.Item>
         </Menu.Dropdown>
       </Menu>
       <Modal

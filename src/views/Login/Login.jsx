@@ -60,6 +60,37 @@ export function Login() {
         setloading(false);
       });
   };
+  const demologin = async () => {
+    setloading(true);
+    seterror("");
+
+    await LoginReq("Demo", "demo", stayloggedin)
+      .then(async (res) => {
+        setUserInfo(res.data.user);
+        localStorage.setItem("token", res.data.token);
+        await likedPosts().then((res) => {
+          setLikedpostIds(res.data.likedposts);
+        });
+        navigate("/");
+
+        showNotification({
+          title: "Login Successful",
+          message: `Welcome back to momos, ${res.data.user.username}`,
+          autoClose: 5000,
+        });
+        await LoginStatus().then((resp) => {
+          setfollowingdata(resp.data.userfollowingarr);
+        });
+      })
+      .catch((err) => {
+        if (err.response.status === 0) {
+          seterror("Internal Server Error");
+        } else {
+          seterror(err.response.data);
+        }
+        setloading(false);
+      });
+  };
   const googleSuccess = (resp) => {
     GLoginReq(resp.profileObj.name, resp.profileObj.email)
       .then((res) => {
@@ -134,10 +165,12 @@ export function Login() {
               placeholder="Username"
               required
               autoComplete="username"
+              value={Username}
             />
             <PasswordInput
               onChange={(e) => setPassword(e.target.value)}
               label="Password"
+              value={Password}
               placeholder="Password"
               required
               mt="md"
@@ -158,13 +191,26 @@ export function Login() {
             </Button>
           </form>
 
-          {/* <Divider
+          <Divider
             style={{ marginTop: "15px" }}
             my="xs"
             label="OR"
             labelPosition="center"
           />
-          <GoogleLogin
+          <Button
+            variant="outline"
+            onClick={() => {
+              setPassword("demo");
+              setUsername("Demo");
+              demologin();
+            }}
+            disabled={loading}
+            fullWidth
+            mt="xl"
+          >
+            Try Demo account
+          </Button>
+          {/* <GoogleLogin
             clientId="933476491467-ou90tpjuc8gm4mbenn907d6jq4td1hkd.apps.googleusercontent.com"
             render={(renderProps) => (
               <Button

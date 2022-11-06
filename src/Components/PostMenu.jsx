@@ -136,7 +136,9 @@ export function PostMenu({ postinfo, setPosts }) {
 
           <Menu.Item
             onClick={() => {
-              navigator.clipboard.writeText(window.location.href);
+              navigator.clipboard.writeText(
+                `https://momoss.netlify.app/post/${postinfo?.id}`
+              );
               showNotification({
                 title: "Link copied to clipboard",
                 autoClose: 4000,
@@ -151,7 +153,7 @@ export function PostMenu({ postinfo, setPosts }) {
               if (navigator.share) {
                 navigator.share({
                   title: "Share Post",
-                  url: window.location.href,
+                  url: `https://momoss.netlify.app/post/${postinfo?.id}`,
                 });
               }
             }}

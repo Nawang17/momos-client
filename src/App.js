@@ -19,9 +19,12 @@ function App() {
   const [followingdata, setfollowingdata] = useState([]);
   const [suggestedUsers, setSuggestedusers] = useState([]);
   useEffect(() => {
-    likedPosts().then((res) => {
-      setLikedpostIds(res.data.likedposts);
-    });
+    if (UserInfo) {
+      likedPosts().then((res) => {
+        setLikedpostIds(res.data.likedposts);
+      });
+    }
+
     LoginStatus()
       .then((res) => {
         setUserInfo(res.data.user);
@@ -39,7 +42,7 @@ function App() {
   }, []);
   useEffect(() => {
     suggestedusersreq({
-      name: UserInfo?.username ? UserInfo.username : "awfafawfawf",
+      name: UserInfo?.username ? UserInfo.username : "suggestedUsers",
     }).then((res) => {
       setSuggestedusers(res.data.suggestedusers);
     });

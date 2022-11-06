@@ -28,16 +28,16 @@ export function Login() {
   const [loading, setloading] = useState(false);
   const [error, seterror] = useState("");
   const [stayloggedin, setstayloggedin] = useState(false);
-  const handlelogin = (e) => {
+  const handlelogin = async (e) => {
     setloading(true);
     seterror("");
     e.preventDefault();
 
-    LoginReq(Username, Password, stayloggedin)
-      .then((res) => {
+    await LoginReq(Username, Password, stayloggedin)
+      .then(async (res) => {
         setUserInfo(res.data.user);
         localStorage.setItem("token", res.data.token);
-        likedPosts().then((res) => {
+        await likedPosts().then((res) => {
           setLikedpostIds(res.data.likedposts);
         });
         navigate("/");
@@ -47,7 +47,7 @@ export function Login() {
           message: `Welcome back to momos, ${res.data.user.username}`,
           autoClose: 5000,
         });
-        LoginStatus().then((resp) => {
+        await LoginStatus().then((resp) => {
           setfollowingdata(resp.data.userfollowingarr);
         });
       })

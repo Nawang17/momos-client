@@ -93,9 +93,10 @@ export function Navbar() {
                   <House size={28} color="black" />
                 </ActionIcon>
 
-                <ActionIcon>
+               >
+          {/* <ActionIcon>
                   <ChatCircleDots size={28} color="black" />
-                </ActionIcon>
+                </ActionIcon>  */}
                 <Notis />
               </>
             )}

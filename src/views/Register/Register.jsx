@@ -15,7 +15,7 @@ import { showNotification } from "@mantine/notifications";
 import { useNavigate } from "react-router-dom";
 import confetti from "canvas-confetti";
 import { AuthContext } from "../../context/Auth";
-import { GoogleLogin } from "react-google-login";
+// import { GoogleLogin } from "react-google-login";
 
 export function Register() {
   const navigate = useNavigate();
@@ -138,7 +138,7 @@ export function Register() {
               Register
             </Button>
           </form>
-          <Divider
+          {/* <Divider
             style={{ marginTop: "15px" }}
             my="xs"
             label="OR"
@@ -176,7 +176,7 @@ export function Register() {
               onFailure={(res) => console.log(res)}
               cookiePolicy={"single_host_origin"}
             />
-          </div>
+          </div> */}
         </Paper>
       </Container>
     </div>

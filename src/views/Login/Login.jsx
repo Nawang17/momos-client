@@ -17,7 +17,7 @@ import { showNotification } from "@mantine/notifications";
 import { AuthContext } from "../../context/Auth";
 import { useNavigate } from "react-router-dom";
 import { likedPosts } from "../../api/GET";
-import GoogleLogin from "react-google-login";
+// import GoogleLogin from "react-google-login";
 
 export function Login() {
   const { setUserInfo, setLikedpostIds, setfollowingdata } =
@@ -158,7 +158,7 @@ export function Login() {
             </Button>
           </form>
 
-          <Divider
+          {/* <Divider
             style={{ marginTop: "15px" }}
             my="xs"
             label="OR"
@@ -188,7 +188,7 @@ export function Login() {
             onSuccess={(res) => googleSuccess(res)}
             onFailure={(res) => console.log(res)}
             cookiePolicy={"single_host_origin"}
-          />
+          /> */}
         </Paper>
       </Container>
     </div>

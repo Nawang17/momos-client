@@ -166,6 +166,11 @@ export const ProfileHeader = ({ profileInfo }) => {
                 </Button>
               ))}
           </div>
+ {profileInfo.description && (
+            <Text size="15px" color={"gray"}>
+              {profileInfo.description}
+            </Text>
+          )}
 
           <div style={{ display: "flex", gap: "1rem" }}>
             <Text
@@ -191,11 +196,7 @@ export const ProfileHeader = ({ profileInfo }) => {
               Following
             </Text>
           </div>
-          {profileInfo.description && (
-            <Text size="15px" color={"gray"}>
-              {profileInfo.description}
-            </Text>
-          )}
+         
         </div>
       </div>
       <Modal

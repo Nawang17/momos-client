@@ -1,4 +1,4 @@
-import { createStyles, Text } from "@mantine/core";
+import { createStyles, Modal, Text } from "@mantine/core";
 import { ChatCircle, CircleWavyCheck, Heart } from "phosphor-react";
 import { PostMenu } from "./PostMenu";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,6 +8,7 @@ import { likePost } from "../api/POST";
 import { showNotification } from "@mantine/notifications";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import locale from "date-fns/locale/en-US";
+import { useState } from "react";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -94,6 +95,9 @@ export const Post = ({ post, setPosts }) => {
   }
   const { classes } = useStyles();
   const navigate = useNavigate();
+  const [opened, setOpened] = useState(false);
+  const [viewimg, setviewimg] = useState("");
+
   const { likedpostIds, setLikedpostIds, UserInfo } = useContext(AuthContext);
   const handleLike = () => {
     if (!UserInfo) {
@@ -156,91 +160,116 @@ export const Post = ({ post, setPosts }) => {
   };
 
   return (
-    <div className={classes.wrapper}>
-      <div className={classes.left}>
-        <img
-          onClick={() => navigate(`/${post.user.username}`)}
-          loading="lazy"
-          className={classes.avatar}
-          src={post.user.avatar}
-          alt=""
-        />
-      </div>
-      <div className={classes.right}>
-        <div className={classes.header}>
-          <div className={classes.hLeft}>
-            <div
-              style={{ display: "flex", alignItems: "center", gap: "0.2rem" }}
-            >
-              <Text
-                style={{ cursor: "pointer" }}
-                onClick={() => navigate(`/${post.user.username}`)}
-                weight={500}
-                size="15px"
+    <>
+      <div className={classes.wrapper}>
+        <div className={classes.left}>
+          <img
+            onClick={() => navigate(`/${post.user.username}`)}
+            loading="lazy"
+            className={classes.avatar}
+            src={post.user.avatar}
+            alt=""
+          />
+        </div>
+        <div className={classes.right}>
+          <div className={classes.header}>
+            <div className={classes.hLeft}>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "0.2rem" }}
               >
-                {post.user.username}
-              </Text>
-              {post.user.verified && (
-                <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
+                <Text
+                  style={{ cursor: "pointer" }}
+                  onClick={() => navigate(`/${post.user.username}`)}
+                  weight={500}
+                  size="15px"
+                >
+                  {post.user.username}
+                </Text>
+                {post.user.verified && (
+                  <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
+                )}
+                <Text color="dimmed">·</Text>
+                <Text color="dimmed" size="sm">
+                  {formatDistanceToNowStrict(new Date(post.createdAt), {
+                    locale: {
+                      ...locale,
+                      formatDistance,
+                    },
+                  })}
+                </Text>
+              </div>
+            </div>
+            <div className={classes.hRight}>
+              <PostMenu postinfo={post} setPosts={setPosts} />
+            </div>
+          </div>
+          {post.text && (
+            <div className={classes.body}>
+              <Text size="15px">{post?.text}</Text>
+            </div>
+          )}
+
+          {post.image && (
+            <div>
+              <img
+                onClick={() => {
+                  setviewimg(post?.image);
+                  setOpened(true);
+                }}
+                loading="lazy"
+                className={classes.image}
+                src={post?.image}
+                alt=""
+              />
+            </div>
+          )}
+
+          <div className={classes.footer}>
+            <div onClick={() => handleLike()} className={classes.fLeft}>
+              {!likedpostIds.includes(post.id) ? (
+                <Heart color="gray" weight="light" size={19} />
+              ) : (
+                <Heart color="red" weight="fill" size={19} />
               )}
-              <Text color="dimmed">·</Text>
-              <Text color="dimmed" size="sm">
-                {formatDistanceToNowStrict(new Date(post.createdAt), {
-                  locale: {
-                    ...locale,
-                    formatDistance,
-                  },
-                })}
+
+              <Text
+                className="unclickablevalue"
+                color={!likedpostIds.includes(post.id) ? "gray" : "red"}
+                size="14px"
+              >
+                {post.likes.length}
               </Text>
             </div>
+            <Link style={{ textDecoration: "none" }} to={`/post/${post.id}`}>
+              <div className={classes.fRight}>
+                <ChatCircle color="gray" weight="light" size={17} />
+                <Text className="unclickablevalue" size="14px" color={"gray"}>
+                  {post.comments.length}
+                </Text>
+              </div>
+            </Link>
           </div>
-          <div className={classes.hRight}>
-            <PostMenu postinfo={post} setPosts={setPosts} />
-          </div>
-        </div>
-        {post.text && (
-          <div className={classes.body}>
-            <Text size="15px">{post?.text}</Text>
-          </div>
-        )}
-
-        {post.image && (
-          <div>
-            <img
-              loading="lazy"
-              className={classes.image}
-              src={post?.image}
-              alt=""
-            />
-          </div>
-        )}
-
-        <div className={classes.footer}>
-          <div onClick={() => handleLike()} className={classes.fLeft}>
-            {!likedpostIds.includes(post.id) ? (
-              <Heart color="gray" weight="light" size={19} />
-            ) : (
-              <Heart color="red" weight="fill" size={19} />
-            )}
-
-            <Text
-              className="unclickablevalue"
-              color={!likedpostIds.includes(post.id) ? "gray" : "red"}
-              size="14px"
-            >
-              {post.likes.length}
-            </Text>
-          </div>
-          <Link style={{ textDecoration: "none" }} to={`/post/${post.id}`}>
-            <div className={classes.fRight}>
-              <ChatCircle color="gray" weight="light" size={17} />
-              <Text className="unclickablevalue" size="14px" color={"gray"}>
-                {post.comments.length}
-              </Text>
-            </div>
-          </Link>
         </div>
       </div>
-    </div>
+      <Modal
+        padding={0}
+        size="lg"
+        withCloseButton={false}
+        opened={opened}
+        onClose={() => {
+          setOpened(false);
+          setviewimg("");
+        }}
+      >
+        <div style={{ backgroundColor: "rgba(0, 0, 0, 0.4)" }}>
+          <img
+            loading="lazy"
+            style={{ width: "100%", height: "auto" }}
+            src={viewimg}
+            alt=""
+          />
+        </div>
+      </Modal>
+    </>
   );
 };

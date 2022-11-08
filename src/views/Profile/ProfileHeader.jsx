@@ -6,6 +6,7 @@ import {
   Text,
   ActionIcon,
   Skeleton,
+  Badge,
 } from "@mantine/core";
 import { ArrowLeft, CircleWavyCheck } from "phosphor-react";
 import { useNavigate } from "react-router-dom";
@@ -38,7 +39,7 @@ const useStyles = createStyles(() => ({
 export const ProfileHeader = ({ profileInfo }) => {
   const { userprofile } = useParams();
 
-  const { UserInfo, setfollowingdata } = useContext(AuthContext);
+  const { UserInfo, setfollowingdata, followingdata } = useContext(AuthContext);
   const navigate = useNavigate();
   const { classes } = useStyles();
   const [followers, setfollowers] = useState([]);
@@ -46,6 +47,7 @@ export const ProfileHeader = ({ profileInfo }) => {
   const [following, setfollowing] = useState([]);
   const [followingArr, setfollowingArr] = useState([]);
   const [loading, setloading] = useState(false);
+  const [unfollowconfirm, setunfollowconfirm] = useState(false);
   useEffect(() => {
     setloading(true);
     profilefollowdata({
@@ -154,14 +156,14 @@ export const ProfileHeader = ({ profileInfo }) => {
             />
             <>
               {UserInfo?.username === profileInfo.username ? (
-                <Button variant="outline" radius={"xl"} size="xs">
-                  edit profile
+                <Button variant="default" radius={"xl"} size="xs">
+                  Edit profile
                 </Button>
-              ) : followerArr.includes(UserInfo?.username) ? (
+              ) : followingdata?.includes(profileInfo?.username) ? (
                 <Button
-                  variant="outline"
+                  variant="default"
                   onClick={() => {
-                    handlefollow();
+                    setunfollowconfirm(true);
                   }}
                   radius={"xl"}
                   size="xs"
@@ -175,6 +177,7 @@ export const ProfileHeader = ({ profileInfo }) => {
                   }}
                   radius={"xl"}
                   size="xs"
+                  color={"dark"}
                 >
                   Follow
                 </Button>
@@ -199,6 +202,13 @@ export const ProfileHeader = ({ profileInfo }) => {
                 {profileInfo.verified && (
                   <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
                 )}
+                <div>
+                  {followingArr.includes(UserInfo?.username) && (
+                    <Badge size="sm" color="gray">
+                      Follows you
+                    </Badge>
+                  )}
+                </div>
               </div>
             </div>
 
@@ -395,6 +405,42 @@ export const ProfileHeader = ({ profileInfo }) => {
               })}
             </>
           )}
+        </div>
+      </Modal>
+      <Modal
+        overlayOpacity={0.3}
+        padding={0}
+        withCloseButton={false}
+        size="xs"
+        opened={unfollowconfirm}
+        onClose={() => setunfollowconfirm(false)}
+      >
+        <div className="dpm">
+          <div className="dpm-header">Unfollow {userprofile}?</div>
+          <div className="dpm-body">
+            This can’t be undone and this user will be removed from your
+            following.
+          </div>
+          <div className="dpm-footer">
+            <Button
+              onClick={() => {
+                handlefollow();
+                setunfollowconfirm(false);
+              }}
+              radius="xl"
+              color="dark"
+            >
+              Unfollow
+            </Button>
+            <Button
+              onClick={() => setunfollowconfirm(false)}
+              variant="outline"
+              color="gray"
+              radius="xl"
+            >
+              Cancel
+            </Button>
+          </div>
         </div>
       </Modal>
     </>

@@ -16,7 +16,6 @@ const useStyles = createStyles(() => ({
     display: "flex",
     gap: "1rem",
     borderRadius: "4px",
-    cursor: "pointer",
     // "&:hover": {
     //   background: "#f5f5f5",
     // },
@@ -165,17 +164,11 @@ export const Post = ({ post, setPosts }) => {
 
   return (
     <>
-      <div
-        onClick={() => {
-          navigate(`/post/${post.id}`);
-        }}
-        className={classes.wrapper}
-      >
+      <div className={classes.wrapper}>
         <div className={classes.left}>
           <img
-            onClick={(event) => {
+            onClick={() => {
               navigate(`/${post.user.username}`);
-              event.stopPropagation();
             }}
             loading="lazy"
             className={classes.avatar}
@@ -191,9 +184,8 @@ export const Post = ({ post, setPosts }) => {
               >
                 <Text
                   style={{ cursor: "pointer" }}
-                  onClick={(event) => {
+                  onClick={() => {
                     navigate(`/${post.user.username}`);
-                    event.stopPropagation();
                   }}
                   weight={500}
                   size="15px"
@@ -227,10 +219,9 @@ export const Post = ({ post, setPosts }) => {
           {post.image && (
             <div>
               <img
-                onClick={(event) => {
+                onClick={() => {
                   setviewimg(post?.image);
                   setOpened(true);
-                  event.stopPropagation();
                 }}
                 loading="lazy"
                 className={classes.image}
@@ -242,9 +233,8 @@ export const Post = ({ post, setPosts }) => {
 
           <div className={classes.footer}>
             <div
-              onClick={(event) => {
+              onClick={() => {
                 handleLike();
-                event.stopPropagation();
               }}
               className={classes.fLeft}
             >
@@ -263,7 +253,12 @@ export const Post = ({ post, setPosts }) => {
               </Text>
             </div>
 
-            <div className={classes.fRight}>
+            <div
+              onClick={() => {
+                navigate(`/post/${post.id}`);
+              }}
+              className={classes.fRight}
+            >
               <ChatCircle color="gray" weight="light" size={17} />
               <Text className="unclickablevalue" size="14px" color={"gray"}>
                 {post.comments.length}

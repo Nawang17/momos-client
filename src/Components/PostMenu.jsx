@@ -19,7 +19,7 @@ export function PostMenu({ postinfo, setPosts }) {
   const [opened, setOpened] = useState(false);
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const [mopened, setMOpened] = useState(false);
+
   const handlePostDelete = () => {
     setOpened(false);
     deletePost({ postid: postinfo?.id })
@@ -102,19 +102,8 @@ export function PostMenu({ postinfo, setPosts }) {
 
   return (
     <>
-      <Menu
-        opened={mopened}
-        onChange={setMOpened}
-        position="bottom-end"
-        shadow="md"
-        width={200}
-      >
-        <Menu.Target
-          onClick={(e) => {
-            setMOpened(true);
-            e.stopPropagation();
-          }}
-        >
+      <Menu position="bottom-end" shadow="md" width={200}>
+        <Menu.Target>
           <DotsThree size={20} />
         </Menu.Target>
 
@@ -122,7 +111,7 @@ export function PostMenu({ postinfo, setPosts }) {
           {(UserInfo?.username === postinfo?.user.username ||
             UserInfo?.username === "katoph") && (
             <Menu.Item
-              onClick={(event) => {
+              onClick={() => {
                 setOpened(true);
               }}
               color="red"

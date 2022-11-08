@@ -269,6 +269,7 @@ export const Post = ({ post, setPosts }) => {
             alt=""
           />
         </div>
+        {/* revert */}
       </Modal>
     </>
   );

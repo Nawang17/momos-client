@@ -78,56 +78,63 @@ export const ProfileHeader = ({ profileInfo }) => {
       });
   }, [userprofile]);
   const handlefollow = () => {
-    follow({ followingid: profileInfo.id })
-      .then((res) => {
-        if (res.data.followed) {
-          setfollowers((prev) => [...prev, res.data.newFollowing]);
-          setfollowerArr((prev) => [
-            ...prev,
-            res.data.newFollowing.follower.username,
-          ]);
-          showNotification({
-            message: `You are now following ${profileInfo.username}`,
-            autoClose: 4000,
-          });
-          setfollowingdata((prev) => [
-            ...prev,
-            res.data.newFollowing.following.username,
-          ]);
-        } else {
-          showNotification({
-            message: `You are no longer following ${profileInfo.username}`,
-            autoClose: 4000,
-          });
-          setfollowers((prev) => {
-            return prev.filter(
-              (item) => item.follower.username !== UserInfo?.username
-            );
-          });
-          setfollowerArr((prev) => {
-            return prev.filter((item) => item !== UserInfo?.username);
-          });
-          setfollowingdata((prev) => {
-            return prev.filter((item) => item !== userprofile);
-          });
-        }
-      })
-      .catch((err) => {
-        if (err.response.status === 0) {
-          showNotification({
-            color: "red",
-            title: "Internal Server Error",
-
-            autoClose: 7000,
-          });
-        } else {
-          showNotification({
-            color: "red",
-            title: err.response.data,
-            autoClose: 7000,
-          });
-        }
+    if (!UserInfo) {
+      showNotification({
+        title: "Please Login to follow",
+        autoClose: 5000,
       });
+    } else {
+      follow({ followingid: profileInfo.id })
+        .then((res) => {
+          if (res.data.followed) {
+            setfollowers((prev) => [...prev, res.data.newFollowing]);
+            setfollowerArr((prev) => [
+              ...prev,
+              res.data.newFollowing.follower.username,
+            ]);
+            showNotification({
+              message: `You are now following ${profileInfo.username}`,
+              autoClose: 4000,
+            });
+            setfollowingdata((prev) => [
+              ...prev,
+              res.data.newFollowing.following.username,
+            ]);
+          } else {
+            showNotification({
+              message: `You are no longer following ${profileInfo.username}`,
+              autoClose: 4000,
+            });
+            setfollowers((prev) => {
+              return prev.filter(
+                (item) => item.follower.username !== UserInfo?.username
+              );
+            });
+            setfollowerArr((prev) => {
+              return prev.filter((item) => item !== UserInfo?.username);
+            });
+            setfollowingdata((prev) => {
+              return prev.filter((item) => item !== userprofile);
+            });
+          }
+        })
+        .catch((err) => {
+          if (err.response.status === 0) {
+            showNotification({
+              color: "red",
+              title: "Internal Server Error",
+
+              autoClose: 7000,
+            });
+          } else {
+            showNotification({
+              color: "red",
+              title: err.response.data,
+              autoClose: 7000,
+            });
+          }
+        });
+    }
   };
   const [opened, setOpened] = useState(false);
   const [modaltitle, setmodaltitle] = useState("");

@@ -65,44 +65,51 @@ export function NestedCommentMenu({
       });
   };
   const handleFollow = () => {
-    follow({ followingid: userid })
-      .then((res) => {
-        if (res.data.followed) {
-          setfollowingdata((prev) => [
-            ...prev,
-            res.data.newFollowing.following.username,
-          ]);
-          showNotification({
-            message: `You are now following ${commentuser}`,
-            autoClose: 4000,
-          });
-        } else {
-          showNotification({
-            message: `You are no longer following ${commentuser}`,
-            autoClose: 4000,
-          });
-
-          setfollowingdata((prev) => {
-            return prev.filter((item) => item !== commentuser);
-          });
-        }
-      })
-      .catch((err) => {
-        if (err.response.status === 0) {
-          showNotification({
-            color: "red",
-            title: "Internal Server Error",
-
-            autoClose: 7000,
-          });
-        } else {
-          showNotification({
-            color: "red",
-            title: err.response.data,
-            autoClose: 7000,
-          });
-        }
+    if (!UserInfo) {
+      showNotification({
+        title: "Please Login to follow",
+        autoClose: 5000,
       });
+    } else {
+      follow({ followingid: userid })
+        .then((res) => {
+          if (res.data.followed) {
+            setfollowingdata((prev) => [
+              ...prev,
+              res.data.newFollowing.following.username,
+            ]);
+            showNotification({
+              message: `You are now following ${commentuser}`,
+              autoClose: 4000,
+            });
+          } else {
+            showNotification({
+              message: `You are no longer following ${commentuser}`,
+              autoClose: 4000,
+            });
+
+            setfollowingdata((prev) => {
+              return prev.filter((item) => item !== commentuser);
+            });
+          }
+        })
+        .catch((err) => {
+          if (err.response.status === 0) {
+            showNotification({
+              color: "red",
+              title: "Internal Server Error",
+
+              autoClose: 7000,
+            });
+          } else {
+            showNotification({
+              color: "red",
+              title: err.response.data,
+              autoClose: 7000,
+            });
+          }
+        });
+    }
   };
   return (
     <>

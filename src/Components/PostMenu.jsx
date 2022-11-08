@@ -53,44 +53,51 @@ export function PostMenu({ postinfo, setPosts }) {
       });
   };
   const handleFollow = () => {
-    follow({ followingid: postinfo?.user.id })
-      .then((res) => {
-        if (res.data.followed) {
-          setfollowingdata((prev) => [
-            ...prev,
-            res.data.newFollowing.following.username,
-          ]);
-          showNotification({
-            message: `You are now following ${postinfo?.user.username}`,
-            autoClose: 4000,
-          });
-        } else {
-          showNotification({
-            message: `You are no longer following ${postinfo?.user.username}`,
-            autoClose: 4000,
-          });
-
-          setfollowingdata((prev) => {
-            return prev.filter((item) => item !== postinfo?.user.username);
-          });
-        }
-      })
-      .catch((err) => {
-        if (err.response.status === 0) {
-          showNotification({
-            color: "red",
-            title: "Internal Server Error",
-
-            autoClose: 7000,
-          });
-        } else {
-          showNotification({
-            color: "red",
-            title: err.response.data,
-            autoClose: 7000,
-          });
-        }
+    if (!UserInfo) {
+      showNotification({
+        title: "Please Login to follow",
+        autoClose: 5000,
       });
+    } else {
+      follow({ followingid: postinfo?.user.id })
+        .then((res) => {
+          if (res.data.followed) {
+            setfollowingdata((prev) => [
+              ...prev,
+              res.data.newFollowing.following.username,
+            ]);
+            showNotification({
+              message: `You are now following ${postinfo?.user.username}`,
+              autoClose: 4000,
+            });
+          } else {
+            showNotification({
+              message: `You are no longer following ${postinfo?.user.username}`,
+              autoClose: 4000,
+            });
+
+            setfollowingdata((prev) => {
+              return prev.filter((item) => item !== postinfo?.user.username);
+            });
+          }
+        })
+        .catch((err) => {
+          if (err.response.status === 0) {
+            showNotification({
+              color: "red",
+              title: "Internal Server Error",
+
+              autoClose: 7000,
+            });
+          } else {
+            showNotification({
+              color: "red",
+              title: err.response.data,
+              autoClose: 7000,
+            });
+          }
+        });
+    }
   };
 
   return (

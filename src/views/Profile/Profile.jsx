@@ -66,6 +66,7 @@ export const Profile = () => {
       });
     window.scrollTo(0, 0);
   }, [pathname, Tab]);
+
   return (
     <Container px={10} className={classes.wrapper}>
       <div className={classes.leftWrapper}>

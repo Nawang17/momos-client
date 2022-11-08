@@ -1,4 +1,4 @@
-import { Popover, Text, ActionIcon } from "@mantine/core";
+import { Popover, Text, ActionIcon, ScrollArea } from "@mantine/core";
 import { formatDistanceToNowStrict } from "date-fns";
 import locale from "date-fns/locale/en-US";
 
@@ -69,142 +69,126 @@ export default function Notis() {
       </Popover.Target>
 
       <Popover.Dropdown>
-        <div>
-          {Notis.length === 0 ? (
-            <Text size="15px" weight={"500"}>
-              🔔 You don't have any notifications 🔔
-            </Text>
-          ) : (
-            <Text size={"sm"} weight="bold">
-              Notifications
-            </Text>
-          )}
+        <ScrollArea style={{ height: 300 }}>
+          <div>
+            {Notis.length === 0 ? (
+              <Text size="15px" weight={"500"}>
+                🔔 You don't have any notifications 🔔
+              </Text>
+            ) : (
+              <Text size={"sm"} weight="bold">
+                Notifications
+              </Text>
+            )}
 
-          {Notis.map((data) => {
-            return (
-              <div
-                onClick={() => {
-                  setOpened(false);
-                  if (data.type === "FOLLOW") {
-                    navigate(`/${data.user.username}`);
-                  } else {
-                    navigate(`/post/${data.postId}`);
-                  }
-                }}
-                key={data.id}
-                style={{
-                  display: "flex",
-                  paddingTop: "10px",
-                  flexDirection: "column",
-                  gap: "1.1rem",
-                }}
-              >
+            {Notis.map((data) => {
+              return (
                 <div
+                  onClick={() => {
+                    setOpened(false);
+                    if (data.type === "FOLLOW") {
+                      navigate(`/${data.user.username}`);
+                    } else {
+                      navigate(`/post/${data.postId}`);
+                    }
+                  }}
+                  key={data.id}
                   style={{
                     display: "flex",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                    cursor: "pointer",
+                    paddingTop: "10px",
+                    flexDirection: "column",
+                    gap: "1.1rem",
                   }}
                 >
-                  <img
+                  <div
                     style={{
-                      width: "35px",
-                      height: "35px",
-                      borderRadius: "50%",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.5rem",
+                      cursor: "pointer",
                     }}
-                    src={data.user.avatar}
-                    alt=""
-                  />
-                  <div>
-                    {" "}
-                    {data.type === "COMMENT" && (
-                      <Text size="14px">
-                        <span style={{ fontWeight: "500" }}>
-                          {" "}
-                          {`
+                  >
+                    <img
+                      style={{
+                        width: "35px",
+                        height: "35px",
+                        borderRadius: "50%",
+                      }}
+                      src={data.user.avatar}
+                      alt=""
+                    />
+                    <div>
+                      {" "}
+                      {data.type === "COMMENT" && (
+                        <Text size="14px">
+                          <span style={{ fontWeight: "500" }}>
+                            {" "}
+                            {`
               ${data.user.username} 
 `}
-                        </span>
-                        {`
+                          </span>
+                          {`
              commented: ${data.text} 
 `}
-                      </Text>
-                    )}
-                    {data.type === "FOLLOW" && (
-                      <Text size="14px">
-                        <span style={{ fontWeight: "500" }}>
-                          {" "}
-                          {`
+                        </Text>
+                      )}
+                      {data.type === "FOLLOW" && (
+                        <Text size="14px">
+                          <span style={{ fontWeight: "500" }}>
+                            {" "}
+                            {`
               ${data.user.username} 
 `}
-                        </span>
-                        {`
+                          </span>
+                          {`
               started following you.
 `}
-                      </Text>
-                    )}
-                    {data.type === "REPLY" && (
-                      <Text size="14px">
-                        <span style={{ fontWeight: "500" }}>
-                          {" "}
-                          {`
+                        </Text>
+                      )}
+                      {data.type === "REPLY" && (
+                        <Text size="14px">
+                          <span style={{ fontWeight: "500" }}>
+                            {" "}
+                            {`
               ${data.user.username} 
 `}
-                        </span>
-                        {`
+                          </span>
+                          {`
              replied: ${data.text} 
 `}
-                      </Text>
-                    )}
-                    {data.type === "LIKE" && (
-                      <Text size="14px">
-                        <span style={{ fontWeight: "500" }}>
-                          {" "}
-                          {`
+                        </Text>
+                      )}
+                      {data.type === "LIKE" && (
+                        <Text size="14px">
+                          <span style={{ fontWeight: "500" }}>
+                            {" "}
+                            {`
               ${data.user.username} 
 `}
-                        </span>
-                        {`
+                          </span>
+                          {`
             ${data.text} 
 `}
-                      </Text>
-                    )}
-                  </div>
+                        </Text>
+                      )}
+                    </div>
 
-                  <Text color={"dimmed"} size="14px">
-                    {formatDistanceToNowStrict(new Date(data.createdAt), {
-                      locale: {
-                        ...locale,
-                        formatDistance,
-                      },
-                    })}
-                  </Text>
+                    <div>
+                      <Text color={"dimmed"} size="14px">
+                        {formatDistanceToNowStrict(new Date(data.createdAt), {
+                          locale: {
+                            ...locale,
+                            formatDistance,
+                          },
+                        })}
+                      </Text>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
-          <div
-            onClick={() => {
-              setOpened(false);
-            }}
-            style={{
-              display: "flex",
-              paddingTop: "10px",
-              flexDirection: "column",
-              gap: "1.1rem",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "0.5rem",
-                cursor: "pointer",
-              }}
-            ></div>
+              );
+            })}
           </div>
-        </div>
+        </ScrollArea>
       </Popover.Dropdown>
     </Popover>
   );

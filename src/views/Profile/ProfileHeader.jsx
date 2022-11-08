@@ -1,10 +1,17 @@
-import React, { useContext, useEffect } from "react";
-import { Button, Modal, createStyles, Text, ActionIcon } from "@mantine/core";
+import React, { useContext, useEffect, useState } from "react";
+import {
+  Button,
+  Modal,
+  createStyles,
+  Text,
+  ActionIcon,
+  Skeleton,
+} from "@mantine/core";
 import { ArrowLeft, CircleWavyCheck } from "phosphor-react";
 import { useNavigate } from "react-router-dom";
 import { follow } from "../../api/POST";
 import { AuthContext } from "../../context/Auth";
-import { useState } from "react";
+import format from "date-fns/format";
 import { profilefollowdata } from "../../api/GET";
 import { useParams } from "react-router-dom";
 import { showNotification } from "@mantine/notifications";
@@ -12,7 +19,7 @@ import { showNotification } from "@mantine/notifications";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
-    padding: "1rem",
+    padding: "1rem 1.5rem 0.5rem 1rem  ",
     gap: "0.5rem",
     display: "flex",
     flexDirection: "column",
@@ -25,7 +32,7 @@ const useStyles = createStyles(() => ({
   right: {
     display: "flex",
     flexDirection: "column",
-    gap: "1rem",
+    gap: "0.5rem",
   },
 }));
 export const ProfileHeader = ({ profileInfo }) => {
@@ -38,15 +45,35 @@ export const ProfileHeader = ({ profileInfo }) => {
   const [followerArr, setfollowerArr] = useState([]);
   const [following, setfollowing] = useState([]);
   const [followingArr, setfollowingArr] = useState([]);
+  const [loading, setloading] = useState(false);
   useEffect(() => {
+    setloading(true);
     profilefollowdata({
       username: userprofile,
-    }).then((res) => {
-      setfollowers(res.data.userFollowers);
-      setfollowerArr(res.data.userfollowerarr);
-      setfollowing(res.data.userFollowing);
-      setfollowingArr(res.data.userfollowingarr);
-    });
+    })
+      .then((res) => {
+        setfollowers(res.data.userFollowers);
+        setfollowerArr(res.data.userfollowerarr);
+        setfollowing(res.data.userFollowing);
+        setfollowingArr(res.data.userfollowingarr);
+        setloading(false);
+      })
+      .catch((err) => {
+        if (err.response.status === 0) {
+          showNotification({
+            color: "red",
+            title: "Internal Server Error",
+
+            autoClose: 7000,
+          });
+        } else {
+          showNotification({
+            color: "red",
+            title: err.response.data,
+            autoClose: 7000,
+          });
+        }
+      });
   }, [userprofile]);
   const handlefollow = () => {
     follow({ followingid: profileInfo.id })
@@ -109,41 +136,28 @@ export const ProfileHeader = ({ profileInfo }) => {
           <ArrowLeft size="20px" />
         </ActionIcon>
       </div>
-      <div className={classes.wrapper}>
-        <div className={classes.left}>
-          <img
-            loading="lazy"
-            className={classes.avatar}
-            src={profileInfo.avatar}
-            alt=""
-          />
-        </div>
-        <div className={classes.right}>
+      {!loading ? (
+        <div className={classes.wrapper}>
           <div
             style={{
               display: "flex",
-              gap: "1rem",
               justifyContent: "space-between",
               alignItems: "flex-end",
             }}
+            className={classes.left}
           >
-            <div
-              style={{ display: "flex", alignItems: "center", gap: "0.2rem" }}
-            >
-              <Text weight="bold" size="md">
-                {profileInfo?.username}
-              </Text>
-              {profileInfo.verified && (
-                <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
-              )}
-            </div>
-            {UserInfo?.username === profileInfo.username && (
-              <Button variant="outline" radius={"xl"} size="xs">
-                edit profile
-              </Button>
-            )}
-            {UserInfo?.username !== profileInfo.username &&
-              (followerArr?.includes(UserInfo?.username) ? (
+            <img
+              loading="lazy"
+              className={classes.avatar}
+              src={profileInfo.avatar}
+              alt=""
+            />
+            <>
+              {UserInfo?.username === profileInfo.username ? (
+                <Button variant="outline" radius={"xl"} size="xs">
+                  edit profile
+                </Button>
+              ) : followerArr.includes(UserInfo?.username) ? (
                 <Button
                   variant="outline"
                   onClick={() => {
@@ -164,41 +178,118 @@ export const ProfileHeader = ({ profileInfo }) => {
                 >
                   Follow
                 </Button>
-              ))}
+              )}
+            </>
           </div>
- {profileInfo.description && (
-            <Text size="15px" color={"gray"}>
-              {profileInfo.description}
-            </Text>
-          )}
+          <div className={classes.right}>
+            <div
+              style={{
+                display: "flex",
+                gap: "1rem",
+                justifyContent: "space-between",
+                alignItems: "flex-end",
+              }}
+            >
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "0.2rem" }}
+              >
+                <Text weight="bold" size="md">
+                  {userprofile}
+                </Text>
+                {profileInfo.verified && (
+                  <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
+                )}
+              </div>
+            </div>
 
-          <div style={{ display: "flex", gap: "1rem" }}>
-            <Text
-              style={{ cursor: "pointer" }}
-              onClick={() => {
-                setOpened(true);
-                setmodaltitle("Followers");
-              }}
-              size="15px"
-            >
-              <span style={{ fontWeight: "500" }}>{followers.length}</span>{" "}
-              Followers
-            </Text>
-            <Text
-              style={{ cursor: "pointer" }}
-              onClick={() => {
-                setOpened(true);
-                setmodaltitle("Following");
-              }}
-              size="15px"
-            >
-              <span style={{ fontWeight: "500" }}>{following.length}</span>{" "}
-              Following
-            </Text>
+            {profileInfo?.description && (
+              <div
+                style={{
+                  width: "100%",
+                  wordBreak: "break-word",
+                  whiteSpace: "pre-wrap",
+                }}
+              >
+                <Text size="14px">{profileInfo?.description}</Text>
+              </div>
+            )}
+            {profileInfo.createdAt && (
+              <div>
+                <Text color="#536471" size="14px">
+                  <span>Joined </span>
+                  {format(new Date(profileInfo.createdAt), "MMMMMM yyyy")}
+                </Text>
+              </div>
+            )}
+
+            <div style={{ display: "flex", gap: "1rem" }}>
+              <Text
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  setOpened(true);
+                  setmodaltitle("Followers");
+                }}
+                size="15px"
+              >
+                <span style={{ fontWeight: "500" }}>{followers.length}</span>{" "}
+                <span style={{ color: "#536471", fontSize: "14px" }}>
+                  Followers
+                </span>
+              </Text>
+              <Text
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  setOpened(true);
+                  setmodaltitle("Following");
+                }}
+                size="15px"
+              >
+                <span style={{ fontWeight: "500" }}>{following.length}</span>{" "}
+                <span style={{ color: "#536471", fontSize: "14px" }}>
+                  Following
+                </span>
+              </Text>
+            </div>
           </div>
-         
         </div>
-      </div>
+      ) : (
+        <div className={classes.wrapper}>
+          <div className={classes.left}>
+            <Skeleton height={60} circle mb="xl" />
+          </div>
+          <div className={classes.right}>
+            <div
+              style={{
+                display: "flex",
+                gap: "1rem",
+                justifyContent: "space-between",
+                alignItems: "flex-end",
+              }}
+            >
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "0.2rem" }}
+              >
+                <Text weight="bold" size="md">
+                  {userprofile}
+                </Text>
+                {profileInfo.verified && (
+                  <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
+                )}
+              </div>
+            </div>
+
+            <div style={{ display: "flex", gap: "1rem" }}>
+              <Text color={"#536471"} style={{ cursor: "pointer" }} size="14px">
+                Followers
+              </Text>
+              <Text color={"#536471"} style={{ cursor: "pointer" }} size="14px">
+                Following
+              </Text>
+            </div>
+          </div>
+        </div>
+      )}
+
       <Modal
         overflow="inside"
         opened={opened}

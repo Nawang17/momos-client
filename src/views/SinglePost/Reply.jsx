@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Input } from "@mantine/core";
+import { Button, Input } from "@mantine/core";
 import { PaperPlane } from "phosphor-react";
 import { AuthContext } from "../../context/Auth";
 import { addComment } from "../../api/POST";
@@ -8,6 +8,7 @@ import { showNotification } from "@mantine/notifications";
 const Reply = ({ singlePostData, setComments }) => {
   const [reply, setReply] = useState("");
   const { UserInfo } = useContext(AuthContext);
+
   const handlereply = () => {
     if (!UserInfo) {
       showNotification({
@@ -17,9 +18,9 @@ const Reply = ({ singlePostData, setComments }) => {
       });
       return;
     } else {
+      setReply("");
       addComment({ text: reply, postid: singlePostData?.id })
         .then((res) => {
-          setReply("");
           setComments((prev) => [...prev, res.data.comment]);
           showNotification({
             title: "Comment added",
@@ -76,9 +77,9 @@ const Reply = ({ singlePostData, setComments }) => {
             <PaperPlane
               onClick={() => handlereply()}
               weight="bold"
-              color="blue"
-              size={20}
-              style={{ display: "block", opacity: 0.5 }}
+              color="#1DA1F2"
+              size={22}
+              style={{ display: "block", cursor: "pointer" }}
             />
           )
         }

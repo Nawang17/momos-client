@@ -205,12 +205,14 @@ export const Post = ({ post, setPosts }) => {
         )}
 
         {post.image && (
-          <img
-            loading="lazy"
-            className={classes.image}
-            src={post?.image}
-            alt=""
-          />
+          <div>
+            <img
+              loading="lazy"
+              className={classes.image}
+              src={post?.image}
+              alt=""
+            />
+          </div>
         )}
 
         <div className={classes.footer}>

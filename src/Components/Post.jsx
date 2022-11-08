@@ -16,6 +16,10 @@ const useStyles = createStyles(() => ({
     display: "flex",
     gap: "1rem",
     borderRadius: "4px",
+    cursor: "pointer",
+    // "&:hover": {
+    //   background: "#f5f5f5",
+    // },
   },
   avatar: {
     width: "40px",
@@ -161,10 +165,18 @@ export const Post = ({ post, setPosts }) => {
 
   return (
     <>
-      <div className={classes.wrapper}>
+      <div
+        onClick={() => {
+          navigate(`/post/${post.id}`);
+        }}
+        className={classes.wrapper}
+      >
         <div className={classes.left}>
           <img
-            onClick={() => navigate(`/${post.user.username}`)}
+            onClick={(event) => {
+              navigate(`/${post.user.username}`);
+              event.stopPropagation();
+            }}
             loading="lazy"
             className={classes.avatar}
             src={post.user.avatar}
@@ -179,7 +191,10 @@ export const Post = ({ post, setPosts }) => {
               >
                 <Text
                   style={{ cursor: "pointer" }}
-                  onClick={() => navigate(`/${post.user.username}`)}
+                  onClick={(event) => {
+                    navigate(`/${post.user.username}`);
+                    event.stopPropagation();
+                  }}
                   weight={500}
                   size="15px"
                 >
@@ -212,9 +227,10 @@ export const Post = ({ post, setPosts }) => {
           {post.image && (
             <div>
               <img
-                onClick={() => {
+                onClick={(event) => {
                   setviewimg(post?.image);
                   setOpened(true);
+                  event.stopPropagation();
                 }}
                 loading="lazy"
                 className={classes.image}
@@ -225,7 +241,13 @@ export const Post = ({ post, setPosts }) => {
           )}
 
           <div className={classes.footer}>
-            <div onClick={() => handleLike()} className={classes.fLeft}>
+            <div
+              onClick={(event) => {
+                handleLike();
+                event.stopPropagation();
+              }}
+              className={classes.fLeft}
+            >
               {!likedpostIds.includes(post.id) ? (
                 <Heart color="gray" weight="light" size={19} />
               ) : (
@@ -240,14 +262,13 @@ export const Post = ({ post, setPosts }) => {
                 {post.likes.length}
               </Text>
             </div>
-            <Link style={{ textDecoration: "none" }} to={`/post/${post.id}`}>
-              <div className={classes.fRight}>
-                <ChatCircle color="gray" weight="light" size={17} />
-                <Text className="unclickablevalue" size="14px" color={"gray"}>
-                  {post.comments.length}
-                </Text>
-              </div>
-            </Link>
+
+            <div className={classes.fRight}>
+              <ChatCircle color="gray" weight="light" size={17} />
+              <Text className="unclickablevalue" size="14px" color={"gray"}>
+                {post.comments.length}
+              </Text>
+            </div>
           </div>
         </div>
       </div>

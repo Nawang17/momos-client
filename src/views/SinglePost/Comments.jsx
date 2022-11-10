@@ -10,6 +10,8 @@ import NestedReplyModal from "../../Components/NestedReplyModal";
 import { AuthContext } from "../../context/Auth";
 import { showNotification } from "@mantine/notifications";
 import { NestedCommentMenu } from "../../Components/NestedCommentMenu";
+import Linkify from "react-linkify";
+
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -146,7 +148,9 @@ export const Comments = ({ comments, setComments }) => {
                     </div>
                   </div>
                   <div className={classes.body}>
-                    <Text size="15px">{comment.text}</Text>
+                    <Text size="15px">
+                      <Linkify>{comment.text}</Linkify>
+                    </Text>
                   </div>
                   <div style={{ display: "flex", gap: "0.5rem" }}>
                     <Text color="dimmed" size="13px">
@@ -262,7 +266,9 @@ export const Comments = ({ comments, setComments }) => {
                         </div>
                       </div>
                       <div className={classes.body}>
-                        <Text size="15px">{data.text}</Text>
+                        <Text size="15px">
+                          <Linkify>{data.text}</Linkify>
+                        </Text>
                       </div>
                       <div style={{ display: "flex", gap: "0.5rem" }}>
                         <Text color="dimmed" size="13px">

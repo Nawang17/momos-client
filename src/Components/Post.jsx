@@ -9,6 +9,7 @@ import { showNotification } from "@mantine/notifications";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import locale from "date-fns/locale/en-US";
 import { useState } from "react";
+import Linkify from "react-linkify";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -212,7 +213,9 @@ export const Post = ({ post, setPosts }) => {
           </div>
           {post.text && (
             <div className={classes.body}>
-              <Text size="15px">{post?.text}</Text>
+              <Text size="15px">
+                <Linkify>{post?.text}</Linkify>
+              </Text>
             </div>
           )}
 

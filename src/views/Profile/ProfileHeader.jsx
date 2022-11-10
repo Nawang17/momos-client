@@ -48,6 +48,7 @@ export const ProfileHeader = ({ profileInfo }) => {
   const [followingArr, setfollowingArr] = useState([]);
   const [loading, setloading] = useState(false);
   const [unfollowconfirm, setunfollowconfirm] = useState(false);
+  const [btndisabled, setbtndisabled] = useState(false);
   useEffect(() => {
     setloading(true);
     profilefollowdata({
@@ -78,7 +79,9 @@ export const ProfileHeader = ({ profileInfo }) => {
       });
   }, [userprofile]);
   const handlefollow = () => {
+    setbtndisabled(true);
     if (!UserInfo) {
+      setbtndisabled(false);
       showNotification({
         title: "Please Login to follow",
         autoClose: 5000,
@@ -92,14 +95,16 @@ export const ProfileHeader = ({ profileInfo }) => {
               ...prev,
               res.data.newFollowing.follower.username,
             ]);
-            showNotification({
-              message: `You are now following ${profileInfo.username}`,
-              autoClose: 4000,
-            });
             setfollowingdata((prev) => [
               ...prev,
               res.data.newFollowing.following.username,
             ]);
+
+            setbtndisabled(false);
+            showNotification({
+              message: `You are now following ${profileInfo.username}`,
+              autoClose: 4000,
+            });
           } else {
             showNotification({
               message: `You are no longer following ${profileInfo.username}`,
@@ -117,6 +122,7 @@ export const ProfileHeader = ({ profileInfo }) => {
               return prev.filter((item) => item !== userprofile);
             });
           }
+          setbtndisabled(false);
         })
         .catch((err) => {
           if (err.response.status === 0) {
@@ -126,12 +132,14 @@ export const ProfileHeader = ({ profileInfo }) => {
 
               autoClose: 7000,
             });
+            setbtndisabled(false);
           } else {
             showNotification({
               color: "red",
               title: err.response.data,
               autoClose: 7000,
             });
+            setbtndisabled(false);
           }
         });
     }
@@ -168,6 +176,7 @@ export const ProfileHeader = ({ profileInfo }) => {
                 </Button>
               ) : followingdata?.includes(profileInfo?.username) ? (
                 <Button
+                  disabled={btndisabled}
                   variant="default"
                   onClick={() => {
                     setunfollowconfirm(true);
@@ -179,6 +188,7 @@ export const ProfileHeader = ({ profileInfo }) => {
                 </Button>
               ) : (
                 <Button
+                  disabled={btndisabled}
                   onClick={() => {
                     handlefollow();
                   }}

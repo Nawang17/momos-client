@@ -39,10 +39,16 @@ const useStyles = createStyles(() => ({
     gap: "0.3rem",
     width: "100%",
   },
-  image: {
+  gifimg: {
     width: "100%",
+    height: "auto",
     borderRadius: "4px",
   },
+  img: {
+    maxWidth: "100%",
+    borderRadius: "4px",
+  },
+
   body: {
     wordBreak: "break-word",
     whiteSpace: "pre-wrap",
@@ -261,7 +267,11 @@ export const Post = ({ post, setPosts }) => {
                     setOpened(true);
                   }}
                   loading="lazy"
-                  className={classes.image}
+                  className={
+                    post?.image.slice(-3) === "gif"
+                      ? classes.gifimg
+                      : classes.img
+                  }
                   src={post?.image}
                   alt=""
                 />

@@ -20,6 +20,7 @@ export default function CreatePostModal({
   const handleflieInputChange = (e) => {
     setError("");
     setPreviewSource("");
+    setfiletype("");
     const file = e.target.files[0];
 
     if (file.size > maxallowdsize) {
@@ -127,23 +128,6 @@ export default function CreatePostModal({
                 minRows={2}
                 maxRows={14}
               />
-              {filetype === "video" && previewSource && (
-                <span
-                  onClick={() => {
-                    setFileInputState("");
-
-                    setPreviewSource("");
-                  }}
-                  style={{
-                    cursor: "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                  }}
-                >
-                  <XCircle size={25} /> Remove video
-                </span>
-              )}
 
               {/* image preview */}
               {previewSource && (
@@ -160,7 +144,7 @@ export default function CreatePostModal({
                     <span
                       onClick={(e) => {
                         setFileInputState("");
-
+                        setfiletype("");
                         setPreviewSource("");
                       }}
                       style={{
@@ -180,10 +164,33 @@ export default function CreatePostModal({
                       alt=""
                     />
                   ) : (
-                    <video style={{ width: "100%", height: "auto" }} controls>
-                      <source src={previewSource} type="video/mp4" />
-                      Your browser does not support the video tag.
-                    </video>
+                    <>
+                      {filetype === "video" && previewSource && (
+                        <span
+                          onClick={() => {
+                            setFileInputState("");
+
+                            setPreviewSource("");
+                            setfiletype("");
+                          }}
+                          style={{
+                            cursor: "pointer",
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.5rem",
+                          }}
+                        >
+                          <XCircle size={25} />
+                        </span>
+                      )}
+                      <video
+                        style={{ width: "200px", height: "200px" }}
+                        controls
+                      >
+                        <source src={previewSource} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </>
                   )}
                 </div>
               )}
@@ -222,15 +229,25 @@ export default function CreatePostModal({
                 >
                   <div style={{ fontSize: "12px" }}> {text.length} / 255</div>
                   <Divider orientation="vertical" />
-
-                  <Button
-                    loading={loading}
-                    type="submit"
-                    radius={"xl"}
-                    size="xs"
-                  >
-                    {!loading ? "Post" : "Posting"}
-                  </Button>
+                  {!loading ? (
+                    <Button
+                      disabled={text.length === 0 && previewSource === ""}
+                      type="submit"
+                      radius={"xl"}
+                      size="xs"
+                    >
+                      Post
+                    </Button>
+                  ) : (
+                    <Button
+                      loading={loading}
+                      type="submit"
+                      radius={"xl"}
+                      size="xs"
+                    >
+                      Posting
+                    </Button>
+                  )}
                 </div>
               </div>
             </div>

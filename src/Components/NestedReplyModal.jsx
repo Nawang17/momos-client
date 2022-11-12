@@ -174,6 +174,7 @@ export default function NestedReplyModal({
                   <Divider orientation="vertical" />
 
                   <Button
+                    disabled={text.length === 0}
                     loading={loading}
                     type="submit"
                     radius={"xl"}

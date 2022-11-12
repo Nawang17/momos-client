@@ -267,6 +267,7 @@ export const Post = ({ post, setPosts }) => {
                 />
               ) : (
                 <video
+                  poster={post?.image.slice(0, -3) + "jpg"}
                   // preload="none"
                   style={{ width: "100%", height: "auto" }}
                   controls

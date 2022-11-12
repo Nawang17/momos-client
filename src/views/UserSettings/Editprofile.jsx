@@ -198,7 +198,7 @@ export const Editprofile = () => {
           </div>{" "}
           <Input.Wrapper label="Username">
             <Input
-              disabled={username === "Demo" ? true : false}
+              disabled={UserInfo?.username === "Demo" ? true : false}
               value={username}
               onChange={(e) => {
                 seterror("");

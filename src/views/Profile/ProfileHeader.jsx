@@ -170,10 +170,7 @@ export const ProfileHeader = ({ profileInfo }) => {
               src={profileInfo.avatar}
               alt=""
             />
-
-            <>
-              {UserInfo?.username === profileInfo.username ? (
-                <Button
+            {/* <Button
                   onClick={() => {
                     navigate("/editprofile");
                   }}
@@ -182,7 +179,10 @@ export const ProfileHeader = ({ profileInfo }) => {
                   size="xs"
                 >
                   Edit profile
-                </Button>
+                </Button> */}
+            <>
+              {UserInfo?.username === profileInfo.username ? (
+                <></>
               ) : followingdata?.includes(profileInfo?.username) ? (
                 <Button
                   loading={btndisabled}

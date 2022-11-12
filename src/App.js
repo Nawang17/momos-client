@@ -13,6 +13,7 @@ import { AuthContext } from "./context/Auth";
 import { LoginStatus } from "./api/AUTH";
 import { showNotification } from "@mantine/notifications";
 import { likedPosts, suggestedusersreq } from "./api/GET";
+import { Editprofile } from "./views/UserSettings/Editprofile";
 function App() {
   const [UserInfo, setUserInfo] = useState(null);
   const [likedpostIds, setLikedpostIds] = useState([]);
@@ -77,6 +78,16 @@ function App() {
         <>
           <Navbar />
           <Profile />
+        </>
+      ),
+      errorElement: <RouteError />,
+    },
+    {
+      path: "/editprofile",
+      element: (
+        <>
+          <Navbar />
+          <Editprofile />
         </>
       ),
       errorElement: <RouteError />,

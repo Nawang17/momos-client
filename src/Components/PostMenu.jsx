@@ -144,7 +144,7 @@ export function PostMenu({ postinfo, setPosts }) {
           <Menu.Item
             onClick={() => {
               navigator.clipboard.writeText(
-                `https://momoss.ga/post/${postinfo?.id}`
+                `https://momosz.com/post/${postinfo?.id}`
               );
               showNotification({
                 title: "Link copied to clipboard",
@@ -160,7 +160,7 @@ export function PostMenu({ postinfo, setPosts }) {
               if (navigator.share) {
                 navigator.share({
                   title: "Share Post",
-                  url: `https://momoss.ga/post/${postinfo?.id}`,
+                  url: `https://momosz.com/post/${postinfo?.id}`,
                 });
               }
             }}

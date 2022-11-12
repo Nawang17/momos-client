@@ -100,12 +100,12 @@ export function Register() {
           align="center"
           sx={(theme) => ({
             fontFamily: `Greycliff CF, ${theme.fontFamily}`,
-            fontWeight: 900,
+            fontWeight: 700,
           })}
         >
-          Welcome to momos!
+          Welcome to Momos 🥟
         </Title>
-        <Text color="dimmed" size="sm" align="center" mt={5}>
+        <Text size="sm" align="center" mt={5}>
           Already have an account?{" "}
           <Link
             style={{ textDecoration: "none", color: "#1c7ed6" }}

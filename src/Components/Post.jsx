@@ -9,7 +9,9 @@ import { showNotification } from "@mantine/notifications";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import locale from "date-fns/locale/en-US";
 import { useState } from "react";
+import * as linkify from "linkifyjs";
 import Linkify from "react-linkify";
+import "linkify-plugin-mention";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -62,6 +64,7 @@ const useStyles = createStyles(() => ({
     cursor: "pointer",
   },
 }));
+//todo: complete edit profile and fix @mentions not working
 export const Post = ({ post, setPosts }) => {
   const formatDistanceLocale = {
     lessThanXSeconds: "{{count}}s",
@@ -80,6 +83,14 @@ export const Post = ({ post, setPosts }) => {
     xYears: "{{count}}y",
     overXYears: "{{count}}y",
     almostXYears: "{{count}}y",
+  };
+  const renderLink = ({ attributes, content }) => {
+    const { href, ...props } = attributes;
+    return (
+      <Link to={href} {...props}>
+        {content}
+      </Link>
+    );
   };
 
   function formatDistance(token, count, options) {
@@ -101,7 +112,11 @@ export const Post = ({ post, setPosts }) => {
   const navigate = useNavigate();
   const [opened, setOpened] = useState(false);
   const [viewimg, setviewimg] = useState("");
-
+  const options = {
+    formatHref: {
+      mention: (href) => "https://example.com/profiles" + href,
+    },
+  };
   const { likedpostIds, setLikedpostIds, UserInfo } = useContext(AuthContext);
   const handleLike = () => {
     if (!UserInfo) {
@@ -214,23 +229,52 @@ export const Post = ({ post, setPosts }) => {
           {post.text && (
             <div className={classes.body}>
               <Text size="15px">
-                <Linkify>{post?.text}</Linkify>
+                <Linkify
+                  options={{
+                    render: {
+                      url: ({ attributes, content }) => {
+                        return <a {...attributes}>{content}</a>;
+                      },
+                      mention: ({ attributes, content }) => {
+                        const { href, ...props } = attributes;
+                        return (
+                          <Link to={href} {...props}>
+                            {content}
+                          </Link>
+                        );
+                      },
+                    },
+                  }}
+                >
+                  {post?.text}
+                </Linkify>
               </Text>
             </div>
           )}
 
           {post.image && (
             <div>
-              <img
-                onClick={() => {
-                  setviewimg(post?.image);
-                  setOpened(true);
-                }}
-                loading="lazy"
-                className={classes.image}
-                src={post?.image}
-                alt=""
-              />
+              {post?.filetype === "image" ? (
+                <img
+                  onClick={() => {
+                    setviewimg(post?.image);
+                    setOpened(true);
+                  }}
+                  loading="lazy"
+                  className={classes.image}
+                  src={post?.image}
+                  alt=""
+                />
+              ) : (
+                <video
+                  // preload="none"
+                  style={{ width: "100%", height: "auto" }}
+                  controls
+                >
+                  <source src={post?.image} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              )}
             </div>
           )}
 

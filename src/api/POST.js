@@ -1,11 +1,12 @@
 import { api } from "./config";
 
-export const AddNewPost = async (text, imageblob) => {
+export const AddNewPost = async (text, imageblob, filetype) => {
   return await api.post(
     "/newpost",
     {
       text: text,
       imageblob: imageblob,
+      filetype: filetype,
     },
 
     {

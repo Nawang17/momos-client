@@ -76,7 +76,7 @@ export function Navbar() {
           style={{ textDecoration: "none", cursor: "pointer", color: "black" }}
           to="/"
         >
-          <Text size="xl" weight="800">
+          <Text size="xl" weight="700">
             momos
           </Text>
         </Link>
@@ -93,8 +93,7 @@ export function Navbar() {
                   <House size={28} color="black" />
                 </ActionIcon>
 
-               
-          {/* <ActionIcon>
+                {/* <ActionIcon>
                   <ChatCircleDots size={28} color="black" />
                 </ActionIcon>  */}
                 <Notis />

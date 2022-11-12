@@ -146,6 +146,7 @@ export const ProfileHeader = ({ profileInfo }) => {
   };
   const [opened, setOpened] = useState(false);
   const [modaltitle, setmodaltitle] = useState("");
+
   return (
     <>
       <div style={{ background: "white", padding: "1rem 0rem 0rem 1rem" }}>
@@ -169,14 +170,22 @@ export const ProfileHeader = ({ profileInfo }) => {
               src={profileInfo.avatar}
               alt=""
             />
+            {/* <Button
+                  onClick={() => {
+                    navigate("/editprofile");
+                  }}
+                  variant="default"
+                  radius={"xl"}
+                  size="xs"
+                >
+                  Edit profile
+                </Button> */}
             <>
               {UserInfo?.username === profileInfo.username ? (
-                <Button variant="default" radius={"xl"} size="xs">
-                  Edit profile
-                </Button>
+                <></>
               ) : followingdata?.includes(profileInfo?.username) ? (
                 <Button
-                  disabled={btndisabled}
+                  loading={btndisabled}
                   variant="default"
                   onClick={() => {
                     setunfollowconfirm(true);
@@ -188,7 +197,7 @@ export const ProfileHeader = ({ profileInfo }) => {
                 </Button>
               ) : (
                 <Button
-                  disabled={btndisabled}
+                  loading={btndisabled}
                   onClick={() => {
                     handlefollow();
                   }}
@@ -254,19 +263,6 @@ export const ProfileHeader = ({ profileInfo }) => {
                 style={{ cursor: "pointer" }}
                 onClick={() => {
                   setOpened(true);
-                  setmodaltitle("Followers");
-                }}
-                size="15px"
-              >
-                <span style={{ fontWeight: "500" }}>{followers.length}</span>{" "}
-                <span style={{ color: "#536471", fontSize: "14px" }}>
-                  Followers
-                </span>
-              </Text>
-              <Text
-                style={{ cursor: "pointer" }}
-                onClick={() => {
-                  setOpened(true);
                   setmodaltitle("Following");
                 }}
                 size="15px"
@@ -274,6 +270,19 @@ export const ProfileHeader = ({ profileInfo }) => {
                 <span style={{ fontWeight: "500" }}>{following.length}</span>{" "}
                 <span style={{ color: "#536471", fontSize: "14px" }}>
                   Following
+                </span>
+              </Text>
+              <Text
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  setOpened(true);
+                  setmodaltitle("Followers");
+                }}
+                size="15px"
+              >
+                <span style={{ fontWeight: "500" }}>{followers.length}</span>{" "}
+                <span style={{ color: "#536471", fontSize: "14px" }}>
+                  Followers
                 </span>
               </Text>
             </div>
@@ -318,6 +327,7 @@ export const ProfileHeader = ({ profileInfo }) => {
       )}
 
       <Modal
+        size="sm"
         overflow="inside"
         opened={opened}
         onClose={() => setOpened(false)}

@@ -15,13 +15,30 @@ export default function CreatePostModal({
   const [error, setError] = useState("");
   const [text, settext] = useState("");
   const [loading, setloading] = useState(false);
+  const [filetype, setfiletype] = useState("");
+  const maxallowdsize = 41 * 1024 * 1024; //41mb
   const handleflieInputChange = (e) => {
+    setError("");
+    setPreviewSource("");
     const file = e.target.files[0];
-    previewFile(file);
+
+    if (file.size > maxallowdsize) {
+      setError("File size is too big. Max allowed size is 41MB");
+    } else {
+      if (file.type.match("image.*")) {
+        setfiletype("image");
+      }
+
+      if (file.type.match("video.*")) {
+        setfiletype("video");
+      }
+      previewFile(file);
+    }
   };
   const previewFile = (file) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
+
     reader.onloadend = () => {
       setPreviewSource(reader.result);
     };
@@ -33,12 +50,13 @@ export default function CreatePostModal({
     setloading(false);
     setError("");
     setFileInputState("");
+    setfiletype("");
   };
   const handleSubmit = (e) => {
     setloading(true);
     setError("");
     e.preventDefault();
-    AddNewPost(text, previewSource)
+    AddNewPost(text, previewSource, filetype)
       .then((res) => {
         closemodal();
         setHomePosts((prev) => [res.data.newpost, ...prev]);
@@ -109,6 +127,23 @@ export default function CreatePostModal({
                 minRows={2}
                 maxRows={14}
               />
+              {filetype === "video" && previewSource && (
+                <span
+                  onClick={() => {
+                    setFileInputState("");
+
+                    setPreviewSource("");
+                  }}
+                  style={{
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                  }}
+                >
+                  <XCircle size={25} /> Remove video
+                </span>
+              )}
 
               {/* image preview */}
               {previewSource && (
@@ -121,27 +156,38 @@ export default function CreatePostModal({
                     display: "inline-block",
                   }}
                 >
-                  <span
-                    onClick={() => {
-                      setFileInputState("");
+                  {filetype !== "video" && (
+                    <span
+                      onClick={(e) => {
+                        setFileInputState("");
 
-                      setPreviewSource("");
-                    }}
-                    style={{
-                      position: "absolute",
-                      left: "5px",
-                      top: "14px",
-                    }}
-                  >
-                    <XCircle size={25} />
-                  </span>
-                  <img
-                    style={{ width: "100%", height: "auto" }}
-                    src={previewSource}
-                    alt=""
-                  />
+                        setPreviewSource("");
+                      }}
+                      style={{
+                        position: "absolute",
+                        left: "5px",
+                        top: "14px",
+                      }}
+                    >
+                      <XCircle size={25} />
+                    </span>
+                  )}
+
+                  {previewSource && filetype === "image" ? (
+                    <img
+                      style={{ width: "100%", height: "auto" }}
+                      src={previewSource}
+                      alt=""
+                    />
+                  ) : (
+                    <video style={{ width: "100%", height: "auto" }} controls>
+                      <source src={previewSource} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  )}
                 </div>
               )}
+
               <Divider my="xs" color={"#E1E8ED"} />
 
               <div
@@ -164,7 +210,7 @@ export default function CreatePostModal({
                     </div>
                     <input
                       value={flieInputState}
-                      accept="image/*"
+                      accept="image/* video/*"
                       type="file"
                       onChange={handleflieInputChange}
                     />
@@ -178,12 +224,12 @@ export default function CreatePostModal({
                   <Divider orientation="vertical" />
 
                   <Button
-                    disabled={loading}
+                    loading={loading}
                     type="submit"
                     radius={"xl"}
                     size="xs"
                   >
-                    Post
+                    {!loading ? "Post" : "Posting"}
                   </Button>
                 </div>
               </div>

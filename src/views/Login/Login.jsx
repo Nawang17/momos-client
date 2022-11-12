@@ -134,18 +134,18 @@ export function Login() {
           align="center"
           sx={(theme) => ({
             fontFamily: `Greycliff CF, ${theme.fontFamily}`,
-            fontWeight: 900,
+            fontWeight: 700,
           })}
         >
-          Welcome back!
+          Welcome to Momos 🥟
         </Title>
-        <Text color="dimmed" size="sm" align="center" mt={5}>
-          Do not have an account yet?{" "}
+        <Text size="sm" align="center" mt={5}>
+          Do not have an account?{" "}
           <Link
             style={{ textDecoration: "none", color: "#1c7ed6" }}
             to="/Register"
           >
-            <span>Create account</span>
+            <span>Register</span>
           </Link>
         </Text>
 

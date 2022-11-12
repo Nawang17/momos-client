@@ -11,9 +11,11 @@ import {
 import { Sidebar } from "../../Components/Sidebar";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { showNotification } from "@mantine/notifications";
-import { ArrowLeft } from "phosphor-react";
+import { ArrowLeft, CircleWavyCheck } from "phosphor-react";
 import { editprofileinfo } from "../../api/GET";
 import { updateprofileinfo } from "../../api/UPDATE";
+import { useContext } from "react";
+import { AuthContext } from "../../context/Auth";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -41,7 +43,10 @@ export const Editprofile = () => {
   const [avatar, setavatar] = useState("");
   const [profileinfo, setprofileinfo] = useState({});
   const [newavatar, setnewavatar] = useState("");
+  const { setUserInfo, UserInfo } = useContext(AuthContext);
+  const [error, seterror] = useState("");
   const handleflieInputChange = (e) => {
+    seterror("");
     setbtndisabled(false);
     const file = e.target.files[0];
     previewFile(file);
@@ -57,23 +62,20 @@ export const Editprofile = () => {
   const handleSave = () => {
     setbtndisabled(true);
     updateprofileinfo(username, newavatar, description)
-      .then((res) => {})
+      .then((res) => {
+        setUserInfo(res.data.newUserInfo);
+        showNotification({
+          message: "Your profile has been updated",
+          color: "teal",
+        });
+        navigate(`/${res.data.newUserInfo.username}`);
+      })
       .catch((err) => {
         setbtndisabled(false);
         if (err.response.status === 0) {
-          showNotification({
-            color: "red",
-            title: "Internal Server Error",
-
-            autoClose: 7000,
-          });
+          seterror("Internal Server Error");
         } else {
-          showNotification({
-            color: "red",
-            title: "Error",
-            message: err.response.data.message,
-            autoClose: 7000,
-          });
+          seterror(err.response.data);
         }
       });
   };
@@ -85,6 +87,9 @@ export const Editprofile = () => {
     setnewavatar("");
   };
   useEffect(() => {
+    if (!UserInfo) {
+      navigate("/");
+    }
     editprofileinfo()
       .then((res) => {
         setUsername(res.data.userInfo.username);
@@ -128,6 +133,7 @@ export const Editprofile = () => {
           <Text weight={"500"}>Edit profile</Text>
           <div></div>
         </div>
+
         <div
           style={{
             display: "flex",
@@ -137,6 +143,9 @@ export const Editprofile = () => {
             padding: "3rem",
           }}
         >
+          <Text weight={"500"} size={"md"} color={"red"}>
+            {error}
+          </Text>
           <div
             style={{
               display: "flex",
@@ -155,7 +164,15 @@ export const Editprofile = () => {
               alt=""
             />
             <div>
-              <Text>katoph</Text>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "0.2rem" }}
+              >
+                <Text>{username}</Text>
+                {profileinfo.verified && (
+                  <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
+                )}
+              </div>
+
               <span className="upload-btn-wrapper">
                 <div
                   style={{
@@ -181,8 +198,10 @@ export const Editprofile = () => {
           </div>{" "}
           <Input.Wrapper label="Username">
             <Input
+              disabled={username === "Demo" ? true : false}
               value={username}
               onChange={(e) => {
+                seterror("");
                 setUsername(e.target.value);
                 setbtndisabled(false);
               }}
@@ -192,6 +211,7 @@ export const Editprofile = () => {
             <Textarea
               value={description}
               onChange={(e) => {
+                seterror("");
                 setDescription(e.target.value);
                 setbtndisabled(false);
               }}
@@ -201,7 +221,7 @@ export const Editprofile = () => {
               maxLength={160}
             />
             <Text style={{ paddingTop: "5px" }} variant="dimmed" size={"xs"}>
-              {description.length} / 160
+              {description?.length} / 160
             </Text>
           </div>
           <div

@@ -9,7 +9,7 @@ import {
   Divider,
 } from "@mantine/core";
 import { Link } from "react-router-dom";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { GRegisterReq, RegisterReq } from "../../api/AUTH";
 import { showNotification } from "@mantine/notifications";
 import { useNavigate } from "react-router-dom";
@@ -19,11 +19,16 @@ import { AuthContext } from "../../context/Auth";
 
 export function Register() {
   const navigate = useNavigate();
-  const { setUserInfo } = useContext(AuthContext);
+  const { setUserInfo, UserInfo } = useContext(AuthContext);
   const [Username, setUsername] = useState("");
   const [Password, setPassword] = useState("");
   const [loading, setloading] = useState(false);
   const [error, seterror] = useState("");
+  useEffect(() => {
+    if (UserInfo) {
+      navigate("/");
+    }
+  }, []);
   const handleRegister = (e) => {
     setloading(true);
     seterror("");

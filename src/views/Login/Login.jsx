@@ -17,10 +17,11 @@ import { showNotification } from "@mantine/notifications";
 import { AuthContext } from "../../context/Auth";
 import { useNavigate } from "react-router-dom";
 import { likedPosts } from "../../api/GET";
+import { useEffect } from "react";
 // import GoogleLogin from "react-google-login";
 
 export function Login() {
-  const { setUserInfo, setLikedpostIds, setfollowingdata } =
+  const { setUserInfo, UserInfo, setLikedpostIds, setfollowingdata } =
     useContext(AuthContext);
   const navigate = useNavigate();
   const [Username, setUsername] = useState("");
@@ -28,6 +29,12 @@ export function Login() {
   const [loading, setloading] = useState(false);
   const [error, seterror] = useState("");
   const [stayloggedin, setstayloggedin] = useState(false);
+
+  useEffect(() => {
+    if (UserInfo) {
+      navigate("/");
+    }
+  }, []);
   const handlelogin = async (e) => {
     setloading(true);
     seterror("");

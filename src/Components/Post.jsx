@@ -1,7 +1,7 @@
 import { createStyles, Modal, Text } from "@mantine/core";
 import { ChatCircle, CircleWavyCheck, Heart } from "phosphor-react";
 import { PostMenu } from "./PostMenu";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/Auth";
 import { likePost } from "../api/POST";
@@ -9,7 +9,6 @@ import { showNotification } from "@mantine/notifications";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import locale from "date-fns/locale/en-US";
 import { useState } from "react";
-import * as linkify from "linkifyjs";
 import Linkify from "react-linkify";
 import "linkify-plugin-mention";
 const useStyles = createStyles(() => ({
@@ -90,14 +89,6 @@ export const Post = ({ post, setPosts }) => {
     overXYears: "{{count}}y",
     almostXYears: "{{count}}y",
   };
-  const renderLink = ({ attributes, content }) => {
-    const { href, ...props } = attributes;
-    return (
-      <Link to={href} {...props}>
-        {content}
-      </Link>
-    );
-  };
 
   function formatDistance(token, count, options) {
     options = options || {};
@@ -118,11 +109,7 @@ export const Post = ({ post, setPosts }) => {
   const navigate = useNavigate();
   const [opened, setOpened] = useState(false);
   const [viewimg, setviewimg] = useState("");
-  const options = {
-    formatHref: {
-      mention: (href) => "https://example.com/profiles" + href,
-    },
-  };
+
   const { likedpostIds, setLikedpostIds, UserInfo } = useContext(AuthContext);
   const handleLike = () => {
     if (!UserInfo) {
@@ -235,25 +222,7 @@ export const Post = ({ post, setPosts }) => {
           {post.text && (
             <div className={classes.body}>
               <Text size="15px">
-                <Linkify
-                  options={{
-                    render: {
-                      url: ({ attributes, content }) => {
-                        return <a {...attributes}>{content}</a>;
-                      },
-                      mention: ({ attributes, content }) => {
-                        const { href, ...props } = attributes;
-                        return (
-                          <Link to={href} {...props}>
-                            {content}
-                          </Link>
-                        );
-                      },
-                    },
-                  }}
-                >
-                  {post?.text}
-                </Linkify>
+                <Linkify>{post?.text}</Linkify>
               </Text>
             </div>
           )}

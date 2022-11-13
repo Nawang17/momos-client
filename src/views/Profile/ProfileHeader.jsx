@@ -16,7 +16,7 @@ import format from "date-fns/format";
 import { profilefollowdata } from "../../api/GET";
 import { useParams } from "react-router-dom";
 import { showNotification } from "@mantine/notifications";
-
+import * as DOMPurify from "dompurify";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -49,6 +49,7 @@ export const ProfileHeader = ({ profileInfo }) => {
   const [loading, setloading] = useState(false);
   const [unfollowconfirm, setunfollowconfirm] = useState(false);
   const [btndisabled, setbtndisabled] = useState(false);
+  const sanitizer = DOMPurify.sanitize;
   useEffect(() => {
     setloading(true);
     profilefollowdata({
@@ -257,7 +258,14 @@ export const ProfileHeader = ({ profileInfo }) => {
                   whiteSpace: "pre-wrap",
                 }}
               >
-                <Text size="14px">{profileInfo?.description}</Text>
+                <div
+                  style={{
+                    fontSize: "14px",
+                  }}
+                  dangerouslySetInnerHTML={{
+                    __html: sanitizer(profileInfo?.description),
+                  }}
+                />
               </div>
             )}
             {profileInfo.createdAt && (

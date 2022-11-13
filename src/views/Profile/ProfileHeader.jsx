@@ -182,7 +182,18 @@ export const ProfileHeader = ({ profileInfo }) => {
                 </Button> */}
             <>
               {UserInfo?.username === profileInfo.username ? (
-                <></>
+                <>
+                  <Button
+                    onClick={() => {
+                      navigate("/editprofile");
+                    }}
+                    variant="default"
+                    radius={"xl"}
+                    size="xs"
+                  >
+                    Edit profile
+                  </Button>
+                </>
               ) : followingdata?.includes(profileInfo?.username) ? (
                 <Button
                   loading={btndisabled}

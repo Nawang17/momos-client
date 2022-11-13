@@ -221,7 +221,13 @@ export const Post = ({ post, setPosts }) => {
             </div>
           </div>
           {post.text && (
-            <div className={classes.body}>
+            <div
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                navigate(`/post/${post.id}`);
+              }}
+              className={classes.body}
+            >
               <Text size="15px">
                 <Linkify>{post?.text}</Linkify>
               </Text>

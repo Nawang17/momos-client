@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../App.css";
 import CreatePostModal from "./CreatePostModal";
 const CreatePost = ({ setHomePosts, UserInfo }) => {
   const [opened, setOpened] = useState(false);
-
+  const navigate = useNavigate();
   return (
     <>
       <div
@@ -21,7 +22,15 @@ const CreatePost = ({ setHomePosts, UserInfo }) => {
           }}
         >
           <img
-            style={{ width: "40px", height: "40px", borderRadius: "50%" }}
+            onClick={() => {
+              navigate(`/${UserInfo?.username}`);
+            }}
+            style={{
+              width: "40px",
+              height: "40px",
+              borderRadius: "50%",
+              cursor: "pointer",
+            }}
             src={UserInfo.avatar}
             alt=""
           />

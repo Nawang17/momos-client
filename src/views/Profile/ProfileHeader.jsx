@@ -263,7 +263,21 @@ export const ProfileHeader = ({ profileInfo }) => {
                     fontSize: "14px",
                   }}
                   dangerouslySetInnerHTML={{
-                    __html: sanitizer(profileInfo?.description),
+                    __html: sanitizer(profileInfo?.description, {
+                      FORBID_ATTR: ["style"],
+                      FORBID_TAGS: [
+                        "img",
+                        "h1",
+                        "h2",
+                        "h3",
+                        "h4",
+                        "h5",
+                        "h6",
+                        "style",
+                        "p",
+                        "div",
+                      ],
+                    }),
                   }}
                 />
               </div>

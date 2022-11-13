@@ -1,16 +1,51 @@
 import { useState } from "react";
 import { Modal, Textarea, Group, Divider, Button, Text } from "@mantine/core";
-import { ImageSquare, X, XCircle } from "phosphor-react";
+import { CircleWavyCheck, ImageSquare, X, XCircle } from "phosphor-react";
 import { AddNewPost } from "../api/POST";
 import { showNotification } from "@mantine/notifications";
+import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
+import locale from "date-fns/locale/en-US";
 export default function CreatePostModal({
   opened,
   setOpened,
   setHomePosts,
   UserInfo,
+  quotepostinfo,
 }) {
-  const [flieInputState, setFileInputState] = useState("");
+  const formatDistanceLocale = {
+    lessThanXSeconds: "{{count}}s",
+    xSeconds: "{{count}}s",
+    halfAMinute: "30s",
+    lessThanXMinutes: "{{count}}m",
+    xMinutes: "{{count}}m",
+    aboutXHours: "{{count}}h",
+    xHours: "{{count}}h",
+    xDays: "{{count}}d",
+    aboutXWeeks: "{{count}}w",
+    xWeeks: "{{count}}w",
+    aboutXMonths: "{{count}}m",
+    xMonths: "{{count}}m",
+    aboutXYears: "{{count}}y",
+    xYears: "{{count}}y",
+    overXYears: "{{count}}y",
+    almostXYears: "{{count}}y",
+  };
+  function formatDistance(token, count, options) {
+    options = options || {};
 
+    const result = formatDistanceLocale[token].replace("{{count}}", count);
+
+    if (options.addSuffix) {
+      if (options.comparison > 0) {
+        return "in " + result;
+      } else {
+        return result + " ago";
+      }
+    }
+
+    return result;
+  }
+  const [flieInputState, setFileInputState] = useState("");
   const [previewSource, setPreviewSource] = useState("");
   const [error, setError] = useState("");
   const [text, settext] = useState("");
@@ -57,7 +92,7 @@ export default function CreatePostModal({
     setloading(true);
     setError("");
     e.preventDefault();
-    AddNewPost(text, previewSource, filetype)
+    AddNewPost(text, previewSource, filetype, quotepostinfo?.id)
       .then((res) => {
         closemodal();
         setHomePosts((prev) => [res.data.newpost, ...prev]);
@@ -106,7 +141,7 @@ export default function CreatePostModal({
           >
             <img
               style={{ width: "40px", height: "40px", borderRadius: "50%" }}
-              src={UserInfo.avatar}
+              src={UserInfo?.avatar}
               alt=""
             />
             <div
@@ -123,12 +158,11 @@ export default function CreatePostModal({
                 }}
                 maxLength={255}
                 variant="unstyled"
-                placeholder={`What's on your mind, ${UserInfo.username}?`}
+                placeholder={`What's on your mind, ${UserInfo?.username}?`}
                 autosize
                 minRows={2}
                 maxRows={14}
               />
-
               {/* image preview */}
               {previewSource && (
                 <div
@@ -190,6 +224,111 @@ export default function CreatePostModal({
                         <source src={previewSource} type="video/mp4" />
                         Your browser does not support the video tag.
                       </video>
+                    </>
+                  )}
+                </div>
+              )}
+              {quotepostinfo && (
+                <div
+                  style={{
+                    cursor: "pointer",
+                    fontSize: "0.9rem",
+
+                    border: "1px solid #e6ecf0",
+                    display: "flex",
+                    flexDirection: "column",
+                    paddingBottom: !quotepostinfo.image ? "0.7rem" : "0",
+                    gap: "0.5rem",
+                    borderRadius: "0.5rem",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "0.3rem",
+                      alignItems: "flex-end",
+                      padding: "0.7rem 0.7rem 0 0.7rem",
+                    }}
+                  >
+                    <img
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        borderRadius: "50%",
+                      }}
+                      src={quotepostinfo?.user?.avatar}
+                      alt=""
+                    />
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "0.2rem",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Text weight={500}> {quotepostinfo?.user?.username}</Text>
+                      {quotepostinfo?.user.verified && (
+                        <CircleWavyCheck
+                          size={14}
+                          color="#0ba6da"
+                          weight="fill"
+                        />
+                      )}
+                    </div>
+                    <Text color={"dimmed"}>·</Text>
+                    <Text color={"dimmed"}>
+                      {" "}
+                      {formatDistanceToNowStrict(
+                        new Date(quotepostinfo?.createdAt),
+                        {
+                          locale: {
+                            ...locale,
+                            formatDistance,
+                          },
+                        }
+                      )}
+                    </Text>
+                  </div>
+                  {quotepostinfo?.text && (
+                    <Text
+                      style={{
+                        wordBreak: "break-word",
+                        whiteSpace: "pre-wrap",
+                        padding: "0 0.7rem 0 0.7rem",
+                      }}
+                    >
+                      {quotepostinfo?.text}
+                    </Text>
+                  )}
+
+                  {quotepostinfo?.image && (
+                    <>
+                      {quotepostinfo?.filetype === "image" ? (
+                        <img
+                          style={{
+                            width: "100%",
+                            height: "auto",
+                            borderRadius: "0 0 0.5rem 0.5rem",
+                          }}
+                          loading="lazy"
+                          src={quotepostinfo?.image}
+                          alt=""
+                        />
+                      ) : (
+                        <video
+                          poster={quotepostinfo?.image.slice(0, -3) + "jpg"}
+                          // preload="none"
+                          style={{
+                            width: "100%",
+                            height: "auto",
+                            borderRadius: "0 0 0.5rem 0.5rem",
+                          }}
+                          controls
+                        >
+                          <source src={quotepostinfo?.image} type="video/mp4" />
+                          Your browser does not support the video tag.
+                        </video>
+                      )}
                     </>
                   )}
                 </div>

@@ -5,6 +5,7 @@ import {
   CopySimple,
   DotsThree,
   Export,
+  Quotes,
   Trash,
   UserMinus,
   UserPlus,
@@ -14,12 +15,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { deletePost } from "../api/DELETE";
 import { follow } from "../api/POST";
 import { AuthContext } from "../context/Auth";
+import CreatePostModal from "./CreatePostModal";
 export function PostMenu({ postinfo, setPosts }) {
   const { UserInfo, followingdata, setfollowingdata } = useContext(AuthContext);
   const [opened, setOpened] = useState(false);
   const navigate = useNavigate();
   const { pathname } = useLocation();
-
+  const [openConfirm, setOpenConfirm] = useState(false);
   const handlePostDelete = () => {
     setOpened(false);
     deletePost({ postid: postinfo?.id })
@@ -102,6 +104,14 @@ export function PostMenu({ postinfo, setPosts }) {
 
   return (
     <>
+      <CreatePostModal
+        opened={openConfirm}
+        setOpened={setOpenConfirm}
+        setHomePosts={setPosts}
+        UserInfo={UserInfo}
+        quotepostinfo={postinfo ? postinfo : null}
+      />
+
       <Menu position="bottom-end" shadow="md" width={200}>
         <Menu.Target>
           <DotsThree size={20} />
@@ -140,7 +150,21 @@ export function PostMenu({ postinfo, setPosts }) {
                 Follow {postinfo?.user.username}
               </Menu.Item>
             ))}
-
+          <Menu.Item
+            onClick={() => {
+              if (UserInfo) {
+                setOpenConfirm(true);
+              } else {
+                showNotification({
+                  title: "Please Login to quote a post",
+                  autoClose: 5000,
+                });
+              }
+            }}
+            icon={<Quotes size={14} />}
+          >
+            Quote Post
+          </Menu.Item>
           <Menu.Item
             onClick={() => {
               navigator.clipboard.writeText(

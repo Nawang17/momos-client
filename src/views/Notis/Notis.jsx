@@ -114,11 +114,23 @@ export default function Notis() {
                         height: "35px",
                         borderRadius: "50%",
                       }}
-                      src={data.user.avatar}
+                      src={data?.user?.avatar}
                       alt=""
                     />
                     <div>
-                      {" "}
+                      {data.type === "QUOTE" && (
+                        <Text size="14px">
+                          <span style={{ fontWeight: "500" }}>
+                            {" "}
+                            {`
+              ${data.user?.username} 
+`}
+                          </span>
+                          {`
+             quoted your post 
+`}
+                        </Text>
+                      )}
                       {data.type === "COMMENT" && (
                         <Text size="14px">
                           <span style={{ fontWeight: "500" }}>

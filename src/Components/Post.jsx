@@ -44,8 +44,9 @@ const useStyles = createStyles(() => ({
     borderRadius: "4px",
   },
   img: {
-    maxWidth: "100%",
-    borderRadius: "4px",
+    width: "100%",
+    height: "auto",
+    borderRadius: "8px",
   },
 
   body: {
@@ -236,11 +237,7 @@ export const Post = ({ post, setPosts }) => {
                     setOpened(true);
                   }}
                   loading="lazy"
-                  className={
-                    post?.image.slice(-3) === "gif"
-                      ? classes.gifimg
-                      : classes.img
-                  }
+                  className={classes.img}
                   src={post?.image}
                   alt=""
                 />
@@ -248,13 +245,138 @@ export const Post = ({ post, setPosts }) => {
                 <video
                   poster={post?.image.slice(0, -3) + "jpg"}
                   // preload="none"
-                  style={{ width: "100%", height: "auto" }}
+                  style={{ width: "100%", height: "auto", borderRadius: "8px" }}
                   controls
                 >
                   <source src={post?.image} type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
               )}
+            </div>
+          )}
+          {post.hasquote && post.post && (
+            <div
+              onClick={() => {
+                navigate(`/post/${post.post.id}`);
+              }}
+              style={{
+                cursor: "pointer",
+                fontSize: "0.9rem",
+
+                border: "1px solid #e6ecf0",
+                display: "flex",
+                flexDirection: "column",
+                paddingBottom: !post?.post.image ? "0.7rem" : "0",
+                gap: "0.5rem",
+                borderRadius: "0.5rem",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  gap: "0.3rem",
+                  alignItems: "flex-end",
+                  padding: "0.7rem 0.7rem 0 0.7rem",
+                }}
+              >
+                <img
+                  style={{
+                    width: "20px",
+                    height: "20px",
+                    borderRadius: "50%",
+                  }}
+                  src={post?.post.user?.avatar}
+                  alt=""
+                />
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "0.2rem",
+                    alignItems: "center",
+                  }}
+                >
+                  <Text weight={500}> {post?.post.user?.username}</Text>
+                  {post?.post.user.verified && (
+                    <CircleWavyCheck size={14} color="#0ba6da" weight="fill" />
+                  )}
+                </div>
+                <Text color={"dimmed"}>·</Text>
+                <Text color={"dimmed"}>
+                  {" "}
+                  {formatDistanceToNowStrict(new Date(post?.post.createdAt), {
+                    locale: {
+                      ...locale,
+                      formatDistance,
+                    },
+                  })}
+                </Text>
+              </div>
+              {post?.post.text && (
+                <Text
+                  style={{
+                    wordBreak: "break-word",
+                    whiteSpace: "pre-wrap",
+                    padding: "0 0.7rem 0 0.7rem",
+                  }}
+                >
+                  {post?.post.text}
+                </Text>
+              )}
+
+              {post?.post.image && (
+                <>
+                  {post?.post.filetype === "image" ? (
+                    <img
+                      style={{
+                        width: "100%",
+                        height: "auto",
+                        borderRadius: "0 0 0.5rem 0.5rem",
+                      }}
+                      loading="lazy"
+                      src={post?.post.image}
+                      alt=""
+                    />
+                  ) : (
+                    <video
+                      onClick={(e) => {
+                        e.stopPropagation();
+                      }}
+                      poster={post?.post.image.slice(0, -3) + "jpg"}
+                      // preload="none"
+                      style={{
+                        width: "100%",
+                        height: "auto",
+                        borderRadius: "0 0 0.5rem 0.5rem",
+                      }}
+                      controls
+                    >
+                      <source src={post?.post.image} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  )}
+                </>
+              )}
+            </div>
+          )}
+          {post.hasquote && !post.post && (
+            <div
+              style={{
+                backgroundColor: "#f5f8fa",
+                cursor: "pointer",
+                fontSize: "0.9rem",
+
+                border: "1px solid #e6ecf0",
+                display: "flex",
+
+                padding: "0.7rem",
+
+                borderRadius: "0.5rem",
+              }}
+            >
+              <Text color={"dimmed"}>
+                {" "}
+                This post was deleted by the author.
+              </Text>
             </div>
           )}
 

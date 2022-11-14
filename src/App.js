@@ -20,6 +20,13 @@ function App() {
   const [followingdata, setfollowingdata] = useState([]);
   const [suggestedUsers, setSuggestedusers] = useState([]);
   useEffect(() => {
+    console.log(`
+    ███╗   ███╗ ██████╗ ███╗   ███╗ ██████╗ ███████╗
+    ████╗ ████║██╔═══██╗████╗ ████║██╔═══██╗██╔════╝
+    ██╔████╔██║██║   ██║██╔████╔██║██║   ██║███████╗
+    ██║╚██╔╝██║██║   ██║██║╚██╔╝██║██║   ██║╚════██║
+    ██║ ╚═╝ ██║╚██████╔╝██║ ╚═╝ ██║╚██████╔╝███████║
+    ╚═╝     ╚═╝ ╚═════╝ ╚═╝     ╚═╝ ╚═════╝ ╚══════╝ `);
     LoginStatus()
       .then(async (res) => {
         await likedPosts().then((res) => {

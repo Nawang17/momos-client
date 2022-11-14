@@ -1,7 +1,7 @@
 import { api } from "./config";
 
-export const HomePosts = async () => {
-  return await api.get("/homeposts");
+export const HomePosts = async (page) => {
+  return await api.get(`/homeposts?page=${page}`);
 };
 
 export const profileinfo = async ({ username }) => {

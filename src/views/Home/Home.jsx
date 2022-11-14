@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { Container, createStyles } from "@mantine/core";
+import { Container, createStyles, Loader, Text } from "@mantine/core";
 import { PostFeed } from "../../Components/PostFeed";
 import { Sidebar } from "../../Components/Sidebar";
 import { useLocation } from "react-router-dom";
@@ -7,6 +7,7 @@ import CreatePost from "../../Components/CreatePost";
 import { HomePosts } from "../../api/GET";
 import { AuthContext } from "../../context/Auth";
 import { showNotification } from "@mantine/notifications";
+import InfiniteScroll from "react-infinite-scroll-component";
 const useStyles = createStyles(() => ({
   wrapper: {
     display: "flex",
@@ -28,14 +29,15 @@ export const Home = () => {
   const [homePosts, setHomePosts] = useState([]);
   const { UserInfo } = useContext(AuthContext);
   const [loading, setloading] = useState(true);
-
+  const [page, setpage] = useState(0);
+  const [postCount, setpostCount] = useState(0);
   useEffect(() => {
-    window.scrollTo(0, 0);
     setloading(true);
-    HomePosts()
+    HomePosts(0)
       .then((res) => {
         setHomePosts(res.data.homeposts);
         setloading(false);
+        setpostCount(res.data.postCount);
       })
       .catch((err) => {
         if (err.response.status === 0) {
@@ -53,7 +55,34 @@ export const Home = () => {
           });
         }
       });
-  }, [pathname]);
+  }, []);
+  const fetchMoreData = () => {
+    setpage((prev) => prev + 1);
+
+    HomePosts(page + 1)
+      .then((res) => {
+        setHomePosts((prev) => [...prev, ...res.data.homeposts]);
+        setpostCount(res.data.postCount);
+      })
+      .catch((err) => {
+        if (err.response.status === 0) {
+          showNotification({
+            color: "red",
+            title: "Internal Server Error",
+
+            autoClose: 7000,
+          });
+        } else {
+          showNotification({
+            color: "red",
+            title: err.response.data,
+            autoClose: 7000,
+          });
+        }
+      });
+    console.log("page:", page);
+  };
+
   return (
     <>
       <Container px={10} className={classes.wrapper}>
@@ -61,12 +90,23 @@ export const Home = () => {
           {UserInfo && (
             <CreatePost setHomePosts={setHomePosts} UserInfo={UserInfo} />
           )}
-
-          <PostFeed
-            setPosts={setHomePosts}
-            posts={homePosts}
-            loading={loading}
-          />
+          <InfiniteScroll
+            dataLength={homePosts.length}
+            next={fetchMoreData}
+            hasMore={postCount > homePosts.length}
+            loader={
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <Loader />
+              </div>
+            }
+            endMessage={<></>}
+          >
+            <PostFeed
+              setPosts={setHomePosts}
+              posts={homePosts}
+              loading={loading}
+            />
+          </InfiniteScroll>
         </div>
         <Sidebar />
       </Container>

@@ -11,7 +11,6 @@ const CreatePost = ({ setHomePosts, UserInfo }) => {
         style={{
           padding: "1rem",
           background: "white",
-          marginBottom: "0.5rem",
           borderRadius: "4px",
         }}
       >

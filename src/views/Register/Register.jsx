@@ -108,7 +108,7 @@ export function Register() {
             fontWeight: 700,
           })}
         >
-          Welcome to Momos 🥟
+          Welcome to Momos
         </Title>
         <Text size="sm" align="center" mt={5}>
           Already have an account?{" "}

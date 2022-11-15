@@ -111,7 +111,7 @@ export const Post = ({ post, setPosts }) => {
   const [opened, setOpened] = useState(false);
   const [viewimg, setviewimg] = useState("");
   const { likedpostIds, setLikedpostIds, UserInfo } = useContext(AuthContext);
-  const handleLike = () => {
+  const handleLike = async () => {
     if (!UserInfo) {
       showNotification({
         title: "Please login to like the post",
@@ -132,7 +132,7 @@ export const Post = ({ post, setPosts }) => {
           });
         });
       } else {
-        setLikedpostIds([...likedpostIds, post.id]);
+        setLikedpostIds((prev) => [...prev, post.id]);
         setPosts((prev) =>
           prev.map((p) => {
             if (p.id === post.id) {
@@ -147,22 +147,62 @@ export const Post = ({ post, setPosts }) => {
         );
       }
 
-      likePost({ postid: post.id, targetid: post.user.id }).catch((err) => {
-        if (err.response.status === 0) {
-          showNotification({
-            color: "red",
-            title: "Internal Server Error",
+      await likePost({ postid: post.id, targetid: post.user.id })
+        .then((res) => {
+          if (res.data.liked) {
+            if (likedpostIds.includes(post.id)) {
+              console.log("liking");
+              setPosts((prev) =>
+                prev.map((p) => {
+                  if (p.id === post.id) {
+                    return {
+                      ...p,
+                      likes: [...p.likes, 0],
+                    };
+                  }
+                  return p;
+                })
+              );
+              setLikedpostIds((prev) => {
+                return [...prev, post.id];
+              });
+            }
+          } else {
+            if (!likedpostIds.includes(post.id)) {
+              console.log("disliking");
+              setPosts((prev) =>
+                prev.map((p) => {
+                  if (p.id === post.id) {
+                    const likeaarr = p.likes;
+                    likeaarr.pop();
+                    return { ...p, likes: likeaarr };
+                  } else {
+                    return p;
+                  }
+                })
+              );
+              setLikedpostIds((prev) => {
+                return prev.filter((id) => id !== post.id);
+              });
+            }
+          }
+        })
+        .catch((err) => {
+          if (err.response.status === 0) {
+            showNotification({
+              color: "red",
+              title: "Internal Server Error",
 
-            autoClose: 7000,
-          });
-        } else {
-          showNotification({
-            color: "red",
-            title: err.response.data,
-            autoClose: 7000,
-          });
-        }
-      });
+              autoClose: 7000,
+            });
+          } else {
+            showNotification({
+              color: "red",
+              title: err.response.data,
+              autoClose: 7000,
+            });
+          }
+        });
     }
   };
 

@@ -1,13 +1,13 @@
 import { useEffect, useState, useContext } from "react";
-import { Container, createStyles, Loader, Text } from "@mantine/core";
+import { Container, createStyles, Divider, Loader } from "@mantine/core";
 import { PostFeed } from "../../Components/PostFeed";
 import { Sidebar } from "../../Components/Sidebar";
-import { useLocation } from "react-router-dom";
 import CreatePost from "../../Components/CreatePost";
 import { HomePosts } from "../../api/GET";
 import { AuthContext } from "../../context/Auth";
 import { showNotification } from "@mantine/notifications";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { SortMenu } from "./SortMenu";
 const useStyles = createStyles(() => ({
   wrapper: {
     display: "flex",
@@ -25,12 +25,12 @@ const useStyles = createStyles(() => ({
 }));
 export const Home = () => {
   const { classes } = useStyles();
-  const { pathname } = useLocation();
   const [homePosts, setHomePosts] = useState([]);
   const { UserInfo } = useContext(AuthContext);
   const [loading, setloading] = useState(true);
   const [page, setpage] = useState(0);
   const [postCount, setpostCount] = useState(0);
+  const [sortvalue, setsortvalue] = useState("Latest");
   useEffect(() => {
     setloading(true);
     HomePosts(0)
@@ -62,7 +62,6 @@ export const Home = () => {
     HomePosts(page + 1)
       .then((res) => {
         setHomePosts((prev) => [...prev, ...res.data.homeposts]);
-        setpostCount(res.data.postCount);
       })
       .catch((err) => {
         if (err.response.status === 0) {
@@ -80,7 +79,6 @@ export const Home = () => {
           });
         }
       });
-    console.log("page:", page);
   };
 
   return (
@@ -101,7 +99,18 @@ export const Home = () => {
             }
             endMessage={<></>}
           >
+            <Divider
+              my="xs"
+              labelPosition="right"
+              label={
+                <>
+                  <SortMenu sortvalue={sortvalue} setsortvalue={setsortvalue} />
+                </>
+              }
+            />
+
             <PostFeed
+              sortby={sortvalue}
               setPosts={setHomePosts}
               posts={homePosts}
               loading={loading}

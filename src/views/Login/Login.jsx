@@ -144,7 +144,7 @@ export function Login() {
             fontWeight: 700,
           })}
         >
-          Welcome to Momos 🥟
+          Welcome to Momos
         </Title>
         <Text size="sm" align="center" mt={5}>
           Do not have an account?{" "}

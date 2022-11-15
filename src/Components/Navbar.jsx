@@ -7,7 +7,7 @@ import {
   Text,
   ActionIcon,
 } from "@mantine/core";
-import { Link, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, s } from "react-router-dom";
 import { ChatCircleDots, House } from "phosphor-react";
 import { ProfileMenu } from "./ProfileMenu";
 import Notis from "../views/Notis/Notis";
@@ -68,18 +68,25 @@ export function Navbar() {
   const { UserInfo } = useContext(AuthContext);
   const { classes, cx } = useStyles();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   return (
     <Header height={60} mb={0} className={classes.root}>
       <Container className={classes.header}>
-        <Link
+        <div
           style={{ textDecoration: "none", cursor: "pointer", color: "black" }}
-          to="/"
+          onClick={() => {
+            if (pathname === "/") {
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            } else {
+              navigate("/");
+            }
+          }}
         >
           <Text size="xl" weight="700">
             momos
           </Text>
-        </Link>
+        </div>
         <Group spacing={5} className={classes.links}>
           {/* {items} */}
           <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
@@ -87,7 +94,11 @@ export function Navbar() {
               <>
                 <ActionIcon
                   onClick={() => {
-                    navigate("/");
+                    if (pathname === "/") {
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    } else {
+                      navigate("/");
+                    }
                   }}
                 >
                   <House size={28} color="black" />

@@ -9,15 +9,24 @@ const useStyles = createStyles(() => ({
     gap: "0.5rem",
   },
 }));
-export const PostFeed = ({ setPosts, posts, loading }) => {
+export const PostFeed = ({ setPosts, posts, loading, sortby }) => {
   const { classes } = useStyles();
 
   return (
     <div className={classes.wrapper}>
       {!loading
-        ? posts.map((post) => {
-            return <Post key={post.id} post={post} setPosts={setPosts} />;
-          })
+        ? posts
+            .sort((a, b) => {
+              if (sortby === "Latest") {
+                return b.id - a.id;
+              } else if (sortby === "Likes") {
+                return b.likes.length - a.likes.length;
+              }
+              return 0;
+            })
+            .map((post) => {
+              return <Post key={post.id} post={post} setPosts={setPosts} />;
+            })
         : new Array(6).fill(0).map((_, i) => {
             return (
               <div

@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.5",
+    "@leecheuk/react-google-login": "^5.4.1",
     "@mantine/core": "^5.7.1",
     "@mantine/ds": "^5.7.1",
     "@mantine/hooks": "^5.7.1",

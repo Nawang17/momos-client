@@ -15,7 +15,7 @@ import { showNotification } from "@mantine/notifications";
 import { useNavigate } from "react-router-dom";
 import confetti from "canvas-confetti";
 import { AuthContext } from "../../context/Auth";
-// import { GoogleLogin } from "react-google-login";
+import GoogleLogin from "@leecheuk/react-google-login";
 
 export function Register() {
   const navigate = useNavigate();
@@ -24,6 +24,7 @@ export function Register() {
   const [Password, setPassword] = useState("");
   const [loading, setloading] = useState(false);
   const [error, seterror] = useState("");
+  const [googleloading, setgoogleloading] = useState(false);
   useEffect(() => {
     if (UserInfo) {
       navigate("/");
@@ -60,6 +61,7 @@ export function Register() {
       });
   };
   const googleSuccess = (resp) => {
+    setgoogleloading(true);
     GRegisterReq(
       resp.profileObj.name,
       resp.profileObj.email,
@@ -96,6 +98,7 @@ export function Register() {
             autoClose: 7000,
           });
         }
+        setgoogleloading(false);
       });
   };
   return (
@@ -139,11 +142,11 @@ export function Register() {
               mt="md"
             />
 
-            <Button disabled={loading} type="submit" fullWidth mt="xl">
+            <Button loading={loading} type="submit" fullWidth mt="xl">
               Register
             </Button>
           </form>
-          {/* <Divider
+          <Divider
             style={{ marginTop: "15px" }}
             my="xs"
             label="OR"
@@ -160,6 +163,7 @@ export function Register() {
               clientId="933476491467-ou90tpjuc8gm4mbenn907d6jq4td1hkd.apps.googleusercontent.com"
               render={(renderProps) => (
                 <Button
+                  loading={googleloading}
                   onClick={renderProps.onClick}
                   disabled={renderProps.disabled}
                   style={{ width: "100%" }}
@@ -181,7 +185,7 @@ export function Register() {
               onFailure={(res) => console.log(res)}
               cookiePolicy={"single_host_origin"}
             />
-          </div> */}
+          </div>
         </Paper>
       </Container>
     </div>

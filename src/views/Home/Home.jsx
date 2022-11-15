@@ -88,7 +88,7 @@ export const Home = () => {
           {UserInfo && (
             <CreatePost setHomePosts={setHomePosts} UserInfo={UserInfo} />
           )}
-          {UserInfo && (
+          {/* {UserInfo && (
             <Divider
               my="xs"
               labelPosition="right"
@@ -98,7 +98,7 @@ export const Home = () => {
                 </>
               }
             />
-          )}
+          )} */}
 
           <InfiniteScroll
             dataLength={homePosts.length}

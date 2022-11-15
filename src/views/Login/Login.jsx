@@ -18,7 +18,7 @@ import { AuthContext } from "../../context/Auth";
 import { useNavigate } from "react-router-dom";
 import { likedPosts } from "../../api/GET";
 import { useEffect } from "react";
-// import GoogleLogin from "react-google-login";
+import GoogleLogin from "@leecheuk/react-google-login";
 
 export function Login() {
   const { setUserInfo, UserInfo, setLikedpostIds, setfollowingdata } =
@@ -28,7 +28,8 @@ export function Login() {
   const [Password, setPassword] = useState("");
   const [loading, setloading] = useState(false);
   const [error, seterror] = useState("");
-  const [stayloggedin, setstayloggedin] = useState(false);
+
+  const [googleloading, setgoogleloading] = useState(false);
 
   useEffect(() => {
     if (UserInfo) {
@@ -40,7 +41,7 @@ export function Login() {
     seterror("");
     e.preventDefault();
 
-    await LoginReq(Username, Password, stayloggedin)
+    await LoginReq(Username, Password, true)
       .then(async (res) => {
         setUserInfo(res.data.user);
         localStorage.setItem("token", res.data.token);
@@ -71,7 +72,7 @@ export function Login() {
     setloading(true);
     seterror("");
 
-    await LoginReq("Demo", "demo", stayloggedin)
+    await LoginReq("Demo", "demo", false)
       .then(async (res) => {
         setUserInfo(res.data.user);
         localStorage.setItem("token", res.data.token);
@@ -99,21 +100,21 @@ export function Login() {
       });
   };
   const googleSuccess = (resp) => {
+    setgoogleloading(true);
     GLoginReq(resp.profileObj.name, resp.profileObj.email)
-      .then((res) => {
+      .then(async (res) => {
         setUserInfo(res.data.user);
         localStorage.setItem("token", res.data.token);
-        likedPosts().then((res) => {
+        await likedPosts().then((res) => {
           setLikedpostIds(res.data.likedposts);
         });
         navigate("/");
-
         showNotification({
           title: "Login Successful",
           message: `Welcome back to momos, ${res.data.user.username}`,
           autoClose: 5000,
         });
-        LoginStatus().then((resp) => {
+        await LoginStatus().then((resp) => {
           setfollowingdata(resp.data.userfollowingarr);
         });
       })
@@ -132,6 +133,7 @@ export function Login() {
             autoClose: 7000,
           });
         }
+        setgoogleloading(false);
       });
   };
   return (
@@ -155,7 +157,6 @@ export function Login() {
             <span>Register</span>
           </Link>
         </Text>
-
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
           <Text weight={"500"} color={"red"} size="sm">
             {error}
@@ -183,17 +184,8 @@ export function Login() {
               mt="md"
               autoComplete="current-password"
             />
-            <Group position="apart" mt="md">
-              <Checkbox
-                checked={stayloggedin}
-                onChange={(e) => {
-                  setstayloggedin(e.target.checked);
-                }}
-                label="Stay logged in"
-              />
-            </Group>
 
-            <Button disabled={loading} type="submit" fullWidth mt="xl">
+            <Button loading={loading} type="submit" fullWidth mt="xl">
               Login
             </Button>
           </form>
@@ -204,23 +196,12 @@ export function Login() {
             label="OR"
             labelPosition="center"
           />
-          <Button
-            variant="outline"
-            onClick={() => {
-              setPassword("demo");
-              setUsername("Demo");
-              demologin();
-            }}
-            disabled={loading}
-            fullWidth
-            mt="xl"
-          >
-            Try Demo account
-          </Button>
-          {/* <GoogleLogin
+
+          <GoogleLogin
             clientId="933476491467-ou90tpjuc8gm4mbenn907d6jq4td1hkd.apps.googleusercontent.com"
             render={(renderProps) => (
               <Button
+                loading={googleloading}
                 onClick={renderProps.onClick}
                 disabled={renderProps.disabled}
                 style={{ width: "100%" }}
@@ -241,7 +222,21 @@ export function Login() {
             onSuccess={(res) => googleSuccess(res)}
             onFailure={(res) => console.log(res)}
             cookiePolicy={"single_host_origin"}
-          /> */}
+          />
+          <Button
+            style={{ marginTop: "15px" }}
+            onClick={() => {
+              setPassword("demo");
+              setUsername("Demo");
+              demologin();
+            }}
+            variant="default"
+            color="gray"
+            fullWidth
+            mt="xl"
+          >
+            Try Demo account
+          </Button>
         </Paper>
       </Container>
     </div>

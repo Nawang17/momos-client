@@ -88,6 +88,18 @@ export const Home = () => {
           {UserInfo && (
             <CreatePost setHomePosts={setHomePosts} UserInfo={UserInfo} />
           )}
+          {UserInfo && (
+            <Divider
+              my="xs"
+              labelPosition="right"
+              label={
+                <>
+                  <SortMenu sortvalue={sortvalue} setsortvalue={setsortvalue} />
+                </>
+              }
+            />
+          )}
+
           <InfiniteScroll
             dataLength={homePosts.length}
             next={fetchMoreData}
@@ -99,16 +111,6 @@ export const Home = () => {
             }
             endMessage={<></>}
           >
-            <Divider
-              my="xs"
-              labelPosition="right"
-              label={
-                <>
-                  <SortMenu sortvalue={sortvalue} setsortvalue={setsortvalue} />
-                </>
-              }
-            />
-
             <PostFeed
               sortby={sortvalue}
               setPosts={setHomePosts}

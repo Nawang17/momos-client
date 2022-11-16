@@ -92,13 +92,20 @@ export const Sidebar = () => {
                     <Text weight={500} size="15px">
                       {val.username}
                     </Text>
-                    {val.verified && (
-                      <CircleWavyCheck
-                        size={17}
-                        color="#0ba6da"
-                        weight="fill"
-                      />
-                    )}
+                    {val.verified &&
+                      (val?.id !== 5 ? (
+                        <CircleWavyCheck
+                          size={17}
+                          color="#008000"
+                          weight="fill"
+                        />
+                      ) : (
+                        <CircleWavyCheck
+                          size={17}
+                          color="#0ba6da"
+                          weight="fill"
+                        />
+                      ))}
                   </div>
                 </div>
                 //y

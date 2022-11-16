@@ -168,9 +168,12 @@ export const Editprofile = () => {
                 style={{ display: "flex", alignItems: "center", gap: "0.2rem" }}
               >
                 <Text>{username}</Text>
-                {profileinfo.verified && (
-                  <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
-                )}
+                {profileinfo.verified &&
+                  (profileinfo?.username !== "katoph" ? (
+                    <CircleWavyCheck size={17} color="#008000" weight="fill" />
+                  ) : (
+                    <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
+                  ))}
               </div>
 
               <span className="upload-btn-wrapper">

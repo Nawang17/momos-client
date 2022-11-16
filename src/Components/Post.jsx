@@ -236,9 +236,13 @@ export const Post = ({ post, setPosts }) => {
                 >
                   {post.user.username}
                 </Text>
-                {post.user.verified && (
-                  <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
-                )}
+                {post?.user?.verified &&
+                  (post?.user?.id !== 5 ? (
+                    <CircleWavyCheck size={17} color="#008000" weight="fill" />
+                  ) : (
+                    <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
+                  ))}
+
                 <Text color="dimmed">·</Text>
                 <Text color="dimmed" size="sm">
                   {formatDistanceToNowStrict(new Date(post.createdAt), {
@@ -315,14 +319,14 @@ export const Post = ({ post, setPosts }) => {
                 style={{
                   display: "flex",
                   gap: "0.3rem",
-                  alignItems: "flex-end",
+                  alignItems: "center",
                   padding: "0.7rem 0.7rem 0 0.7rem",
                 }}
               >
                 <img
                   style={{
-                    width: "20px",
-                    height: "20px",
+                    width: "18px",
+                    height: "18px",
                     borderRadius: "50%",
                   }}
                   src={post?.post.user?.avatar}
@@ -335,10 +339,24 @@ export const Post = ({ post, setPosts }) => {
                     alignItems: "center",
                   }}
                 >
-                  <Text weight={500}> {post?.post.user?.username}</Text>
-                  {post?.post.user.verified && (
-                    <CircleWavyCheck size={14} color="#0ba6da" weight="fill" />
-                  )}
+                  <Text size="15px" weight={500}>
+                    {" "}
+                    {post?.post.user?.username}
+                  </Text>
+                  {post?.post.user.verified &&
+                    (post?.post.user.id !== 5 ? (
+                      <CircleWavyCheck
+                        size={17}
+                        color="#008000"
+                        weight="fill"
+                      />
+                    ) : (
+                      <CircleWavyCheck
+                        size={17}
+                        color="#0ba6da"
+                        weight="fill"
+                      />
+                    ))}
                 </div>
                 <Text color={"dimmed"}>·</Text>
                 <Text color={"dimmed"}>
@@ -353,6 +371,7 @@ export const Post = ({ post, setPosts }) => {
               </div>
               {post?.post.text && (
                 <Text
+                  size="15px"
                   style={{
                     wordBreak: "break-word",
                     whiteSpace: "pre-wrap",

@@ -237,9 +237,13 @@ export const ProfileHeader = ({ profileInfo }) => {
                 <Text weight="bold" size="md">
                   {userprofile}
                 </Text>
-                {profileInfo.verified && (
-                  <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
-                )}
+                {profileInfo?.verified &&
+                  (profileInfo?.id !== 5 ? (
+                    <CircleWavyCheck size={17} color="#008000" weight="fill" />
+                  ) : (
+                    <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
+                  ))}
+
                 <div>
                   {followingArr.includes(UserInfo?.username) && (
                     <Badge size="sm" color="gray">
@@ -392,13 +396,20 @@ export const ProfileHeader = ({ profileInfo }) => {
                     >
                       {" "}
                       <Text weight="500">{item.following.username}</Text>
-                      {item.following.verified && (
-                        <CircleWavyCheck
-                          size={17}
-                          color="#0ba6da"
-                          weight="fill"
-                        />
-                      )}
+                      {item.following.verified &&
+                        (item.following.id !== 5 ? (
+                          <CircleWavyCheck
+                            size={17}
+                            color="#008000"
+                            weight="fill"
+                          />
+                        ) : (
+                          <CircleWavyCheck
+                            size={17}
+                            color="#0ba6da"
+                            weight="fill"
+                          />
+                        ))}
                     </div>
                   </div>
                 );
@@ -441,13 +452,20 @@ export const ProfileHeader = ({ profileInfo }) => {
                     >
                       {" "}
                       <Text weight="500">{item.follower.username}</Text>
-                      {item.follower.verified && (
-                        <CircleWavyCheck
-                          size={17}
-                          color="#0ba6da"
-                          weight="fill"
-                        />
-                      )}
+                      {item.follower.verified &&
+                        (item.follower.id !== 5 ? (
+                          <CircleWavyCheck
+                            size={17}
+                            color="#008000"
+                            weight="fill"
+                          />
+                        ) : (
+                          <CircleWavyCheck
+                            size={17}
+                            color="#0ba6da"
+                            weight="fill"
+                          />
+                        ))}
                     </div>
                   </div>
                 );

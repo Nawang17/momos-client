@@ -132,13 +132,20 @@ export const Comments = ({ comments, setComments }) => {
                       >
                         {comment.user.username}
                       </Text>
-                      {comment.user.verified && (
-                        <CircleWavyCheck
-                          size={17}
-                          color="#0ba6da"
-                          weight="fill"
-                        />
-                      )}
+                      {comment?.user.verified &&
+                        (comment?.user.id !== 5 ? (
+                          <CircleWavyCheck
+                            size={17}
+                            color="#008000"
+                            weight="fill"
+                          />
+                        ) : (
+                          <CircleWavyCheck
+                            size={17}
+                            color="#0ba6da"
+                            weight="fill"
+                          />
+                        ))}
                     </div>
                     <div className={classes.hRight}>
                       <CommentMenu
@@ -225,13 +232,20 @@ export const Comments = ({ comments, setComments }) => {
                             >
                               {data?.user.username}
                             </Text>
-                            {data?.user.verified && (
-                              <CircleWavyCheck
-                                size={17}
-                                color="#0ba6da"
-                                weight="fill"
-                              />
-                            )}
+                            {data?.user.verified &&
+                              (data?.user.id !== 5 ? (
+                                <CircleWavyCheck
+                                  size={17}
+                                  color="#008000"
+                                  weight="fill"
+                                />
+                              ) : (
+                                <CircleWavyCheck
+                                  size={17}
+                                  color="#0ba6da"
+                                  weight="fill"
+                                />
+                              ))}
 
                             {data?.repliedtouser.username && (
                               <>

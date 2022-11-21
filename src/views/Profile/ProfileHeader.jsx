@@ -244,7 +244,7 @@ export const ProfileHeader = ({ profileInfo }) => {
                       <Popover.Target>
                         <CircleWavyCheck
                           size={17}
-                          color="#000000"
+                          color="#0ba6da"
                           weight="fill"
                         />
                       </Popover.Target>
@@ -256,7 +256,7 @@ export const ProfileHeader = ({ profileInfo }) => {
                       </Popover.Dropdown>
                     </Popover>
                   ) : (
-                    <Popover width={120} position="right" withArrow shadow="md">
+                    <Popover width={130} position="right" withArrow shadow="md">
                       <Popover.Target>
                         <CircleWavyCheck
                           size={17}
@@ -426,7 +426,7 @@ export const ProfileHeader = ({ profileInfo }) => {
                         (item.following.id !== 5 ? (
                           <CircleWavyCheck
                             size={17}
-                            color="#000000"
+                            color="#0ba6da"
                             weight="fill"
                           />
                         ) : (

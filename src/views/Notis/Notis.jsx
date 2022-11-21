@@ -118,6 +118,14 @@ export default function Notis() {
                       alt=""
                     />
                     <div>
+                      {data.type === "MENTION" && (
+                        <Text size="14px">
+                          <span style={{ fontWeight: "500" }}>
+                            {data.user?.username}{" "}
+                          </span>
+                          mentioned you: {data?.text}
+                        </Text>
+                      )}
                       {data.type === "QUOTE" && (
                         <Text size="14px">
                           <span style={{ fontWeight: "500" }}>

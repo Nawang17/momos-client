@@ -276,7 +276,7 @@ export const Post = ({ post, setPosts }) => {
                 </Text>
                 {post?.user?.verified &&
                   (post?.user?.id !== 5 ? (
-                    <CircleWavyCheck size={17} color="#008000" weight="fill" />
+                    <CircleWavyCheck size={17} color="#000000" weight="fill" />
                   ) : (
                     <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
                   ))}
@@ -383,7 +383,7 @@ export const Post = ({ post, setPosts }) => {
                     (post?.post.user.id !== 5 ? (
                       <CircleWavyCheck
                         size={17}
-                        color="#008000"
+                        color="#000000"
                         weight="fill"
                       />
                     ) : (

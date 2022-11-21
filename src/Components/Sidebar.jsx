@@ -96,7 +96,7 @@ export const Sidebar = () => {
                       (val?.id !== 5 ? (
                         <CircleWavyCheck
                           size={17}
-                          color="#008000"
+                          color="#000000"
                           weight="fill"
                         />
                       ) : (

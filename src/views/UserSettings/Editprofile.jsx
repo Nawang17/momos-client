@@ -170,7 +170,7 @@ export const Editprofile = () => {
                 <Text>{username}</Text>
                 {profileinfo.verified &&
                   (profileinfo?.username !== "katoph" ? (
-                    <CircleWavyCheck size={17} color="#008000" weight="fill" />
+                    <CircleWavyCheck size={17} color="#000000" weight="fill" />
                   ) : (
                     <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
                   ))}

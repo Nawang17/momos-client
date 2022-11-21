@@ -239,7 +239,7 @@ export const ProfileHeader = ({ profileInfo }) => {
                 </Text>
                 {profileInfo?.verified &&
                   (profileInfo?.id !== 5 ? (
-                    <CircleWavyCheck size={17} color="#008000" weight="fill" />
+                    <CircleWavyCheck size={17} color="#000000" weight="fill" />
                   ) : (
                     <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
                   ))}
@@ -400,7 +400,7 @@ export const ProfileHeader = ({ profileInfo }) => {
                         (item.following.id !== 5 ? (
                           <CircleWavyCheck
                             size={17}
-                            color="#008000"
+                            color="#000000"
                             weight="fill"
                           />
                         ) : (
@@ -456,7 +456,7 @@ export const ProfileHeader = ({ profileInfo }) => {
                         (item.follower.id !== 5 ? (
                           <CircleWavyCheck
                             size={17}
-                            color="#008000"
+                            color="#000000"
                             weight="fill"
                           />
                         ) : (

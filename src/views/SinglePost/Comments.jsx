@@ -172,7 +172,7 @@ export const Comments = ({ comments, setComments }) => {
                         (comment?.user.id !== 5 ? (
                           <CircleWavyCheck
                             size={17}
-                            color="#008000"
+                            color="#000000"
                             weight="fill"
                           />
                         ) : (
@@ -270,7 +270,7 @@ export const Comments = ({ comments, setComments }) => {
                               (data?.user.id !== 5 ? (
                                 <CircleWavyCheck
                                   size={17}
-                                  color="#008000"
+                                  color="#000000"
                                   weight="fill"
                                 />
                               ) : (

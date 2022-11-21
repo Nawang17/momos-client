@@ -13,6 +13,12 @@
   overflow: hidden;
   display: inline-block;
 }
+.link-style {
+  cursor: pointer;
+}
+.link-style:hover {
+  text-decoration: underline;
+}
 
 .upload-btn-wrapper input[type="file"] {
   font-size: 100px;

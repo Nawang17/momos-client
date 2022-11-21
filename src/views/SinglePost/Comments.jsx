@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import { createStyles, Text } from "@mantine/core";
-import { PostMenu } from "../../Components/PostMenu";
 import { CircleWavyCheck } from "phosphor-react";
 import { CommentMenu } from "../../Components/CommentMenu";
 import { useNavigate } from "react-router-dom";
@@ -10,8 +9,7 @@ import NestedReplyModal from "../../Components/NestedReplyModal";
 import { AuthContext } from "../../context/Auth";
 import { showNotification } from "@mantine/notifications";
 import { NestedCommentMenu } from "../../Components/NestedCommentMenu";
-import Linkify from "react-linkify";
-
+import reactStringReplace from "react-string-replace";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -99,6 +97,44 @@ export const Comments = ({ comments, setComments }) => {
   const [opened, setOpened] = useState(false);
   const { UserInfo } = useContext(AuthContext);
   const [replypost, setReplyPost] = useState(null);
+  const postvalue = (text) => {
+    let replacedText;
+
+    // Match URLs
+    replacedText = reactStringReplace(text, /(https?:\/\/\S+)/g, (match, i) => (
+      <span
+        onClick={(e) => {
+          e.stopPropagation();
+          window.location.href = match;
+        }}
+        className="link-style"
+        style={{
+          color: "#1d9bf0",
+        }}
+        key={match + i}
+      >
+        {match}
+      </span>
+    ));
+
+    // Match @-mentions
+
+    replacedText = reactStringReplace(replacedText, /@(\w+)/g, (match, i) => (
+      <span
+        className="link-style"
+        onClick={(e) => {
+          e.stopPropagation();
+          navigate(`/${match}`);
+        }}
+        style={{ color: "#1d9bf0" }}
+        key={match + i}
+      >
+        @{match}
+      </span>
+    ));
+
+    return replacedText;
+  };
   return (
     <>
       {/* commentfeed */}
@@ -155,9 +191,7 @@ export const Comments = ({ comments, setComments }) => {
                     </div>
                   </div>
                   <div className={classes.body}>
-                    <Text size="15px">
-                      <Linkify>{comment.text}</Linkify>
-                    </Text>
+                    <Text size="15px">{postvalue(comment?.text)}</Text>
                   </div>
                   <div style={{ display: "flex", gap: "0.5rem" }}>
                     <Text color="dimmed" size="13px">
@@ -280,9 +314,7 @@ export const Comments = ({ comments, setComments }) => {
                         </div>
                       </div>
                       <div className={classes.body}>
-                        <Text size="15px">
-                          <Linkify>{data.text}</Linkify>
-                        </Text>
+                        <Text size="15px">{postvalue(data?.text)}</Text>
                       </div>
                       <div style={{ display: "flex", gap: "0.5rem" }}>
                         <Text color="dimmed" size="13px">

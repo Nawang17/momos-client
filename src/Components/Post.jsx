@@ -9,8 +9,7 @@ import { showNotification } from "@mantine/notifications";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import locale from "date-fns/locale/en-US";
 import { useState } from "react";
-import Linkify from "react-linkify";
-import "linkify-plugin-mention";
+import reactStringReplace from "react-string-replace";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -70,8 +69,13 @@ const useStyles = createStyles(() => ({
     cursor: "pointer",
   },
 }));
-//todo: complete edit profile and fix @mentions not working
+
 export const Post = ({ post, setPosts }) => {
+  const { classes } = useStyles();
+  const navigate = useNavigate();
+  const [opened, setOpened] = useState(false);
+  const [viewimg, setviewimg] = useState("");
+  const { likedpostIds, setLikedpostIds, UserInfo } = useContext(AuthContext);
   const formatDistanceLocale = {
     lessThanXSeconds: "{{count}}s",
     xSeconds: "{{count}}s",
@@ -106,11 +110,7 @@ export const Post = ({ post, setPosts }) => {
 
     return result;
   }
-  const { classes } = useStyles();
-  const navigate = useNavigate();
-  const [opened, setOpened] = useState(false);
-  const [viewimg, setviewimg] = useState("");
-  const { likedpostIds, setLikedpostIds, UserInfo } = useContext(AuthContext);
+
   const handleLike = async () => {
     if (!UserInfo) {
       showNotification({
@@ -205,6 +205,44 @@ export const Post = ({ post, setPosts }) => {
         });
     }
   };
+  const postvalue = (text) => {
+    let replacedText;
+
+    // Match URLs
+    replacedText = reactStringReplace(text, /(https?:\/\/\S+)/g, (match, i) => (
+      <span
+        onClick={(e) => {
+          e.stopPropagation();
+          window.location.href = match;
+        }}
+        className="link-style"
+        style={{
+          color: "#1d9bf0",
+        }}
+        key={match + i}
+      >
+        {match}
+      </span>
+    ));
+
+    // Match @-mentions
+
+    replacedText = reactStringReplace(replacedText, /@(\w+)/g, (match, i) => (
+      <span
+        className="link-style"
+        onClick={(e) => {
+          e.stopPropagation();
+          navigate(`/${match}`);
+        }}
+        style={{ color: "#1d9bf0" }}
+        key={match + i}
+      >
+        @{match}
+      </span>
+    ));
+
+    return replacedText;
+  };
 
   return (
     <>
@@ -266,9 +304,7 @@ export const Post = ({ post, setPosts }) => {
               }}
               className={classes.body}
             >
-              <Text size="15px">
-                <Linkify>{post?.text}</Linkify>
-              </Text>
+              <Text size="15px">{postvalue(post?.text)}</Text>
             </div>
           )}
 

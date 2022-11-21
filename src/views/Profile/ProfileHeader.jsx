@@ -7,6 +7,7 @@ import {
   ActionIcon,
   Skeleton,
   Badge,
+  Popover,
 } from "@mantine/core";
 import { ArrowLeft, CircleWavyCheck } from "phosphor-react";
 import { useNavigate } from "react-router-dom";
@@ -239,9 +240,34 @@ export const ProfileHeader = ({ profileInfo }) => {
                 </Text>
                 {profileInfo?.verified &&
                   (profileInfo?.id !== 5 ? (
-                    <CircleWavyCheck size={17} color="#000000" weight="fill" />
+                    <Popover width={200} position="right" withArrow shadow="md">
+                      <Popover.Target>
+                        <CircleWavyCheck
+                          size={17}
+                          color="#000000"
+                          weight="fill"
+                        />
+                      </Popover.Target>
+                      <Popover.Dropdown>
+                        <Text size="sm">
+                          This account is verified because the user has a
+                          verified email address.
+                        </Text>
+                      </Popover.Dropdown>
+                    </Popover>
                   ) : (
-                    <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
+                    <Popover width={120} position="right" withArrow shadow="md">
+                      <Popover.Target>
+                        <CircleWavyCheck
+                          size={17}
+                          color="#0ba6da"
+                          weight="fill"
+                        />
+                      </Popover.Target>
+                      <Popover.Dropdown>
+                        <Text size="sm">Developer account</Text>
+                      </Popover.Dropdown>
+                    </Popover>
                   ))}
 
                 <div>

@@ -317,7 +317,7 @@ export const ProfileHeader = ({ profileInfo }) => {
                 style={{ cursor: "pointer" }}
                 onClick={() => {
                   setOpened(true);
-                  setmodaltitle("Following");
+                  setmodaltitle(`Following (${following.length})`);
                 }}
                 size="15px"
               >
@@ -330,7 +330,8 @@ export const ProfileHeader = ({ profileInfo }) => {
                 style={{ cursor: "pointer" }}
                 onClick={() => {
                   setOpened(true);
-                  setmodaltitle("Followers");
+
+                  setmodaltitle(`Followers (${followers.length})`);
                 }}
                 size="15px"
               >

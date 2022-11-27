@@ -14,6 +14,7 @@ import { LoginStatus } from "./api/AUTH";
 import { showNotification } from "@mantine/notifications";
 import { likedPosts, suggestedusersreq } from "./api/GET";
 import { Editprofile } from "./views/UserSettings/Editprofile";
+import { Search } from "./views/Search/Search";
 function App() {
   const [UserInfo, setUserInfo] = useState(null);
   const [likedpostIds, setLikedpostIds] = useState([]);
@@ -68,6 +69,17 @@ function App() {
       ),
       errorElement: <RouteError />,
     },
+    {
+      path: "/search",
+      element: (
+        <>
+          <Navbar />
+          <Search />
+        </>
+      ),
+      errorElement: <RouteError />,
+    },
+
     {
       path: "/post/:postid",
       element: (

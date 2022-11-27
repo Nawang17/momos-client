@@ -8,7 +8,7 @@ import {
   ActionIcon,
 } from "@mantine/core";
 import { useLocation, useNavigate, s } from "react-router-dom";
-import { ChatCircleDots, House } from "phosphor-react";
+import { ChatCircleDots, House, MagnifyingGlass } from "phosphor-react";
 import { ProfileMenu } from "./ProfileMenu";
 import Notis from "../views/Notis/Notis";
 import { AuthContext } from "../context/Auth";
@@ -103,7 +103,13 @@ export function Navbar() {
                 >
                   <House size={28} color="black" />
                 </ActionIcon>
-
+                <ActionIcon
+                  onClick={() => {
+                    navigate("/search");
+                  }}
+                >
+                  <MagnifyingGlass size={28} color="black" />
+                </ActionIcon>
                 {/* <ActionIcon>
                   <ChatCircleDots size={28} color="black" />
                 </ActionIcon>  */}

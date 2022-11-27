@@ -49,3 +49,7 @@
   -ms-user-select: none; /* IE 10+ */
   user-select: none;
 }
+.searchaccounts:hover {
+  cursor: pointer;
+  background-color: #f3f3f3;
+}

@@ -31,7 +31,7 @@ export const notis = async () => {
   });
 };
 export const suggestedusersreq = async ({ name }) => {
-  return await api.get(`/suggestedusers/${name}`);
+  return await api.get(`/suggestedusers/suggest/${name}`);
 };
 export const editprofileinfo = async () => {
   return await api.get("/settingsinfo/editprofileinfo", {
@@ -39,4 +39,7 @@ export const editprofileinfo = async () => {
       Authorization: `${localStorage.getItem("token")}`,
     },
   });
+};
+export const searchusers = async () => {
+  return await api.get(`/suggestedusers/searchaccounts`);
 };

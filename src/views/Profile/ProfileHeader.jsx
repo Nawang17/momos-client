@@ -53,6 +53,7 @@ export const ProfileHeader = ({ profileInfo }) => {
   const sanitizer = DOMPurify.sanitize;
   useEffect(() => {
     setloading(true);
+    setbtndisabled(true);
     profilefollowdata({
       username: userprofile,
     })
@@ -62,6 +63,7 @@ export const ProfileHeader = ({ profileInfo }) => {
         setfollowing(res.data.userFollowing);
         setfollowingArr(res.data.userfollowingarr);
         setloading(false);
+        setbtndisabled(false);
       })
       .catch((err) => {
         if (err.response.status === 0) {
@@ -198,7 +200,7 @@ export const ProfileHeader = ({ profileInfo }) => {
                 </>
               ) : followingdata?.includes(profileInfo?.username) ? (
                 <Button
-                  loading={btndisabled}
+                  disabled={btndisabled}
                   variant="default"
                   onClick={() => {
                     setunfollowconfirm(true);
@@ -210,7 +212,7 @@ export const ProfileHeader = ({ profileInfo }) => {
                 </Button>
               ) : (
                 <Button
-                  loading={btndisabled}
+                  disabled={btndisabled}
                   onClick={() => {
                     handlefollow();
                   }}
@@ -482,7 +484,7 @@ export const ProfileHeader = ({ profileInfo }) => {
                         (item.follower.id !== 5 ? (
                           <CircleWavyCheck
                             size={17}
-                            color="#000000"
+                            color="#0ba6da"
                             weight="fill"
                           />
                         ) : (

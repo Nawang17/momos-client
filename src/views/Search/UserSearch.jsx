@@ -20,7 +20,7 @@ const UserSearch = () => {
       style={{
         backgroundColor: "white",
 
-        minHeight: "36.5vh",
+        // minHeight: "36.5vh",
 
         borderRadius: "4px",
         paddingBottom: "1rem",

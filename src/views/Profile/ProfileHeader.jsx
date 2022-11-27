@@ -389,7 +389,7 @@ export const ProfileHeader = ({ profileInfo }) => {
         title={modaltitle}
       >
         <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-          {modaltitle === "Following" ? (
+          {modaltitle === `Following (${following.length})` ? (
             <>
               {following.map((item) => {
                 return (

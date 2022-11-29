@@ -1,6 +1,8 @@
 import React from "react";
-import { createStyles, Skeleton, Text } from "@mantine/core";
+import { createStyles, ScrollArea, Skeleton, Text } from "@mantine/core";
 import { Post } from "./Post";
+import Hsuggestedacc from "./Hsuggestedacc";
+import { useLocation } from "react-router-dom";
 const useStyles = createStyles(() => ({
   wrapper: {
     width: "100%",
@@ -8,10 +10,18 @@ const useStyles = createStyles(() => ({
     flexDirection: "column",
     gap: "0.5rem",
   },
+  horizontalsuggeastedaccounts: {
+    display: "none",
+    "@media (max-width: 700px)": {
+      display: "block",
+    },
+    borderTop: "1px solid #e6e6e6",
+    borderBottom: "1px solid #e6e6e6",
+  },
 }));
 export const PostFeed = ({ setPosts, posts, loading, sortby }) => {
   const { classes } = useStyles();
-
+  const { pathname } = useLocation();
   return (
     <div className={classes.wrapper}>
       {!loading
@@ -24,8 +34,43 @@ export const PostFeed = ({ setPosts, posts, loading, sortby }) => {
               }
               return 0;
             })
-            .map((post) => {
-              return <Post key={post.id} post={post} setPosts={setPosts} />;
+            .map((post, id) => {
+              return (
+                <div key={post.id}>
+                  {(id === 4 || id === 45) && pathname === "/" && (
+                    <div
+                      style={{
+                        margin: "4px 0px 10px 0px",
+                      }}
+                      className={classes.horizontalsuggeastedaccounts}
+                    >
+                      <Text
+                        style={{
+                          paddingTop: "10px",
+                        }}
+                        weight={"500"}
+                        size={"15px"}
+                      >
+                        Suggested Accounts
+                      </Text>
+                      <ScrollArea
+                        offsetScrollbars
+                        scrollbarSize={6}
+                        scrollHideDelay={0}
+                        mx="10"
+                        style={{
+                          maxWidth: "100%",
+                          width: "auto",
+                          height: 155,
+                        }}
+                      >
+                        <Hsuggestedacc />
+                      </ScrollArea>
+                    </div>
+                  )}
+                  <Post key={post.id} post={post} setPosts={setPosts} />
+                </div>
+              );
             })
         : new Array(6).fill(0).map((_, i) => {
             return (

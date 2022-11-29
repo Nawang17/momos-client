@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { Container, createStyles, Divider, Loader } from "@mantine/core";
+import { Container, createStyles, Loader } from "@mantine/core";
 import { PostFeed } from "../../Components/PostFeed";
 import { Sidebar } from "../../Components/Sidebar";
 import CreatePost from "../../Components/CreatePost";
@@ -8,6 +8,7 @@ import { AuthContext } from "../../context/Auth";
 import { showNotification } from "@mantine/notifications";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { SortMenu } from "./SortMenu";
+
 const useStyles = createStyles(() => ({
   wrapper: {
     display: "flex",
@@ -17,6 +18,7 @@ const useStyles = createStyles(() => ({
     paddingTop: "0.5rem",
   },
   leftWrapper: {
+    width: "100%",
     flex: 0.7,
     "@media (max-width: 700px)": {
       flex: 1,
@@ -88,6 +90,7 @@ export const Home = () => {
           {UserInfo && (
             <CreatePost setHomePosts={setHomePosts} UserInfo={UserInfo} />
           )}
+
           {/* {UserInfo && (
             <Divider
               my="xs"

@@ -46,6 +46,7 @@ const useStyles = createStyles(() => ({
     width: "100%",
     height: "auto",
     borderRadius: "8px",
+    border: "1px solid #f5f5f5",
   },
 
   body: {

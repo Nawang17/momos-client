@@ -3,6 +3,7 @@ import { createStyles, ScrollArea, Skeleton, Text } from "@mantine/core";
 import { Post } from "./Post";
 import Hsuggestedacc from "./Hsuggestedacc";
 import { useLocation } from "react-router-dom";
+import { useMediaQuery } from "@mantine/hooks";
 const useStyles = createStyles(() => ({
   wrapper: {
     width: "100%",
@@ -13,15 +14,18 @@ const useStyles = createStyles(() => ({
   horizontalsuggeastedaccounts: {
     display: "none",
     "@media (max-width: 700px)": {
+      backgroundColor: "white",
       display: "block",
+      margin: "4px 0px 10px 0px",
+      padding: "0px 15px",
+      borderRadius: "4px",
     },
-    borderTop: "1px solid #e6e6e6",
-    borderBottom: "1px solid #e6e6e6",
   },
 }));
 export const PostFeed = ({ setPosts, posts, loading, sortby }) => {
   const { classes } = useStyles();
   const { pathname } = useLocation();
+  const screenwidth = useMediaQuery("(min-width: 440px)");
   return (
     <div className={classes.wrapper}>
       {!loading
@@ -37,16 +41,11 @@ export const PostFeed = ({ setPosts, posts, loading, sortby }) => {
             .map((post, id) => {
               return (
                 <div key={post.id}>
-                  {(id === 4 || id === 45) && pathname === "/" && (
-                    <div
-                      style={{
-                        margin: "4px 0px 10px 0px",
-                      }}
-                      className={classes.horizontalsuggeastedaccounts}
-                    >
+                  {(id === 5 || id === 60) && pathname === "/" && (
+                    <div className={classes.horizontalsuggeastedaccounts}>
                       <Text
                         style={{
-                          paddingTop: "10px",
+                          paddingTop: "15px",
                         }}
                         weight={"500"}
                         size={"15px"}
@@ -55,13 +54,15 @@ export const PostFeed = ({ setPosts, posts, loading, sortby }) => {
                       </Text>
                       <ScrollArea
                         offsetScrollbars
-                        scrollbarSize={6}
-                        scrollHideDelay={0}
+                        // scrollbarSize={6}
+                        // scrollHideDelay={0}
+                        screenwidth
+                        type={screenwidth ? "hover" : "never"}
                         mx="10"
                         style={{
                           maxWidth: "100%",
                           width: "auto",
-                          height: 155,
+                          height: 160,
                         }}
                       >
                         <Hsuggestedacc />

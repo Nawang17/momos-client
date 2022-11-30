@@ -175,28 +175,29 @@ export const Editprofile = () => {
                     <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
                   ))}
               </div>
-
-              <span className="upload-btn-wrapper">
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  <Text
-                    color={"blue"}
-                    style={{ paddingTop: "5px", cursor: "pointer" }}
+              {profileinfo.username !== "Demo" && (
+                <span className="upload-btn-wrapper">
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                    }}
                   >
-                    Change profile photo
-                  </Text>
-                </div>
-                <input
-                  value={flieInputState}
-                  accept="image/*"
-                  type="file"
-                  onChange={handleflieInputChange}
-                />
-              </span>
+                    <Text
+                      color={"blue"}
+                      style={{ paddingTop: "5px", cursor: "pointer" }}
+                    >
+                      Change profile photo
+                    </Text>
+                  </div>
+                  <input
+                    value={flieInputState}
+                    accept="image/*"
+                    type="file"
+                    onChange={handleflieInputChange}
+                  />
+                </span>
+              )}
             </div>
           </div>{" "}
           <Input.Wrapper label="Username">

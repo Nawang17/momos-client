@@ -154,6 +154,9 @@ const Hsuggestedacc = () => {
           </div>
         ))}
       <div
+        onClick={() => {
+          navigate("/suggestedaccounts");
+        }}
         style={{
           border: "1px solid #e6e6e6",
           borderRadius: "4px",
@@ -168,10 +171,11 @@ const Hsuggestedacc = () => {
           background: "white",
           cursor: "pointer",
           marginRight: "10px",
-          color: "#1DA1F2",
         }}
       >
-        View All
+        <Text color="#1DA1F2" weight={"500"} size={"15px"}>
+          View All
+        </Text>
       </div>
     </div>
   );

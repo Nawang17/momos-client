@@ -2,7 +2,7 @@ import React from "react";
 import { createStyles, ScrollArea, Skeleton, Text } from "@mantine/core";
 import { Post } from "./Post";
 import Hsuggestedacc from "./Hsuggestedacc";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useMediaQuery } from "@mantine/hooks";
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -16,7 +16,7 @@ const useStyles = createStyles(() => ({
     "@media (max-width: 700px)": {
       backgroundColor: "white",
       display: "block",
-      margin: "4px 0px 10px 0px",
+      margin: "0px 0px 8px 0px",
       padding: "0px 15px",
       borderRadius: "4px",
     },
@@ -26,6 +26,7 @@ export const PostFeed = ({ setPosts, posts, loading, sortby }) => {
   const { classes } = useStyles();
   const { pathname } = useLocation();
   const screenwidth = useMediaQuery("(min-width: 440px)");
+  const navigate = useNavigate();
   return (
     <div className={classes.wrapper}>
       {!loading
@@ -43,20 +44,34 @@ export const PostFeed = ({ setPosts, posts, loading, sortby }) => {
                 <div key={post.id}>
                   {(id === 5 || id === 60) && pathname === "/" && (
                     <div className={classes.horizontalsuggeastedaccounts}>
-                      <Text
+                      <div
                         style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
                           paddingTop: "15px",
                         }}
-                        weight={"500"}
-                        size={"15px"}
                       >
-                        Suggested Accounts
-                      </Text>
+                        <Text weight={"500"} size={"15px"}>
+                          Suggested Accounts
+                        </Text>
+                        <Text
+                          style={{ cursor: "pointer" }}
+                          onClick={() => {
+                            navigate("/suggestedaccounts");
+                          }}
+                          color="#1DA1F2"
+                          weight={"500"}
+                          size={"15px"}
+                        >
+                          {" "}
+                          View All
+                        </Text>
+                      </div>
                       <ScrollArea
                         offsetScrollbars
                         // scrollbarSize={6}
                         // scrollHideDelay={0}
-                        screenwidth
                         type={screenwidth ? "hover" : "never"}
                         mx="10"
                         style={{

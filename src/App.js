@@ -15,6 +15,7 @@ import { showNotification } from "@mantine/notifications";
 import { likedPosts, suggestedusersreq } from "./api/GET";
 import { Editprofile } from "./views/UserSettings/Editprofile";
 import { Search } from "./views/Search/Search";
+import { SuggestedAccs } from "./views/SuggestedAccounts/SuggestedAccs";
 function App() {
   const [UserInfo, setUserInfo] = useState(null);
   const [likedpostIds, setLikedpostIds] = useState([]);
@@ -97,6 +98,16 @@ function App() {
         <>
           <Navbar />
           <Profile />
+        </>
+      ),
+      errorElement: <RouteError />,
+    },
+    {
+      path: "/suggestedaccounts",
+      element: (
+        <>
+          <Navbar />
+          <SuggestedAccs />
         </>
       ),
       errorElement: <RouteError />,

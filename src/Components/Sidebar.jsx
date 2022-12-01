@@ -112,6 +112,20 @@ export const Sidebar = () => {
               );
             })}
         </div>
+        <div
+          onClick={() => {
+            navigate("/suggestedaccounts");
+          }}
+          style={{
+            cursor: "pointer",
+            padding: "0.3rem 1rem 0 1.2rem",
+          }}
+        >
+          <Text size="sm" color="#1DA1F2">
+            {" "}
+            View all
+          </Text>
+        </div>
       </div>
     </div>
   );

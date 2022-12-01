@@ -33,6 +33,9 @@ export const notis = async () => {
 export const suggestedusersreq = async ({ name }) => {
   return await api.get(`/suggestedusers/suggest/${name}`);
 };
+export const allsuggestedusersreq = async ({ name }) => {
+  return await api.get(`/suggestedusers/allsuggested/${name}`);
+};
 export const editprofileinfo = async () => {
   return await api.get("/settingsinfo/editprofileinfo", {
     headers: {

@@ -108,7 +108,14 @@ export const Home = () => {
             next={fetchMoreData}
             hasMore={postCount > homePosts.length}
             loader={
-              <div style={{ display: "flex", justifyContent: "center" }}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginTop: "10px",
+                }}
+              >
                 <Loader />
               </div>
             }

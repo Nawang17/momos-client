@@ -8,6 +8,7 @@ import { Heart, Note } from "phosphor-react";
 import { useLocation, useParams } from "react-router-dom";
 import { profileinfo } from "../../api/GET";
 import { showNotification } from "@mantine/notifications";
+import { useScrollIntoView } from "@mantine/hooks";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -25,6 +26,9 @@ const useStyles = createStyles(() => ({
   },
 }));
 export const Profile = () => {
+  const { scrollIntoView, targetRef } = useScrollIntoView({
+    offset: 64,
+  });
   const { userprofile } = useParams();
   const { classes } = useStyles();
   const { pathname } = useLocation();
@@ -34,7 +38,9 @@ export const Profile = () => {
   const [userlikedposts, setuserlikedposts] = useState([]);
 
   const [Tab, setTab] = useState("posts");
+
   useEffect(() => {
+    scrollIntoView();
     profileinfo({ username: userprofile })
       .then((res) => {
         setposts(res.data.userPosts);
@@ -64,12 +70,14 @@ export const Profile = () => {
           });
         }
       });
-    window.scrollTo(0, 0);
-  }, [pathname, Tab]);
+    return () => {
+      setTab("posts");
+    };
+  }, [pathname]);
 
   return (
     <Container px={10} className={classes.wrapper}>
-      <div className={classes.leftWrapper}>
+      <div ref={targetRef} className={classes.leftWrapper}>
         <ProfileHeader profileInfo={profileInfo} />
         <Tabs value={Tab} onTabChange={setTab}>
           <Tabs.List style={{ background: "white" }}>

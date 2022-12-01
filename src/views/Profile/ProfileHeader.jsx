@@ -303,11 +303,11 @@ export const ProfileHeader = ({ profileInfo }) => {
                 />
               </div>
             )}
-            {profileInfo.createdAt && (
+            {profileInfo?.createdAt && (
               <div>
-                <Text color="#536471" size="14px">
+                <Text color="#536471" size="13px">
                   <span>Joined </span>
-                  {format(new Date(profileInfo.createdAt), "MMMMMM yyyy")}
+                  {format(new Date(profileInfo?.createdAt), "MMMMMM yyyy")}
                 </Text>
               </div>
             )}

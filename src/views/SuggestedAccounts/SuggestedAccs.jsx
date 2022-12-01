@@ -14,6 +14,7 @@ import { allsuggestedusersreq } from "../../api/GET";
 import { AuthContext } from "../../context/Auth";
 import { showNotification } from "@mantine/notifications";
 import { follow } from "../../api/POST";
+import { useScrollIntoView } from "@mantine/hooks";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -43,7 +44,12 @@ export const SuggestedAccs = () => {
     setfollowingdata,
   } = useContext(AuthContext);
   const [btndisabled, setbtndisabled] = useState("");
+  const { scrollIntoView, targetRef } = useScrollIntoView({
+    offset: 64,
+  });
+
   useEffect(() => {
+    scrollIntoView();
     allsuggestedusersreq({ name: UserInfo ? UserInfo.username : "null" })
       .then((res) => {
         setSuggestedusers(res.data.suggestedusers);
@@ -124,19 +130,23 @@ export const SuggestedAccs = () => {
     <Container px={10} className={classes.wrapper}>
       <div className={classes.leftWrapper}>
         <div
+          ref={targetRef}
           style={{
             background: "white",
-            padding: "1rem 0rem 0rem 1rem",
+            padding: "1rem 0rem 1rem 1rem",
             display: "flex",
-            justifyContent: "space-between",
+            alignItems: "center",
+            gap: "1.5rem",
           }}
         >
           <ActionIcon onClick={() => navigate(-1)}>
             <ArrowLeft size="20px" />
           </ActionIcon>
-          <Text size="sm">Suggested Accounts</Text>
-          <div></div>
+          <Text weight={"bold"} size={"16px"}>
+            Suggested Accounts
+          </Text>
         </div>
+
         <div
           style={{
             display: "flex",
@@ -157,7 +167,7 @@ export const SuggestedAccs = () => {
                   padding: "1rem 1.4rem",
                   display: "flex",
                   gap: "0.6rem",
-                  borderBottom: "1px solid #e6e6e6",
+                  borderTop: "1px solid #e6e6e6",
                   cursor: "pointer",
                 }}
               >

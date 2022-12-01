@@ -42,7 +42,7 @@ export const PostFeed = ({ setPosts, posts, loading, sortby }) => {
             .map((post, id) => {
               return (
                 <div key={post.id}>
-                  {(id === 5 || id === 60) && pathname === "/" && (
+                  {(id === 4 || id === 60) && pathname === "/" && (
                     <div className={classes.horizontalsuggeastedaccounts}>
                       <div
                         style={{

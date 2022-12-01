@@ -49,7 +49,10 @@
   -ms-user-select: none; /* IE 10+ */
   user-select: none;
 }
+.searchaccounts {
+  background-color: white;
+}
 .searchaccounts:hover {
   cursor: pointer;
-  background-color: #f3f3f3;
+  background-color: #e3e0e0;
 }

@@ -1,34 +1,66 @@
-import { Input, Text } from "@mantine/core";
+import { Input, Loader, Tabs, Text } from "@mantine/core";
 import { CircleWavyCheck, MagnifyingGlass, X } from "phosphor-react";
 import React from "react";
+import { useContext } from "react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { searchusers } from "../../api/GET";
+import { searchposts, searchusers } from "../../api/GET";
+import { PostFeed } from "../../Components/PostFeed";
+import { AuthContext } from "../../context/Auth";
+import useDebounce from "./useDebounce";
 
 const UserSearch = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [accounts, setAccounts] = useState([]);
+  const [postresults, setPostResults] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [uloading, setuLoading] = useState(false);
+  const { suggestedUsers } = useContext(AuthContext);
+
+  const debouncedSearch = useDebounce(search, 500);
+
   useEffect(() => {
-    searchusers().then((res) => {
-      setAccounts(res.data.userAccounts);
-    });
-  }, []);
+    async function searchuser() {
+      setuLoading(true);
+      await searchusers({ searchvalue: debouncedSearch }).then((res) => {
+        if (!res.data) {
+          setAccounts([]);
+        }
+        setAccounts(res.data);
+      });
+
+      setuLoading(false);
+    }
+    async function searchforposts() {
+      setLoading(true);
+      await searchposts({ searchvalue: debouncedSearch }).then((res) => {
+        if (!res.data) {
+          setPostResults([]);
+        }
+        setPostResults(res.data);
+      });
+
+      setLoading(false);
+    }
+    if (debouncedSearch) {
+      searchforposts();
+      searchuser();
+    } else {
+      setAccounts(suggestedUsers);
+    }
+  }, [debouncedSearch]);
 
   return (
     <div
       style={{
-        backgroundColor: "white",
-
-        minHeight: "36.4vh",
-
         borderRadius: "4px",
         paddingBottom: "1rem",
       }}
     >
       <div
         style={{
-          padding: "1rem 1rem",
+          padding: "0.5rem 0rem 0.5rem 0rem",
         }}
       >
         <Input
@@ -37,7 +69,7 @@ const UserSearch = () => {
           }}
           value={search}
           icon={<MagnifyingGlass size={16} />}
-          placeholder="Search users"
+          placeholder="Search momos"
           rightSection={
             search && (
               <div
@@ -54,51 +86,95 @@ const UserSearch = () => {
           }
         />
       </div>
+      <div>
+        <Tabs defaultValue="Accounts">
+          <Tabs.List>
+            <Tabs.Tab value="Accounts">Accounts</Tabs.Tab>
+            <Tabs.Tab value="messages">Posts</Tabs.Tab>
+          </Tabs.List>
 
-      {/* Accounts */}
-      {accounts
-        .filter((val) =>
-          val.username.toUpperCase().includes(search.toUpperCase())
-        )
-        .map(
-          (val) =>
-            search && (
+          <Tabs.Panel value="Accounts" pt="xs">
+            {accounts.length === 0 && !loading && (
               <div
-                onClick={() => {
-                  navigate(`/${val.username}`);
+                style={{
+                  paddingLeft: "0.9rem",
                 }}
-                key={val.username}
-                className="searchaccounts"
+              >
+                <Text size={"15px"}>No results found for "{search}"</Text>
+              </div>
+            )}
+            {uloading ? (
+              <div
                 style={{
                   display: "flex",
-                  gap: "1rem",
-                  padding: "0.5rem 1rem",
+                  justifyContent: "center",
                   alignItems: "center",
                 }}
               >
-                <img
-                  style={{ width: "40px", height: "40px", borderRadius: "50%" }}
-                  src={val.avatar}
-                  alt=""
-                />
+                <Loader />
+              </div>
+            ) : (
+              accounts.map((val) => (
                 <div
+                  onClick={() => {
+                    navigate(`/${val.username}`);
+                  }}
+                  key={val.username}
+                  className="searchaccounts"
                   style={{
                     display: "flex",
-                    gap: "0.3rem",
+                    gap: "1rem",
+                    padding: "0.5rem 1rem",
                     alignItems: "center",
                   }}
                 >
-                  <Text weight={500} size="15px">
-                    {val.username}
-                  </Text>
+                  <img
+                    style={{
+                      width: "40px",
+                      height: "40px",
+                      borderRadius: "50%",
+                    }}
+                    src={val.avatar}
+                    alt=""
+                  />
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "0.3rem",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text weight={500} size="15px">
+                      {val.username}
+                    </Text>
 
-                  {val.verified && (
-                    <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
-                  )}
+                    {val.verified && (
+                      <CircleWavyCheck
+                        size={17}
+                        color="#0ba6da"
+                        weight="fill"
+                      />
+                    )}
+                  </div>
                 </div>
-              </div>
-            )
-        )}
+              ))
+            )}
+          </Tabs.Panel>
+
+          <Tabs.Panel
+            style={{ backgroundColor: "#f0f2f5" }}
+            value="messages"
+            pt="xs"
+          >
+            <PostFeed
+              posts={postresults}
+              loading={loading}
+              setPosts={setPostResults}
+            />
+          </Tabs.Panel>
+        </Tabs>
+      </div>
+      {/* Accounts */}
     </div>
   );
 };

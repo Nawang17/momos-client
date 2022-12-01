@@ -43,6 +43,9 @@ export const editprofileinfo = async () => {
     },
   });
 };
-export const searchusers = async () => {
-  return await api.get(`/suggestedusers/searchaccounts`);
+export const searchusers = async ({ searchvalue }) => {
+  return await api.get(`/search/getusers/${searchvalue}`);
+};
+export const searchposts = async ({ searchvalue }) => {
+  return await api.get(`/search/getposts/${searchvalue}`);
 };

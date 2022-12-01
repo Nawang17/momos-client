@@ -112,11 +112,10 @@ export function Navbar() {
                 </ActionIcon>
                 {/* <ActionIcon>
                   <ChatCircleDots size={28} color="black" />
-                </ActionIcon>  */}
+                </ActionIcon> */}
                 <Notis />
               </>
             )}
-
             <ActionIcon>
               <ProfileMenu />
             </ActionIcon>

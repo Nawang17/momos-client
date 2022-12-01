@@ -1,4 +1,6 @@
 import { Container, createStyles } from "@mantine/core";
+import { useScrollIntoView } from "@mantine/hooks";
+import { useEffect } from "react";
 import { Sidebar } from "../../Components/Sidebar";
 import UserSearch from "./UserSearch";
 
@@ -20,8 +22,15 @@ const useStyles = createStyles(() => ({
 
 export const Search = () => {
   const { classes } = useStyles();
+  const { scrollIntoView, targetRef } = useScrollIntoView({
+    offset: 64,
+  });
+
+  useEffect(() => {
+    scrollIntoView();
+  }, []);
   return (
-    <Container px={10} className={classes.wrapper}>
+    <Container ref={targetRef} px={10} className={classes.wrapper}>
       <div className={classes.leftWrapper}>
         <UserSearch />
       </div>

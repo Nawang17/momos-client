@@ -148,7 +148,7 @@ export const Post = ({ post, setPosts }) => {
         );
       }
 
-      await likePost({ postid: post.id, targetid: post.user.id })
+      await likePost({ postid: post.id })
         .then((res) => {
           if (res.data.liked) {
             if (likedpostIds.includes(post.id)) {

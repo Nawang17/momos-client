@@ -105,7 +105,7 @@ export function Navbar() {
                 </ActionIcon>
                 <ActionIcon
                   onClick={() => {
-                    navigate("/search");
+                    navigate("/search/q/null");
                   }}
                 >
                   <MagnifyingGlass size={28} color="black" />

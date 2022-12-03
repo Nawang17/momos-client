@@ -242,6 +242,21 @@ export const Post = ({ post, setPosts }) => {
       </span>
     ));
 
+    // Match hashtags
+    replacedText = reactStringReplace(replacedText, /#(\w+)/g, (match, i) => (
+      <span
+        className="link-style"
+        onClick={(e) => {
+          e.stopPropagation();
+          navigate(`/search/q/${match}`);
+        }}
+        style={{ color: "#1d9bf0" }}
+        key={match + i}
+      >
+        #{match}
+      </span>
+    ));
+
     return replacedText;
   };
 

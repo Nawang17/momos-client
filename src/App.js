@@ -71,7 +71,7 @@ function App() {
       errorElement: <RouteError />,
     },
     {
-      path: "/search",
+      path: "/search/q/:searchquery",
       element: (
         <>
           <Navbar />

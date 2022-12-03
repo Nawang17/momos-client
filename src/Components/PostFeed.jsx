@@ -30,64 +30,55 @@ export const PostFeed = ({ setPosts, posts, loading, sortby }) => {
   return (
     <div className={classes.wrapper}>
       {!loading
-        ? posts
-            .sort((a, b) => {
-              if (sortby === "Latest") {
-                return b.id - a.id;
-              } else if (sortby === "Likes") {
-                return b.likes.length - a.likes.length;
-              }
-              return 0;
-            })
-            .map((post, id) => {
-              return (
-                <div key={post.id}>
-                  {(id === 4 || id === 60) && pathname === "/" && (
-                    <div className={classes.horizontalsuggeastedaccounts}>
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "space-between",
-                          paddingTop: "15px",
+        ? posts.map((post, id) => {
+            return (
+              <div key={post.id}>
+                {(id === 4 || id === 60) && pathname === "/" && (
+                  <div className={classes.horizontalsuggeastedaccounts}>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        paddingTop: "15px",
+                      }}
+                    >
+                      <Text weight={"500"} size={"15px"}>
+                        Suggested Accounts
+                      </Text>
+                      <Text
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                          navigate("/suggestedaccounts");
                         }}
+                        color="#1DA1F2"
+                        weight={"500"}
+                        size={"15px"}
                       >
-                        <Text weight={"500"} size={"15px"}>
-                          Suggested Accounts
-                        </Text>
-                        <Text
-                          style={{ cursor: "pointer" }}
-                          onClick={() => {
-                            navigate("/suggestedaccounts");
-                          }}
-                          color="#1DA1F2"
-                          weight={"500"}
-                          size={"15px"}
-                        >
-                          {" "}
-                          View All
-                        </Text>
-                      </div>
-                      <ScrollArea
-                        offsetScrollbars
-                        // scrollbarSize={6}
-                        // scrollHideDelay={0}
-                        type={screenwidth ? "hover" : "never"}
-                        mx="10"
-                        style={{
-                          maxWidth: "100%",
-                          width: "auto",
-                          height: 160,
-                        }}
-                      >
-                        <Hsuggestedacc />
-                      </ScrollArea>
+                        {" "}
+                        View All
+                      </Text>
                     </div>
-                  )}
-                  <Post key={post.id} post={post} setPosts={setPosts} />
-                </div>
-              );
-            })
+                    <ScrollArea
+                      offsetScrollbars
+                      // scrollbarSize={6}
+                      // scrollHideDelay={0}
+                      type={screenwidth ? "hover" : "never"}
+                      mx="10"
+                      style={{
+                        maxWidth: "100%",
+                        width: "auto",
+                        height: 160,
+                      }}
+                    >
+                      <Hsuggestedacc />
+                    </ScrollArea>
+                  </div>
+                )}
+                <Post key={post.id} post={post} setPosts={setPosts} />
+              </div>
+            );
+          })
         : new Array(6).fill(0).map((_, i) => {
             return (
               <div

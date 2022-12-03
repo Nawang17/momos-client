@@ -142,7 +142,7 @@ export const SuggestedAccs = () => {
           <ActionIcon onClick={() => navigate(-1)}>
             <ArrowLeft size="20px" />
           </ActionIcon>
-          <Text weight={"bold"} size={"16px"}>
+          <Text weight={"500"} size={"16px"}>
             Suggested Accounts
           </Text>
         </div>
@@ -167,7 +167,7 @@ export const SuggestedAccs = () => {
                   padding: "1rem 1.4rem",
                   display: "flex",
                   gap: "0.6rem",
-                  borderTop: "1px solid #e6e6e6",
+
                   cursor: "pointer",
                 }}
               >

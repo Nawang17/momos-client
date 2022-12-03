@@ -27,10 +27,13 @@ const UserSearch = () => {
   const [Top, setTop] = useState([]);
   const debouncedSearch = useDebounce(search, 500);
   const { searchquery } = useParams();
+
   useEffect(() => {
     if (searchquery !== "null") {
       setSearch(searchquery);
     }
+  }, []);
+  useEffect(() => {
     async function searchuser() {
       setuLoading(true);
       await searchusers({ searchvalue: debouncedSearch }).then((res) => {

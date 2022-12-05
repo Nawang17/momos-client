@@ -170,7 +170,7 @@ const Hsuggestedacc = () => {
           gap: "6px",
           background: "white",
           cursor: "pointer",
-          marginRight: "10px",
+          marginRight: "14px",
         }}
       >
         <Text color="#1DA1F2" weight={"500"} size={"15px"}>

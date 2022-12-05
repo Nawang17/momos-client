@@ -58,7 +58,7 @@ export default function Notis() {
     <Popover
       opened={opened}
       onChange={setOpened}
-      width={300}
+      width={Notis.length === 0 ? 200 : 300}
       position="bottom"
       shadow="md"
     >
@@ -69,11 +69,11 @@ export default function Notis() {
       </Popover.Target>
 
       <Popover.Dropdown>
-        <ScrollArea style={{ height: 300 }}>
+        <ScrollArea style={{ height: Notis.length < 5 ? "auto" : 300 }}>
           <div>
             {Notis.length === 0 ? (
-              <Text size="15px" weight={"500"}>
-                🔔 You don't have any notifications 🔔
+              <Text align="center" size="15px" weight={"500"}>
+                No notifications yet
               </Text>
             ) : (
               <Text size={"sm"} weight="bold">
@@ -117,7 +117,11 @@ export default function Notis() {
                       src={data?.user?.avatar}
                       alt=""
                     />
-                    <div>
+                    <div
+                      style={{
+                        width: "200px",
+                      }}
+                    >
                       {data.type === "MENTION" && (
                         <Text size="14px">
                           <span style={{ fontWeight: "500" }}>
@@ -194,7 +198,7 @@ export default function Notis() {
                     </div>
 
                     <div>
-                      <Text color={"dimmed"} size="14px">
+                      <Text color={"dimmed"} size="13px">
                         {formatDistanceToNowStrict(new Date(data.createdAt), {
                           locale: {
                             ...locale,

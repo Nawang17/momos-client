@@ -1,6 +1,6 @@
-import { Button, Input, Loader, Tabs, Text } from "@mantine/core";
+import { ActionIcon, Button, Input, Loader, Tabs, Text } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
-import { CircleWavyCheck, MagnifyingGlass, X } from "phosphor-react";
+import { ArrowLeft, CircleWavyCheck, MagnifyingGlass, X } from "phosphor-react";
 import React, { useContext } from "react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -128,10 +128,20 @@ const UserSearch = () => {
     >
       <div
         style={{
-          padding: "0.5rem 0.7rem 0rem 0.7rem",
+          display: "flex",
+
+          padding: "1rem 0.7rem 0rem 0.7rem",
+          alignItems: "center",
+          gap: "0.5rem",
         }}
       >
+        <ActionIcon onClick={() => navigate(-1)}>
+          <ArrowLeft size="20px" />
+        </ActionIcon>
         <Input
+          style={{
+            width: "100%",
+          }}
           onChange={(e) => {
             setSearch(e.target.value);
           }}
@@ -252,34 +262,35 @@ const UserSearch = () => {
                           />
                         )}
                       </div>
-                      {!followingdata.includes(val.username) ? (
-                        <Button
-                          disabled={btndisabled === val.username}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handlefollow(val.id, val.username);
-                          }}
-                          radius="xl"
-                          size="xs"
-                        >
-                          {" "}
-                          follow
-                        </Button>
-                      ) : (
-                        <Button
-                          variant="outline"
-                          disabled={btndisabled === val.username}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handlefollow(val.id, val.username);
-                          }}
-                          radius="xl"
-                          size="xs"
-                        >
-                          {" "}
-                          unfollow
-                        </Button>
-                      )}
+                      {UserInfo?.username !== val.username &&
+                        (!followingdata.includes(val.username) ? (
+                          <Button
+                            disabled={btndisabled === val.username}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handlefollow(val.id, val.username);
+                            }}
+                            radius="xl"
+                            size="xs"
+                          >
+                            {" "}
+                            follow
+                          </Button>
+                        ) : (
+                          <Button
+                            variant="outline"
+                            disabled={btndisabled === val.username}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handlefollow(val.id, val.username);
+                            }}
+                            radius="xl"
+                            size="xs"
+                          >
+                            {" "}
+                            unfollow
+                          </Button>
+                        ))}
                     </div>
                     {val.description && (
                       <Text size={"15px"}> {val.description}</Text>

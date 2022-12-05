@@ -61,8 +61,6 @@ export const PostFeed = ({ setPosts, posts, loading, sortby }) => {
                     </div>
                     <ScrollArea
                       offsetScrollbars
-                      // scrollbarSize={6}
-                      // scrollHideDelay={0}
                       type={screenwidth ? "hover" : "never"}
                       mx="10"
                       style={{

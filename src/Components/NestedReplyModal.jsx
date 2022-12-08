@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Modal, Textarea, Group, Divider, Button, Text } from "@mantine/core";
 import { X } from "phosphor-react";
 import { addnestedComment } from "../api/POST";
 import { showNotification } from "@mantine/notifications";
+import { AuthContext } from "../context/Auth";
 export default function NestedReplyModal({
   opened,
   setOpened,
@@ -14,7 +15,7 @@ export default function NestedReplyModal({
   const [error, setError] = useState("");
   const [text, settext] = useState("");
   const [loading, setloading] = useState(false);
-
+  const { darkmode } = useContext(AuthContext);
   const closemodal = () => {
     setOpened(false);
     settext("");
@@ -143,7 +144,10 @@ export default function NestedReplyModal({
 
               {/* image preview */}
 
-              <Divider my="xs" color={"#E1E8ED"} />
+              <Divider
+                my="xs"
+                color={darkmode ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)"}
+              />
 
               <div
                 style={{
@@ -171,7 +175,12 @@ export default function NestedReplyModal({
                 <div
                   style={{ display: "flex", gap: "10px", alignItems: "center" }}
                 >
-                  <Divider orientation="vertical" />
+                  <Divider
+                    orientation="vertical"
+                    color={
+                      darkmode ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)"
+                    }
+                  />
 
                   <Button
                     disabled={text.length === 0}

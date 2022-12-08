@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Modal, Textarea, Group, Divider, Button, Text } from "@mantine/core";
 import { CircleWavyCheck, ImageSquare, X, XCircle } from "phosphor-react";
 import { AddNewPost } from "../api/POST";
 import { showNotification } from "@mantine/notifications";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import locale from "date-fns/locale/en-US";
+import { AuthContext } from "../context/Auth";
 export default function CreatePostModal({
   opened,
   setOpened,
@@ -110,6 +111,7 @@ export default function CreatePostModal({
         setloading(false);
       });
   };
+  const { darkmode } = useContext(AuthContext);
   return (
     <>
       <Modal
@@ -234,12 +236,15 @@ export default function CreatePostModal({
                     cursor: "pointer",
                     fontSize: "0.9rem",
 
-                    border: "1px solid #e6ecf0",
                     display: "flex",
                     flexDirection: "column",
                     paddingBottom: !quotepostinfo.image ? "0.7rem" : "0",
                     gap: "0.5rem",
                     borderRadius: "0.5rem",
+
+                    border: darkmode
+                      ? "1px solid #2f3336"
+                      : "1px solid #e6ecf0",
                   }}
                 >
                   <div
@@ -344,7 +349,10 @@ export default function CreatePostModal({
                 </div>
               )}
 
-              <Divider my="xs" color={"#E1E8ED"} />
+              <Divider
+                my="xs"
+                color={darkmode ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)"}
+              />
 
               <div
                 style={{
@@ -362,7 +370,7 @@ export default function CreatePostModal({
                         gap: "5px",
                       }}
                     >
-                      <ImageSquare size={23} color="#0d61e7" />
+                      <ImageSquare size={23} color={"#0d61e7"} />
                     </div>
                     <input
                       value={flieInputState}

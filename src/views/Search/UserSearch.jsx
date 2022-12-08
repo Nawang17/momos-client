@@ -22,6 +22,7 @@ const UserSearch = () => {
 
     followingdata,
     setfollowingdata,
+    darkmode,
   } = useContext(AuthContext);
   const [btndisabled, setbtndisabled] = useState("");
   const [Top, setTop] = useState([]);
@@ -123,7 +124,8 @@ const UserSearch = () => {
       style={{
         borderRadius: "4px",
         paddingBottom: "0rem",
-        backgroundColor: "white",
+        backgroundColor: darkmode ? "#1A1B1E" : "white",
+        color: darkmode ? "white" : "black",
       }}
     >
       <div
@@ -170,7 +172,11 @@ const UserSearch = () => {
         }}
       >
         <Tabs defaultValue="Top">
-          <Tabs.List>
+          <Tabs.List
+            style={{
+              borderBottom: "none",
+            }}
+          >
             <Tabs.Tab value="Top">Top</Tabs.Tab>
             <Tabs.Tab value="Latest">Latest</Tabs.Tab>
             <Tabs.Tab value="Accounts">Accounts</Tabs.Tab>
@@ -302,7 +308,9 @@ const UserSearch = () => {
           </Tabs.Panel>
 
           <Tabs.Panel
-            style={{ backgroundColor: "#f0f2f5" }}
+            style={{
+              backgroundColor: darkmode ? "#101113" : " #f0f2f5",
+            }}
             value="Latest"
             pt="xs"
           >
@@ -314,7 +322,9 @@ const UserSearch = () => {
           </Tabs.Panel>
 
           <Tabs.Panel
-            style={{ backgroundColor: "#f0f2f5" }}
+            style={{
+              backgroundColor: darkmode ? "#101113" : " #f0f2f5",
+            }}
             value="Top"
             pt="xs"
           >

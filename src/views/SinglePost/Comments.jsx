@@ -95,7 +95,7 @@ export const Comments = ({ comments, setComments }) => {
     return result;
   }
   const [opened, setOpened] = useState(false);
-  const { UserInfo } = useContext(AuthContext);
+  const { UserInfo, darkmode } = useContext(AuthContext);
   const [replypost, setReplyPost] = useState(null);
   const postvalue = (text) => {
     let replacedText;
@@ -156,7 +156,13 @@ export const Comments = ({ comments, setComments }) => {
         .map((comment) => {
           return (
             <div key={comment.id}>
-              <div className={classes.wrapper}>
+              <div
+                style={{
+                  backgroundColor: darkmode ? "#1A1B1E" : "white",
+                  color: darkmode ? "white" : "black",
+                }}
+                className={classes.wrapper}
+              >
                 <div className={classes.left}>
                   <img
                     onClick={() => {
@@ -247,7 +253,14 @@ export const Comments = ({ comments, setComments }) => {
 
               {comment.nestedcomments.map((data) => {
                 return (
-                  <div key={data.id} className={classes.replywrapper}>
+                  <div
+                    style={{
+                      backgroundColor: darkmode ? "#1A1B1E" : "white",
+                      color: darkmode ? "white" : "black",
+                    }}
+                    key={data.id}
+                    className={classes.replywrapper}
+                  >
                     <div className={classes.left}>
                       <img
                         onClick={() => {

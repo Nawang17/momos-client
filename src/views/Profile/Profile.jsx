@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { Container, createStyles, Tabs } from "@mantine/core";
 import { PostFeed } from "../../Components/PostFeed";
@@ -9,6 +9,7 @@ import { useLocation, useParams } from "react-router-dom";
 import { profileinfo } from "../../api/GET";
 import { showNotification } from "@mantine/notifications";
 import { useScrollIntoView } from "@mantine/hooks";
+import { AuthContext } from "../../context/Auth";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -36,7 +37,7 @@ export const Profile = () => {
   const [profileInfo, setprofileInfo] = useState({});
   const [loading, setloading] = useState(true);
   const [userlikedposts, setuserlikedposts] = useState([]);
-
+  const { darkmode } = useContext(AuthContext);
   const [Tab, setTab] = useState("posts");
 
   useEffect(() => {
@@ -80,7 +81,13 @@ export const Profile = () => {
       <div ref={targetRef} className={classes.leftWrapper}>
         <ProfileHeader profileInfo={profileInfo} />
         <Tabs value={Tab} onTabChange={setTab}>
-          <Tabs.List style={{ background: "white" }}>
+          <Tabs.List
+            style={{
+              borderBottom: "none",
+
+              backgroundColor: darkmode ? "#1A1B1E" : "white",
+            }}
+          >
             <Tabs.Tab value="posts" icon={<Note size={14} />}>
               Posts
             </Tabs.Tab>

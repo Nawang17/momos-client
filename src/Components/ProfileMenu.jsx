@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { AuthContext } from "../context/Auth";
 import { showNotification } from "@mantine/notifications";
 export function ProfileMenu() {
-  const { UserInfo, setUserInfo, setLikedpostIds, setfollowingdata } =
+  const { UserInfo, setUserInfo, setLikedpostIds, setfollowingdata, darkmode } =
     useContext(AuthContext);
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -24,7 +24,7 @@ export function ProfileMenu() {
     <Menu position="bottom-end" shadow="md" width={200}>
       <Menu.Target>
         {!UserInfo ? (
-          <UserCircle size={28} color="black" />
+          <UserCircle size={28} color={darkmode ? "white" : "black"} />
         ) : (
           <img
             style={{ width: "27px", height: "27px", borderRadius: "50%" }}
@@ -41,7 +41,9 @@ export function ProfileMenu() {
               onClick={() => {
                 navigate(`/${UserInfo?.username}`);
               }}
-              icon={<UserCircle size={14} />}
+              icon={
+                <UserCircle color={darkmode ? "white" : "black"} size={14} />
+              }
             >
               Profile
             </Menu.Item>

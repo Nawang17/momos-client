@@ -42,6 +42,7 @@ export const SuggestedAccs = () => {
     setSuggestedusers,
     followingdata,
     setfollowingdata,
+    darkmode,
   } = useContext(AuthContext);
   const [btndisabled, setbtndisabled] = useState("");
   const { scrollIntoView, targetRef } = useScrollIntoView({
@@ -132,7 +133,8 @@ export const SuggestedAccs = () => {
         <div
           ref={targetRef}
           style={{
-            background: "white",
+            backgroundColor: darkmode ? "#1A1B1E" : "white",
+            color: darkmode ? "white" : "black",
             padding: "1rem 0rem 1rem 1rem",
             display: "flex",
             alignItems: "center",
@@ -151,6 +153,8 @@ export const SuggestedAccs = () => {
           style={{
             display: "flex",
             flexDirection: "column",
+            backgroundColor: darkmode ? "#1A1B1E" : "white",
+            color: darkmode ? "white" : "black",
           }}
         >
           {suggestedUsers

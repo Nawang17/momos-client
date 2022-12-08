@@ -10,8 +10,13 @@ import { AuthContext } from "../context/Auth";
 
 const Hsuggestedacc = () => {
   const navigate = useNavigate();
-  const { suggestedUsers, UserInfo, followingdata, setfollowingdata } =
-    useContext(AuthContext);
+  const {
+    suggestedUsers,
+    UserInfo,
+    followingdata,
+    setfollowingdata,
+    darkmode,
+  } = useContext(AuthContext);
   const [followeduser, setfolloweduser] = useState([]);
   const [btndisabled, setbtndisabled] = useState("");
   useEffect(() => {
@@ -74,7 +79,8 @@ const Hsuggestedacc = () => {
   return (
     <div
       style={{
-        background: "white",
+        backgroundColor: darkmode ? "#1A1B1E" : "white",
+        color: darkmode ? "white" : "black",
         display: "flex",
         gap: "7px",
         margin: "10px 0px",
@@ -95,7 +101,7 @@ const Hsuggestedacc = () => {
             }}
             key={value.username}
             style={{
-              border: "1px solid #e6e6e6",
+              border: darkmode ? "1px solid #2f3136" : "1px solid #e6e6e6",
               borderRadius: "4px",
               padding: "0px 25px",
               width: "5.5rem",
@@ -105,7 +111,7 @@ const Hsuggestedacc = () => {
               alignItems: "center",
               justifyContent: "center",
               gap: "6px",
-              background: "white",
+
               cursor: "pointer",
             }}
           >
@@ -158,7 +164,7 @@ const Hsuggestedacc = () => {
           navigate("/suggestedaccounts");
         }}
         style={{
-          border: "1px solid #e6e6e6",
+          border: darkmode ? "1px solid #2f3136" : "1px solid #e6e6e6",
           borderRadius: "4px",
           padding: "0px 25px",
           width: "5.5rem",
@@ -168,7 +174,7 @@ const Hsuggestedacc = () => {
           alignItems: "center",
           justifyContent: "center",
           gap: "6px",
-          background: "white",
+
           cursor: "pointer",
           marginRight: "14px",
         }}

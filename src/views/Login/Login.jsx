@@ -21,7 +21,7 @@ import { useEffect } from "react";
 import GoogleLogin from "@leecheuk/react-google-login";
 
 export function Login() {
-  const { setUserInfo, UserInfo, setLikedpostIds, setfollowingdata } =
+  const { setUserInfo, UserInfo, setLikedpostIds, setfollowingdata, darkmode } =
     useContext(AuthContext);
   const navigate = useNavigate();
   const [Username, setUsername] = useState("");
@@ -141,6 +141,9 @@ export function Login() {
       <Container size={420} my={40}>
         <Title
           align="center"
+          style={{
+            color: darkmode ? "white" : "black",
+          }}
           sx={(theme) => ({
             fontFamily: `Greycliff CF, ${theme.fontFamily}`,
             fontWeight: 700,
@@ -148,10 +151,13 @@ export function Login() {
         >
           Welcome to Momos
         </Title>
-        <Text size="sm" align="center" mt={5}>
+        <Text color={"rgb(144, 146, 150)"} size="sm" align="center" mt={5}>
           Do not have an account?{" "}
           <Link
-            style={{ textDecoration: "none", color: "#1c7ed6" }}
+            style={{
+              textDecoration: "none",
+              color: darkmode ? "rgb(77, 171, 247)" : "#1c7ed6",
+            }}
             to="/Register"
           >
             <span>Register</span>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
 import CreatePostModal from "./CreatePostModal";
-const CreatePost = ({ setHomePosts, UserInfo }) => {
+const CreatePost = ({ setHomePosts, UserInfo, darkmode }) => {
   const [opened, setOpened] = useState(false);
   const navigate = useNavigate();
   return (
@@ -10,7 +10,8 @@ const CreatePost = ({ setHomePosts, UserInfo }) => {
       <div
         style={{
           padding: "1rem",
-          background: "white",
+          backgroundColor: darkmode ? "#1A1B1E" : "white",
+
           borderRadius: "4px",
           marginBottom: "0.5rem",
         }}
@@ -45,8 +46,9 @@ const CreatePost = ({ setHomePosts, UserInfo }) => {
               borderRadius: "18px",
 
               padding: "0.7rem",
-              color: "#666",
               fontSize: "15px",
+              backgroundColor: darkmode ? "#2A2B2E" : "#F0F2F5",
+              color: "grey",
             }}
           >
             What's on your mind, {UserInfo.username}?

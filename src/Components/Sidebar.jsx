@@ -34,9 +34,9 @@ const useStyles = createStyles(() => ({
     padding: "0.6rem 1rem 0.6rem 1rem",
     gap: "0.8rem",
     cursor: "pointer",
-    "&:hover": {
-      backgroundColor: "#f3f3f3",
-    },
+    // "&:hover": {
+    //   backgroundColor: "#f3f3f3",
+    // },
   },
 
   avatar: {
@@ -47,12 +47,23 @@ const useStyles = createStyles(() => ({
 }));
 export const Sidebar = () => {
   const { classes } = useStyles();
-  const { suggestedUsers, UserInfo, setSuggestedusers, followingdata } =
-    useContext(AuthContext);
+  const {
+    suggestedUsers,
+    UserInfo,
+    setSuggestedusers,
+    followingdata,
+    darkmode,
+  } = useContext(AuthContext);
   const navigate = useNavigate();
   return (
     <div className={classes.wrapper}>
-      <div className={classes.mainwrapper}>
+      <div
+        style={{
+          backgroundColor: darkmode ? "#1A1B1E" : "white",
+          color: darkmode ? "white" : "black",
+        }}
+        className={classes.mainwrapper}
+      >
         {" "}
         <Text className={classes.title} size="sm">
           Suggested accounts

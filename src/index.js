@@ -5,8 +5,6 @@ import App from "./App";
 import { NotificationsProvider } from "@mantine/notifications";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <NotificationsProvider position="bottom-center">
-      <App />
-    </NotificationsProvider>
+    <App />
   </React.StrictMode>
 );

@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { createStyles, ScrollArea, Skeleton, Text } from "@mantine/core";
 import { Post } from "./Post";
 import Hsuggestedacc from "./Hsuggestedacc";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useMediaQuery } from "@mantine/hooks";
+import { AuthContext } from "../context/Auth";
 const useStyles = createStyles(() => ({
   wrapper: {
     width: "100%",
@@ -14,7 +15,6 @@ const useStyles = createStyles(() => ({
   horizontalsuggeastedaccounts: {
     display: "none",
     "@media (max-width: 700px)": {
-      backgroundColor: "white",
       display: "block",
       margin: "0px 0px 8px 0px",
       padding: "0px 15px",
@@ -27,6 +27,7 @@ export const PostFeed = ({ setPosts, posts, loading, sortby }) => {
   const { pathname } = useLocation();
   const screenwidth = useMediaQuery("(min-width: 440px)");
   const navigate = useNavigate();
+  const { darkmode } = useContext(AuthContext);
   return (
     <div className={classes.wrapper}>
       {!loading
@@ -34,7 +35,13 @@ export const PostFeed = ({ setPosts, posts, loading, sortby }) => {
             return (
               <div key={post.id}>
                 {(id === 4 || id === 60) && pathname === "/" && (
-                  <div className={classes.horizontalsuggeastedaccounts}>
+                  <div
+                    style={{
+                      backgroundColor: darkmode ? "#1A1B1E" : "white",
+                      color: darkmode ? "white" : "black",
+                    }}
+                    className={classes.horizontalsuggeastedaccounts}
+                  >
                     <div
                       style={{
                         display: "flex",
@@ -82,7 +89,8 @@ export const PostFeed = ({ setPosts, posts, loading, sortby }) => {
               <div
                 key={i}
                 style={{
-                  background: "white",
+                  backgroundColor: darkmode ? "#1A1B1E" : "white",
+
                   padding: "1rem",
 
                   borderRadius: "4px",
@@ -102,9 +110,16 @@ export const PostFeed = ({ setPosts, posts, loading, sortby }) => {
             justifyContent: "center",
             gap: "0.5rem",
             alignItems: "center",
+
+            padding: "0.2rem 0",
           }}
         >
-          <Text weight="500" align="center">
+          <Text
+            color={darkmode ? "white" : "black"}
+            weight="500"
+            align="center"
+            fontSize="13px"
+          >
             No posts found
           </Text>
         </div>

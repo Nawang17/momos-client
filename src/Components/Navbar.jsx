@@ -8,7 +8,13 @@ import {
   ActionIcon,
 } from "@mantine/core";
 import { useLocation, useNavigate, s } from "react-router-dom";
-import { ChatCircleDots, House, MagnifyingGlass } from "phosphor-react";
+import {
+  ChatCircleDots,
+  House,
+  MagnifyingGlass,
+  MoonStars,
+  Sun,
+} from "phosphor-react";
 import { ProfileMenu } from "./ProfileMenu";
 import Notis from "../views/Notis/Notis";
 import { AuthContext } from "../context/Auth";
@@ -65,13 +71,20 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export function Navbar() {
-  const { UserInfo } = useContext(AuthContext);
+  const { UserInfo, setdarkmode, darkmode } = useContext(AuthContext);
   const { classes, cx } = useStyles();
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
   return (
-    <Header height={60} mb={0} className={classes.root}>
+    <Header
+      style={{
+        borderBottom: "none",
+      }}
+      height={60}
+      mb={0}
+      className={classes.root}
+    >
       <Container className={classes.header}>
         <div
           style={{ textDecoration: "none", cursor: "pointer", color: "black" }}
@@ -83,7 +96,7 @@ export function Navbar() {
             }
           }}
         >
-          <Text size="xl" weight="700">
+          <Text color={darkmode ? "white" : "black"} size="xl" weight="700">
             momos
           </Text>
         </div>
@@ -101,21 +114,42 @@ export function Navbar() {
                     }
                   }}
                 >
-                  <House size={28} color="black" />
+                  <House size={28} color={darkmode ? "white" : "black"} />
                 </ActionIcon>
                 <ActionIcon
                   onClick={() => {
                     navigate("/search/q/null");
                   }}
                 >
-                  <MagnifyingGlass size={28} color="black" />
+                  <MagnifyingGlass
+                    color={darkmode ? "white" : "black"}
+                    size={28}
+                  />
                 </ActionIcon>
                 {/* <ActionIcon>
                   <ChatCircleDots size={28} color="black" />
                 </ActionIcon> */}
-                <Notis />
+                <Notis darkmode={darkmode} />
               </>
             )}
+            <ActionIcon
+              variant="transparent"
+              onClick={() => {
+                setdarkmode(!darkmode);
+                if (darkmode) {
+                  document.body.style.backgroundColor = "#f0f2f5";
+                } else {
+                  document.body.style.backgroundColor = "#101113";
+                }
+                localStorage.setItem("darkmode", !darkmode);
+              }}
+            >
+              {darkmode ? (
+                <Sun color="#ffd43b" size={28} />
+              ) : (
+                <MoonStars color="#228be6" size={28} />
+              )}
+            </ActionIcon>
             <ActionIcon>
               <ProfileMenu />
             </ActionIcon>

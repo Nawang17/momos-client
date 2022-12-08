@@ -40,7 +40,8 @@ const useStyles = createStyles(() => ({
 export const ProfileHeader = ({ profileInfo }) => {
   const { userprofile } = useParams();
 
-  const { UserInfo, setfollowingdata, followingdata } = useContext(AuthContext);
+  const { UserInfo, setfollowingdata, followingdata, darkmode } =
+    useContext(AuthContext);
   const navigate = useNavigate();
   const { classes } = useStyles();
   const [followers, setfollowers] = useState([]);
@@ -153,13 +154,25 @@ export const ProfileHeader = ({ profileInfo }) => {
 
   return (
     <>
-      <div style={{ background: "white", padding: "1rem 0rem 0rem 1rem" }}>
+      <div
+        style={{
+          backgroundColor: darkmode ? "#1A1B1E" : "white",
+          color: darkmode ? "white" : "black",
+          padding: "1rem 0rem 0rem 1rem",
+        }}
+      >
         <ActionIcon onClick={() => navigate(-1)}>
           <ArrowLeft size="20px" />
         </ActionIcon>
       </div>
       {!loading ? (
-        <div className={classes.wrapper}>
+        <div
+          style={{
+            backgroundColor: darkmode ? "#1A1B1E" : "white",
+            color: darkmode ? "white" : "black",
+          }}
+          className={classes.wrapper}
+        >
           <div
             style={{
               display: "flex",
@@ -218,7 +231,6 @@ export const ProfileHeader = ({ profileInfo }) => {
                   }}
                   radius={"xl"}
                   size="xs"
-                  color={"dark"}
                 >
                   Follow
                 </Button>
@@ -274,7 +286,7 @@ export const ProfileHeader = ({ profileInfo }) => {
 
                 <div>
                   {followingArr.includes(UserInfo?.username) && (
-                    <Badge size="sm" color="gray">
+                    <Badge size="sm" color={"gray"}>
                       Follows you
                     </Badge>
                   )}
@@ -305,7 +317,7 @@ export const ProfileHeader = ({ profileInfo }) => {
             )}
             {profileInfo?.createdAt && (
               <div>
-                <Text color="#536471" size="13px">
+                <Text color="rgb(113, 118, 123)" size="13px">
                   <span>Joined </span>
                   {format(new Date(profileInfo?.createdAt), "MMMMMM yyyy")}
                 </Text>
@@ -322,7 +334,7 @@ export const ProfileHeader = ({ profileInfo }) => {
                 size="15px"
               >
                 <span style={{ fontWeight: "500" }}>{following.length}</span>{" "}
-                <span style={{ color: "#536471", fontSize: "14px" }}>
+                <span style={{ color: "rgb(113, 118, 123)", fontSize: "14px" }}>
                   Following
                 </span>
               </Text>
@@ -336,7 +348,7 @@ export const ProfileHeader = ({ profileInfo }) => {
                 size="15px"
               >
                 <span style={{ fontWeight: "500" }}>{followers.length}</span>{" "}
-                <span style={{ color: "#536471", fontSize: "14px" }}>
+                <span style={{ color: "rgb(113, 118, 123)", fontSize: "14px" }}>
                   Followers
                 </span>
               </Text>
@@ -344,7 +356,13 @@ export const ProfileHeader = ({ profileInfo }) => {
           </div>
         </div>
       ) : (
-        <div className={classes.wrapper}>
+        <div
+          style={{
+            backgroundColor: darkmode ? "#1A1B1E" : "white",
+            color: darkmode ? "white" : "black",
+          }}
+          className={classes.wrapper}
+        >
           <div className={classes.left}>
             <Skeleton height={60} circle mb="xl" />
           </div>
@@ -370,10 +388,18 @@ export const ProfileHeader = ({ profileInfo }) => {
             </div>
 
             <div style={{ display: "flex", gap: "1rem" }}>
-              <Text color={"#536471"} style={{ cursor: "pointer" }} size="14px">
+              <Text
+                color={"rgb(113, 118, 123)"}
+                style={{ cursor: "pointer" }}
+                size="14px"
+              >
                 Followers
               </Text>
-              <Text color={"#536471"} style={{ cursor: "pointer" }} size="14px">
+              <Text
+                color={"rgb(113, 118, 123)"}
+                style={{ cursor: "pointer" }}
+                size="14px"
+              >
                 Following
               </Text>
             </div>
@@ -524,7 +550,6 @@ export const ProfileHeader = ({ profileInfo }) => {
                 setunfollowconfirm(false);
               }}
               radius="xl"
-              color="dark"
             >
               Unfollow
             </Button>

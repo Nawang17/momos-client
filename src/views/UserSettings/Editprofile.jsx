@@ -43,7 +43,7 @@ export const Editprofile = () => {
   const [avatar, setavatar] = useState("");
   const [profileinfo, setprofileinfo] = useState({});
   const [newavatar, setnewavatar] = useState("");
-  const { setUserInfo, UserInfo } = useContext(AuthContext);
+  const { setUserInfo, UserInfo, darkmode } = useContext(AuthContext);
   const [error, seterror] = useState("");
   const handleflieInputChange = (e) => {
     seterror("");
@@ -121,7 +121,8 @@ export const Editprofile = () => {
       <div className={classes.leftWrapper}>
         <div
           style={{
-            background: "white",
+            backgroundColor: darkmode ? "#1A1B1E" : "white",
+            color: darkmode ? "white" : "black",
             padding: "1rem 0rem 0rem 1rem",
             display: "flex",
             justifyContent: "space-between",
@@ -139,7 +140,8 @@ export const Editprofile = () => {
             display: "flex",
             flexDirection: "column",
             gap: "1rem",
-            background: "white",
+            backgroundColor: darkmode ? "#1A1B1E" : "white",
+            color: darkmode ? "white" : "black",
             padding: "3rem",
           }}
         >
@@ -200,17 +202,18 @@ export const Editprofile = () => {
               )}
             </div>
           </div>{" "}
-          <Input.Wrapper label="Username">
-            <Input
-              disabled={UserInfo?.username === "Demo" ? true : false}
-              value={username}
-              onChange={(e) => {
-                seterror("");
-                setUsername(e.target.value);
-                setbtndisabled(false);
-              }}
-            />
-          </Input.Wrapper>
+          {UserInfo?.username !== "Demo" && (
+            <Input.Wrapper label="Username">
+              <Input
+                value={username}
+                onChange={(e) => {
+                  seterror("");
+                  setUsername(e.target.value);
+                  setbtndisabled(false);
+                }}
+              />
+            </Input.Wrapper>
+          )}
           <div>
             <Textarea
               value={description}

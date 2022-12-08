@@ -1,7 +1,7 @@
 import { createStyles, Modal, Text } from "@mantine/core";
 import { ChatCircle, CircleWavyCheck, Heart } from "phosphor-react";
 import { PostMenu } from "./PostMenu";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/Auth";
 import { likePost } from "../api/POST";
@@ -16,7 +16,7 @@ const useStyles = createStyles(() => ({
     padding: "1rem",
     display: "flex",
     gap: "1rem",
-    borderRadius: "4px",
+
     // "&:hover": {
     //   background: "#f5f5f5",
     // },
@@ -76,7 +76,8 @@ export const Post = ({ post, setPosts }) => {
   const navigate = useNavigate();
   const [opened, setOpened] = useState(false);
   const [viewimg, setviewimg] = useState("");
-  const { likedpostIds, setLikedpostIds, UserInfo } = useContext(AuthContext);
+  const { likedpostIds, setLikedpostIds, UserInfo, darkmode } =
+    useContext(AuthContext);
   const formatDistanceLocale = {
     lessThanXSeconds: "{{count}}s",
     xSeconds: "{{count}}s",
@@ -259,10 +260,18 @@ export const Post = ({ post, setPosts }) => {
 
     return replacedText;
   };
+  const { pathname } = useLocation();
 
   return (
     <>
-      <div className={classes.wrapper}>
+      <div
+        style={{
+          backgroundColor: darkmode ? "#1A1B1E" : "white",
+          color: darkmode ? "white" : "black",
+          borderRadius: pathname !== `/post/${post?.id}` ? "4px" : "0px",
+        }}
+        className={classes.wrapper}
+      >
         <div className={classes.left}>
           <img
             onClick={() => {
@@ -328,6 +337,11 @@ export const Post = ({ post, setPosts }) => {
             <div>
               {post?.filetype === "image" ? (
                 <img
+                  style={{
+                    border: darkmode
+                      ? "1px solid #2f3136"
+                      : "1px solid #e6ecf0",
+                  }}
                   onClick={() => {
                     setviewimg(post?.image);
                     setOpened(true);
@@ -359,7 +373,7 @@ export const Post = ({ post, setPosts }) => {
                 cursor: "pointer",
                 fontSize: "0.9rem",
 
-                border: "1px solid #e6ecf0",
+                border: darkmode ? "1px solid #2f3136" : "1px solid #e6ecf0",
                 display: "flex",
                 flexDirection: "column",
                 paddingBottom: !post?.post.image ? "0.7rem" : "0",
@@ -472,11 +486,11 @@ export const Post = ({ post, setPosts }) => {
           {post.hasquote && !post.post && (
             <div
               style={{
-                backgroundColor: "#f5f8fa",
+                backgroundColor: darkmode ? "#2f3136" : "#f5f8fa",
                 cursor: "pointer",
                 fontSize: "0.9rem",
 
-                border: "1px solid #e6ecf0",
+                border: darkmode ? "1px solid #2f3136" : "1px solid #e6ecf0",
                 display: "flex",
 
                 padding: "0.7rem",
@@ -486,7 +500,7 @@ export const Post = ({ post, setPosts }) => {
             >
               <Text color={"dimmed"}>
                 {" "}
-                This post was deleted by the author.
+                This post was deleted by the author.{" "}
               </Text>
             </div>
           )}
@@ -501,12 +515,14 @@ export const Post = ({ post, setPosts }) => {
               {!likedpostIds.includes(post.id) ? (
                 <Heart color="gray" weight="light" size={19} />
               ) : (
-                <Heart color="red" weight="fill" size={19} />
+                <Heart color={"red"} weight="fill" size={19} />
               )}
 
               <Text
                 className="unclickablevalue"
-                color={!likedpostIds.includes(post.id) ? "gray" : "red"}
+                color={
+                  !likedpostIds.includes(post.id) ? "rgb(134, 142, 150)" : "red"
+                }
                 size="14px"
               >
                 {post.likes.length}
@@ -520,7 +536,11 @@ export const Post = ({ post, setPosts }) => {
               className={classes.fRight}
             >
               <ChatCircle color="gray" weight="light" size={17} />
-              <Text className="unclickablevalue" size="14px" color={"gray"}>
+              <Text
+                className="unclickablevalue"
+                size="14px"
+                color={"rgb(134, 142, 150)"}
+              >
                 {post.comments.length}
               </Text>
             </div>

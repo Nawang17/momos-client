@@ -19,7 +19,7 @@ import GoogleLogin from "@leecheuk/react-google-login";
 
 export function Register() {
   const navigate = useNavigate();
-  const { setUserInfo, UserInfo } = useContext(AuthContext);
+  const { setUserInfo, UserInfo, darkmode } = useContext(AuthContext);
   const [Username, setUsername] = useState("");
   const [Password, setPassword] = useState("");
   const [loading, setloading] = useState(false);
@@ -105,6 +105,9 @@ export function Register() {
     <div style={{ height: "80vh" }}>
       <Container size={420} my={40}>
         <Title
+          style={{
+            color: darkmode ? "white" : "black",
+          }}
           align="center"
           sx={(theme) => ({
             fontFamily: `Greycliff CF, ${theme.fontFamily}`,
@@ -113,10 +116,13 @@ export function Register() {
         >
           Welcome to Momos
         </Title>
-        <Text size="sm" align="center" mt={5}>
+        <Text color={"rgb(144, 146, 150)"} size="sm" align="center" mt={5}>
           Already have an account?{" "}
           <Link
-            style={{ textDecoration: "none", color: "#1c7ed6" }}
+            style={{
+              textDecoration: "none",
+              color: darkmode ? "rgb(77, 171, 247)" : "#1c7ed6",
+            }}
             to="/Login"
           >
             <span>Login</span>

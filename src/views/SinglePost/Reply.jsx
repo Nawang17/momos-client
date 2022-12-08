@@ -7,7 +7,7 @@ import { showNotification } from "@mantine/notifications";
 
 const Reply = ({ singlePostData, setComments }) => {
   const [reply, setReply] = useState("");
-  const { UserInfo } = useContext(AuthContext);
+  const { UserInfo, darkmode } = useContext(AuthContext);
 
   const handlereply = () => {
     if (!UserInfo) {
@@ -50,12 +50,13 @@ const Reply = ({ singlePostData, setComments }) => {
     <div
       style={{
         display: "flex",
-        backgroundColor: "white",
+        backgroundColor: darkmode ? "#1A1B1E" : "white",
+        color: darkmode ? "white" : "black",
         padding: "1rem",
         alignItems: "center",
         gap: "1rem",
-        borderTop: "1px solid #e6e6e6",
-        borderBottom: "1px solid #e6e6e6",
+        borderTop: darkmode ? "1px solid #2f3136" : "1px solid #e6e6e6",
+        borderBottom: darkmode ? "1px solid #2f3136" : "1px solid #e6e6e6",
       }}
     >
       <img

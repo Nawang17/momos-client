@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { createStyles, ActionIcon, Skeleton } from "@mantine/core";
 import { Post } from "../../Components/Post";
 import Reply from "./Reply";
@@ -7,6 +7,7 @@ import { Comments } from "./Comments";
 import { useNavigate } from "react-router-dom";
 import { useScrollIntoView } from "@mantine/hooks";
 import { useEffect } from "react";
+import { AuthContext } from "../../context/Auth";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -32,6 +33,7 @@ export const SinglePostFeed = ({
   const { scrollIntoView, targetRef, scrollableRef } = useScrollIntoView({
     offset: 66,
   });
+  const { darkmode } = useContext(AuthContext);
   useEffect(() => {
     scrollIntoView();
   }, []);
@@ -39,7 +41,11 @@ export const SinglePostFeed = ({
     <div className={classes.wrapper}>
       <div
         ref={targetRef}
-        style={{ background: "white", padding: "1rem 0rem 0rem 1rem" }}
+        style={{
+          backgroundColor: darkmode ? "#1A1B1E" : "white",
+          color: darkmode ? "white" : "black",
+          padding: "1rem 0rem 0rem 1rem",
+        }}
       >
         <ActionIcon onClick={() => navigate(-1)}>
           <ArrowLeft size="20px" />
@@ -50,7 +56,7 @@ export const SinglePostFeed = ({
       ) : (
         <div
           style={{
-            background: "white",
+            backgroundColor: darkmode ? "#1A1B1E" : "white",
             padding: "1rem",
 
             borderRadius: "4px",

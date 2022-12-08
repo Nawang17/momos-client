@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { notis } from "../../api/GET";
-export default function Notis() {
+export default function Notis({ darkmode }) {
   const formatDistanceLocale = {
     lessThanXSeconds: "{{count}}s",
     xSeconds: "{{count}}s",
@@ -63,13 +63,19 @@ export default function Notis() {
       shadow="md"
     >
       <Popover.Target>
-        <ActionIcon onClick={() => setOpened((o) => !o)}>
-          <Bell size={28} color="black" />
+        <ActionIcon variant="transparent" onClick={() => setOpened((o) => !o)}>
+          <Bell size={28} color={darkmode ? "white" : "black"} />
         </ActionIcon>
       </Popover.Target>
 
       <Popover.Dropdown>
-        <ScrollArea style={{ height: Notis.length < 5 ? "auto" : 300 }}>
+        <ScrollArea
+          style={{
+            height: Notis.length < 5 ? "auto" : 300,
+
+            color: darkmode ? "white" : "black",
+          }}
+        >
           <div>
             {Notis.length === 0 ? (
               <Text align="center" size="15px" weight={"500"}>

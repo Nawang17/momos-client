@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import { Navbar } from "./Components/Navbar";
 import { Home } from "./views/Home/Home";
 import { Login } from "./views/Login/Login";
@@ -11,17 +11,36 @@ import { RouteError } from "./Components/RouteError";
 import { Hero } from "./Components/Hero";
 import { AuthContext } from "./context/Auth";
 import { LoginStatus } from "./api/AUTH";
-import { showNotification } from "@mantine/notifications";
+import {
+  NotificationsProvider,
+  showNotification,
+} from "@mantine/notifications";
 import { likedPosts, suggestedusersreq } from "./api/GET";
 import { Editprofile } from "./views/UserSettings/Editprofile";
 import { Search } from "./views/Search/Search";
 import { SuggestedAccs } from "./views/SuggestedAccounts/SuggestedAccs";
+import { MantineProvider } from "@mantine/core";
+import { useScrollIntoView } from "@mantine/hooks";
 function App() {
+  const [darkmode, setdarkmode] = useState(false);
+
   const [UserInfo, setUserInfo] = useState(null);
   const [likedpostIds, setLikedpostIds] = useState([]);
   const [followingdata, setfollowingdata] = useState([]);
   const [suggestedUsers, setSuggestedusers] = useState([]);
+  useLayoutEffect(() => {
+    if (localStorage.getItem("darkmode") === "true") {
+      setdarkmode(true);
+
+      document.body.style = "background: #101113;";
+    } else {
+      setdarkmode(false);
+
+      document.body.style = "background: #f0f2f5;";
+    }
+  }, []);
   useEffect(() => {
+    scrollIntoView();
     console.log(`
     ███╗   ███╗ ██████╗ ███╗   ███╗ ██████╗ ███████╗
     ████╗ ████║██╔═══██╗████╗ ████║██╔═══██╗██╔════╝
@@ -63,7 +82,7 @@ function App() {
       element: (
         <>
           <Navbar />
-          {!UserInfo && <Hero />}
+          {!UserInfo && <Hero darkmode={darkmode} />}
 
           <Home />
         </>
@@ -143,23 +162,32 @@ function App() {
       errorElement: <RouteError />,
     },
   ]);
+  const { scrollIntoView, targetRef, scrollableRef } = useScrollIntoView({
+    offset: 66,
+  });
   return (
-    <div className="App">
-      <AuthContext.Provider
-        value={{
-          UserInfo,
-          setUserInfo,
-          likedpostIds,
-          setLikedpostIds,
-          followingdata,
-          setfollowingdata,
-          suggestedUsers,
-          setSuggestedusers,
-        }}
-      >
-        <RouterProvider router={router} />
-      </AuthContext.Provider>
-    </div>
+    <MantineProvider theme={{ colorScheme: darkmode ? "dark" : "light" }}>
+      <NotificationsProvider position="bottom-center">
+        <div ref={targetRef} className="App">
+          <AuthContext.Provider
+            value={{
+              UserInfo,
+              setUserInfo,
+              likedpostIds,
+              setLikedpostIds,
+              followingdata,
+              setfollowingdata,
+              suggestedUsers,
+              setSuggestedusers,
+              darkmode,
+              setdarkmode,
+            }}
+          >
+            <RouterProvider router={router} />
+          </AuthContext.Provider>
+        </div>
+      </NotificationsProvider>
+    </MantineProvider>
   );
 }
 

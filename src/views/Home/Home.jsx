@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { Container, createStyles, Loader } from "@mantine/core";
+import { Container, createStyles, Loader, Text } from "@mantine/core";
 import { PostFeed } from "../../Components/PostFeed";
 import { Sidebar } from "../../Components/Sidebar";
 import CreatePost from "../../Components/CreatePost";
@@ -14,7 +14,7 @@ const useStyles = createStyles(() => ({
     display: "flex",
     justifyContent: "space-between",
     gap: "1rem",
-    paddingBottom: "5rem",
+    paddingBottom: "2rem",
     paddingTop: "0.5rem",
   },
   leftWrapper: {
@@ -28,7 +28,7 @@ const useStyles = createStyles(() => ({
 export const Home = () => {
   const { classes } = useStyles();
   const [homePosts, setHomePosts] = useState([]);
-  const { UserInfo } = useContext(AuthContext);
+  const { UserInfo, darkmode } = useContext(AuthContext);
   const [loading, setloading] = useState(true);
   const [page, setpage] = useState(0);
   const [postCount, setpostCount] = useState(0);
@@ -88,7 +88,11 @@ export const Home = () => {
       <Container px={10} className={classes.wrapper}>
         <div className={classes.leftWrapper}>
           {UserInfo && (
-            <CreatePost setHomePosts={setHomePosts} UserInfo={UserInfo} />
+            <CreatePost
+              darkmode={darkmode}
+              setHomePosts={setHomePosts}
+              UserInfo={UserInfo}
+            />
           )}
 
           {/* {UserInfo && (
@@ -113,13 +117,25 @@ export const Home = () => {
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                  marginTop: "10px",
+                  marginTop: "1rem",
                 }}
               >
                 <Loader />
               </div>
             }
-            endMessage={<></>}
+            endMessage={
+              <>
+                {/* <Text
+                  style={{
+                    marginTop: "1rem",
+                  }}
+                  align="center"
+                  color={darkmode ? "white" : "dark"}
+                >
+                  You have seen it all
+                </Text> */}
+              </>
+            }
           >
             <PostFeed
               sortby={sortvalue}

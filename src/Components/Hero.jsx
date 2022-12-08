@@ -53,7 +53,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export function Hero() {
+export function Hero({ darkmode }) {
   const { classes } = useStyles();
 
   return (
@@ -67,8 +67,12 @@ export function Hero() {
         </Title>
 
         <Container p={0} size={600}>
-          <Text size="lg" className={classes.description}>
-            Connect with people around the world.
+          <Text
+            color={darkmode ? "rgb(144, 146, 150)" : "#000000"}
+            size="lg"
+            className={classes.description}
+          >
+            Connect with people around the world
           </Text>
         </Container>
 

@@ -129,7 +129,7 @@ export const Post = ({ post, setPosts }) => {
         icon: <Lock size={18} />,
         color: "red",
         title: "Login required",
-        autoClose: 4000,
+        autoClose: 3000,
       });
     } else {
       if (likedpostIds.includes(post.id)) {
@@ -207,14 +207,14 @@ export const Post = ({ post, setPosts }) => {
               icon: <WarningCircle size={18} />,
               color: "red",
               title: "Internal Server Error",
-              autoClose: 7000,
+              autoClose: 4000,
             });
           } else {
             showNotification({
               icon: <WarningCircle size={18} />,
               color: "red",
               title: err.response.data,
-              autoClose: 7000,
+              autoClose: 4000,
             });
           }
         });

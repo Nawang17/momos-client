@@ -30,6 +30,9 @@ function App() {
   const [followingdata, setfollowingdata] = useState([]);
   const [suggestedUsers, setSuggestedusers] = useState([]);
   useLayoutEffect(() => {
+    if (!localStorage.getItem("darkmode")) {
+      localStorage.setItem("darkmode", "true");
+    }
     if (localStorage.getItem("darkmode") === "true") {
       setdarkmode(true);
 
@@ -64,7 +67,7 @@ function App() {
           title: `You are logged in as ${res.data.user.username}`,
           message: "Welcome back to momos",
 
-          autoClose: 5000,
+          autoClose: 3000,
         });
       })
       .catch(() => {
@@ -169,7 +172,7 @@ function App() {
   });
   return (
     <MantineProvider theme={{ colorScheme: darkmode ? "dark" : "light" }}>
-      <NotificationsProvider position="bottom-center">
+      <NotificationsProvider position="top-center">
         <div ref={targetRef} className="App">
           <AuthContext.Provider
             value={{

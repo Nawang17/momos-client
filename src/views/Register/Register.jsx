@@ -50,7 +50,7 @@ export function Register() {
           icon: <User size={18} />,
           title: "Register Successful",
           message: `Welcome to momos ${res.data.user.username} `,
-          autoClose: 5000,
+          autoClose: 3000,
         });
       })
       .catch((err) => {
@@ -83,7 +83,7 @@ export function Register() {
           icon: <User size={18} />,
           title: "Register Successful",
           message: `Welcome to momos ${res.data.user.username} `,
-          autoClose: 5000,
+          autoClose: 3000,
         });
       })
       .catch((err) => {
@@ -92,14 +92,14 @@ export function Register() {
             icon: <WarningCircle size={18} />,
             color: "red",
             title: "Internal Server Error",
-            autoClose: 7000,
+            autoClose: 4000,
           });
         } else {
           showNotification({
             icon: <WarningCircle size={18} />,
             color: "red",
             title: err.response.data,
-            autoClose: 7000,
+            autoClose: 4000,
           });
         }
         setgoogleloading(false);

@@ -50,7 +50,7 @@ export default function NestedReplyModal({
           icon: <Lightning size={18} />,
           color: "green",
           title: "Reply added",
-          autoClose: 4000,
+          autoClose: 3000,
         });
       })
       .catch((err) => {

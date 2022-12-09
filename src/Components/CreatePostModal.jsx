@@ -107,7 +107,7 @@ export default function CreatePostModal({
           color: "teal",
           icon: <Lightning size={18} />,
           title: "Post Created Successfully",
-          autoClose: 4000,
+          autoClose: 3000,
         });
       })
       .catch((err) => {

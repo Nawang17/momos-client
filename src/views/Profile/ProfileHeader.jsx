@@ -79,14 +79,14 @@ export const ProfileHeader = ({ profileInfo }) => {
             icon: <WarningCircle size={18} />,
             color: "red",
             title: "Internal Server Error",
-            autoClose: 7000,
+            autoClose: 4000,
           });
         } else {
           showNotification({
             icon: <WarningCircle size={18} />,
             color: "red",
             title: err.response.data,
-            autoClose: 7000,
+            autoClose: 4000,
           });
         }
       });
@@ -98,7 +98,7 @@ export const ProfileHeader = ({ profileInfo }) => {
       showNotification({
         icon: <Lock size={18} />,
         title: "Login required",
-        autoClose: 5000,
+        autoClose: 3000,
         color: "red",
       });
     } else {
@@ -119,13 +119,13 @@ export const ProfileHeader = ({ profileInfo }) => {
             showNotification({
               icon: <UserPlus size={18} />,
               message: `You are now following ${profileInfo.username}`,
-              autoClose: 4000,
+              autoClose: 3000,
             });
           } else {
             showNotification({
               icon: <UserMinus size={18} />,
               message: `You are no longer following ${profileInfo.username}`,
-              autoClose: 4000,
+              autoClose: 3000,
             });
             setfollowers((prev) => {
               return prev.filter(
@@ -147,7 +147,7 @@ export const ProfileHeader = ({ profileInfo }) => {
               icon: <WarningCircle size={18} />,
               color: "red",
               title: "Internal Server Error",
-              autoClose: 7000,
+              autoClose: 4000,
             });
             setbtndisabled(false);
           } else {
@@ -155,7 +155,7 @@ export const ProfileHeader = ({ profileInfo }) => {
               icon: <WarningCircle size={18} />,
               color: "red",
               title: err.response.data,
-              autoClose: 7000,
+              autoClose: 4000,
             });
 
             setbtndisabled(false);

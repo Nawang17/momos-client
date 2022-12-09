@@ -15,7 +15,7 @@ const Reply = ({ singlePostData, setComments }) => {
         icon: <Lock size={18} />,
         color: "red",
         title: "Login required",
-        autoClose: 4000,
+        autoClose: 3000,
       });
       return;
     } else {
@@ -26,7 +26,7 @@ const Reply = ({ singlePostData, setComments }) => {
           showNotification({
             icon: <Lightning size={18} />,
             title: "Reply added",
-            autoClose: 4000,
+            autoClose: 3000,
             color: "green",
           });
         })
@@ -36,14 +36,14 @@ const Reply = ({ singlePostData, setComments }) => {
               icon: <WarningCircle size={18} />,
               color: "red",
               title: "Internal Server Error",
-              autoClose: 7000,
+              autoClose: 4000,
             });
           } else {
             showNotification({
               icon: <WarningCircle size={18} />,
               color: "red",
               title: err.response.data,
-              autoClose: 7000,
+              autoClose: 4000,
             });
           }
         });

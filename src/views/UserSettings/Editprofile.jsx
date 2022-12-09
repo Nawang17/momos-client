@@ -110,14 +110,14 @@ export const Editprofile = () => {
             icon: <WarningCircle size={18} />,
             color: "red",
             title: "Internal Server Error",
-            autoClose: 7000,
+            autoClose: 4000,
           });
         } else {
           showNotification({
             color: "red",
             title: "Error",
             message: err.response.data.message,
-            autoClose: 7000,
+            autoClose: 4000,
           });
         }
       });

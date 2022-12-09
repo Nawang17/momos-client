@@ -17,7 +17,7 @@ export function ProfileMenu() {
     showNotification({
       icon: <SignOut size={18} />,
       title: "Logged out",
-      autoClose: 5000,
+      autoClose: 3000,
       color: "gray",
     });
   };

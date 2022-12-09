@@ -82,7 +82,7 @@ const UserSearch = () => {
         icon: <Lock size={18} />,
         color: "red",
         title: "Login required",
-        autoClose: 5000,
+        autoClose: 3000,
       });
     } else {
       follow({ followingid: userid ? userid : null })
@@ -97,14 +97,14 @@ const UserSearch = () => {
             showNotification({
               icon: <UserPlus size={18} />,
               message: `You are now following ${username}`,
-              autoClose: 4000,
+              autoClose: 3000,
             });
           } else {
             setbtndisabled("");
             showNotification({
               icon: <UserMinus size={18} />,
               message: `You are no longer following ${username}`,
-              autoClose: 4000,
+              autoClose: 3000,
             });
 
             setfollowingdata((prev) => {
@@ -119,14 +119,14 @@ const UserSearch = () => {
               icon: <WarningCircle size={18} />,
               color: "red",
               title: "Internal Server Error",
-              autoClose: 7000,
+              autoClose: 4000,
             });
           } else {
             showNotification({
               icon: <WarningCircle size={18} />,
               color: "red",
               title: err.response.data,
-              autoClose: 7000,
+              autoClose: 4000,
             });
           }
         });

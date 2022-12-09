@@ -47,7 +47,7 @@ export function NestedCommentMenu({
         showNotification({
           icon: <Trash size={18} />,
           title: "Reply Deleted",
-          autoClose: 4000,
+          autoClose: 3000,
           color: "red",
         });
       })
@@ -57,14 +57,14 @@ export function NestedCommentMenu({
             icon: <WarningCircle size={18} />,
             color: "red",
             title: "Internal Server Error",
-            autoClose: 7000,
+            autoClose: 4000,
           });
         } else {
           showNotification({
             icon: <WarningCircle size={18} />,
             color: "red",
             title: err.response.data,
-            autoClose: 7000,
+            autoClose: 4000,
           });
         }
       });
@@ -74,7 +74,7 @@ export function NestedCommentMenu({
       showNotification({
         icon: <Lock size={18} />,
         title: "Login required",
-        autoClose: 5000,
+        autoClose: 3000,
         color: "red",
       });
     } else {
@@ -88,13 +88,13 @@ export function NestedCommentMenu({
             showNotification({
               icon: <UserPlus size={18} />,
               message: `You are now following ${commentuser}`,
-              autoClose: 4000,
+              autoClose: 3000,
             });
           } else {
             showNotification({
               icon: <UserMinus size={18} />,
               message: `You are no longer following ${commentuser}`,
-              autoClose: 4000,
+              autoClose: 3000,
             });
 
             setfollowingdata((prev) => {
@@ -108,14 +108,14 @@ export function NestedCommentMenu({
               icon: <WarningCircle size={18} />,
               color: "red",
               title: "Internal Server Error",
-              autoClose: 7000,
+              autoClose: 4000,
             });
           } else {
             showNotification({
               icon: <WarningCircle size={18} />,
               color: "red",
               title: err.response.data,
-              autoClose: 7000,
+              autoClose: 4000,
             });
           }
         });
@@ -168,7 +168,7 @@ export function NestedCommentMenu({
               showNotification({
                 icon: <CopySimple size={18} />,
                 title: "Link copied to clipboard",
-                autoClose: 4000,
+                autoClose: 3000,
                 color: "gray",
               });
             }}

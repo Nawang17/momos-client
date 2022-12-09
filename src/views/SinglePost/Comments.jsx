@@ -229,7 +229,7 @@ export const Comments = ({ comments, setComments }) => {
                             icon: <Lock size={18} />,
                             color: "red",
                             title: "Login required",
-                            autoClose: 4000,
+                            autoClose: 3000,
                           });
                         } else {
                           setOpened(!opened);
@@ -363,7 +363,7 @@ export const Comments = ({ comments, setComments }) => {
                                 color: "red",
                                 icon: <Lock size={18} />,
                                 title: "Login required",
-                                autoClose: 4000,
+                                autoClose: 3000,
                               });
                             } else {
                               setOpened(!opened);

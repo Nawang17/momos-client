@@ -77,7 +77,7 @@ export const Profile = () => {
   }, [pathname]);
 
   return (
-    <Container px={10} className={classes.wrapper}>
+    <Container px={0} className={classes.wrapper}>
       <div ref={targetRef} className={classes.leftWrapper}>
         <ProfileHeader profileInfo={profileInfo} />
         <Tabs value={Tab} onTabChange={setTab}>

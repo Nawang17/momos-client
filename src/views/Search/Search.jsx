@@ -34,7 +34,7 @@ export const Search = () => {
     scrollIntoView();
   }, []);
   return (
-    <Container ref={targetRef} px={10} className={classes.wrapper}>
+    <Container ref={targetRef} px={0} className={classes.wrapper}>
       <div className={classes.leftWrapper}>
         {/* <div style={{ background: "white", padding: "1rem 0rem 0rem 1rem" }}>
           <ActionIcon onClick={() => navigate(-1)}>

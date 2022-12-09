@@ -515,13 +515,15 @@ export const Post = ({ post, setPosts }) => {
               {!likedpostIds.includes(post.id) ? (
                 <Heart color="gray" weight="light" size={19} />
               ) : (
-                <Heart color={"red"} weight="fill" size={19} />
+                <Heart color={"rgb(255, 69, 0)"} weight="fill" size={19} />
               )}
 
               <Text
                 className="unclickablevalue"
                 color={
-                  !likedpostIds.includes(post.id) ? "rgb(134, 142, 150)" : "red"
+                  !likedpostIds.includes(post.id)
+                    ? "rgb(134, 142, 150)"
+                    : "rgb(255, 69, 0)"
                 }
                 size="14px"
               >

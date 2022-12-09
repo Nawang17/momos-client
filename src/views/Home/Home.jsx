@@ -85,7 +85,7 @@ export const Home = () => {
 
   return (
     <>
-      <Container px={10} className={classes.wrapper}>
+      <Container px={0} className={classes.wrapper}>
         <div className={classes.leftWrapper}>
           {UserInfo && (
             <CreatePost

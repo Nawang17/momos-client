@@ -51,7 +51,7 @@ export const SinglePost = () => {
       });
   }, [pathname]);
   return (
-    <Container px={10} className={classes.wrapper}>
+    <Container px={0} className={classes.wrapper}>
       <SinglePostFeed
         singlePostData={singlePostData[0]}
         setPosts={setSinglePostData}

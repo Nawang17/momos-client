@@ -117,7 +117,7 @@ export const Editprofile = () => {
       });
   }, []);
   return (
-    <Container px={10} className={classes.wrapper}>
+    <Container px={0} className={classes.wrapper}>
       <div className={classes.leftWrapper}>
         <div
           style={{

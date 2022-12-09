@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import confetti from "canvas-confetti";
 import { AuthContext } from "../../context/Auth";
 import GoogleLogin from "@leecheuk/react-google-login";
+import { User, WarningCircle } from "phosphor-react";
 
 export function Register() {
   const navigate = useNavigate();
@@ -46,6 +47,7 @@ export function Register() {
         });
 
         showNotification({
+          icon: <User size={18} />,
           title: "Register Successful",
           message: `Welcome to momos ${res.data.user.username} `,
           autoClose: 5000,
@@ -78,6 +80,7 @@ export function Register() {
         });
 
         showNotification({
+          icon: <User size={18} />,
           title: "Register Successful",
           message: `Welcome to momos ${res.data.user.username} `,
           autoClose: 5000,
@@ -86,13 +89,14 @@ export function Register() {
       .catch((err) => {
         if (err.response.status === 0) {
           showNotification({
+            icon: <WarningCircle size={18} />,
             color: "red",
             title: "Internal Server Error",
-
             autoClose: 7000,
           });
         } else {
           showNotification({
+            icon: <WarningCircle size={18} />,
             color: "red",
             title: err.response.data,
             autoClose: 7000,

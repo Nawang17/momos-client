@@ -1,6 +1,12 @@
 import { Button, Text } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
-import { CircleWavyCheck } from "phosphor-react";
+import {
+  CircleWavyCheck,
+  Lock,
+  UserMinus,
+  UserPlus,
+  WarningCircle,
+} from "phosphor-react";
 import React, { useContext } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -28,7 +34,8 @@ const Hsuggestedacc = () => {
       setbtndisabled("");
       showNotification({
         color: "red",
-        title: "Please login to follow",
+        icon: <Lock size={18} />,
+        title: "Login required",
         autoClose: 5000,
       });
     } else {
@@ -42,12 +49,14 @@ const Hsuggestedacc = () => {
 
             setbtndisabled("");
             showNotification({
+              icon: <UserPlus size={18} />,
               message: `You are now following ${username}`,
               autoClose: 4000,
             });
           } else {
             setbtndisabled("");
             showNotification({
+              icon: <UserMinus size={18} />,
               message: `You are no longer following ${username}`,
               autoClose: 4000,
             });
@@ -61,13 +70,14 @@ const Hsuggestedacc = () => {
           setbtndisabled("");
           if (err.response.status === 0) {
             showNotification({
+              icon: <WarningCircle size={18} />,
               color: "red",
               title: "Internal Server Error",
-
               autoClose: 7000,
             });
           } else {
             showNotification({
+              icon: <WarningCircle size={18} />,
               color: "red",
               title: err.response.data,
               autoClose: 7000,
@@ -104,7 +114,8 @@ const Hsuggestedacc = () => {
               border: darkmode ? "1px solid #2f3136" : "1px solid #e6e6e6",
               borderRadius: "4px",
               padding: "0px 25px",
-              width: "5.5rem",
+              width: "5.9rem",
+
               height: "8.4rem",
               display: "flex",
               flexDirection: "column",

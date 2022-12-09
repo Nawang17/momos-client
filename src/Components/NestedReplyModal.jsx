@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { Modal, Textarea, Group, Divider, Button, Text } from "@mantine/core";
-import { X } from "phosphor-react";
+import { Lightning, X } from "phosphor-react";
 import { addnestedComment } from "../api/POST";
 import { showNotification } from "@mantine/notifications";
 import { AuthContext } from "../context/Auth";
@@ -47,6 +47,8 @@ export default function NestedReplyModal({
           });
         });
         showNotification({
+          icon: <Lightning size={18} />,
+          color: "green",
           title: "Reply added",
           autoClose: 4000,
         });

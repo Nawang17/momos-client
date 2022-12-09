@@ -1,6 +1,15 @@
 import { ActionIcon, Button, Input, Loader, Tabs, Text } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
-import { ArrowLeft, CircleWavyCheck, MagnifyingGlass, X } from "phosphor-react";
+import {
+  ArrowLeft,
+  CircleWavyCheck,
+  Lock,
+  MagnifyingGlass,
+  UserMinus,
+  UserPlus,
+  WarningCircle,
+  X,
+} from "phosphor-react";
 import React, { useContext } from "react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -70,8 +79,9 @@ const UserSearch = () => {
     if (!UserInfo) {
       setbtndisabled("");
       showNotification({
+        icon: <Lock size={18} />,
         color: "red",
-        title: "Please login to follow",
+        title: "Login required",
         autoClose: 5000,
       });
     } else {
@@ -85,12 +95,14 @@ const UserSearch = () => {
 
             setbtndisabled("");
             showNotification({
+              icon: <UserPlus size={18} />,
               message: `You are now following ${username}`,
               autoClose: 4000,
             });
           } else {
             setbtndisabled("");
             showNotification({
+              icon: <UserMinus size={18} />,
               message: `You are no longer following ${username}`,
               autoClose: 4000,
             });
@@ -104,13 +116,14 @@ const UserSearch = () => {
           setbtndisabled("");
           if (err.response.status === 0) {
             showNotification({
+              icon: <WarningCircle size={18} />,
               color: "red",
               title: "Internal Server Error",
-
               autoClose: 7000,
             });
           } else {
             showNotification({
+              icon: <WarningCircle size={18} />,
               color: "red",
               title: err.response.data,
               autoClose: 7000,
@@ -122,7 +135,6 @@ const UserSearch = () => {
   return (
     <div
       style={{
-        borderRadius: "4px",
         paddingBottom: "0rem",
         backgroundColor: darkmode ? "#1A1B1E" : "white",
         color: darkmode ? "white" : "black",

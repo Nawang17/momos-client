@@ -5,10 +5,12 @@ import {
   CopySimple,
   DotsThree,
   Export,
+  Lock,
   Quotes,
   Trash,
   UserMinus,
   UserPlus,
+  WarningCircle,
 } from "phosphor-react";
 import { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -30,8 +32,10 @@ export function PostMenu({ postinfo, setPosts }) {
           return prev.filter((post) => post.id !== postinfo.id);
         });
         showNotification({
-          title: "Your post was deleted",
+          icon: <Trash size={18} />,
+          title: "Post Deleted",
           autoClose: 4000,
+          color: "red",
         });
         if (pathname === `/post/${postinfo?.id}`) {
           navigate("/");
@@ -40,13 +44,14 @@ export function PostMenu({ postinfo, setPosts }) {
       .catch((err) => {
         if (err.response.status === 0) {
           showNotification({
+            icon: <WarningCircle size={18} />,
             color: "red",
             title: "Internal Server Error",
-
             autoClose: 7000,
           });
         } else {
           showNotification({
+            icon: <WarningCircle size={18} />,
             color: "red",
             title: err.response.data,
             autoClose: 7000,
@@ -57,8 +62,10 @@ export function PostMenu({ postinfo, setPosts }) {
   const handleFollow = () => {
     if (!UserInfo) {
       showNotification({
-        title: "Please Login to follow",
+        icon: <Lock size={18} />,
+        title: "Login required",
         autoClose: 5000,
+        color: "red",
       });
     } else {
       follow({ followingid: postinfo?.user.id })
@@ -69,11 +76,13 @@ export function PostMenu({ postinfo, setPosts }) {
               res.data.newFollowing.following.username,
             ]);
             showNotification({
+              icon: <UserPlus size={18} />,
               message: `You are now following ${postinfo?.user.username}`,
               autoClose: 4000,
             });
           } else {
             showNotification({
+              icon: <UserMinus size={18} />,
               message: `You are no longer following ${postinfo?.user.username}`,
               autoClose: 4000,
             });
@@ -86,13 +95,14 @@ export function PostMenu({ postinfo, setPosts }) {
         .catch((err) => {
           if (err.response.status === 0) {
             showNotification({
+              icon: <WarningCircle size={18} />,
               color: "red",
               title: "Internal Server Error",
-
               autoClose: 7000,
             });
           } else {
             showNotification({
+              icon: <WarningCircle size={18} />,
               color: "red",
               title: err.response.data,
               autoClose: 7000,
@@ -156,8 +166,10 @@ export function PostMenu({ postinfo, setPosts }) {
                 setOpenConfirm(true);
               } else {
                 showNotification({
-                  title: "Please Login to quote a post",
+                  icon: <Lock size={18} />,
+                  title: "Login required",
                   autoClose: 5000,
+                  color: "red",
                 });
               }
             }}
@@ -171,8 +183,10 @@ export function PostMenu({ postinfo, setPosts }) {
                 `https://momosz.com/post/${postinfo?.id}`
               );
               showNotification({
+                icon: <CopySimple size={18} />,
                 title: "Link copied to clipboard",
                 autoClose: 4000,
+                color: "gray",
               });
             }}
             icon={<CopySimple size={14} />}

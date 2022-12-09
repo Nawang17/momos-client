@@ -1,6 +1,12 @@
 import { useContext, useState } from "react";
 import { Modal, Textarea, Group, Divider, Button, Text } from "@mantine/core";
-import { CircleWavyCheck, ImageSquare, X, XCircle } from "phosphor-react";
+import {
+  CircleWavyCheck,
+  ImageSquare,
+  Lightning,
+  X,
+  XCircle,
+} from "phosphor-react";
 import { AddNewPost } from "../api/POST";
 import { showNotification } from "@mantine/notifications";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
@@ -98,6 +104,8 @@ export default function CreatePostModal({
         closemodal();
         setHomePosts((prev) => [res.data.newpost, ...prev]);
         showNotification({
+          color: "teal",
+          icon: <Lightning size={18} />,
           title: "Post Created Successfully",
           autoClose: 4000,
         });

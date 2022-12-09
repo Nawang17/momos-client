@@ -23,6 +23,9 @@ const useStyles = createStyles((theme) => ({
   root: {
     position: "sticky",
     zIndex: 99,
+    "@media (min-width: 700px)": {
+      borderBottom: "none",
+    },
   },
   header: {
     display: "flex",
@@ -79,7 +82,7 @@ export function Navbar() {
   return (
     <Header
       style={{
-        borderBottom: "none",
+        borderBottom: pathname === `/` && "none",
       }}
       height={60}
       mb={0}

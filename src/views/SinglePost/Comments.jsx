@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { createStyles, Text } from "@mantine/core";
-import { CircleWavyCheck } from "phosphor-react";
+import { CircleWavyCheck, Lock } from "phosphor-react";
 import { CommentMenu } from "../../Components/CommentMenu";
 import { useNavigate } from "react-router-dom";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
@@ -226,8 +226,9 @@ export const Comments = ({ comments, setComments }) => {
                       onClick={() => {
                         if (!UserInfo) {
                           showNotification({
+                            icon: <Lock size={18} />,
                             color: "red",
-                            title: "You need to login to reply",
+                            title: "Login required",
                             autoClose: 4000,
                           });
                         } else {
@@ -360,7 +361,8 @@ export const Comments = ({ comments, setComments }) => {
                             if (!UserInfo) {
                               showNotification({
                                 color: "red",
-                                title: "You need to login to reply",
+                                icon: <Lock size={18} />,
+                                title: "Login required",
                                 autoClose: 4000,
                               });
                             } else {

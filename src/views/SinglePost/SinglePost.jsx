@@ -5,6 +5,7 @@ import { SinglePostFeed } from "./SinglePostFeed";
 import { useLocation, useParams } from "react-router-dom";
 import { singlePost } from "../../api/GET";
 import { showNotification } from "@mantine/notifications";
+import { WarningCircle } from "phosphor-react";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -13,6 +14,9 @@ const useStyles = createStyles(() => ({
     gap: "1rem",
     paddingBottom: "5rem",
     paddingTop: "0.5rem",
+    "@media (max-width: 700px)": {
+      paddingTop: "0rem",
+    },
   },
 }));
 
@@ -36,13 +40,14 @@ export const SinglePost = () => {
       .catch((err) => {
         if (err.response.status === 0) {
           showNotification({
+            icon: <WarningCircle size={18} />,
             color: "red",
             title: "Internal Server Error",
-
             autoClose: 7000,
           });
         } else {
           showNotification({
+            icon: <WarningCircle size={18} />,
             color: "red",
             title: err.response.data,
             autoClose: 7000,

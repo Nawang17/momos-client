@@ -8,14 +8,18 @@ import { AuthContext } from "../../context/Auth";
 import { showNotification } from "@mantine/notifications";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { SortMenu } from "./SortMenu";
+import { WarningCircle } from "phosphor-react";
 
 const useStyles = createStyles(() => ({
   wrapper: {
     display: "flex",
     justifyContent: "space-between",
     gap: "1rem",
-    paddingBottom: "2rem",
+    paddingBottom: "5rem",
     paddingTop: "0.5rem",
+    // "@media (max-width: 700px)": {
+    //   paddingTop: "0rem",
+    // },
   },
   leftWrapper: {
     width: "100%",
@@ -44,13 +48,14 @@ export const Home = () => {
       .catch((err) => {
         if (err.response.status === 0) {
           showNotification({
+            icon: <WarningCircle size={18} />,
             color: "red",
             title: "Internal Server Error",
-
             autoClose: 7000,
           });
         } else {
           showNotification({
+            icon: <WarningCircle size={18} />,
             color: "red",
             title: err.response.data,
             autoClose: 7000,
@@ -68,13 +73,14 @@ export const Home = () => {
       .catch((err) => {
         if (err.response.status === 0) {
           showNotification({
+            icon: <WarningCircle size={18} />,
             color: "red",
             title: "Internal Server Error",
-
             autoClose: 7000,
           });
         } else {
           showNotification({
+            icon: <WarningCircle size={18} />,
             color: "red",
             title: err.response.data,
             autoClose: 7000,

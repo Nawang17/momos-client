@@ -1,5 +1,11 @@
 import { createStyles, Modal, Text } from "@mantine/core";
-import { ChatCircle, CircleWavyCheck, Heart } from "phosphor-react";
+import {
+  ChatCircle,
+  CircleWavyCheck,
+  Heart,
+  Lock,
+  WarningCircle,
+} from "phosphor-react";
 import { PostMenu } from "./PostMenu";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useContext } from "react";
@@ -16,6 +22,10 @@ const useStyles = createStyles(() => ({
     padding: "1rem",
     display: "flex",
     gap: "1rem",
+    borderRadius: "4px",
+    "@media (max-width: 700px)": {
+      borderRadius: "0px",
+    },
 
     // "&:hover": {
     //   background: "#f5f5f5",
@@ -116,7 +126,9 @@ export const Post = ({ post, setPosts }) => {
   const handleLike = async () => {
     if (!UserInfo) {
       showNotification({
-        title: "Please login to like the post",
+        icon: <Lock size={18} />,
+        color: "red",
+        title: "Login required",
         autoClose: 4000,
       });
     } else {
@@ -192,13 +204,14 @@ export const Post = ({ post, setPosts }) => {
         .catch((err) => {
           if (err.response.status === 0) {
             showNotification({
+              icon: <WarningCircle size={18} />,
               color: "red",
               title: "Internal Server Error",
-
               autoClose: 7000,
             });
           } else {
             showNotification({
+              icon: <WarningCircle size={18} />,
               color: "red",
               title: err.response.data,
               autoClose: 7000,
@@ -268,7 +281,7 @@ export const Post = ({ post, setPosts }) => {
         style={{
           backgroundColor: darkmode ? "#1A1B1E" : "white",
           color: darkmode ? "white" : "black",
-          borderRadius: pathname !== `/post/${post?.id}` ? "4px" : "0px",
+          // borderRadius: pathname !== `/post/${post?.id}` ? "4px" : "0px",
         }}
         className={classes.wrapper}
       >

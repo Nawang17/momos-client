@@ -9,7 +9,14 @@ import {
   Badge,
   Popover,
 } from "@mantine/core";
-import { ArrowLeft, CircleWavyCheck } from "phosphor-react";
+import {
+  ArrowLeft,
+  CircleWavyCheck,
+  WarningCircle,
+  Lock,
+  UserPlus,
+  UserMinus,
+} from "phosphor-react";
 import { useNavigate } from "react-router-dom";
 import { follow } from "../../api/POST";
 import { AuthContext } from "../../context/Auth";
@@ -69,13 +76,14 @@ export const ProfileHeader = ({ profileInfo }) => {
       .catch((err) => {
         if (err.response.status === 0) {
           showNotification({
+            icon: <WarningCircle size={18} />,
             color: "red",
             title: "Internal Server Error",
-
             autoClose: 7000,
           });
         } else {
           showNotification({
+            icon: <WarningCircle size={18} />,
             color: "red",
             title: err.response.data,
             autoClose: 7000,
@@ -88,8 +96,10 @@ export const ProfileHeader = ({ profileInfo }) => {
     if (!UserInfo) {
       setbtndisabled(false);
       showNotification({
-        title: "Please Login to follow",
+        icon: <Lock size={18} />,
+        title: "Login required",
         autoClose: 5000,
+        color: "red",
       });
     } else {
       follow({ followingid: profileInfo.id })
@@ -107,11 +117,13 @@ export const ProfileHeader = ({ profileInfo }) => {
 
             setbtndisabled(false);
             showNotification({
+              icon: <UserPlus size={18} />,
               message: `You are now following ${profileInfo.username}`,
               autoClose: 4000,
             });
           } else {
             showNotification({
+              icon: <UserMinus size={18} />,
               message: `You are no longer following ${profileInfo.username}`,
               autoClose: 4000,
             });
@@ -132,18 +144,20 @@ export const ProfileHeader = ({ profileInfo }) => {
         .catch((err) => {
           if (err.response.status === 0) {
             showNotification({
+              icon: <WarningCircle size={18} />,
               color: "red",
               title: "Internal Server Error",
-
               autoClose: 7000,
             });
             setbtndisabled(false);
           } else {
             showNotification({
+              icon: <WarningCircle size={18} />,
               color: "red",
               title: err.response.data,
               autoClose: 7000,
             });
+
             setbtndisabled(false);
           }
         });

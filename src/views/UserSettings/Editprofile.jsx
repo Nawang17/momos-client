@@ -9,9 +9,14 @@ import {
   Textarea,
 } from "@mantine/core";
 import { Sidebar } from "../../Components/Sidebar";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { showNotification } from "@mantine/notifications";
-import { ArrowLeft, CircleWavyCheck } from "phosphor-react";
+import {
+  ArrowLeft,
+  CircleWavyCheck,
+  Pencil,
+  WarningCircle,
+} from "phosphor-react";
 import { editprofileinfo } from "../../api/GET";
 import { updateprofileinfo } from "../../api/UPDATE";
 import { useContext } from "react";
@@ -65,7 +70,8 @@ export const Editprofile = () => {
       .then((res) => {
         setUserInfo(res.data.newUserInfo);
         showNotification({
-          message: "Your profile has been updated",
+          icon: <Pencil size={18} />,
+          message: "Profile updated successfully",
           color: "teal",
         });
         navigate(`/${res.data.newUserInfo.username}`);
@@ -101,9 +107,9 @@ export const Editprofile = () => {
         navigate("/");
         if (err.response.status === 0) {
           showNotification({
+            icon: <WarningCircle size={18} />,
             color: "red",
             title: "Internal Server Error",
-
             autoClose: 7000,
           });
         } else {

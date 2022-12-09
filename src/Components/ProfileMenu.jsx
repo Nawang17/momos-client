@@ -1,7 +1,7 @@
 import { Menu } from "@mantine/core";
 
-import { Gear, SignIn, UserCircle } from "phosphor-react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { SignIn, SignOut, UserCircle } from "phosphor-react";
+import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/Auth";
 import { showNotification } from "@mantine/notifications";
@@ -9,15 +9,16 @@ export function ProfileMenu() {
   const { UserInfo, setUserInfo, setLikedpostIds, setfollowingdata, darkmode } =
     useContext(AuthContext);
   const navigate = useNavigate();
-  const { pathname } = useLocation();
   const handlelogout = () => {
     setUserInfo(null);
     localStorage.removeItem("token");
     setLikedpostIds([]);
     setfollowingdata([]);
     showNotification({
-      title: "You have been logged out",
+      icon: <SignOut size={18} />,
+      title: "Logged out",
       autoClose: 5000,
+      color: "gray",
     });
   };
   return (

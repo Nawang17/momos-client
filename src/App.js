@@ -21,8 +21,9 @@ import { Search } from "./views/Search/Search";
 import { SuggestedAccs } from "./views/SuggestedAccounts/SuggestedAccs";
 import { MantineProvider } from "@mantine/core";
 import { useScrollIntoView } from "@mantine/hooks";
+import { HandWaving } from "phosphor-react";
 function App() {
-  const [darkmode, setdarkmode] = useState(false);
+  const [darkmode, setdarkmode] = useState(true);
 
   const [UserInfo, setUserInfo] = useState(null);
   const [likedpostIds, setLikedpostIds] = useState([]);
@@ -59,6 +60,7 @@ function App() {
         setUserInfo(res.data.user);
         setfollowingdata(res.data.userfollowingarr);
         showNotification({
+          icon: <HandWaving size={18} />,
           title: `You are logged in as ${res.data.user.username}`,
           message: "Welcome back to momos",
 

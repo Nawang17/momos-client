@@ -5,7 +5,14 @@ import {
   createStyles,
   Text,
 } from "@mantine/core";
-import { ArrowLeft, CircleWavyCheck } from "phosphor-react";
+import {
+  ArrowLeft,
+  CircleWavyCheck,
+  Lock,
+  UserMinus,
+  UserPlus,
+  WarningCircle,
+} from "phosphor-react";
 
 import { useNavigate } from "react-router-dom";
 import { Sidebar } from "../../Components/Sidebar";
@@ -23,6 +30,9 @@ const useStyles = createStyles(() => ({
     gap: "1rem",
     paddingBottom: "5rem",
     paddingTop: "0.5rem",
+    "@media (max-width: 700px)": {
+      paddingTop: "0rem",
+    },
   },
   leftWrapper: {
     backgroundColor: "white",
@@ -59,13 +69,14 @@ export const SuggestedAccs = () => {
         setbtndisabled("");
         if (err.response.status === 0) {
           showNotification({
+            icon: <WarningCircle size={18} />,
             color: "red",
             title: "Internal Server Error",
-
             autoClose: 7000,
           });
         } else {
           showNotification({
+            icon: <WarningCircle size={18} />,
             color: "red",
             title: err.response.data,
             autoClose: 7000,
@@ -78,8 +89,9 @@ export const SuggestedAccs = () => {
     if (!UserInfo) {
       setbtndisabled("");
       showNotification({
+        icon: <Lock size={18} />,
         color: "red",
-        title: "Please login to follow",
+        title: "Login required",
         autoClose: 5000,
       });
     } else {
@@ -93,12 +105,14 @@ export const SuggestedAccs = () => {
 
             setbtndisabled("");
             showNotification({
+              icon: <UserPlus size={18} />,
               message: `You are now following ${username}`,
               autoClose: 4000,
             });
           } else {
             setbtndisabled("");
             showNotification({
+              icon: <UserMinus size={18} />,
               message: `You are no longer following ${username}`,
               autoClose: 4000,
             });
@@ -112,13 +126,14 @@ export const SuggestedAccs = () => {
           setbtndisabled("");
           if (err.response.status === 0) {
             showNotification({
+              icon: <WarningCircle size={18} />,
               color: "red",
               title: "Internal Server Error",
-
               autoClose: 7000,
             });
           } else {
             showNotification({
+              icon: <WarningCircle size={18} />,
               color: "red",
               title: err.response.data,
               autoClose: 7000,

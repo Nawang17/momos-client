@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
-import { Button, Input } from "@mantine/core";
-import { PaperPlane } from "phosphor-react";
+import { Input } from "@mantine/core";
+import { Lightning, Lock, PaperPlane, WarningCircle } from "phosphor-react";
 import { AuthContext } from "../../context/Auth";
 import { addComment } from "../../api/POST";
 import { showNotification } from "@mantine/notifications";
@@ -12,8 +12,9 @@ const Reply = ({ singlePostData, setComments }) => {
   const handlereply = () => {
     if (!UserInfo) {
       showNotification({
+        icon: <Lock size={18} />,
         color: "red",
-        title: "You need to login to comment",
+        title: "Login required",
         autoClose: 4000,
       });
       return;
@@ -23,20 +24,23 @@ const Reply = ({ singlePostData, setComments }) => {
         .then((res) => {
           setComments((prev) => [...prev, res.data.comment]);
           showNotification({
-            title: "Comment added",
+            icon: <Lightning size={18} />,
+            title: "Reply added",
             autoClose: 4000,
+            color: "green",
           });
         })
         .catch((err) => {
           if (err.response.status === 0) {
             showNotification({
+              icon: <WarningCircle size={18} />,
               color: "red",
               title: "Internal Server Error",
-
               autoClose: 7000,
             });
           } else {
             showNotification({
+              icon: <WarningCircle size={18} />,
               color: "red",
               title: err.response.data,
               autoClose: 7000,

@@ -19,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 import { likedPosts } from "../../api/GET";
 import { useEffect } from "react";
 import GoogleLogin from "@leecheuk/react-google-login";
+import { ShieldCheck, WarningCircle } from "phosphor-react";
 
 export function Login() {
   const { setUserInfo, UserInfo, setLikedpostIds, setfollowingdata, darkmode } =
@@ -51,8 +52,9 @@ export function Login() {
         navigate("/");
 
         showNotification({
+          icon: <ShieldCheck size={18} />,
           title: "Login Successful",
-          message: `Welcome back to momos, ${res.data.user.username}`,
+          message: `Welcome back ${res.data.user.username}`,
           autoClose: 5000,
         });
         await LoginStatus().then((resp) => {
@@ -82,8 +84,9 @@ export function Login() {
         navigate("/");
 
         showNotification({
+          icon: <ShieldCheck size={18} />,
           title: "Login Successful",
-          message: `Welcome back to momos, ${res.data.user.username}`,
+          message: `Welcome back ${res.data.user.username}`,
           autoClose: 5000,
         });
         await LoginStatus().then((resp) => {
@@ -110,8 +113,9 @@ export function Login() {
         });
         navigate("/");
         showNotification({
+          icon: <ShieldCheck size={18} />,
           title: "Login Successful",
-          message: `Welcome back to momos, ${res.data.user.username}`,
+          message: `Welcome back ${res.data.user.username}`,
           autoClose: 5000,
         });
         await LoginStatus().then((resp) => {
@@ -121,13 +125,14 @@ export function Login() {
       .catch((err) => {
         if (err.response.status === 0) {
           showNotification({
+            icon: <WarningCircle size={18} />,
             color: "red",
             title: "Internal Server Error",
-
             autoClose: 7000,
           });
         } else {
           showNotification({
+            icon: <WarningCircle size={18} />,
             color: "red",
             title: err.response.data,
             autoClose: 7000,

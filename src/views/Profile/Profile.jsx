@@ -4,7 +4,7 @@ import { Container, createStyles, Tabs } from "@mantine/core";
 import { PostFeed } from "../../Components/PostFeed";
 import { Sidebar } from "../../Components/Sidebar";
 import { ProfileHeader } from "./ProfileHeader";
-import { Heart, Note } from "phosphor-react";
+import { Heart, Note, WarningCircle } from "phosphor-react";
 import { useLocation, useParams } from "react-router-dom";
 import { profileinfo } from "../../api/GET";
 import { showNotification } from "@mantine/notifications";
@@ -18,7 +18,11 @@ const useStyles = createStyles(() => ({
     gap: "1rem",
     paddingBottom: "5rem",
     paddingTop: "0.5rem",
+    "@media (max-width: 700px)": {
+      paddingTop: "0rem",
+    },
   },
+
   leftWrapper: {
     flex: 0.7,
     "@media (max-width: 700px)": {
@@ -58,13 +62,14 @@ export const Profile = () => {
         });
         if (err.response.status === 0) {
           showNotification({
+            icon: <WarningCircle size={18} />,
             color: "red",
             title: "Internal Server Error",
-
             autoClose: 7000,
           });
         } else {
           showNotification({
+            icon: <WarningCircle size={18} />,
             color: "red",
             title: err.response.data,
             autoClose: 7000,

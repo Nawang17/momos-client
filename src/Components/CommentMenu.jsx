@@ -5,9 +5,11 @@ import {
   CopySimple,
   DotsThree,
   Export,
+  Lock,
   Trash,
   UserMinus,
   UserPlus,
+  WarningCircle,
 } from "phosphor-react";
 import { useContext, useState } from "react";
 
@@ -26,20 +28,23 @@ export function CommentMenu({ postinfo, setComments }) {
           return prev.filter((comment) => comment.id !== postinfo.id);
         });
         showNotification({
-          title: "Your comment was deleted",
+          icon: <Trash size={18} />,
+          title: "Reply Deleted",
           autoClose: 4000,
+          color: "red",
         });
       })
       .catch((err) => {
         if (err.response.status === 0) {
           showNotification({
+            icon: <WarningCircle size={18} />,
             color: "red",
             title: "Internal Server Error",
-
             autoClose: 7000,
           });
         } else {
           showNotification({
+            icon: <WarningCircle size={18} />,
             color: "red",
             title: err.response.data,
             autoClose: 7000,
@@ -50,8 +55,10 @@ export function CommentMenu({ postinfo, setComments }) {
   const handleFollow = () => {
     if (!UserInfo) {
       showNotification({
-        title: "Please Login to follow",
+        icon: <Lock size={18} />,
+        title: "Login required",
         autoClose: 5000,
+        color: "red",
       });
     } else {
       follow({ followingid: postinfo?.user.id })
@@ -62,11 +69,13 @@ export function CommentMenu({ postinfo, setComments }) {
               res.data.newFollowing.following.username,
             ]);
             showNotification({
+              icon: <UserPlus size={18} />,
               message: `You are now following ${postinfo?.user.username}`,
               autoClose: 4000,
             });
           } else {
             showNotification({
+              icon: <UserMinus size={18} />,
               message: `You are no longer following ${postinfo?.user.username}`,
               autoClose: 4000,
             });
@@ -79,13 +88,14 @@ export function CommentMenu({ postinfo, setComments }) {
         .catch((err) => {
           if (err.response.status === 0) {
             showNotification({
+              icon: <WarningCircle size={18} />,
               color: "red",
               title: "Internal Server Error",
-
               autoClose: 7000,
             });
           } else {
             showNotification({
+              icon: <WarningCircle size={18} />,
               color: "red",
               title: err.response.data,
               autoClose: 7000,
@@ -139,26 +149,28 @@ export function CommentMenu({ postinfo, setComments }) {
             onClick={() => {
               navigator.clipboard.writeText(window.location.href);
               showNotification({
+                icon: <CopySimple size={18} />,
                 title: "Link copied to clipboard",
                 autoClose: 4000,
+                color: "gray",
               });
             }}
             icon={<CopySimple size={14} />}
           >
-            Copy link to Post
+            Copy link to reply
           </Menu.Item>
           <Menu.Item
             onClick={() => {
               if (navigator.share) {
                 navigator.share({
-                  title: "Share Post",
+                  title: "Share reply",
                   url: window.location.href,
                 });
               }
             }}
             icon={<Export size={14} />}
           >
-            Share Post via...
+            Share reply via...
           </Menu.Item>
         </Menu.Dropdown>
       </Menu>
@@ -171,7 +183,7 @@ export function CommentMenu({ postinfo, setComments }) {
         onClose={() => setOpened(false)}
       >
         <div className="dpm">
-          <div className="dpm-header">Delete Comment?</div>
+          <div className="dpm-header">Delete reply?</div>
           <div className="dpm-body">
             This can’t be undone and it will be removed from your profile, the
             timeline.

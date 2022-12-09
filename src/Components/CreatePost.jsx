@@ -56,7 +56,6 @@ const CreatePost = ({ setHomePosts, UserInfo, darkmode }) => {
         </div>
       </div>
       <CreatePostModal
-        setHomePosts={setHomePosts}
         opened={opened}
         setOpened={setOpened}
         UserInfo={UserInfo}

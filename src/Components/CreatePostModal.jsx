@@ -12,10 +12,11 @@ import { showNotification } from "@mantine/notifications";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import locale from "date-fns/locale/en-US";
 import { AuthContext } from "../context/Auth";
+import { useNavigate } from "react-router-dom";
 export default function CreatePostModal({
   opened,
   setOpened,
-  setHomePosts,
+
   UserInfo,
   quotepostinfo,
 }) {
@@ -54,6 +55,7 @@ export default function CreatePostModal({
   }
   const [flieInputState, setFileInputState] = useState("");
   const [previewSource, setPreviewSource] = useState("");
+  const navigate = useNavigate();
   const [error, setError] = useState("");
   const [text, settext] = useState("");
   const [loading, setloading] = useState(false);
@@ -95,6 +97,7 @@ export default function CreatePostModal({
     setFileInputState("");
     setfiletype("");
   };
+
   const handleSubmit = (e) => {
     setloading(true);
     setError("");
@@ -102,7 +105,8 @@ export default function CreatePostModal({
     AddNewPost(text, previewSource, filetype, quotepostinfo?.id)
       .then((res) => {
         closemodal();
-        setHomePosts((prev) => [res.data.newpost, ...prev]);
+
+        navigate(`/post/${res.data.newpost.id}`);
         showNotification({
           color: "teal",
           icon: <Lightning size={18} />,

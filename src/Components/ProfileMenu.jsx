@@ -1,13 +1,19 @@
-import { Menu } from "@mantine/core";
+import { Menu, Switch } from "@mantine/core";
 
-import { SignIn, SignOut, UserCircle } from "phosphor-react";
+import { MoonStars, SignIn, SignOut, Sun, UserCircle } from "phosphor-react";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/Auth";
 import { showNotification } from "@mantine/notifications";
 export function ProfileMenu() {
-  const { UserInfo, setUserInfo, setLikedpostIds, setfollowingdata, darkmode } =
-    useContext(AuthContext);
+  const {
+    UserInfo,
+    setUserInfo,
+    setLikedpostIds,
+    setfollowingdata,
+    darkmode,
+    setdarkmode,
+  } = useContext(AuthContext);
   const navigate = useNavigate();
   const handlelogout = () => {
     setUserInfo(null);
@@ -43,14 +49,37 @@ export function ProfileMenu() {
                 navigate(`/${UserInfo?.username}`);
               }}
               icon={
-                <UserCircle color={darkmode ? "white" : "black"} size={14} />
+                <UserCircle color={darkmode ? "white" : "black"} size={20} />
               }
             >
               Profile
             </Menu.Item>
-            {/* <Menu.Item icon={<Gear size={14} />}>Settings</Menu.Item> */}
+            <Menu.Divider />
+
+            <Menu.Item
+              onClick={() => {
+                setdarkmode(!darkmode);
+                if (darkmode) {
+                  document.body.style.backgroundColor = "#f0f2f5";
+                } else {
+                  document.body.style.backgroundColor = "#101113";
+                }
+                localStorage.setItem("darkmode", !darkmode);
+              }}
+              icon={
+                darkmode ? (
+                  <Sun color="#ffd43b" size={20} />
+                ) : (
+                  <MoonStars color="#228be6" size={20} />
+                )
+              }
+            >
+              {darkmode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            </Menu.Item>
+
             <Menu.Divider />
             <Menu.Item
+              icon={<SignOut size={20} />}
               onClick={() => {
                 handlelogout();
               }}

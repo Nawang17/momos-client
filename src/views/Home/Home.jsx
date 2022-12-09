@@ -93,13 +93,7 @@ export const Home = () => {
     <>
       <Container px={0} className={classes.wrapper}>
         <div className={classes.leftWrapper}>
-          {UserInfo && (
-            <CreatePost
-              darkmode={darkmode}
-              setHomePosts={setHomePosts}
-              UserInfo={UserInfo}
-            />
-          )}
+          {UserInfo && <CreatePost darkmode={darkmode} UserInfo={UserInfo} />}
 
           {/* {UserInfo && (
             <Divider

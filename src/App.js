@@ -172,7 +172,7 @@ function App() {
   });
   return (
     <MantineProvider theme={{ colorScheme: darkmode ? "dark" : "light" }}>
-      <NotificationsProvider position="top-center">
+      <NotificationsProvider position="bottom-center">
         <div ref={targetRef} className="App">
           <AuthContext.Provider
             value={{

@@ -135,24 +135,27 @@ export function Navbar() {
                 <Notis darkmode={darkmode} />
               </>
             )}
-            <ActionIcon
-              variant="transparent"
-              onClick={() => {
-                setdarkmode(!darkmode);
-                if (darkmode) {
-                  document.body.style.backgroundColor = "#f0f2f5";
-                } else {
-                  document.body.style.backgroundColor = "#101113";
-                }
-                localStorage.setItem("darkmode", !darkmode);
-              }}
-            >
-              {darkmode ? (
-                <Sun color="#ffd43b" size={28} />
-              ) : (
-                <MoonStars color="#228be6" size={28} />
-              )}
-            </ActionIcon>
+            {!UserInfo && (
+              <ActionIcon
+                variant="transparent"
+                onClick={() => {
+                  setdarkmode(!darkmode);
+                  if (darkmode) {
+                    document.body.style.backgroundColor = "#f0f2f5";
+                  } else {
+                    document.body.style.backgroundColor = "#101113";
+                  }
+                  localStorage.setItem("darkmode", !darkmode);
+                }}
+              >
+                {darkmode ? (
+                  <Sun color="#ffd43b" size={28} />
+                ) : (
+                  <MoonStars color="#228be6" size={28} />
+                )}
+              </ActionIcon>
+            )}
+
             <ActionIcon>
               <ProfileMenu />
             </ActionIcon>

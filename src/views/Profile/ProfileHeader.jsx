@@ -44,7 +44,7 @@ const useStyles = createStyles(() => ({
     gap: "0.5rem",
   },
 }));
-export const ProfileHeader = ({ profileInfo }) => {
+export const ProfileHeader = ({ profileInfo, profileloading }) => {
   const { userprofile } = useParams();
 
   const { UserInfo, setfollowingdata, followingdata, darkmode } =
@@ -55,7 +55,7 @@ export const ProfileHeader = ({ profileInfo }) => {
   const [followerArr, setfollowerArr] = useState([]);
   const [following, setfollowing] = useState([]);
   const [followingArr, setfollowingArr] = useState([]);
-  const [loading, setloading] = useState(false);
+  const [loading, setloading] = useState(true);
   const [unfollowconfirm, setunfollowconfirm] = useState(false);
   const [btndisabled, setbtndisabled] = useState(false);
   const sanitizer = DOMPurify.sanitize;
@@ -195,61 +195,58 @@ export const ProfileHeader = ({ profileInfo }) => {
             }}
             className={classes.left}
           >
-            <img
-              loading="lazy"
-              className={classes.avatar}
-              src={profileInfo.avatar}
-              alt=""
-            />
-            {/* <Button
-                  onClick={() => {
-                    navigate("/editprofile");
-                  }}
-                  variant="default"
-                  radius={"xl"}
-                  size="xs"
-                >
-                  Edit profile
-                </Button> */}
-            <>
-              {UserInfo?.username === profileInfo.username ? (
-                <>
+            {!profileloading ? (
+              <img
+                loading="lazy"
+                className={classes.avatar}
+                src={profileInfo?.avatar}
+                alt=""
+              />
+            ) : (
+              <Skeleton height={60} circle />
+            )}
+
+            {!profileloading && (
+              <>
+                {UserInfo?.username === profileInfo.username ? (
+                  <>
+                    <Button
+                      onClick={() => {
+                        navigate("/editprofile");
+                      }}
+                      variant="default"
+                      radius={"xl"}
+                      size="xs"
+                    >
+                      Edit profile
+                    </Button>
+                  </>
+                ) : followingdata?.includes(profileInfo?.username) ? (
                   <Button
-                    onClick={() => {
-                      navigate("/editprofile");
-                    }}
+                    disabled={btndisabled}
                     variant="default"
+                    onClick={() => {
+                      setunfollowconfirm(true);
+                    }}
                     radius={"xl"}
                     size="xs"
                   >
-                    Edit profile
+                    Following
                   </Button>
-                </>
-              ) : followingdata?.includes(profileInfo?.username) ? (
-                <Button
-                  disabled={btndisabled}
-                  variant="default"
-                  onClick={() => {
-                    setunfollowconfirm(true);
-                  }}
-                  radius={"xl"}
-                  size="xs"
-                >
-                  Following
-                </Button>
-              ) : (
-                <Button
-                  disabled={btndisabled}
-                  onClick={() => {
-                    handlefollow();
-                  }}
-                  radius={"xl"}
-                  size="xs"
-                >
-                  Follow
-                </Button>
-              )}
-            </>
+                ) : (
+                  <Button
+                    disabled={btndisabled}
+                    onClick={() => {
+                      handlefollow();
+                    }}
+                    radius={"xl"}
+                    size="xs"
+                  >
+                    Follow
+                  </Button>
+                )}
+              </>
+            )}
           </div>
           <div className={classes.right}>
             <div

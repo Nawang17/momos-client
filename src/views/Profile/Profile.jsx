@@ -38,13 +38,14 @@ export const Profile = () => {
   const { classes } = useStyles();
   const { pathname } = useLocation();
   const [posts, setposts] = useState([]);
-  const [profileInfo, setprofileInfo] = useState({});
+  const [profileInfo, setprofileInfo] = useState([]);
   const [loading, setloading] = useState(true);
   const [userlikedposts, setuserlikedposts] = useState([]);
   const { darkmode } = useContext(AuthContext);
   const [Tab, setTab] = useState("posts");
 
   useEffect(() => {
+    setloading(true);
     scrollIntoView();
     profileinfo({ username: userprofile })
       .then((res) => {
@@ -76,6 +77,7 @@ export const Profile = () => {
           });
         }
       });
+
     return () => {
       setTab("posts");
     };
@@ -84,7 +86,7 @@ export const Profile = () => {
   return (
     <Container px={0} className={classes.wrapper}>
       <div ref={targetRef} className={classes.leftWrapper}>
-        <ProfileHeader profileInfo={profileInfo} />
+        <ProfileHeader profileloading={loading} profileInfo={profileInfo} />
         <Tabs value={Tab} onTabChange={setTab}>
           <Tabs.List
             style={{

@@ -5,6 +5,7 @@ import {
   Container,
   createStyles,
   Input,
+  Skeleton,
   Text,
   Textarea,
 } from "@mantine/core";
@@ -49,6 +50,7 @@ export const Editprofile = () => {
   const [profileinfo, setprofileinfo] = useState({});
   const [newavatar, setnewavatar] = useState("");
   const { setUserInfo, UserInfo, darkmode } = useContext(AuthContext);
+  const [loading, setloading] = useState(false);
   const [error, seterror] = useState("");
   const handleflieInputChange = (e) => {
     seterror("");
@@ -93,6 +95,7 @@ export const Editprofile = () => {
     setnewavatar("");
   };
   useEffect(() => {
+    setloading(true);
     if (!UserInfo) {
       navigate("/");
     }
@@ -102,6 +105,7 @@ export const Editprofile = () => {
         setDescription(res.data.userInfo.description);
         setavatar(res.data.userInfo.avatar);
         setprofileinfo(res.data.userInfo);
+        setloading(false);
       })
       .catch((err) => {
         navigate("/");
@@ -140,124 +144,213 @@ export const Editprofile = () => {
           <Text weight={"500"}>Edit profile</Text>
           <div></div>
         </div>
-
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "1rem",
-            backgroundColor: darkmode ? "#1A1B1E" : "white",
-            color: darkmode ? "white" : "black",
-            padding: "3rem",
-          }}
-        >
-          <Text weight={"500"} size={"md"} color={"red"}>
-            {error}
-          </Text>
+        {loading ? (
           <div
             style={{
               display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
+              flexDirection: "column",
               gap: "1rem",
+              backgroundColor: darkmode ? "#1A1B1E" : "white",
+              color: darkmode ? "white" : "black",
+              padding: "3rem",
             }}
           >
-            <img
+            <Text weight={"500"} size={"md"} color={"red"}>
+              {error}
+            </Text>
+            <div
               style={{
-                width: "60px",
-                height: "60px",
-                borderRadius: "50%",
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                gap: "1rem",
               }}
-              src={avatar}
-              alt=""
-            />
-            <div>
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "0.2rem" }}
-              >
-                <Text>{username}</Text>
-                {profileinfo.verified &&
-                  (profileinfo?.username !== "katoph" ? (
+            >
+              <Skeleton height={60} circle />
+              <div>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.2rem",
+                  }}
+                >
+                  <Text>{username}</Text>
+                  {profileinfo.verified && (
                     <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
-                  ) : (
-                    <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
-                  ))}
+                  )}
+                </div>
               </div>
-              {profileinfo.username !== "Demo" && (
-                <span className="upload-btn-wrapper">
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Text
-                      color={"blue"}
-                      style={{ paddingTop: "5px", cursor: "pointer" }}
-                    >
-                      Change profile photo
-                    </Text>
-                  </div>
-                  <input
-                    value={flieInputState}
-                    accept="image/*"
-                    type="file"
-                    onChange={handleflieInputChange}
-                  />
-                </span>
-              )}
-            </div>
-          </div>{" "}
-          {UserInfo?.username !== "Demo" && (
-            <Input.Wrapper label="Username">
-              <Input
-                value={username}
+            </div>{" "}
+            <div>
+              <Textarea
+                value={description}
                 onChange={(e) => {
                   seterror("");
-                  setUsername(e.target.value);
+                  setDescription(e.target.value);
                   setbtndisabled(false);
                 }}
+                minRows={3}
+                maxRows={4}
+                label="Bio"
+                maxLength={160}
               />
-            </Input.Wrapper>
-          )}
-          <div>
-            <Textarea
-              value={description}
-              onChange={(e) => {
-                seterror("");
-                setDescription(e.target.value);
-                setbtndisabled(false);
+              <Text style={{ paddingTop: "5px" }} variant="dimmed" size={"xs"}>
+                {description?.length} / 160
+              </Text>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                gap: "1rem",
               }}
-              minRows={3}
-              maxRows={4}
-              label="Bio"
-              maxLength={160}
-            />
-            <Text style={{ paddingTop: "5px" }} variant="dimmed" size={"xs"}>
-              {description?.length} / 160
-            </Text>
+            >
+              <Button onClick={handleSave} disabled={btndisabled} radius="sm">
+                Save Changes
+              </Button>
+              <Button
+                onClick={() => {
+                  handleUndo();
+                }}
+                disabled={btndisabled}
+                radius="sm"
+                color={"red"}
+              >
+                Undo all Changes
+              </Button>
+            </div>
           </div>
+        ) : (
           <div
             style={{
               display: "flex",
+              flexDirection: "column",
               gap: "1rem",
+              backgroundColor: darkmode ? "#1A1B1E" : "white",
+              color: darkmode ? "white" : "black",
+              padding: "3rem",
             }}
           >
-            <Button onClick={handleSave} disabled={btndisabled} radius="sm">
-              Save Changes
-            </Button>
-            <Button
-              onClick={() => {
-                handleUndo();
+            <Text weight={"500"} size={"md"} color={"red"}>
+              {error}
+            </Text>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                gap: "1rem",
               }}
-              disabled={btndisabled}
-              radius="sm"
-              color={"red"}
             >
-              Undo all Changes
-            </Button>
+              <img
+                style={{
+                  width: "60px",
+                  height: "60px",
+                  borderRadius: "50%",
+                }}
+                src={avatar}
+                alt=""
+              />
+              <div>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.2rem",
+                  }}
+                >
+                  <Text>{username}</Text>
+                  {profileinfo.verified &&
+                    (profileinfo?.username !== "katoph" ? (
+                      <CircleWavyCheck
+                        size={17}
+                        color="#0ba6da"
+                        weight="fill"
+                      />
+                    ) : (
+                      <CircleWavyCheck
+                        size={17}
+                        color="#0ba6da"
+                        weight="fill"
+                      />
+                    ))}
+                </div>
+                {profileinfo.username !== "Demo" && (
+                  <span className="upload-btn-wrapper">
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Text
+                        color={"blue"}
+                        style={{ paddingTop: "5px", cursor: "pointer" }}
+                      >
+                        Change profile photo
+                      </Text>
+                    </div>
+                    <input
+                      value={flieInputState}
+                      accept="image/*"
+                      type="file"
+                      onChange={handleflieInputChange}
+                    />
+                  </span>
+                )}
+              </div>
+            </div>{" "}
+            {UserInfo?.username !== "Demo" && (
+              <Input.Wrapper label="Username">
+                <Input
+                  value={username}
+                  onChange={(e) => {
+                    seterror("");
+                    setUsername(e.target.value);
+                    setbtndisabled(false);
+                  }}
+                />
+              </Input.Wrapper>
+            )}
+            <div>
+              <Textarea
+                value={description}
+                onChange={(e) => {
+                  seterror("");
+                  setDescription(e.target.value);
+                  setbtndisabled(false);
+                }}
+                minRows={3}
+                maxRows={4}
+                label="Bio"
+                maxLength={160}
+              />
+              <Text style={{ paddingTop: "5px" }} variant="dimmed" size={"xs"}>
+                {description?.length} / 160
+              </Text>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                gap: "1rem",
+              }}
+            >
+              <Button onClick={handleSave} disabled={btndisabled} radius="sm">
+                Save Changes
+              </Button>
+              <Button
+                onClick={() => {
+                  handleUndo();
+                }}
+                disabled={btndisabled}
+                radius="sm"
+                color={"red"}
+              >
+                Undo all Changes
+              </Button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       <Sidebar />

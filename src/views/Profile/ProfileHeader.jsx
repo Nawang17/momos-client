@@ -16,6 +16,7 @@ import {
   Lock,
   UserPlus,
   UserMinus,
+  Crown,
 } from "phosphor-react";
 import { useNavigate } from "react-router-dom";
 import { follow } from "../../api/POST";
@@ -44,7 +45,7 @@ const useStyles = createStyles(() => ({
     gap: "0.5rem",
   },
 }));
-export const ProfileHeader = ({ profileInfo, profileloading }) => {
+export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
   const { userprofile } = useParams();
 
   const { UserInfo, setfollowingdata, followingdata, darkmode } =
@@ -258,44 +259,64 @@ export const ProfileHeader = ({ profileInfo, profileloading }) => {
               }}
             >
               <div
-                style={{ display: "flex", alignItems: "center", gap: "0.2rem" }}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                }}
               >
-                <Text weight="bold" size="md">
-                  {userprofile}
-                </Text>
-                {profileInfo?.verified &&
-                  (profileInfo?.id !== 5 ? (
-                    <Popover width={200} position="right" withArrow shadow="md">
-                      <Popover.Target>
-                        <CircleWavyCheck
-                          size={17}
-                          color="#0ba6da"
-                          weight="fill"
-                        />
-                      </Popover.Target>
-                      <Popover.Dropdown>
-                        <Text size="sm">
-                          This account is verified because the user has a
-                          verified email address.
-                        </Text>
-                      </Popover.Dropdown>
-                    </Popover>
-                  ) : (
-                    <Popover width={130} position="right" withArrow shadow="md">
-                      <Popover.Target>
-                        <CircleWavyCheck
-                          size={17}
-                          color="#0ba6da"
-                          weight="fill"
-                        />
-                      </Popover.Target>
-                      <Popover.Dropdown>
-                        <Text size="sm">Developer account</Text>
-                      </Popover.Dropdown>
-                    </Popover>
-                  ))}
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.2rem",
+                  }}
+                >
+                  <Text weight="bold" size="md">
+                    {userprofile}
+                  </Text>
 
-                <div>
+                  {profileInfo?.verified &&
+                    (profileInfo?.id !== 5 ? (
+                      <Popover
+                        width={200}
+                        position="right"
+                        withArrow
+                        shadow="md"
+                      >
+                        <Popover.Target>
+                          <CircleWavyCheck
+                            size={17}
+                            color="#0ba6da"
+                            weight="fill"
+                          />
+                        </Popover.Target>
+                        <Popover.Dropdown>
+                          <Text size="sm">
+                            This account is verified because the user has a
+                            verified email address.
+                          </Text>
+                        </Popover.Dropdown>
+                      </Popover>
+                    ) : (
+                      <Popover
+                        width={130}
+                        position="right"
+                        withArrow
+                        shadow="md"
+                      >
+                        <Popover.Target>
+                          <CircleWavyCheck
+                            size={17}
+                            color="#0ba6da"
+                            weight="fill"
+                          />
+                        </Popover.Target>
+                        <Popover.Dropdown>
+                          <Text size="sm">Developer account</Text>
+                        </Popover.Dropdown>
+                      </Popover>
+                    ))}
+
                   {followingArr.includes(UserInfo?.username) && (
                     <Badge size="sm" color={"gray"}>
                       Follows you

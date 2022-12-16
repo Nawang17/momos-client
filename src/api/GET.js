@@ -53,3 +53,10 @@ export const searchposts = async ({ searchvalue }) => {
 export const leaderboardinfo = async (page) => {
   return await api.get(`/leaderboard?page=${page}`);
 };
+
+export const getmoreprofileposts = async (userid, page) => {
+  return await api.get(`/profileinfo/userposts/${userid}?page=${page}`);
+};
+export const getmorelikedposts = async (userid, page) => {
+  return await api.get(`/profileinfo/likedposts/${userid}?page=${page}`);
+};

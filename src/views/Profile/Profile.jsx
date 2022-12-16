@@ -1,15 +1,20 @@
 import { useContext, useEffect, useState } from "react";
 
-import { Container, createStyles, Tabs } from "@mantine/core";
+import { Container, createStyles, Loader, Tabs } from "@mantine/core";
 import { PostFeed } from "../../Components/PostFeed";
 import { Sidebar } from "../../Components/Sidebar";
 import { ProfileHeader } from "./ProfileHeader";
 import { Heart, Note, WarningCircle } from "phosphor-react";
 import { useLocation, useParams } from "react-router-dom";
-import { profileinfo } from "../../api/GET";
+import {
+  getmorelikedposts,
+  getmoreprofileposts,
+  profileinfo,
+} from "../../api/GET";
 import { showNotification } from "@mantine/notifications";
 import { useScrollIntoView } from "@mantine/hooks";
 import { AuthContext } from "../../context/Auth";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -43,7 +48,11 @@ export const Profile = () => {
   const [userlikedposts, setuserlikedposts] = useState([]);
   const { darkmode } = useContext(AuthContext);
   const [Tab, setTab] = useState("posts");
-
+  const [postCount, setpostCount] = useState(0);
+  const [postpage, setpostpage] = useState(0);
+  const [likedpostCount, setlikedpostCount] = useState(0);
+  const [likedpage, setlikedpage] = useState(0);
+  const [rankinfo, setrankinfo] = useState([]);
   useEffect(() => {
     setloading(true);
     scrollIntoView();
@@ -52,7 +61,9 @@ export const Profile = () => {
         setposts(res.data.userPosts);
         setprofileInfo(res.data.userInfo);
         setuserlikedposts(res.data.likedposts);
-
+        setpostCount(res.data.userPoststotalCount);
+        setlikedpostCount(res.data.likedpoststotalCount);
+        setrankinfo(res.data.rankInfo);
         setloading(false);
       })
       .catch((err) => {
@@ -82,11 +93,27 @@ export const Profile = () => {
       setTab("posts");
     };
   }, [pathname]);
+  const fetchMoreposts = () => {
+    setpostpage((prev) => prev + 1);
+    getmoreprofileposts(profileInfo?.id, postpage + 1).then((res) => {
+      setposts((prev) => [...prev, ...res.data]);
+    });
+  };
+  const fetchMorelikedposts = () => {
+    setlikedpage((prev) => prev + 1);
 
+    getmorelikedposts(profileInfo?.id, likedpage + 1).then((res) => {
+      setuserlikedposts((prev) => [...prev, ...res.data]);
+    });
+  };
   return (
     <Container px={0} className={classes.wrapper}>
       <div ref={targetRef} className={classes.leftWrapper}>
-        <ProfileHeader profileloading={loading} profileInfo={profileInfo} />
+        <ProfileHeader
+          profileloading={loading}
+          profileInfo={profileInfo}
+          rankinfo={rankinfo}
+        />
         <Tabs value={Tab} onTabChange={setTab}>
           <Tabs.List
             style={{
@@ -104,15 +131,64 @@ export const Profile = () => {
           </Tabs.List>
 
           <Tabs.Panel value="posts" pt="xs">
-            <PostFeed posts={posts} loading={loading} setPosts={setposts} />
+            <InfiniteScroll
+              dataLength={posts.length}
+              next={fetchMoreposts}
+              hasMore={postCount > posts.length}
+              loader={
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginTop: "1rem",
+                  }}
+                >
+                  <Loader />
+                </div>
+              }
+              endMessage={
+                <>
+                  {/* <Text
+                  style={{
+                    marginTop: "1rem",
+                  }}
+                  align="center"
+                  color={darkmode ? "white" : "dark"}
+                >
+                  You have seen it all
+                </Text> */}
+                </>
+              }
+            >
+              <PostFeed posts={posts} loading={loading} setPosts={setposts} />
+            </InfiniteScroll>
           </Tabs.Panel>
 
           <Tabs.Panel value="likedposts" pt="xs">
-            <PostFeed
-              posts={userlikedposts}
-              loading={loading}
-              setPosts={setuserlikedposts}
-            />
+            <InfiniteScroll
+              dataLength={userlikedposts.length}
+              next={fetchMorelikedposts}
+              hasMore={likedpostCount > userlikedposts.length}
+              loader={
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginTop: "1rem",
+                  }}
+                >
+                  <Loader />
+                </div>
+              }
+            >
+              <PostFeed
+                posts={userlikedposts}
+                loading={loading}
+                setPosts={setuserlikedposts}
+              />
+            </InfiniteScroll>
           </Tabs.Panel>
         </Tabs>
       </div>

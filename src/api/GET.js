@@ -49,3 +49,7 @@ export const searchusers = async ({ searchvalue }) => {
 export const searchposts = async ({ searchvalue }) => {
   return await api.get(`/search/getposts/${searchvalue}`);
 };
+
+export const leaderboardinfo = async (page) => {
+  return await api.get(`/leaderboard?page=${page}`);
+};

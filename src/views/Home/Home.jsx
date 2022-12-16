@@ -9,6 +9,7 @@ import { showNotification } from "@mantine/notifications";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { SortMenu } from "./SortMenu";
 import { WarningCircle } from "phosphor-react";
+import Leaderboardhorizontal from "../../Components/Leaderboardhorizontal";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -106,7 +107,7 @@ export const Home = () => {
               }
             />
           )} */}
-
+          <Leaderboardhorizontal />
           <InfiniteScroll
             dataLength={homePosts.length}
             next={fetchMoreData}

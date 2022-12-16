@@ -18,7 +18,6 @@ const useStyles = createStyles(() => ({
       display: "block",
       margin: "0px 0px 8px 0px",
       padding: "0px 15px",
-      borderRadius: "4px",
     },
   },
 }));
@@ -34,7 +33,7 @@ export const PostFeed = ({ setPosts, posts, loading, sortby }) => {
         ? posts.map((post, id) => {
             return (
               <div key={post.id}>
-                {(id === 4 || id === 60) && pathname === "/" && (
+                {(id === 6 || id === 50 || id === 80) && pathname === "/" && (
                   <div
                     style={{
                       backgroundColor: darkmode ? "#1A1B1E" : "white",

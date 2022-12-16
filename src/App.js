@@ -22,6 +22,7 @@ import { SuggestedAccs } from "./views/SuggestedAccounts/SuggestedAccs";
 import { MantineProvider } from "@mantine/core";
 import { useScrollIntoView } from "@mantine/hooks";
 import { HandWaving } from "phosphor-react";
+import { Leaderboard } from "./views/Leaderboard/Leaderboard";
 function App() {
   const [darkmode, setdarkmode] = useState(true);
 
@@ -29,6 +30,7 @@ function App() {
   const [likedpostIds, setLikedpostIds] = useState([]);
   const [followingdata, setfollowingdata] = useState([]);
   const [suggestedUsers, setSuggestedusers] = useState([]);
+  const [loading, setLoading] = useState(false);
   useLayoutEffect(() => {
     if (!localStorage.getItem("darkmode")) {
       localStorage.setItem("darkmode", "true");
@@ -44,6 +46,7 @@ function App() {
     }
   }, []);
   useEffect(() => {
+    setLoading(true);
     scrollIntoView();
     console.log(`
     ███╗   ███╗ ██████╗ ███╗   ███╗ ██████╗ ███████╗
@@ -69,9 +72,11 @@ function App() {
 
           autoClose: 3000,
         });
+        setLoading(false);
       })
       .catch(() => {
         setUserInfo(null);
+        setLoading(false);
       });
   }, []);
   useEffect(() => {
@@ -87,7 +92,7 @@ function App() {
       element: (
         <>
           <Navbar />
-          {!UserInfo && <Hero darkmode={darkmode} />}
+          {!UserInfo && !loading && <Hero darkmode={darkmode} />}
 
           <Home />
         </>
@@ -132,6 +137,16 @@ function App() {
         <>
           <Navbar />
           <SuggestedAccs />
+        </>
+      ),
+      errorElement: <RouteError />,
+    },
+    {
+      path: "/Leaderboard",
+      element: (
+        <>
+          <Navbar />
+          <Leaderboard />
         </>
       ),
       errorElement: <RouteError />,

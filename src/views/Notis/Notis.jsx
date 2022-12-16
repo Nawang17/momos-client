@@ -46,13 +46,18 @@ export default function Notis({ darkmode }) {
   const [Notis, setnotis] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
-    notis()
-      .then((res) => {
-        setnotis(res.data.notis);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const getnotis = async () => {
+      notis()
+        .then((res) => {
+          setnotis(res.data.notis);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    if (opened) {
+      getnotis();
+    }
   }, [opened]);
   return (
     <Popover

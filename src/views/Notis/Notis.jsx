@@ -244,6 +244,7 @@ export default function Notis({ darkmode }) {
               >
                 {new Array(4).fill(0).map((_, i) => (
                   <div
+                    key={i}
                     style={{
                       display: "flex",
                       alignItems: "center",

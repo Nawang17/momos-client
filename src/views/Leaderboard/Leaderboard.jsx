@@ -148,15 +148,16 @@ export const Leaderboard = () => {
               />
             </Popover.Target>
             <Popover.Dropdown>
-              <Text size={"sm"}>
+              <Text size={"xs"}>
                 The leaderboard ranking is based on the total number of points
                 earned by the user.
               </Text>
-              <Divider my="sm" />
+              <Divider my="xs" />
               <Text color={"#1DA1F2"} size={"sm"} weight={500}>
                 How to earn points?
               </Text>
               <Text size={"xs"}>+1 point for every new post you create</Text>
+              <Text size={"xs"}>+1 point for every new follower</Text>
               <Text size={"xs"}>+1 point for each like on your posts</Text>
               <Text size={"xs"} color="red">
                 *Self post likes are not counted
@@ -303,7 +304,7 @@ export const Leaderboard = () => {
                         )}
                       </div>
                       <Text size={"xs"}>
-                        {acc.totalLikes + acc.totalposts}
+                        {acc.totalLikes + acc.totalposts + acc.totalFollowers}
                         {acc.totalLikes + acc.totalposts !== 1
                           ? " points"
                           : " point"}

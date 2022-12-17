@@ -7,7 +7,7 @@ import {
   WarningCircle,
 } from "phosphor-react";
 import { PostMenu } from "./PostMenu";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/Auth";
 import { likePost } from "../api/POST";
@@ -273,7 +273,6 @@ export const Post = ({ post, setPosts }) => {
 
     return replacedText;
   };
-  const { pathname } = useLocation();
 
   return (
     <>
@@ -281,7 +280,6 @@ export const Post = ({ post, setPosts }) => {
         style={{
           backgroundColor: darkmode ? "#1A1B1E" : "white",
           color: darkmode ? "white" : "black",
-          // borderRadius: pathname !== `/post/${post?.id}` ? "4px" : "0px",
         }}
         className={classes.wrapper}
       >

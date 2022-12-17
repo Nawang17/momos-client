@@ -211,7 +211,7 @@ export const Sidebar = () => {
                           ))}
                       </div>
                       <Text size={"12px"}>
-                        {val.totalLikes + val.totalposts}
+                        {val.totalLikes + val.totalposts + val.totalFollowers}
                         {val.totalLikes + val.totalposts !== 1
                           ? " points"
                           : " point"}
@@ -267,17 +267,18 @@ export const Sidebar = () => {
                   />
                 </Popover.Target>
                 <Popover.Dropdown>
-                  <Text size={"sm"}>
+                  <Text size={"xs"}>
                     The leaderboard ranking is based on the total number of
                     points earned by the user.
                   </Text>
-                  <Divider my="sm" />
+                  <Divider my="xs" />
                   <Text color={"#1DA1F2"} size={"sm"} weight={500}>
                     How to earn points?
                   </Text>
                   <Text size={"xs"}>
                     +1 point for every new post you create
                   </Text>
+                  <Text size={"xs"}>+1 point for every new follower</Text>
                   <Text size={"xs"}>+1 point for each like on your posts</Text>
                   <Text size={"xs"} color="red">
                     *Self post likes are not counted

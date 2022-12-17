@@ -48,7 +48,6 @@ export default function Notis({ darkmode }) {
   const [loading, setloading] = useState(true);
   useEffect(() => {
     const getnotis = async () => {
-      setloading(true);
       notis()
         .then((res) => {
           setnotis(res.data.notis);
@@ -61,6 +60,9 @@ export default function Notis({ darkmode }) {
     };
     if (opened) {
       getnotis();
+    } else {
+      setloading(true);
+      setnotis([]);
     }
   }, [opened]);
   return (

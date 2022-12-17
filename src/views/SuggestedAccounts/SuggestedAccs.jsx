@@ -21,7 +21,6 @@ import { allsuggestedusersreq } from "../../api/GET";
 import { AuthContext } from "../../context/Auth";
 import { showNotification } from "@mantine/notifications";
 import { follow } from "../../api/POST";
-import { useScrollIntoView } from "@mantine/hooks";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -55,12 +54,8 @@ export const SuggestedAccs = () => {
     darkmode,
   } = useContext(AuthContext);
   const [btndisabled, setbtndisabled] = useState("");
-  const { scrollIntoView, targetRef } = useScrollIntoView({
-    offset: 64,
-  });
 
   useEffect(() => {
-    scrollIntoView();
     allsuggestedusersreq({ name: UserInfo ? UserInfo.username : "null" })
       .then((res) => {
         setSuggestedusers(res.data.suggestedusers);
@@ -146,7 +141,6 @@ export const SuggestedAccs = () => {
     <Container px={0} className={classes.wrapper}>
       <div className={classes.leftWrapper}>
         <div
-          ref={targetRef}
           style={{
             backgroundColor: darkmode ? "#1A1B1E" : "white",
             color: darkmode ? "white" : "black",

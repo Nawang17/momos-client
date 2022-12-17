@@ -5,8 +5,6 @@ import Reply from "./Reply";
 import { ArrowLeft } from "phosphor-react";
 import { Comments } from "./Comments";
 import { useNavigate } from "react-router-dom";
-import { useScrollIntoView } from "@mantine/hooks";
-import { useEffect } from "react";
 import { AuthContext } from "../../context/Auth";
 
 const useStyles = createStyles(() => ({
@@ -30,17 +28,12 @@ export const SinglePostFeed = ({
   const navigate = useNavigate();
 
   const { classes } = useStyles();
-  const { scrollIntoView, targetRef, scrollableRef } = useScrollIntoView({
-    offset: 66,
-  });
+
   const { darkmode } = useContext(AuthContext);
-  useEffect(() => {
-    scrollIntoView();
-  }, []);
+
   return (
     <div className={classes.wrapper}>
       <div
-        ref={targetRef}
         style={{
           backgroundColor: darkmode ? "#1A1B1E" : "white",
           color: darkmode ? "white" : "black",

@@ -23,7 +23,6 @@ import { useContext, useEffect, useState } from "react";
 import { leaderboardinfo } from "../../api/GET";
 import { AuthContext } from "../../context/Auth";
 
-import { useScrollIntoView } from "@mantine/hooks";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { showNotification } from "@mantine/notifications";
 
@@ -52,9 +51,6 @@ export const Leaderboard = () => {
   const navigate = useNavigate();
   const { darkmode } = useContext(AuthContext);
 
-  const { scrollIntoView, targetRef } = useScrollIntoView({
-    offset: 64,
-  });
   const [leaderboard, setLeaderboard] = useState([]);
   const [loading, setLoading] = useState(true);
   const [usercount, setusercount] = useState(0);
@@ -63,7 +59,6 @@ export const Leaderboard = () => {
   useEffect(() => {
     setLoading(true);
 
-    scrollIntoView();
     leaderboardinfo(0)
       .then((res) => {
         setLeaderboard(res.data.leaderboard);
@@ -117,7 +112,6 @@ export const Leaderboard = () => {
     <Container px={0} className={classes.wrapper}>
       <div className={classes.leftWrapper}>
         <div
-          ref={targetRef}
           style={{
             /* can u make the div under stick to the top of the page when scrolling down */
 

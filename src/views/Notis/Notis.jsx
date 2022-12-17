@@ -1,4 +1,4 @@
-import { Popover, Text, ActionIcon, ScrollArea } from "@mantine/core";
+import { Popover, Text, ActionIcon, ScrollArea, Skeleton } from "@mantine/core";
 import { formatDistanceToNowStrict } from "date-fns";
 import locale from "date-fns/locale/en-US";
 
@@ -45,14 +45,18 @@ export default function Notis({ darkmode }) {
   const [opened, setOpened] = useState(false);
   const [Notis, setnotis] = useState([]);
   const navigate = useNavigate();
+  const [loading, setloading] = useState(true);
   useEffect(() => {
     const getnotis = async () => {
+      setloading(true);
       notis()
         .then((res) => {
           setnotis(res.data.notis);
+          setloading(false);
         })
         .catch((err) => {
           console.log(err);
+          setloading(true);
         });
     };
     if (opened) {
@@ -63,7 +67,7 @@ export default function Notis({ darkmode }) {
     <Popover
       opened={opened}
       onChange={setOpened}
-      width={Notis.length === 0 ? 200 : 300}
+      width={Notis.length === 0 && !loading ? 200 : 300}
       position="bottom"
       shadow="md"
     >
@@ -82,7 +86,7 @@ export default function Notis({ darkmode }) {
           }}
         >
           <div>
-            {Notis.length === 0 ? (
+            {Notis.length === 0 && !loading ? (
               <Text align="center" size="15px" weight={"500"}>
                 No notifications yet
               </Text>
@@ -91,137 +95,166 @@ export default function Notis({ darkmode }) {
                 Notifications
               </Text>
             )}
+            {!loading ? (
+              <>
+                {Notis.map((data) => {
+                  return (
+                    <div
+                      onClick={() => {
+                        setOpened(false);
+                        if (data.type === "FOLLOW") {
+                          navigate(`/${data.user.username}`);
+                        } else {
+                          navigate(`/post/${data.postId}`);
+                        }
+                      }}
+                      key={data.id}
+                      style={{
+                        display: "flex",
+                        paddingTop: "10px",
+                        flexDirection: "column",
+                        gap: "1.1rem",
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "0.5rem",
+                          cursor: "pointer",
+                        }}
+                      >
+                        <img
+                          style={{
+                            width: "35px",
+                            height: "35px",
+                            borderRadius: "50%",
+                          }}
+                          src={data?.user?.avatar}
+                          alt=""
+                        />
+                        <div
+                          style={{
+                            width: "200px",
+                          }}
+                        >
+                          {data.type === "MENTION" && (
+                            <Text size="14px">
+                              <span style={{ fontWeight: "500" }}>
+                                {data.user?.username}{" "}
+                              </span>
+                              mentioned you: {data?.text}
+                            </Text>
+                          )}
+                          {data.type === "QUOTE" && (
+                            <Text size="14px">
+                              <span style={{ fontWeight: "500" }}>
+                                {" "}
+                                {`
+              ${data.user?.username} 
+`}
+                              </span>
+                              {`
+             quoted your post 
+`}
+                            </Text>
+                          )}
+                          {data.type === "COMMENT" && (
+                            <Text size="14px">
+                              <span style={{ fontWeight: "500" }}>
+                                {" "}
+                                {`
+              ${data.user.username} 
+`}
+                              </span>
+                              {`
+             commented: ${data.text} 
+`}
+                            </Text>
+                          )}
+                          {data.type === "FOLLOW" && (
+                            <Text size="14px">
+                              <span style={{ fontWeight: "500" }}>
+                                {" "}
+                                {`
+              ${data.user.username} 
+`}
+                              </span>
+                              {`
+              started following you.
+`}
+                            </Text>
+                          )}
+                          {data.type === "REPLY" && (
+                            <Text size="14px">
+                              <span style={{ fontWeight: "500" }}>
+                                {" "}
+                                {`
+              ${data.user.username} 
+`}
+                              </span>
+                              {`
+             replied: ${data.text} 
+`}
+                            </Text>
+                          )}
+                          {data.type === "LIKE" && (
+                            <Text size="14px">
+                              <span style={{ fontWeight: "500" }}>
+                                {" "}
+                                {`
+              ${data.user.username} 
+`}
+                              </span>
+                              {`
+            ${data.text} 
+`}
+                            </Text>
+                          )}
+                        </div>
 
-            {Notis.map((data) => {
-              return (
-                <div
-                  onClick={() => {
-                    setOpened(false);
-                    if (data.type === "FOLLOW") {
-                      navigate(`/${data.user.username}`);
-                    } else {
-                      navigate(`/post/${data.postId}`);
-                    }
-                  }}
-                  key={data.id}
-                  style={{
-                    display: "flex",
-                    paddingTop: "10px",
-                    flexDirection: "column",
-                    gap: "1.1rem",
-                  }}
-                >
+                        <div>
+                          <Text color={"dimmed"} size="13px">
+                            {formatDistanceToNowStrict(
+                              new Date(data.createdAt),
+                              {
+                                locale: {
+                                  ...locale,
+                                  formatDistance,
+                                },
+                              }
+                            )}
+                          </Text>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </>
+            ) : (
+              <div
+                style={{
+                  paddingTop: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "1rem",
+                }}
+              >
+                {new Array(4).fill(0).map((_, i) => (
                   <div
                     style={{
                       display: "flex",
                       alignItems: "center",
+
                       gap: "0.5rem",
-                      cursor: "pointer",
                     }}
                   >
-                    <img
-                      style={{
-                        width: "35px",
-                        height: "35px",
-                        borderRadius: "50%",
-                      }}
-                      src={data?.user?.avatar}
-                      alt=""
-                    />
-                    <div
-                      style={{
-                        width: "200px",
-                      }}
-                    >
-                      {data.type === "MENTION" && (
-                        <Text size="14px">
-                          <span style={{ fontWeight: "500" }}>
-                            {data.user?.username}{" "}
-                          </span>
-                          mentioned you: {data?.text}
-                        </Text>
-                      )}
-                      {data.type === "QUOTE" && (
-                        <Text size="14px">
-                          <span style={{ fontWeight: "500" }}>
-                            {" "}
-                            {`
-              ${data.user?.username} 
-`}
-                          </span>
-                          {`
-             quoted your post 
-`}
-                        </Text>
-                      )}
-                      {data.type === "COMMENT" && (
-                        <Text size="14px">
-                          <span style={{ fontWeight: "500" }}>
-                            {" "}
-                            {`
-              ${data.user.username} 
-`}
-                          </span>
-                          {`
-             commented: ${data.text} 
-`}
-                        </Text>
-                      )}
-                      {data.type === "FOLLOW" && (
-                        <Text size="14px">
-                          <span style={{ fontWeight: "500" }}>
-                            {" "}
-                            {`
-              ${data.user.username} 
-`}
-                          </span>
-                          {`
-              started following you.
-`}
-                        </Text>
-                      )}
-                      {data.type === "REPLY" && (
-                        <Text size="14px">
-                          <span style={{ fontWeight: "500" }}>
-                            {" "}
-                            {`
-              ${data.user.username} 
-`}
-                          </span>
-                          {`
-             replied: ${data.text} 
-`}
-                        </Text>
-                      )}
-                      {data.type === "LIKE" && (
-                        <Text size="14px">
-                          <span style={{ fontWeight: "500" }}>
-                            {" "}
-                            {`
-              ${data.user.username} 
-`}
-                          </span>
-                          {`
-            ${data.text} 
-`}
-                        </Text>
-                      )}
-                    </div>
-
-                    <div>
-                      <Text color={"dimmed"} size="13px">
-                        {formatDistanceToNowStrict(new Date(data.createdAt), {
-                          locale: {
-                            ...locale,
-                            formatDistance,
-                          },
-                        })}
-                      </Text>
-                    </div>
+                    <Skeleton height={40} circle />
+                    <Skeleton height={8} radius="xl" width="200px" />
                   </div>
-                </div>
-              );
-            })}
+                ))}
+              </div>
+            )}
           </div>
         </ScrollArea>
       </Popover.Dropdown>

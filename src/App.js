@@ -20,9 +20,9 @@ import { Editprofile } from "./views/UserSettings/Editprofile";
 import { Search } from "./views/Search/Search";
 import { SuggestedAccs } from "./views/SuggestedAccounts/SuggestedAccs";
 import { MantineProvider } from "@mantine/core";
-import { useScrollIntoView } from "@mantine/hooks";
 import { HandWaving } from "phosphor-react";
 import { Leaderboard } from "./views/Leaderboard/Leaderboard";
+import ScrollToTop from "./helper/ScrollToTop";
 function App() {
   const [darkmode, setdarkmode] = useState(true);
 
@@ -47,7 +47,6 @@ function App() {
   }, []);
   useEffect(() => {
     setLoading(true);
-    scrollIntoView();
     console.log(`
     ███╗   ███╗ ██████╗ ███╗   ███╗ ██████╗ ███████╗
     ████╗ ████║██╔═══██╗████╗ ████║██╔═══██╗██╔════╝
@@ -91,6 +90,7 @@ function App() {
       path: "/",
       element: (
         <>
+          <ScrollToTop />
           <Navbar />
           {!UserInfo && !loading && <Hero darkmode={darkmode} />}
 
@@ -103,6 +103,7 @@ function App() {
       path: "/search/q/:searchquery",
       element: (
         <>
+          <ScrollToTop />
           <Navbar />
           <Search />
         </>
@@ -114,6 +115,7 @@ function App() {
       path: "/post/:postid",
       element: (
         <>
+          <ScrollToTop />
           <Navbar />
           <SinglePost />
         </>
@@ -125,6 +127,7 @@ function App() {
       path: "/:userprofile",
       element: (
         <>
+          <ScrollToTop />
           <Navbar />
           <Profile />
         </>
@@ -135,6 +138,7 @@ function App() {
       path: "/suggestedaccounts",
       element: (
         <>
+          <ScrollToTop />
           <Navbar />
           <SuggestedAccs />
         </>
@@ -145,6 +149,7 @@ function App() {
       path: "/Leaderboard",
       element: (
         <>
+          <ScrollToTop />
           <Navbar />
           <Leaderboard />
         </>
@@ -155,6 +160,7 @@ function App() {
       path: "/editprofile",
       element: (
         <>
+          <ScrollToTop />
           <Navbar />
           <Editprofile />
         </>
@@ -165,6 +171,7 @@ function App() {
       path: "/Login",
       element: (
         <>
+          <ScrollToTop />
           <Navbar />
           <Login />
         </>
@@ -175,6 +182,7 @@ function App() {
       path: "/Register",
       element: (
         <>
+          <ScrollToTop />
           <Navbar />
           <Register />
         </>
@@ -182,13 +190,11 @@ function App() {
       errorElement: <RouteError />,
     },
   ]);
-  const { scrollIntoView, targetRef, scrollableRef } = useScrollIntoView({
-    offset: 66,
-  });
+
   return (
     <MantineProvider theme={{ colorScheme: darkmode ? "dark" : "light" }}>
       <NotificationsProvider position="bottom-center">
-        <div ref={targetRef} className="App">
+        <div className="App">
           <AuthContext.Provider
             value={{
               UserInfo,

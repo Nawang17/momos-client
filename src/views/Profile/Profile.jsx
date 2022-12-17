@@ -12,7 +12,6 @@ import {
   profileinfo,
 } from "../../api/GET";
 import { showNotification } from "@mantine/notifications";
-import { useScrollIntoView } from "@mantine/hooks";
 import { AuthContext } from "../../context/Auth";
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -36,9 +35,6 @@ const useStyles = createStyles(() => ({
   },
 }));
 export const Profile = () => {
-  const { scrollIntoView, targetRef } = useScrollIntoView({
-    offset: 64,
-  });
   const { userprofile } = useParams();
   const { classes } = useStyles();
   const { pathname } = useLocation();
@@ -55,7 +51,6 @@ export const Profile = () => {
   const [rankinfo, setrankinfo] = useState([]);
   useEffect(() => {
     setloading(true);
-    scrollIntoView();
     profileinfo({ username: userprofile })
       .then((res) => {
         setposts(res.data.userPosts);
@@ -108,7 +103,7 @@ export const Profile = () => {
   };
   return (
     <Container px={0} className={classes.wrapper}>
-      <div ref={targetRef} className={classes.leftWrapper}>
+      <div className={classes.leftWrapper}>
         <ProfileHeader
           profileloading={loading}
           profileInfo={profileInfo}

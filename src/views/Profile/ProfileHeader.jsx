@@ -8,6 +8,7 @@ import {
   Skeleton,
   Badge,
   Popover,
+  Tooltip,
 } from "@mantine/core";
 import {
   ArrowLeft,
@@ -17,6 +18,7 @@ import {
   UserPlus,
   UserMinus,
   Crown,
+  DotsThree,
 } from "phosphor-react";
 import { useNavigate } from "react-router-dom";
 import { follow } from "../../api/POST";
@@ -29,7 +31,7 @@ import * as DOMPurify from "dompurify";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
-    padding: "1rem 1.5rem 0.5rem 1rem  ",
+    padding: "0rem 1.5rem 0.5rem 1rem  ",
     gap: "0.5rem",
     display: "flex",
     flexDirection: "column",
@@ -42,7 +44,7 @@ const useStyles = createStyles(() => ({
   right: {
     display: "flex",
     flexDirection: "column",
-    gap: "0.5rem",
+    gap: "0.6rem",
   },
 }));
 export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
@@ -191,8 +193,7 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
           <div
             style={{
               display: "flex",
-              justifyContent: "space-between",
-              alignItems: "flex-end",
+              justifyContent: "center",
             }}
             className={classes.left}
           >
@@ -206,62 +207,19 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
             ) : (
               <Skeleton height={60} circle />
             )}
-
-            {!profileloading && (
-              <>
-                {UserInfo?.username === profileInfo.username ? (
-                  <>
-                    <Button
-                      onClick={() => {
-                        navigate("/editprofile");
-                      }}
-                      variant="default"
-                      radius={"xl"}
-                      size="xs"
-                    >
-                      Edit profile
-                    </Button>
-                  </>
-                ) : followingdata?.includes(profileInfo?.username) ? (
-                  <Button
-                    disabled={btndisabled}
-                    variant="default"
-                    onClick={() => {
-                      setunfollowconfirm(true);
-                    }}
-                    radius={"xl"}
-                    size="xs"
-                  >
-                    Following
-                  </Button>
-                ) : (
-                  <Button
-                    disabled={btndisabled}
-                    onClick={() => {
-                      handlefollow();
-                    }}
-                    radius={"xl"}
-                    size="xs"
-                  >
-                    Follow
-                  </Button>
-                )}
-              </>
-            )}
           </div>
           <div className={classes.right}>
             <div
               style={{
                 display: "flex",
-                gap: "1rem",
-                justifyContent: "space-between",
-                alignItems: "flex-end",
+                justifyContent: "center",
               }}
             >
               <div
                 style={{
                   display: "flex",
                   flexDirection: "column",
+                  justifyContent: "center",
                 }}
               >
                 <div
@@ -316,20 +274,247 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                         </Popover.Dropdown>
                       </Popover>
                     ))}
-
-                  {followingArr.includes(UserInfo?.username) && (
-                    <Badge size="sm" color={"gray"}>
-                      Follows you
-                    </Badge>
+                  {rankinfo.rank === 1 && (
+                    <Popover
+                      width={"auto"}
+                      position="bottom"
+                      withArrow
+                      shadow="md"
+                    >
+                      <Popover.Target>
+                        <Crown
+                          style={{
+                            cursor: "pointer",
+                          }}
+                          weight="fill"
+                          size={17}
+                          color={darkmode ? "gold" : "orange"}
+                        />
+                      </Popover.Target>
+                      <Popover.Dropdown>
+                        <Text size="sm">This user is ranked #1</Text>
+                      </Popover.Dropdown>
+                    </Popover>
                   )}
                 </div>
               </div>
             </div>
+            {!profileloading ? (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: "1rem",
+                }}
+              >
+                <div
+                  onClick={() => {
+                    setOpened(true);
+                    setmodaltitle(`Following (${following.length})`);
+                  }}
+                  style={{
+                    cursor: "pointer",
+                    fontSize: "14px",
+                    display: "flex",
+                    width: "4.5rem",
 
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <div style={{ fontWeight: "600" }}>{following.length}</div>{" "}
+                  <div
+                    style={{ color: "rgb(113, 118, 123)", fontSize: "13px" }}
+                  >
+                    Following
+                  </div>
+                </div>
+                <div
+                  onClick={() => {
+                    setOpened(true);
+
+                    setmodaltitle(`Followers (${followers.length})`);
+                  }}
+                  style={{
+                    cursor: "pointer",
+                    fontSize: "14px",
+
+                    width: "4.5rem",
+
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <div style={{ fontWeight: "600" }}>{followers.length}</div>{" "}
+                  <div
+                    style={{ color: "rgb(113, 118, 123)", fontSize: "13px" }}
+                  >
+                    Followers
+                  </div>
+                </div>
+                <Popover
+                  width={"150px"}
+                  position="bottom"
+                  withArrow
+                  shadow="md"
+                >
+                  <Popover.Target>
+                    <div
+                      style={{
+                        cursor: "pointer",
+                        fontSize: "14px",
+                        display: "flex",
+                        width: "4.5rem",
+
+                        flexDirection: "column",
+                        alignItems: "center",
+                      }}
+                    >
+                      <div style={{ fontWeight: "600" }}>{rankinfo.rank}</div>{" "}
+                      <div
+                        style={{
+                          color: "rgb(113, 118, 123)",
+                          fontSize: "13px",
+                        }}
+                      >
+                        Rank
+                      </div>
+                    </div>
+                  </Popover.Target>
+                  <Popover.Dropdown>
+                    <Text size="sm">
+                      This user is ranked #{rankinfo.rank} with {""}
+                      <span
+                        style={{
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {rankinfo.points}
+                      </span>{" "}
+                      points
+                    </Text>
+                  </Popover.Dropdown>
+                </Popover>
+              </div>
+            ) : (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: "1rem",
+                  alignItems: "center",
+                }}
+              >
+                <Text
+                  color={"rgb(113, 118, 123)"}
+                  style={{ cursor: "pointer", width: "4.5rem" }}
+                  size="14px"
+                >
+                  Following
+                </Text>
+                <Text
+                  color={"rgb(113, 118, 123)"}
+                  style={{ cursor: "pointer", width: "4.5rem" }}
+                  size="14px"
+                >
+                  Followers
+                </Text>
+                <Text
+                  color={"rgb(113, 118, 123)"}
+                  style={{ cursor: "pointer", width: "4.5rem" }}
+                  size="14px"
+                >
+                  Rank
+                </Text>
+              </div>
+            )}
+
+            {!profileloading && (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+
+                  gap: "0.2rem",
+                }}
+              >
+                {UserInfo?.username === profileInfo.username ? (
+                  <>
+                    <Button
+                      onClick={() => {
+                        navigate("/editprofile");
+                      }}
+                      variant="default"
+                      style={{
+                        width: "120px",
+                      }}
+                      radius={2}
+                      size="sm"
+                    >
+                      Edit profile
+                    </Button>
+                  </>
+                ) : followingdata?.includes(profileInfo?.username) ? (
+                  <>
+                    <Button
+                      style={{
+                        width: "120px",
+                      }}
+                      radius={2}
+                      size="sm"
+                      disabled={btndisabled}
+                      variant="default"
+                      onClick={() => {
+                        setunfollowconfirm(true);
+                      }}
+                    >
+                      Following
+                    </Button>
+                  </>
+                ) : (
+                  <Button
+                    disabled={btndisabled}
+                    onClick={() => {
+                      handlefollow();
+                    }}
+                    style={{
+                      width: "120px",
+                    }}
+                    radius={2}
+                    size="sm"
+                  >
+                    {followingArr.includes(UserInfo?.username)
+                      ? "Follow back"
+                      : "Follow"}
+                  </Button>
+                )}
+
+                <ActionIcon
+                  radius={2}
+                  color="dark"
+                  size="36px"
+                  variant="default"
+                  onClick={() => {
+                    if (navigator.share) {
+                      navigator.share({
+                        title: "Share Profile",
+                        url: `https://momosz.com/${userprofile}`,
+                      });
+                    }
+                  }}
+                >
+                  <DotsThree size={26} />
+                </ActionIcon>
+              </div>
+            )}
             {profileInfo?.description && (
               <div
                 style={{
-                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
                   wordBreak: "break-word",
                   whiteSpace: "pre-wrap",
                 }}
@@ -337,6 +522,8 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                 <div
                   style={{
                     fontSize: "14px",
+                    textAlign: "center",
+                    width: "300px",
                   }}
                   dangerouslySetInnerHTML={{
                     __html: sanitizer(profileInfo?.description, {
@@ -347,44 +534,6 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                 />
               </div>
             )}
-            {profileInfo?.createdAt && (
-              <div>
-                <Text color="rgb(113, 118, 123)" size="13px">
-                  <span>Joined </span>
-                  {format(new Date(profileInfo?.createdAt), "MMMMMM yyyy")}
-                </Text>
-              </div>
-            )}
-
-            <div style={{ display: "flex", gap: "1rem" }}>
-              <Text
-                style={{ cursor: "pointer" }}
-                onClick={() => {
-                  setOpened(true);
-                  setmodaltitle(`Following (${following.length})`);
-                }}
-                size="15px"
-              >
-                <span style={{ fontWeight: "500" }}>{following.length}</span>{" "}
-                <span style={{ color: "rgb(113, 118, 123)", fontSize: "14px" }}>
-                  Following
-                </span>
-              </Text>
-              <Text
-                style={{ cursor: "pointer" }}
-                onClick={() => {
-                  setOpened(true);
-
-                  setmodaltitle(`Followers (${followers.length})`);
-                }}
-                size="15px"
-              >
-                <span style={{ fontWeight: "500" }}>{followers.length}</span>{" "}
-                <span style={{ color: "rgb(113, 118, 123)", fontSize: "14px" }}>
-                  Followers
-                </span>
-              </Text>
-            </div>
           </div>
         </div>
       ) : (
@@ -395,15 +544,21 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
           }}
           className={classes.wrapper}
         >
-          <div className={classes.left}>
-            <Skeleton height={60} circle mb="xl" />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+            className={classes.left}
+          >
+            <Skeleton height={60} circle />
           </div>
           <div className={classes.right}>
             <div
               style={{
                 display: "flex",
                 gap: "1rem",
-                justifyContent: "space-between",
+                justifyContent: "center",
                 alignItems: "flex-end",
               }}
             >
@@ -413,27 +568,50 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                 <Text weight="bold" size="md">
                   {userprofile}
                 </Text>
-                {profileInfo.verified && (
-                  <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
-                )}
+                {/* aw */}
               </div>
             </div>
-
-            <div style={{ display: "flex", gap: "1rem" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                gap: "1rem",
+                alignItems: "center",
+              }}
+            >
               <Text
                 color={"rgb(113, 118, 123)"}
-                style={{ cursor: "pointer" }}
+                style={{ cursor: "pointer", width: "4.5rem" }}
+                size="14px"
+              >
+                Following
+              </Text>
+              <Text
+                color={"rgb(113, 118, 123)"}
+                style={{ cursor: "pointer", width: "4.5rem" }}
                 size="14px"
               >
                 Followers
               </Text>
               <Text
                 color={"rgb(113, 118, 123)"}
-                style={{ cursor: "pointer" }}
+                style={{ cursor: "pointer", width: "4.5rem" }}
                 size="14px"
               >
-                Following
+                Rank
               </Text>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: "0.5rem",
+              }}
+            >
+              <Skeleton height={4} width={"130px"} radius="xl" />
+              <Skeleton height={4} width={"90px"} radius="xl" />
             </div>
           </div>
         </div>
@@ -577,6 +755,8 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
           </div>
           <div className="dpm-footer">
             <Button
+              weight={"filled"}
+              color={"gray"}
               onClick={() => {
                 handlefollow();
                 setunfollowconfirm(false);

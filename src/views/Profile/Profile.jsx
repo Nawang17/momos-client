@@ -111,6 +111,8 @@ export const Profile = () => {
         />
         <Tabs value={Tab} onTabChange={setTab}>
           <Tabs.List
+            grow
+            position="center"
             style={{
               borderBottom: "none",
 

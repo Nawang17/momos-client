@@ -37,7 +37,7 @@ const useStyles = createStyles(() => ({
     },
   },
 }));
-//@TODO ADD VIEW ALL PAGE FOR LEADERBOARD AND SIDE BAR FOR LEADERBOARD
+
 const Leaderboardhorizontal = () => {
   const [leaderboard, setLeaderboard] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -70,7 +70,6 @@ const Leaderboardhorizontal = () => {
           alignItems: "flex-start",
           justifyContent: "space-between",
           paddingTop: "15px",
-          margin: "10px 0px",
         }}
       >
         <div
@@ -78,6 +77,7 @@ const Leaderboardhorizontal = () => {
             display: "flex",
             alignItems: "center",
             gap: "0.3rem",
+            paddingBottom: "10px",
           }}
         >
           {" "}

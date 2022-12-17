@@ -8,13 +8,7 @@ import {
   ActionIcon,
 } from "@mantine/core";
 import { useLocation, useNavigate, s } from "react-router-dom";
-import {
-  ChatCircleDots,
-  House,
-  MagnifyingGlass,
-  MoonStars,
-  Sun,
-} from "phosphor-react";
+import { House, MagnifyingGlass, MoonStars, Sun } from "phosphor-react";
 import { ProfileMenu } from "./ProfileMenu";
 import Notis from "../views/Notis/Notis";
 import { AuthContext } from "../context/Auth";
@@ -82,7 +76,7 @@ export function Navbar() {
   return (
     <Header
       style={{
-        borderBottom: pathname === `/` && "none",
+        borderBottom: !UserInfo && "none",
       }}
       height={60}
       mb={0}

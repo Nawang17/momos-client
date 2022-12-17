@@ -24,13 +24,11 @@ export const SinglePost = () => {
   const { classes } = useStyles();
   const { pathname } = useLocation();
   const { postid } = useParams();
-  const [singlePostData, setSinglePostData] = useState({});
+  const [singlePostData, setSinglePostData] = useState([]);
   const [loading, setloading] = useState(true);
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-
     singlePost({ postid })
       .then((res) => {
         setSinglePostData(res.data.singlepost);

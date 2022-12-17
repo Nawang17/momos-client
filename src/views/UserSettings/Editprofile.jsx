@@ -30,6 +30,9 @@ const useStyles = createStyles(() => ({
     gap: "1rem",
     paddingBottom: "5rem",
     paddingTop: "0.5rem",
+    "@media (max-width: 700px)": {
+      paddingTop: "0rem",
+    },
   },
   leftWrapper: {
     flex: 0.7,

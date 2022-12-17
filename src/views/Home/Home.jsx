@@ -18,9 +18,9 @@ const useStyles = createStyles(() => ({
     gap: "1rem",
     paddingBottom: "5rem",
     paddingTop: "0.5rem",
-    // "@media (max-width: 700px)": {
-    //   paddingTop: "0rem",
-    // },
+    "@media (max-width: 700px)": {
+      paddingTop: "0rem",
+    },
   },
   leftWrapper: {
     width: "100%",

@@ -6,7 +6,7 @@ export default function ScrollToTop() {
 
   useEffect(() => {
     document.documentElement.scrollTo({
-      top: 0,
+      top: -50,
       left: 0,
       behavior: "instant",
     });

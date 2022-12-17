@@ -90,10 +90,9 @@ function App() {
       path: "/",
       element: (
         <>
-         
           <Navbar />
 
-<ScrollToTop />
+          <ScrollToTop />
 
           {!UserInfo && !loading && <Hero darkmode={darkmode} />}
 
@@ -106,11 +105,9 @@ function App() {
       path: "/search/q/:searchquery",
       element: (
         <>
-         
-
           <Navbar />
 
-<ScrollToTop />
+          <ScrollToTop />
 
           <Search />
         </>
@@ -122,10 +119,9 @@ function App() {
       path: "/post/:postid",
       element: (
         <>
-         
-          <Navbar />
+          <ScrollToTop />
 
-<ScrollToTop />
+          <Navbar />
 
           <SinglePost />
         </>
@@ -137,10 +133,9 @@ function App() {
       path: "/:userprofile",
       element: (
         <>
-         
-          <Navbar />
+          <ScrollToTop />
 
-<ScrollToTop />
+          <Navbar />
 
           <Profile />
         </>
@@ -151,10 +146,9 @@ function App() {
       path: "/suggestedaccounts",
       element: (
         <>
-         
           <Navbar />
 
-<ScrollToTop />
+          <ScrollToTop />
 
           <SuggestedAccs />
         </>
@@ -165,10 +159,9 @@ function App() {
       path: "/Leaderboard",
       element: (
         <>
-        
           <Navbar />
 
-<ScrollToTop />
+          <ScrollToTop />
 
           <Leaderboard />
         </>
@@ -179,10 +172,9 @@ function App() {
       path: "/editprofile",
       element: (
         <>
-         
           <Navbar />
 
-<ScrollToTop />
+          <ScrollToTop />
 
           <Editprofile />
         </>
@@ -193,10 +185,9 @@ function App() {
       path: "/Login",
       element: (
         <>
-         
           <Navbar />
 
-<ScrollToTop />
+          <ScrollToTop />
 
           <Login />
         </>
@@ -207,10 +198,9 @@ function App() {
       path: "/Register",
       element: (
         <>
-      
           <Navbar />
 
-<ScrollToTop />
+          <ScrollToTop />
 
           <Register />
         </>

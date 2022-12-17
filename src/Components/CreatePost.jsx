@@ -8,12 +8,12 @@ const CreatePost = ({ setHomePosts, UserInfo, darkmode }) => {
   return (
     <>
       <div
+        className={
+          darkmode ? "createpostmodalradiusdark" : "createpostmodalradius"
+        }
         style={{
           padding: "1rem",
           backgroundColor: darkmode ? "#1A1B1E" : "white",
-
-          borderRadius: "4px",
-          marginBottom: "0.5rem",
         }}
       >
         <div
@@ -43,11 +43,9 @@ const CreatePost = ({ setHomePosts, UserInfo, darkmode }) => {
               width: "100%",
               cursor: "pointer",
 
-              borderRadius: "18px",
-
               padding: "0.7rem",
               fontSize: "15px",
-              backgroundColor: darkmode ? "#2A2B2E" : "#F0F2F5",
+              backgroundColor: darkmode ? "#1A1B1E" : "white",
               color: "grey",
             }}
           >

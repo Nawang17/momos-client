@@ -90,8 +90,11 @@ function App() {
       path: "/",
       element: (
         <>
-          <ScrollToTop />
+         
           <Navbar />
+
+<ScrollToTop />
+
           {!UserInfo && !loading && <Hero darkmode={darkmode} />}
 
           <Home />
@@ -103,8 +106,12 @@ function App() {
       path: "/search/q/:searchquery",
       element: (
         <>
-          <ScrollToTop />
+         
+
           <Navbar />
+
+<ScrollToTop />
+
           <Search />
         </>
       ),
@@ -115,8 +122,11 @@ function App() {
       path: "/post/:postid",
       element: (
         <>
-          <ScrollToTop />
+         
           <Navbar />
+
+<ScrollToTop />
+
           <SinglePost />
         </>
       ),
@@ -127,8 +137,11 @@ function App() {
       path: "/:userprofile",
       element: (
         <>
-          <ScrollToTop />
+         
           <Navbar />
+
+<ScrollToTop />
+
           <Profile />
         </>
       ),
@@ -138,8 +151,11 @@ function App() {
       path: "/suggestedaccounts",
       element: (
         <>
-          <ScrollToTop />
+         
           <Navbar />
+
+<ScrollToTop />
+
           <SuggestedAccs />
         </>
       ),
@@ -149,8 +165,11 @@ function App() {
       path: "/Leaderboard",
       element: (
         <>
-          <ScrollToTop />
+        
           <Navbar />
+
+<ScrollToTop />
+
           <Leaderboard />
         </>
       ),
@@ -160,8 +179,11 @@ function App() {
       path: "/editprofile",
       element: (
         <>
-          <ScrollToTop />
+         
           <Navbar />
+
+<ScrollToTop />
+
           <Editprofile />
         </>
       ),
@@ -171,8 +193,11 @@ function App() {
       path: "/Login",
       element: (
         <>
-          <ScrollToTop />
+         
           <Navbar />
+
+<ScrollToTop />
+
           <Login />
         </>
       ),
@@ -182,8 +207,11 @@ function App() {
       path: "/Register",
       element: (
         <>
-          <ScrollToTop />
+      
           <Navbar />
+
+<ScrollToTop />
+
           <Register />
         </>
       ),

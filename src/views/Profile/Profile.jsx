@@ -86,6 +86,11 @@ export const Profile = () => {
 
     return () => {
       setTab("posts");
+      setprofileInfo([]);
+      setrankinfo([]);
+      setpostpage(0);
+      setlikedpage(0);
+      setpostCount(0);
     };
   }, [pathname]);
   const fetchMoreposts = () => {

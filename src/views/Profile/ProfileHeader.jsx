@@ -403,30 +403,67 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                   display: "flex",
                   justifyContent: "center",
                   gap: "1rem",
-                  alignItems: "center",
                 }}
               >
-                <Text
-                  color={"rgb(113, 118, 123)"}
-                  style={{ cursor: "pointer", width: "4.5rem" }}
-                  size="14px"
+                <div
+                  style={{
+                    cursor: "pointer",
+                    fontSize: "14px",
+                    display: "flex",
+                    width: "4.5rem",
+
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
                 >
-                  Following
-                </Text>
-                <Text
-                  color={"rgb(113, 118, 123)"}
-                  style={{ cursor: "pointer", width: "4.5rem" }}
-                  size="14px"
+                  <div style={{ fontWeight: "600" }}></div>{" "}
+                  <div
+                    style={{ color: "rgb(113, 118, 123)", fontSize: "13px" }}
+                  >
+                    Following
+                  </div>
+                </div>
+                <div
+                  style={{
+                    cursor: "pointer",
+                    fontSize: "14px",
+
+                    width: "4.5rem",
+
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
                 >
-                  Followers
-                </Text>
-                <Text
-                  color={"rgb(113, 118, 123)"}
-                  style={{ cursor: "pointer", width: "4.5rem" }}
-                  size="14px"
+                  <div style={{ fontWeight: "600" }}></div>{" "}
+                  <div
+                    style={{ color: "rgb(113, 118, 123)", fontSize: "13px" }}
+                  >
+                    Followers
+                  </div>
+                </div>
+
+                <div
+                  style={{
+                    cursor: "pointer",
+                    fontSize: "14px",
+                    display: "flex",
+                    width: "4.5rem",
+
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
                 >
-                  Rank
-                </Text>
+                  <div style={{ fontWeight: "600" }}></div>
+                  <div
+                    style={{
+                      color: "rgb(113, 118, 123)",
+                      fontSize: "13px",
+                    }}
+                  >
+                    Rank
+                  </div>
+                </div>
               </div>
             )}
 
@@ -557,61 +594,92 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
             <div
               style={{
                 display: "flex",
-                gap: "1rem",
                 justifyContent: "center",
-                alignItems: "flex-end",
               }}
             >
               <div
-                style={{ display: "flex", alignItems: "center", gap: "0.2rem" }}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                }}
               >
-                <Text weight="bold" size="md">
-                  {userprofile}
-                </Text>
-                {/* aw */}
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.2rem",
+                  }}
+                >
+                  <Text weight="bold" size="md">
+                    {userprofile}
+                  </Text>
+                </div>
               </div>
             </div>
+
             <div
               style={{
                 display: "flex",
                 justifyContent: "center",
                 gap: "1rem",
-                alignItems: "center",
               }}
             >
-              <Text
-                color={"rgb(113, 118, 123)"}
-                style={{ cursor: "pointer", width: "4.5rem" }}
-                size="14px"
+              <div
+                style={{
+                  cursor: "pointer",
+                  fontSize: "14px",
+                  display: "flex",
+                  width: "4.5rem",
+
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
               >
-                Following
-              </Text>
-              <Text
-                color={"rgb(113, 118, 123)"}
-                style={{ cursor: "pointer", width: "4.5rem" }}
-                size="14px"
+                <div style={{ fontWeight: "600" }}></div>{" "}
+                <div style={{ color: "rgb(113, 118, 123)", fontSize: "13px" }}>
+                  Following
+                </div>
+              </div>
+              <div
+                style={{
+                  cursor: "pointer",
+                  fontSize: "14px",
+
+                  width: "4.5rem",
+
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
               >
-                Followers
-              </Text>
-              <Text
-                color={"rgb(113, 118, 123)"}
-                style={{ cursor: "pointer", width: "4.5rem" }}
-                size="14px"
+                <div style={{ fontWeight: "600" }}></div>{" "}
+                <div style={{ color: "rgb(113, 118, 123)", fontSize: "13px" }}>
+                  Followers
+                </div>
+              </div>
+
+              <div
+                style={{
+                  cursor: "pointer",
+                  fontSize: "14px",
+                  display: "flex",
+                  width: "4.5rem",
+
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
               >
-                Rank
-              </Text>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                flexDirection: "column",
-                alignItems: "center",
-                gap: "0.5rem",
-              }}
-            >
-              <Skeleton height={4} width={"130px"} radius="xl" />
-              <Skeleton height={4} width={"90px"} radius="xl" />
+                <div style={{ fontWeight: "600" }}></div>
+                <div
+                  style={{
+                    color: "rgb(113, 118, 123)",
+                    fontSize: "13px",
+                  }}
+                >
+                  Rank
+                </div>
+              </div>
             </div>
           </div>
         </div>

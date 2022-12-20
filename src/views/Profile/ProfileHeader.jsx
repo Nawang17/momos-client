@@ -287,7 +287,7 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                             cursor: "pointer",
                           }}
                           weight="fill"
-                          size={17}
+                          size={19}
                           color={darkmode ? "gold" : "orange"}
                         />
                       </Popover.Target>

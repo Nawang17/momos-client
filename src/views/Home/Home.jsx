@@ -14,6 +14,7 @@ import {
   LadderSimple,
   Rocket,
   Sparkle,
+  User,
   UserList,
   WarningCircle,
 } from "phosphor-react";
@@ -53,7 +54,11 @@ export const Home = () => {
   const [postCount, setpostCount] = useState(0);
 
   const [sortby, setsortby] = useState("Latest");
-
+  useEffect(() => {
+    if (sortby === "Following") {
+      setsortby("Latest");
+    }
+  }, [UserInfo]);
   useEffect(() => {
     setpage(0);
     setloading(true);

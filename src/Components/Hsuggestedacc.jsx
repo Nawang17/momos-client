@@ -113,28 +113,28 @@ const Hsuggestedacc = () => {
             style={{
               border: darkmode ? "1px solid #2f3136" : "1px solid #e6e6e6",
               borderRadius: "4px",
-              padding: "0px 25px",
-              width: "5.9rem",
+              padding: "0px 10px",
+              width: "8rem",
 
-              height: "8.4rem",
+              height: "12rem",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              gap: "6px",
+              gap: "9px",
 
               cursor: "pointer",
             }}
           >
             <img
-              style={{ width: "40px", height: "40px", borderRadius: "50%" }}
+              style={{ width: "90px", height: "90px", borderRadius: "50%" }}
               src={value.avatar}
               alt=""
             />
             <div
               style={{ display: "flex", alignItems: "center", gap: "0.2rem" }}
             >
-              <Text size={"15px"} weight={"500"}>
+              <Text size={"14px"} weight={"500"}>
                 {" "}
                 {value.username}
               </Text>
@@ -144,25 +144,30 @@ const Hsuggestedacc = () => {
             </div>
             {!followingdata.includes(value.username) ? (
               <Button
+                style={{
+                  width: "100%",
+                }}
                 disabled={btndisabled === value.username}
                 onClick={(e) => {
                   e.stopPropagation();
                   handlefollow(value.id, value.username);
                 }}
-                radius={"xl"}
                 size="xs"
               >
                 Follow
               </Button>
             ) : (
               <Button
-                variant="outline"
+                style={{
+                  width: "100%",
+                }}
+                color="gray"
+                variant="filled"
                 disabled={btndisabled === value.username}
                 onClick={(e) => {
                   e.stopPropagation();
                   handlefollow(value.id, value.username);
                 }}
-                radius={"xl"}
                 size="xs"
               >
                 Unfollow

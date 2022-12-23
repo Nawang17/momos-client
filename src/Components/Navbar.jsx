@@ -74,14 +74,7 @@ export function Navbar() {
   const { pathname } = useLocation();
 
   return (
-    <Header
-      style={{
-        borderBottom: !UserInfo && "none",
-      }}
-      height={60}
-      mb={0}
-      className={classes.root}
-    >
+    <Header height={60} mb={0} className={classes.root}>
       <Container className={classes.header}>
         <div
           style={{ textDecoration: "none", cursor: "pointer", color: "black" }}

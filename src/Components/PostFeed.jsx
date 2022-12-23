@@ -49,8 +49,8 @@ export const PostFeed = ({ setPosts, posts, loading }) => {
                         paddingTop: "15px",
                       }}
                     >
-                      <Text weight={"500"} size={"15px"}>
-                        Suggested Accounts
+                      <Text weight={"500"} size={"14px"}>
+                        Suggested for you
                       </Text>
                       <Text
                         style={{ cursor: "pointer" }}
@@ -59,10 +59,10 @@ export const PostFeed = ({ setPosts, posts, loading }) => {
                         }}
                         color="#1DA1F2"
                         weight={"500"}
-                        size={"15px"}
+                        size={"14px"}
                       >
                         {" "}
-                        View All
+                        See all
                       </Text>
                     </div>
                     <ScrollArea
@@ -72,7 +72,7 @@ export const PostFeed = ({ setPosts, posts, loading }) => {
                       style={{
                         maxWidth: "100%",
                         width: "auto",
-                        height: 160,
+                        height: 215,
                       }}
                     >
                       <Hsuggestedacc />

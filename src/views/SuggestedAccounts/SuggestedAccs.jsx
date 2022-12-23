@@ -242,7 +242,8 @@ export const SuggestedAccs = () => {
                       </Button>
                     ) : (
                       <Button
-                        variant="outline"
+                        variant="filled"
+                        color="gray"
                         disabled={btndisabled === acc.username}
                         onClick={(e) => {
                           e.stopPropagation();

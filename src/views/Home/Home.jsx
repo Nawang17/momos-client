@@ -167,37 +167,38 @@ export const Home = () => {
         <div className={classes.leftWrapper}>
           {" "}
           {UserInfo && <CreatePost darkmode={darkmode} UserInfo={UserInfo} />}
-          <div
-            className={classes.sortby}
-            style={{
-              display: "flex",
-              gap: "0.3rem",
-              padding: "1rem 0.5rem",
-              backgroundColor: darkmode ? "#1A1B1E" : "white",
-              marginBottom: "0.5rem ",
-            }}
-          >
-            <Button
-              leftIcon={<ClockCounterClockwise size={20} />}
-              onClick={() => setsortby("Latest")}
-              variant={sortby === "Latest" ? "filled" : "subtle"}
-              size="xs"
-              radius={"xl"}
-              color={"gray"}
+          {UserInfo && (
+            <div
+              className={classes.sortby}
+              style={{
+                display: "flex",
+                gap: "0.3rem",
+                padding: "1rem 0.5rem",
+                backgroundColor: darkmode ? "#1A1B1E" : "white",
+                marginBottom: "0.5rem ",
+              }}
             >
-              Latest
-            </Button>
-            <Button
-              leftIcon={<Sparkle size={20} />}
-              onClick={() => setsortby("Popular")}
-              variant={sortby === "Popular" ? "filled" : "subtle"}
-              size="xs"
-              radius={"xl"}
-              color={"gray"}
-            >
-              Popular
-            </Button>
-            {UserInfo && (
+              <Button
+                leftIcon={<ClockCounterClockwise size={20} />}
+                onClick={() => setsortby("Latest")}
+                variant={sortby === "Latest" ? "filled" : "subtle"}
+                size="xs"
+                radius={"xl"}
+                color={"gray"}
+              >
+                Latest
+              </Button>
+              <Button
+                leftIcon={<Sparkle size={20} />}
+                onClick={() => setsortby("Popular")}
+                variant={sortby === "Popular" ? "filled" : "subtle"}
+                size="xs"
+                radius={"xl"}
+                color={"gray"}
+              >
+                Popular
+              </Button>
+
               <Button
                 leftIcon={<UserList size={20} />}
                 onClick={() => setsortby("Following")}
@@ -208,8 +209,8 @@ export const Home = () => {
               >
                 Following
               </Button>
-            )}
-          </div>
+            </div>
+          )}
           <Leaderboardhorizontal />
           <InfiniteScroll
             dataLength={homePosts.length}

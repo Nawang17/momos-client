@@ -42,7 +42,7 @@ export function Login() {
     seterror("");
     e.preventDefault();
 
-    await LoginReq(Username, Password, true)
+    await LoginReq(Username, Password)
       .then(async (res) => {
         setUserInfo(res.data.user);
         localStorage.setItem("token", res.data.token);

@@ -182,21 +182,22 @@ const Hsuggestedacc = () => {
         style={{
           border: darkmode ? "1px solid #2f3136" : "1px solid #e6e6e6",
           borderRadius: "4px",
-          padding: "0px 25px",
-          width: "5.5rem",
-          height: "8.4rem",
+          padding: "0px 10px",
+          width: "8rem",
+
+          height: "12rem",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          gap: "6px",
+          gap: "9px",
 
           cursor: "pointer",
           marginRight: "14px",
         }}
       >
         <Text color="#1DA1F2" weight={"500"} size={"15px"}>
-          View All
+          See all
         </Text>
       </div>
     </div>

@@ -1,10 +1,9 @@
 import { api } from "./config";
 
-export const LoginReq = async (username, password, stayloggedin) => {
+export const LoginReq = async (username, password) => {
   return await api.post("/auth/login", {
     username,
     password,
-    stayloggedin: stayloggedin,
   });
 };
 export const GLoginReq = async (username, email) => {

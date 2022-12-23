@@ -1,7 +1,14 @@
 import { api } from "./config";
 
-export const HomePosts = async (page) => {
-  return await api.get(`/homeposts?page=${page}`);
+export const HomePosts = async (page, sortby) => {
+  return await api.get(`/homeposts?page=${page}&sortby=${sortby}`);
+};
+export const followinguserposts = async (page) => {
+  return await api.get(`/homeposts/followingposts?page=${page}`, {
+    headers: {
+      Authorization: `${localStorage.getItem("token")}`,
+    },
+  });
 };
 
 export const profileinfo = async ({ username }) => {

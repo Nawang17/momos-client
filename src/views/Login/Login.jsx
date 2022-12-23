@@ -168,7 +168,7 @@ export function Login() {
             <span>Register</span>
           </Link>
         </Text>
-        <Paper withBorder shadow="md" p={30} mt={30} radius="md">
+        <Paper withBorder shadow="md" p={30} mt={30} radius="sm">
           <Text weight={"500"} color={"red"} size="sm">
             {error}
           </Text>

@@ -57,23 +57,18 @@
 }
 .createpostmodalradius {
   border-radius: 4px;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.5rem;
 }
 .createpostmodalradiusdark {
   border-radius: 4px;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.5rem;
 }
 
 @media only screen and (max-width: 700px) {
   .createpostmodalradius {
     border-radius: 0px;
-    margin-bottom: 0rem;
-
-    border-bottom: 1px solid #e9ecef;
   }
   .createpostmodalradiusdark {
     border-radius: 0px;
-    margin-bottom: 0rem;
-    border-bottom: 1px solid #2c2e33;
   }
 }

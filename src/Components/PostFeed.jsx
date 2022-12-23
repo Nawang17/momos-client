@@ -21,7 +21,7 @@ const useStyles = createStyles(() => ({
     },
   },
 }));
-export const PostFeed = ({ setPosts, posts, loading, sortby }) => {
+export const PostFeed = ({ setPosts, posts, loading }) => {
   const { classes } = useStyles();
   const { pathname } = useLocation();
   const screenwidth = useMediaQuery("(min-width: 440px)");

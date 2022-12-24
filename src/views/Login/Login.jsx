@@ -74,7 +74,7 @@ export function Login() {
     setloading(true);
     seterror("");
 
-    await LoginReq("Demo", "demo", false)
+    await LoginReq("Demo", "demo")
       .then(async (res) => {
         setUserInfo(res.data.user);
         localStorage.setItem("token", res.data.token);

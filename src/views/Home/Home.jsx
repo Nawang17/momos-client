@@ -55,9 +55,7 @@ export const Home = () => {
 
   const [sortby, setsortby] = useState("Latest");
   useEffect(() => {
-    if (sortby === "Following") {
-      setsortby("Latest");
-    }
+    setsortby("Latest");
   }, [UserInfo]);
   useEffect(() => {
     setpage(0);

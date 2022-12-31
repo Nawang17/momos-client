@@ -21,6 +21,7 @@ import { allsuggestedusersreq } from "../../api/GET";
 import { AuthContext } from "../../context/Auth";
 import { showNotification } from "@mantine/notifications";
 import { follow } from "../../api/POST";
+import * as DOMPurify from "dompurify";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -43,6 +44,8 @@ const useStyles = createStyles(() => ({
 }));
 
 export const SuggestedAccs = () => {
+  const sanitizer = DOMPurify.sanitize;
+
   const { classes } = useStyles();
   const navigate = useNavigate();
   const {
@@ -257,8 +260,25 @@ export const SuggestedAccs = () => {
                       </Button>
                     )}
                   </div>
-                  {acc.description && (
-                    <Text size={"15px"}> {acc.description}</Text>
+                  {acc?.description && (
+                    <div
+                      style={{
+                        wordBreak: "break-word",
+                        whiteSpace: "pre-wrap",
+                      }}
+                    >
+                      <div
+                        style={{
+                          fontSize: "15px",
+                        }}
+                        dangerouslySetInnerHTML={{
+                          __html: sanitizer(acc?.description, {
+                            ALLOWED_ATTR: [""],
+                            ALLOWED_TAGS: ["b", "i", "em", "strong"],
+                          }),
+                        }}
+                      />
+                    </div>
                   )}
                 </div>
               </div>

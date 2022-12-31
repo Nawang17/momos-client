@@ -26,61 +26,68 @@ export const PostFeed = ({ setPosts, posts, loading }) => {
   const { pathname } = useLocation();
   const screenwidth = useMediaQuery("(min-width: 440px)");
   const navigate = useNavigate();
-  const { darkmode } = useContext(AuthContext);
+  const { darkmode, suggestedUsers } = useContext(AuthContext);
   return (
     <div className={classes.wrapper}>
       {!loading
         ? posts.map((post, id) => {
             return (
-              <div key={post.id}>
-                {(id === 6 || id === 50 || id === 80) && pathname === "/" && (
-                  <div
-                    style={{
-                      backgroundColor: darkmode ? "#1A1B1E" : "white",
-                      color: darkmode ? "white" : "black",
-                    }}
-                    className={classes.horizontalsuggeastedaccounts}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        paddingTop: "15px",
-                      }}
-                    >
-                      <Text weight={"500"} size={"14px"}>
-                        Suggested for you
-                      </Text>
-                      <Text
-                        style={{ cursor: "pointer" }}
-                        onClick={() => {
-                          navigate("/suggestedaccounts");
-                        }}
-                        color="#1DA1F2"
-                        weight={"500"}
-                        size={"14px"}
-                      >
-                        {" "}
-                        See all
-                      </Text>
+              <>
+                <div key={post.id}>
+                  {suggestedUsers.length !== 1 && (
+                    <div>
+                      {(id === 6 || id === 50 || id === 80) &&
+                        pathname === "/" && (
+                          <div
+                            style={{
+                              backgroundColor: darkmode ? "#1A1B1E" : "white",
+                              color: darkmode ? "white" : "black",
+                            }}
+                            className={classes.horizontalsuggeastedaccounts}
+                          >
+                            <div
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                paddingTop: "15px",
+                              }}
+                            >
+                              <Text weight={"500"} size={"14px"}>
+                                Suggested for you
+                              </Text>
+                              <Text
+                                style={{ cursor: "pointer" }}
+                                onClick={() => {
+                                  navigate("/suggestedaccounts");
+                                }}
+                                color="#1DA1F2"
+                                weight={"500"}
+                                size={"14px"}
+                              >
+                                {" "}
+                                See all
+                              </Text>
+                            </div>
+                            <ScrollArea
+                              offsetScrollbars
+                              type={screenwidth ? "hover" : "never"}
+                              mx="10"
+                              style={{
+                                maxWidth: "100%",
+                                width: "auto",
+                                height: 215,
+                              }}
+                            >
+                              <Hsuggestedacc />
+                            </ScrollArea>
+                          </div>
+                        )}
                     </div>
-                    <ScrollArea
-                      offsetScrollbars
-                      type={screenwidth ? "hover" : "never"}
-                      mx="10"
-                      style={{
-                        maxWidth: "100%",
-                        width: "auto",
-                        height: 215,
-                      }}
-                    >
-                      <Hsuggestedacc />
-                    </ScrollArea>
-                  </div>
-                )}
-                <Post key={post.id} post={post} setPosts={setPosts} />
-              </div>
+                  )}
+                  <Post key={post.id} post={post} setPosts={setPosts} />
+                </div>
+              </>
             );
           })
         : new Array(6).fill(0).map((_, i) => {

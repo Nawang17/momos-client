@@ -1,4 +1,5 @@
 import { ActionIcon, Button, Input, Loader, Tabs, Text } from "@mantine/core";
+import { useDebouncedValue } from "@mantine/hooks";
 import { showNotification } from "@mantine/notifications";
 import {
   ArrowLeft,
@@ -17,7 +18,6 @@ import { searchposts, searchusers } from "../../api/GET";
 import { follow } from "../../api/POST";
 import { PostFeed } from "../../Components/PostFeed";
 import { AuthContext } from "../../context/Auth";
-import useDebounce from "./useDebounce";
 
 const UserSearch = () => {
   const navigate = useNavigate();
@@ -35,14 +35,15 @@ const UserSearch = () => {
   } = useContext(AuthContext);
   const [btndisabled, setbtndisabled] = useState("");
   const [Top, setTop] = useState([]);
-  const debouncedSearch = useDebounce(search, 500);
+  const [debouncedSearch] = useDebouncedValue(search, 500);
+
   const { searchquery } = useParams();
 
   useEffect(() => {
     if (searchquery !== "null") {
       setSearch(searchquery);
     }
-  }, []);
+  }, [searchquery]);
   useEffect(() => {
     async function searchuser() {
       setuLoading(true);

@@ -7,7 +7,7 @@ import {
   WarningCircle,
 } from "phosphor-react";
 import { PostMenu } from "./PostMenu";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/Auth";
 import { likePost } from "../api/POST";
@@ -65,7 +65,8 @@ const useStyles = createStyles(() => ({
   },
   footer: {
     display: "flex",
-    gap: "1rem",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   fRight: {
     display: "flex",
@@ -82,12 +83,14 @@ const useStyles = createStyles(() => ({
 }));
 
 export const Post = ({ post, setPosts }) => {
+  const { pathname } = useLocation();
   const { classes } = useStyles();
   const navigate = useNavigate();
   const [opened, setOpened] = useState(false);
   const [viewimg, setviewimg] = useState("");
   const { likedpostIds, setLikedpostIds, UserInfo, darkmode } =
     useContext(AuthContext);
+  const [likemodal, setlikemodal] = useState(false);
   const formatDistanceLocale = {
     lessThanXSeconds: "{{count}}s",
     xSeconds: "{{count}}s",
@@ -137,8 +140,11 @@ export const Post = ({ post, setPosts }) => {
         setPosts((prev) => {
           return prev.map((p) => {
             if (p.id === post.id) {
-              const likearr = p.likes;
-              likearr.pop();
+              let likearr = p.likes;
+              likearr = likearr.filter(
+                (likeuser) => likeuser?.user?.username !== UserInfo?.username
+              );
+
               return { ...p, likes: likearr };
             } else {
               return p;
@@ -152,7 +158,15 @@ export const Post = ({ post, setPosts }) => {
             if (p.id === post.id) {
               return {
                 ...p,
-                likes: [...p.likes, 0],
+                likes: [
+                  ...p.likes,
+                  {
+                    user: {
+                      username: UserInfo?.username,
+                      avatar: UserInfo?.avatar,
+                    },
+                  },
+                ],
               };
             } else {
               return p;
@@ -171,7 +185,15 @@ export const Post = ({ post, setPosts }) => {
                   if (p.id === post.id) {
                     return {
                       ...p,
-                      likes: [...p.likes, 0],
+                      likes: [
+                        ...p.likes,
+                        {
+                          user: {
+                            username: UserInfo?.username,
+                            avatar: UserInfo?.avatar,
+                          },
+                        },
+                      ],
                     };
                   }
                   return p;
@@ -183,12 +205,15 @@ export const Post = ({ post, setPosts }) => {
             }
           } else {
             if (!likedpostIds.includes(post.id)) {
-              console.log("disliking");
               setPosts((prev) =>
                 prev.map((p) => {
                   if (p.id === post.id) {
-                    const likeaarr = p.likes;
-                    likeaarr.pop();
+                    let likeaarr = p.likes;
+                    likeaarr = likeaarr.filter(
+                      (likeuser) =>
+                        likeuser?.user?.username !== UserInfo?.username
+                    );
+
                     return { ...p, likes: likeaarr };
                   } else {
                     return p;
@@ -518,48 +543,120 @@ export const Post = ({ post, setPosts }) => {
 
           <div className={classes.footer}>
             <div
-              onClick={() => {
-                handleLike();
+              style={{
+                display: "flex",
+                gap: "1rem",
+                alignItems: "center",
               }}
-              className={classes.fLeft}
             >
-              {!likedpostIds.includes(post.id) ? (
-                <Heart color="gray" weight="light" size={19} />
-              ) : (
-                <Heart color={"rgb(255, 69, 0)"} weight="fill" size={19} />
-              )}
-
-              <Text
-                className="unclickablevalue"
-                color={
-                  !likedpostIds.includes(post.id)
-                    ? "rgb(134, 142, 150)"
-                    : "rgb(255, 69, 0)"
-                }
-                size="14px"
+              <div
+                onClick={() => {
+                  handleLike();
+                }}
+                className={classes.fLeft}
               >
-                {post.likes.length}
-              </Text>
-            </div>
+                {!likedpostIds.includes(post.id) ? (
+                  <Heart color="gray" weight="light" size={19} />
+                ) : (
+                  <Heart color={"rgb(255, 69, 0)"} weight="fill" size={19} />
+                )}
 
-            <div
-              onClick={() => {
-                navigate(`/post/${post.id}`);
-              }}
-              className={classes.fRight}
-            >
-              <ChatCircle color="gray" weight="light" size={17} />
-              <Text
-                className="unclickablevalue"
-                size="14px"
-                color={"rgb(134, 142, 150)"}
+                <Text
+                  className="unclickablevalue"
+                  color={
+                    !likedpostIds.includes(post.id)
+                      ? "rgb(134, 142, 150)"
+                      : "rgb(255, 69, 0)"
+                  }
+                  size="14px"
+                >
+                  {post.likes.length}
+                </Text>
+              </div>
+
+              <div
+                onClick={() => {
+                  navigate(`/post/${post.id}`);
+                }}
+                className={classes.fRight}
               >
-                {post.comments.length}
-              </Text>
+                <ChatCircle color="gray" weight="light" size={17} />
+                <Text
+                  className="unclickablevalue"
+                  size="14px"
+                  color={"rgb(134, 142, 150)"}
+                >
+                  {post.comments.length}
+                </Text>
+              </div>
             </div>
+            {pathname === `/post/${post.id}` && (
+              <div
+                onClick={() => {
+                  setlikemodal(true);
+                }}
+                style={{
+                  fontSize: "0.9rem",
+                  cursor: "pointer",
+                  color: "rgb(134, 142, 150)",
+                }}
+              >
+                View Likes
+              </div>
+            )}
           </div>
         </div>
       </div>
+      <Modal
+        title={`Likes (${post.likes.length})`}
+        overflow="inside"
+        opened={likemodal}
+        onClose={() => {
+          setlikemodal(false);
+        }}
+      >
+        {post?.likes
+          ?.map((likeuser) => {
+            return (
+              <div
+                key={likeuser?.user?.username}
+                onClick={() => {
+                  navigate(`/${likeuser?.user?.username}`);
+                }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.5rem",
+                  padding: "0.5rem 0.5rem 0.5rem 0",
+                  cursor: "pointer",
+                }}
+              >
+                <img
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "50%",
+                  }}
+                  src={likeuser?.user?.avatar}
+                  alt=""
+                />
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.3rem",
+                  }}
+                >
+                  <Text weight={500}> {likeuser?.user?.username}</Text>
+                  {likeuser?.user?.verified && (
+                    <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
+                  )}
+                </div>
+              </div>
+            );
+          })
+          .reverse()}
+      </Modal>
       <Modal
         padding={0}
         size="lg"

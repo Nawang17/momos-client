@@ -120,7 +120,7 @@ function App() {
       ),
       errorElement: <RouteError />,
     },
-    //try
+
     {
       path: "/post/:postid",
       element: (

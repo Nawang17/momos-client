@@ -88,8 +88,7 @@ export const Post = ({ post, setPosts }) => {
   const navigate = useNavigate();
   const [opened, setOpened] = useState(false);
   const [viewimg, setviewimg] = useState("");
-  const { likedpostIds, setLikedpostIds, UserInfo, darkmode } =
-    useContext(AuthContext);
+  const { UserInfo, darkmode } = useContext(AuthContext);
   const [likemodal, setlikemodal] = useState(false);
   const formatDistanceLocale = {
     lessThanXSeconds: "{{count}}s",
@@ -135,8 +134,11 @@ export const Post = ({ post, setPosts }) => {
         autoClose: 3000,
       });
     } else {
-      if (likedpostIds.includes(post.id)) {
-        setLikedpostIds(likedpostIds.filter((id) => id !== post.id));
+      if (
+        post?.likes.find((like) => {
+          return like?.user?.username === UserInfo?.username;
+        })
+      ) {
         setPosts((prev) => {
           return prev.map((p) => {
             if (p.id === post.id) {
@@ -152,7 +154,6 @@ export const Post = ({ post, setPosts }) => {
           });
         });
       } else {
-        setLikedpostIds((prev) => [...prev, post.id]);
         setPosts((prev) =>
           prev.map((p) => {
             if (p.id === post.id) {
@@ -178,8 +179,11 @@ export const Post = ({ post, setPosts }) => {
       await likePost({ postid: post.id })
         .then((res) => {
           if (res.data.liked) {
-            if (likedpostIds.includes(post.id)) {
-              console.log("liking");
+            if (
+              post?.likes.find((like) => {
+                return like?.user?.username === UserInfo?.username;
+              })
+            ) {
               setPosts((prev) =>
                 prev.map((p) => {
                   if (p.id === post.id) {
@@ -199,12 +203,13 @@ export const Post = ({ post, setPosts }) => {
                   return p;
                 })
               );
-              setLikedpostIds((prev) => {
-                return [...prev, post.id];
-              });
             }
           } else {
-            if (!likedpostIds.includes(post.id)) {
+            if (
+              !post?.likes.find((like) => {
+                return like?.user?.username === UserInfo?.username;
+              })
+            ) {
               setPosts((prev) =>
                 prev.map((p) => {
                   if (p.id === post.id) {
@@ -220,9 +225,6 @@ export const Post = ({ post, setPosts }) => {
                   }
                 })
               );
-              setLikedpostIds((prev) => {
-                return prev.filter((id) => id !== post.id);
-              });
             }
           }
         })
@@ -555,7 +557,9 @@ export const Post = ({ post, setPosts }) => {
                 }}
                 className={classes.fLeft}
               >
-                {!likedpostIds.includes(post.id) ? (
+                {!post?.likes.find((like) => {
+                  return like?.user?.username === UserInfo?.username;
+                }) ? (
                   <Heart color="gray" weight="light" size={19} />
                 ) : (
                   <Heart color={"rgb(255, 69, 0)"} weight="fill" size={19} />
@@ -564,7 +568,9 @@ export const Post = ({ post, setPosts }) => {
                 <Text
                   className="unclickablevalue"
                   color={
-                    !likedpostIds.includes(post.id)
+                    !post?.likes.find((like) => {
+                      return like?.user?.username === UserInfo?.username;
+                    })
                       ? "rgb(134, 142, 150)"
                       : "rgb(255, 69, 0)"
                   }

@@ -22,7 +22,7 @@ import GoogleLogin from "@leecheuk/react-google-login";
 import { ShieldCheck, WarningCircle } from "phosphor-react";
 
 export function Login() {
-  const { setUserInfo, UserInfo, setLikedpostIds, setfollowingdata, darkmode } =
+  const { setUserInfo, UserInfo, setfollowingdata, darkmode } =
     useContext(AuthContext);
   const navigate = useNavigate();
   const [Username, setUsername] = useState("");
@@ -46,9 +46,7 @@ export function Login() {
       .then(async (res) => {
         setUserInfo(res.data.user);
         localStorage.setItem("token", res.data.token);
-        await likedPosts().then((res) => {
-          setLikedpostIds(res.data.likedposts);
-        });
+
         navigate("/");
 
         showNotification({
@@ -78,9 +76,7 @@ export function Login() {
       .then(async (res) => {
         setUserInfo(res.data.user);
         localStorage.setItem("token", res.data.token);
-        await likedPosts().then((res) => {
-          setLikedpostIds(res.data.likedposts);
-        });
+
         navigate("/");
 
         showNotification({
@@ -108,9 +104,7 @@ export function Login() {
       .then(async (res) => {
         setUserInfo(res.data.user);
         localStorage.setItem("token", res.data.token);
-        await likedPosts().then((res) => {
-          setLikedpostIds(res.data.likedposts);
-        });
+
         navigate("/");
         showNotification({
           icon: <ShieldCheck size={18} />,

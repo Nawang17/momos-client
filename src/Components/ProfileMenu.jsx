@@ -9,7 +9,7 @@ export function ProfileMenu() {
   const {
     UserInfo,
     setUserInfo,
-    setLikedpostIds,
+
     setfollowingdata,
     darkmode,
     setdarkmode,
@@ -18,7 +18,7 @@ export function ProfileMenu() {
   const handlelogout = () => {
     setUserInfo(null);
     localStorage.removeItem("token");
-    setLikedpostIds([]);
+
     setfollowingdata([]);
     showNotification({
       icon: <SignOut size={18} />,

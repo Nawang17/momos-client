@@ -15,7 +15,7 @@ import {
   NotificationsProvider,
   showNotification,
 } from "@mantine/notifications";
-import { likedPosts, suggestedusersreq } from "./api/GET";
+import { suggestedusersreq } from "./api/GET";
 import { Editprofile } from "./views/UserSettings/Editprofile";
 import { Search } from "./views/Search/Search";
 import { SuggestedAccs } from "./views/SuggestedAccounts/SuggestedAccs";
@@ -27,7 +27,7 @@ function App() {
   const [darkmode, setdarkmode] = useState(true);
 
   const [UserInfo, setUserInfo] = useState(null);
-  const [likedpostIds, setLikedpostIds] = useState([]);
+
   const [followingdata, setfollowingdata] = useState([]);
   const [suggestedUsers, setSuggestedusers] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -62,12 +62,6 @@ function App() {
     ╚═╝     ╚═╝ ╚═════╝ ╚═╝     ╚═╝ ╚═════╝ ╚══════╝ `);
     LoginStatus()
       .then(async (res) => {
-        await likedPosts().then((res) => {
-          setLikedpostIds(res.data.likedposts);
-        });
-        likedPosts().then((res) => {
-          setLikedpostIds(res.data.likedposts);
-        });
         setUserInfo(res.data.user);
         setfollowingdata(res.data.userfollowingarr);
         showNotification({
@@ -223,8 +217,7 @@ function App() {
             value={{
               UserInfo,
               setUserInfo,
-              likedpostIds,
-              setLikedpostIds,
+
               followingdata,
               setfollowingdata,
               suggestedUsers,

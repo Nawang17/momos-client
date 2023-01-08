@@ -33,7 +33,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   useLayoutEffect(() => {
     if (!localStorage.getItem("darkmode")) {
-      localStorage.setItem("darkmode", "false");
+      localStorage.setItem("darkmode", "true");
     }
     if (
       window.matchMedia &&

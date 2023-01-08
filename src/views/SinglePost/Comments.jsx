@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { createStyles, Text } from "@mantine/core";
-import { CircleWavyCheck, Lock } from "phosphor-react";
+import { CircleWavyCheck, Heart, Lock } from "phosphor-react";
 import { CommentMenu } from "../../Components/CommentMenu";
 import { useNavigate } from "react-router-dom";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
@@ -57,7 +57,7 @@ const useStyles = createStyles(() => ({
     gap: "0.2rem",
   },
 }));
-export const Comments = ({ comments, setComments }) => {
+export const Comments = ({ comments, setComments, postuser }) => {
   const { classes } = useStyles();
   const navigate = useNavigate();
   const formatDistanceLocale = {
@@ -202,6 +202,18 @@ export const Comments = ({ comments, setComments }) => {
                             weight="fill"
                           />
                         ))}
+                      <Text color="dimmed">·</Text>
+                      <Text color="dimmed" size="13px">
+                        {formatDistanceToNowStrict(
+                          new Date(comment.createdAt),
+                          {
+                            locale: {
+                              ...locale,
+                              formatDistance,
+                            },
+                          }
+                        )}
+                      </Text>
                     </div>
                     <div className={classes.hRight}>
                       <CommentMenu
@@ -211,17 +223,52 @@ export const Comments = ({ comments, setComments }) => {
                     </div>
                   </div>
                   <div className={classes.body}>
+                    <Text color={"dimmed"} size="15px">
+                      Replying to{" "}
+                      <span
+                        onClick={() => {
+                          navigate(`/${postuser}`);
+                        }}
+                        style={{
+                          cursor: "pointer",
+                          fontSize: "15px",
+                          fontWeight: 500,
+                          color: "rgb(29, 161, 242)",
+                        }}
+                      >
+                        @{postuser}
+                      </span>
+                    </Text>
                     <Text size="15px">{postvalue(comment?.text)}</Text>
                   </div>
                   <div style={{ display: "flex", gap: "0.5rem" }}>
-                    <Text color="dimmed" size="13px">
-                      {formatDistanceToNowStrict(new Date(comment.createdAt), {
-                        locale: {
-                          ...locale,
-                          formatDistance,
-                        },
-                      })}
-                    </Text>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.2rem",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => {}}
+                    >
+                      {true ? (
+                        <Heart color="gray" weight="light" size={15} />
+                      ) : (
+                        <Heart
+                          color={"rgb(255, 69, 0)"}
+                          weight="fill"
+                          size={15}
+                        />
+                      )}
+                      <Text
+                        className="unclickablevalue"
+                        color={
+                          !false ? "rgb(134, 142, 150)" : "rgb(255, 69, 0)"
+                        }
+                        size="13px"
+                      ></Text>
+                    </div>
+
                     <Text
                       onClick={() => {
                         if (!UserInfo) {
@@ -308,27 +355,18 @@ export const Comments = ({ comments, setComments }) => {
                                   weight="fill"
                                 />
                               ))}
-
-                            {data?.repliedtouser.username && (
-                              <>
-                                {" "}
-                                <Text color="dimmed" size="sm">
-                                  &#9656;
-                                </Text>{" "}
-                                <Text
-                                  onClick={() => {
-                                    navigate(
-                                      `/${data?.repliedtouser.username}`
-                                    );
-                                  }}
-                                  style={{ cursor: "pointer" }}
-                                  weight={500}
-                                  size="14px"
-                                >
-                                  {data?.repliedtouser.username}
-                                </Text>
-                              </>
-                            )}
+                            <Text color="dimmed">·</Text>
+                            <Text color="dimmed" size="13px">
+                              {formatDistanceToNowStrict(
+                                new Date(data?.createdAt),
+                                {
+                                  locale: {
+                                    ...locale,
+                                    formatDistance,
+                                  },
+                                }
+                              )}
+                            </Text>
                           </div>
                         </div>
                         <div className={classes.hRight}>
@@ -342,20 +380,52 @@ export const Comments = ({ comments, setComments }) => {
                         </div>
                       </div>
                       <div className={classes.body}>
+                        <Text color={"dimmed"} size="15px">
+                          Replying to{" "}
+                          <span
+                            onClick={() => {
+                              navigate(`/${data?.repliedtouser.username}`);
+                            }}
+                            style={{
+                              cursor: "pointer",
+                              fontSize: "15px",
+                              fontWeight: 500,
+                              color: "rgb(29, 161, 242)",
+                            }}
+                          >
+                            @{data?.repliedtouser.username}
+                          </span>
+                        </Text>
                         <Text size="15px">{postvalue(data?.text)}</Text>
                       </div>
                       <div style={{ display: "flex", gap: "0.5rem" }}>
-                        <Text color="dimmed" size="13px">
-                          {formatDistanceToNowStrict(
-                            new Date(data?.createdAt),
-                            {
-                              locale: {
-                                ...locale,
-                                formatDistance,
-                              },
-                            }
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.2rem",
+                            cursor: "pointer",
+                          }}
+                          onClick={() => {}}
+                        >
+                          {true ? (
+                            <Heart color="gray" weight="light" size={15} />
+                          ) : (
+                            <Heart
+                              color={"rgb(255, 69, 0)"}
+                              weight="fill"
+                              size={15}
+                            />
                           )}
-                        </Text>
+                          <Text
+                            className="unclickablevalue"
+                            color={
+                              !false ? "rgb(134, 142, 150)" : "rgb(255, 69, 0)"
+                            }
+                            size="13px"
+                          ></Text>
+                        </div>
+
                         <Text
                           onClick={() => {
                             if (!UserInfo) {

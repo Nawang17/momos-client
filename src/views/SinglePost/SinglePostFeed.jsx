@@ -63,7 +63,11 @@ export const SinglePostFeed = ({
       )}
 
       <Reply singlePostData={singlePostData} setComments={setComments} />
-      <Comments comments={comments} setComments={setComments} />
+      <Comments
+        comments={comments}
+        setComments={setComments}
+        postuser={singlePostData?.user.username}
+      />
     </div>
   );
 };

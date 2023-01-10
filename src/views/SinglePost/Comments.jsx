@@ -242,7 +242,7 @@ export const Comments = ({ comments, setComments, postuser }) => {
                     <Text size="15px">{postvalue(comment?.text)}</Text>
                   </div>
                   <div style={{ display: "flex", gap: "0.5rem" }}>
-                    <div
+                    {/* <div
                       style={{
                         display: "flex",
                         alignItems: "center",
@@ -267,7 +267,7 @@ export const Comments = ({ comments, setComments, postuser }) => {
                         }
                         size="13px"
                       ></Text>
-                    </div>
+                    </div> */}
 
                     <Text
                       onClick={() => {
@@ -399,7 +399,7 @@ export const Comments = ({ comments, setComments, postuser }) => {
                         <Text size="15px">{postvalue(data?.text)}</Text>
                       </div>
                       <div style={{ display: "flex", gap: "0.5rem" }}>
-                        <div
+                        {/* <div
                           style={{
                             display: "flex",
                             alignItems: "center",
@@ -424,7 +424,7 @@ export const Comments = ({ comments, setComments, postuser }) => {
                             }
                             size="13px"
                           ></Text>
-                        </div>
+                        </div> */}
 
                         <Text
                           onClick={() => {

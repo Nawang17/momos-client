@@ -10,7 +10,7 @@ import { AuthContext } from "../../context/Auth";
 import { showNotification } from "@mantine/notifications";
 import { NestedCommentMenu } from "../../Components/NestedCommentMenu";
 import reactStringReplace from "react-string-replace";
-import { likecomment } from "../../api/POST";
+import { likecomment, nestedlikecomment } from "../../api/POST";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -266,6 +266,106 @@ export const Comments = ({ comments, setComments, postuser }) => {
           }
         }
       })
+      .catch((err) => {
+        if (err.response.status === 0) {
+          showNotification({
+            icon: <WarningCircle size={18} />,
+            color: "red",
+            title: "Internal Server Error",
+            autoClose: 4000,
+          });
+        } else {
+          showNotification({
+            icon: <WarningCircle size={18} />,
+            color: "red",
+            title: err.response.data,
+            autoClose: 4000,
+          });
+        }
+      });
+  };
+  const handlenestedlikescomment = async (nestedcommentId, commentid) => {
+    if (!UserInfo) {
+      return showNotification({
+        icon: <Lock size={18} />,
+        color: "red",
+        title: "Login required",
+        autoClose: 3000,
+      });
+    }
+    if (
+      comments
+        .find((comment) => comment.id === commentid)
+        .nestedcomments?.find(
+          (nestedcomment) => nestedcomment.id === nestedcommentId
+        )
+        .nestedcommentlikes.find(
+          (nestedcommentlike) =>
+            nestedcommentlike?.user?.username === UserInfo?.username
+        )
+    ) {
+      setComments((prev) => {
+        return prev.map((comment) => {
+          if (comment.id === commentid) {
+            return {
+              ...comment,
+              nestedcomments: comment.nestedcomments.map((nestedcomment) => {
+                if (nestedcomment.id === nestedcommentId) {
+                  let nestedcommentarr = nestedcomment.nestedcommentlikes;
+                  nestedcommentarr = nestedcommentarr.filter(
+                    (nestedcommentlike) =>
+                      nestedcommentlike?.user?.username !== UserInfo?.username
+                  );
+                  return {
+                    ...nestedcomment,
+                    nestedcommentlikes: nestedcommentarr,
+                  };
+                } else {
+                  return nestedcomment;
+                }
+              }),
+            };
+          } else {
+            return comment;
+          }
+        });
+      });
+    } else {
+      setComments((prev) => {
+        return prev.map((comment) => {
+          if (comment.id === commentid) {
+            return {
+              ...comment,
+              nestedcomments: comment.nestedcomments.map((nestedcomment) => {
+                if (nestedcomment.id === nestedcommentId) {
+                  return {
+                    ...nestedcomment,
+                    nestedcommentlikes: [
+                      ...nestedcomment.nestedcommentlikes,
+                      {
+                        user: {
+                          username: UserInfo?.username,
+                          avatar: UserInfo?.avatar,
+                        },
+                      },
+                    ],
+                  };
+                } else {
+                  return nestedcomment;
+                }
+              }),
+            };
+          } else {
+            return comment;
+          }
+        });
+      });
+    }
+
+    await nestedlikecomment({
+      nestedcommentId,
+    })
+      .then((res) => {})
       .catch((err) => {
         if (err.response.status === 0) {
           showNotification({
@@ -544,32 +644,44 @@ export const Comments = ({ comments, setComments, postuser }) => {
                         <Text size="15px">{postvalue(data?.text)}</Text>
                       </div>
                       <div style={{ display: "flex", gap: "0.5rem" }}>
-                        {/* <div
+                        <div
                           style={{
                             display: "flex",
                             alignItems: "center",
                             gap: "0.2rem",
                             cursor: "pointer",
                           }}
-                          onClick={() => {}}
+                          onClick={() => {
+                            handlenestedlikescomment(data?.id, data?.commentId);
+                          }}
                         >
-                          {true ? (
-                            <Heart color="gray" weight="light" size={15} />
+                          {!data?.nestedcommentlikes.find((like) => {
+                            return like?.user?.username === UserInfo?.username;
+                          }) ? (
+                            <Heart color="gray" weight="light" size={18} />
                           ) : (
                             <Heart
                               color={"rgb(255, 69, 0)"}
                               weight="fill"
-                              size={15}
+                              size={18}
                             />
                           )}
                           <Text
                             className="unclickablevalue"
                             color={
-                              !false ? "rgb(134, 142, 150)" : "rgb(255, 69, 0)"
+                              !data?.nestedcommentlikes.find((like) => {
+                                return (
+                                  like?.user?.username === UserInfo?.username
+                                );
+                              })
+                                ? "rgb(134, 142, 150)"
+                                : "rgb(255, 69, 0)"
                             }
-                            size="13px"
-                          ></Text>
-                        </div> */}
+                            size="15px"
+                          >
+                            {data?.nestedcommentlikes?.length}
+                          </Text>
+                        </div>
 
                         <Text
                           onClick={() => {
@@ -593,7 +705,7 @@ export const Comments = ({ comments, setComments, postuser }) => {
                           style={{ cursor: "pointer" }}
                           color="dimmed"
                           weight={"500"}
-                          size="13px"
+                          size="15px"
                         >
                           Reply
                         </Text>

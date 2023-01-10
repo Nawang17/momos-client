@@ -88,3 +88,16 @@ export const likecomment = async ({ commentId }) => {
     }
   );
 };
+export const nestedlikecomment = async ({ nestedcommentId }) => {
+  return await api.post(
+    "/likenestedcomment",
+    {
+      nestedcommentId,
+    },
+    {
+      headers: {
+        Authorization: `${localStorage.getItem("token")}`,
+      },
+    }
+  );
+};

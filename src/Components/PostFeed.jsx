@@ -5,6 +5,7 @@ import Hsuggestedacc from "./Hsuggestedacc";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useMediaQuery } from "@mantine/hooks";
 import { AuthContext } from "../context/Auth";
+import { SmileySad } from "phosphor-react";
 const useStyles = createStyles(() => ({
   wrapper: {
     width: "100%",
@@ -114,19 +115,15 @@ export const PostFeed = ({ setPosts, posts, loading }) => {
           style={{
             display: "flex",
             justifyContent: "center",
-            gap: "0.5rem",
+            gap: "0.3rem",
             alignItems: "center",
 
             padding: "0.2rem 0",
           }}
         >
-          <Text
-            color={darkmode ? "white" : "black"}
-            weight="500"
-            align="center"
-            fontSize="13px"
-          >
-            No posts found
+          <SmileySad weight="bold" size={18} color={"#868e96"} />
+          <Text weight={500} color={"#868e96"} align="center" fontSize="13px">
+            found nothing
           </Text>
         </div>
       )}

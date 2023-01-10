@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import { createStyles, ActionIcon, Skeleton } from "@mantine/core";
+import { createStyles, ActionIcon, Skeleton, Text } from "@mantine/core";
 import { Post } from "../../Components/Post";
 import Reply from "./Reply";
-import { ArrowLeft } from "phosphor-react";
+import { ArrowLeft, Fish } from "phosphor-react";
 import { Comments } from "./Comments";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/Auth";
@@ -63,11 +63,35 @@ export const SinglePostFeed = ({
       )}
 
       <Reply singlePostData={singlePostData} setComments={setComments} />
-      <Comments
-        comments={comments}
-        setComments={setComments}
-        postuser={singlePostData?.user.username}
-      />
+      {comments.length === 0 && !loading ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            paddingTop: "1rem",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "0.6rem",
+            fontWeight: "500",
+            color: "#868e96",
+            margin: "0 auto",
+            maxWidth: "27rem",
+          }}
+        >
+          <Fish weight="fill" color={"#868e96"} size={60} />
+          <Text size={"15px"}>Be the first to reply</Text>
+          <Text align="center" size={"15px"}>
+            Nobody has replied to this post yet. Add your thoughts and get the
+            conversation started.
+          </Text>
+        </div>
+      ) : (
+        <Comments
+          comments={comments}
+          setComments={setComments}
+          postuser={singlePostData?.user.username}
+        />
+      )}
     </div>
   );
 };

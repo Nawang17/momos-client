@@ -68,7 +68,6 @@ export const SinglePostFeed = ({
           style={{
             display: "flex",
             justifyContent: "center",
-            paddingTop: "1rem",
             flexDirection: "column",
             alignItems: "center",
             gap: "0.6rem",
@@ -76,6 +75,7 @@ export const SinglePostFeed = ({
             color: "#868e96",
             margin: "0 auto",
             maxWidth: "27rem",
+            padding: "1rem",
           }}
         >
           <Fish weight="fill" color={"#868e96"} size={60} />

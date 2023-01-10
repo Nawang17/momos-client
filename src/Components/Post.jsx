@@ -127,7 +127,7 @@ export const Post = ({ post, setPosts }) => {
 
   const handleLike = async () => {
     if (!UserInfo) {
-      showNotification({
+      return showNotification({
         icon: <Lock size={18} />,
         color: "red",
         title: "Login required",

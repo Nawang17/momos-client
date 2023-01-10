@@ -75,3 +75,16 @@ export const follow = async ({ followingid }) => {
     }
   );
 };
+export const likecomment = async ({ commentId }) => {
+  return await api.post(
+    "/likecomment",
+    {
+      commentId,
+    },
+    {
+      headers: {
+        Authorization: `${localStorage.getItem("token")}`,
+      },
+    }
+  );
+};

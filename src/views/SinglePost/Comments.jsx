@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { createStyles, Text } from "@mantine/core";
-import { CircleWavyCheck, Heart, Lock } from "phosphor-react";
+import { CircleWavyCheck, Heart, Lock, WarningCircle } from "phosphor-react";
 import { CommentMenu } from "../../Components/CommentMenu";
 import { useNavigate } from "react-router-dom";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
@@ -10,6 +10,7 @@ import { AuthContext } from "../../context/Auth";
 import { showNotification } from "@mantine/notifications";
 import { NestedCommentMenu } from "../../Components/NestedCommentMenu";
 import reactStringReplace from "react-string-replace";
+import { likecomment } from "../../api/POST";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -149,6 +150,140 @@ export const Comments = ({ comments, setComments, postuser }) => {
 
     return replacedText;
   };
+  const handlelikecomment = async (commentId) => {
+    if (!UserInfo) {
+      return showNotification({
+        icon: <Lock size={18} />,
+        color: "red",
+        title: "Login required",
+        autoClose: 3000,
+      });
+    }
+    if (
+      comments
+        .find((comment) => comment?.id === commentId)
+        .commentlikes?.find(
+          (like) => like.user?.username === UserInfo?.username
+        )
+    ) {
+      setComments((prev) => {
+        return prev.map((comment) => {
+          if (comment.id === commentId) {
+            let commentarr = comment?.commentlikes;
+            commentarr = commentarr.filter(
+              (commentlikeuser) =>
+                commentlikeuser?.user?.username !== UserInfo?.username
+            );
+            return {
+              ...comment,
+              commentlikes: commentarr,
+            };
+          } else {
+            return comment;
+          }
+        });
+      });
+    } else {
+      setComments((prev) => {
+        return prev.map((comment) => {
+          if (comment.id === commentId) {
+            return {
+              ...comment,
+              commentlikes: [
+                ...comment?.commentlikes,
+                {
+                  user: {
+                    username: UserInfo?.username,
+                    avatar: UserInfo?.avatar,
+                  },
+                },
+              ],
+            };
+          } else {
+            return comment;
+          }
+        });
+      });
+    }
+    await likecomment({
+      commentId: commentId,
+    })
+      .then((res) => {
+        if (res.data.liked) {
+          if (
+            comments
+              .find((comment) => comment?.id === commentId)
+              .commentlikes?.find(
+                (like) => like.user?.username === UserInfo?.username
+              )
+          ) {
+            setComments((prev) => {
+              return prev.map((comment) => {
+                if (comment.id === commentId) {
+                  let commentarr = comment?.commentlikes;
+                  commentarr = commentarr.filter(
+                    (commentlikeuser) =>
+                      commentlikeuser?.user?.username !== UserInfo?.username
+                  );
+                  return {
+                    ...comment,
+                    commentlikes: commentarr,
+                  };
+                } else {
+                  return comment;
+                }
+              });
+            });
+          }
+        } else {
+          if (
+            !comments
+              .find((comment) => comment?.id === commentId)
+              .commentlikes?.find(
+                (like) => like.user?.username === UserInfo?.username
+              )
+          ) {
+            setComments((prev) => {
+              return prev.map((comment) => {
+                if (comment.id === commentId) {
+                  return {
+                    ...comment,
+                    commentlikes: [
+                      ...comment?.commentlikes,
+                      {
+                        user: {
+                          username: UserInfo?.username,
+                          avatar: UserInfo?.avatar,
+                        },
+                      },
+                    ],
+                  };
+                } else {
+                  return comment;
+                }
+              });
+            });
+          }
+        }
+      })
+      .catch((err) => {
+        if (err.response.status === 0) {
+          showNotification({
+            icon: <WarningCircle size={18} />,
+            color: "red",
+            title: "Internal Server Error",
+            autoClose: 4000,
+          });
+        } else {
+          showNotification({
+            icon: <WarningCircle size={18} />,
+            color: "red",
+            title: err.response.data,
+            autoClose: 4000,
+          });
+        }
+      });
+  };
   return (
     <>
       {/* commentfeed */}
@@ -242,32 +377,42 @@ export const Comments = ({ comments, setComments, postuser }) => {
                     <Text size="15px">{postvalue(comment?.text)}</Text>
                   </div>
                   <div style={{ display: "flex", gap: "0.5rem" }}>
-                    {/* <div
+                    <div
                       style={{
                         display: "flex",
                         alignItems: "center",
                         gap: "0.2rem",
                         cursor: "pointer",
                       }}
-                      onClick={() => {}}
+                      onClick={() => {
+                        handlelikecomment(comment?.id);
+                      }}
                     >
-                      {true ? (
-                        <Heart color="gray" weight="light" size={15} />
+                      {!comment?.commentlikes.find((like) => {
+                        return like?.user?.username === UserInfo?.username;
+                      }) ? (
+                        <Heart color="gray" weight="light" size={18} />
                       ) : (
                         <Heart
                           color={"rgb(255, 69, 0)"}
                           weight="fill"
-                          size={15}
+                          size={18}
                         />
                       )}
                       <Text
                         className="unclickablevalue"
                         color={
-                          !false ? "rgb(134, 142, 150)" : "rgb(255, 69, 0)"
+                          !comment?.commentlikes.find((like) => {
+                            return like?.user?.username === UserInfo?.username;
+                          })
+                            ? "rgb(134, 142, 150)"
+                            : "rgb(255, 69, 0)"
                         }
-                        size="13px"
-                      ></Text>
-                    </div> */}
+                        size="15px"
+                      >
+                        {comment?.commentlikes?.length}
+                      </Text>
+                    </div>
 
                     <Text
                       onClick={() => {
@@ -291,7 +436,7 @@ export const Comments = ({ comments, setComments, postuser }) => {
                       style={{ cursor: "pointer" }}
                       color="dimmed"
                       weight={"500"}
-                      size="13px"
+                      size="15px"
                     >
                       Reply
                     </Text>

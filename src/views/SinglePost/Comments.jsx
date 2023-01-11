@@ -1,6 +1,12 @@
 import { useContext, useState } from "react";
 import { createStyles, Text } from "@mantine/core";
-import { CircleWavyCheck, Heart, Lock, WarningCircle } from "phosphor-react";
+import {
+  ChatCircle,
+  CircleWavyCheck,
+  Heart,
+  Lock,
+  WarningCircle,
+} from "phosphor-react";
 import { CommentMenu } from "../../Components/CommentMenu";
 import { useNavigate } from "react-router-dom";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
@@ -476,7 +482,7 @@ export const Comments = ({ comments, setComments, postuser }) => {
                     </Text>
                     <Text size="15px">{postvalue(comment?.text)}</Text>
                   </div>
-                  <div style={{ display: "flex", gap: "0.5rem" }}>
+                  <div style={{ display: "flex", gap: "0.8rem" }}>
                     <div
                       style={{
                         display: "flex",
@@ -508,13 +514,12 @@ export const Comments = ({ comments, setComments, postuser }) => {
                             ? "rgb(134, 142, 150)"
                             : "rgb(255, 69, 0)"
                         }
-                        size="15px"
+                        size="14px"
                       >
                         {comment?.commentlikes?.length}
                       </Text>
                     </div>
-
-                    <Text
+                    <div
                       onClick={() => {
                         if (!UserInfo) {
                           showNotification({
@@ -533,13 +538,18 @@ export const Comments = ({ comments, setComments, postuser }) => {
                           });
                         }
                       }}
-                      style={{ cursor: "pointer" }}
-                      color="dimmed"
-                      weight={"500"}
-                      size="15px"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.2rem",
+                        cursor: "pointer",
+                      }}
                     >
-                      Reply
-                    </Text>
+                      <ChatCircle color="gray" weight="light" size={18} />
+                      <Text color="dimmed" weight={"500"} size="14px">
+                        Reply
+                      </Text>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -643,7 +653,7 @@ export const Comments = ({ comments, setComments, postuser }) => {
                         </Text>
                         <Text size="15px">{postvalue(data?.text)}</Text>
                       </div>
-                      <div style={{ display: "flex", gap: "0.5rem" }}>
+                      <div style={{ display: "flex", gap: "0.8rem" }}>
                         <div
                           style={{
                             display: "flex",
@@ -677,13 +687,12 @@ export const Comments = ({ comments, setComments, postuser }) => {
                                 ? "rgb(134, 142, 150)"
                                 : "rgb(255, 69, 0)"
                             }
-                            size="15px"
+                            size="14px"
                           >
                             {data?.nestedcommentlikes?.length}
                           </Text>
                         </div>
-
-                        <Text
+                        <div
                           onClick={() => {
                             if (!UserInfo) {
                               showNotification({
@@ -702,13 +711,18 @@ export const Comments = ({ comments, setComments, postuser }) => {
                               });
                             }
                           }}
-                          style={{ cursor: "pointer" }}
-                          color="dimmed"
-                          weight={"500"}
-                          size="15px"
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.2rem",
+                            cursor: "pointer",
+                          }}
                         >
-                          Reply
-                        </Text>
+                          <ChatCircle color="gray" weight="light" size={18} />
+                          <Text color="dimmed" weight={"500"} size="14px">
+                            Reply
+                          </Text>
+                        </div>
                       </div>
                     </div>
                   </div>

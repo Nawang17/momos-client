@@ -15,7 +15,7 @@ import {
   NotificationsProvider,
   showNotification,
 } from "@mantine/notifications";
-import { suggestedusersreq } from "./api/GET";
+import { leaderboardinfo, suggestedusersreq } from "./api/GET";
 import { Editprofile } from "./views/UserSettings/Editprofile";
 import { Search } from "./views/Search/Search";
 import { SuggestedAccs } from "./views/SuggestedAccounts/SuggestedAccs";
@@ -30,6 +30,8 @@ function App() {
 
   const [followingdata, setfollowingdata] = useState([]);
   const [suggestedUsers, setSuggestedusers] = useState([]);
+  const [leaderboard, setLeaderboard] = useState([]);
+  const [leaderboardloading, setLeaderboardloading] = useState(true);
   const [loading, setLoading] = useState(false);
   useLayoutEffect(() => {
     if (!localStorage.getItem("darkmode")) {
@@ -60,30 +62,47 @@ function App() {
     ██║╚██╔╝██║██║   ██║██║╚██╔╝██║██║   ██║╚════██║
     ██║ ╚═╝ ██║╚██████╔╝██║ ╚═╝ ██║╚██████╔╝███████║
     ╚═╝     ╚═╝ ╚═════╝ ╚═╝     ╚═╝ ╚═════╝ ╚══════╝ `);
-    LoginStatus()
-      .then(async (res) => {
-        setUserInfo(res.data.user);
-        setfollowingdata(res.data.userfollowingarr);
-        showNotification({
-          icon: <HandWaving size={18} />,
-          title: `You are logged in as ${res.data.user.username}`,
-          message: "Welcome back to momos",
+    async function getloginstatus() {
+      await LoginStatus()
+        .then(async (res) => {
+          setUserInfo(res.data.user);
+          setfollowingdata(res.data.userfollowingarr);
+          showNotification({
+            icon: <HandWaving size={18} />,
+            title: `You are logged in as ${res.data.user.username}`,
+            message: "Welcome back to momos",
 
-          autoClose: 3000,
+            autoClose: 3000,
+          });
+          setLoading(false);
+        })
+        .catch(() => {
+          setUserInfo(null);
+          setLoading(false);
         });
-        setLoading(false);
-      })
-      .catch(() => {
-        setUserInfo(null);
-        setLoading(false);
-      });
+    }
+    getloginstatus();
   }, []);
   useEffect(() => {
-    suggestedusersreq({
-      name: UserInfo?.username ? UserInfo.username : "suggestedUsers",
-    }).then((res) => {
-      setSuggestedusers(res.data.suggestedusers);
-    });
+    async function getleaderboard() {
+      await leaderboardinfo(0)
+        .then((res) => {
+          setLeaderboard(res.data.leaderboard);
+          setLeaderboardloading(false);
+        })
+        .catch(() => {
+          setLeaderboardloading(true);
+        });
+    }
+    async function getsuggestedusers() {
+      await suggestedusersreq({
+        name: UserInfo?.username ? UserInfo.username : "suggestedUsers",
+      }).then((res) => {
+        setSuggestedusers(res.data.suggestedusers);
+      });
+    }
+    getleaderboard();
+    getsuggestedusers();
   }, [UserInfo]);
   const router = createBrowserRouter([
     {
@@ -217,13 +236,16 @@ function App() {
             value={{
               UserInfo,
               setUserInfo,
-
               followingdata,
               setfollowingdata,
               suggestedUsers,
               setSuggestedusers,
               darkmode,
               setdarkmode,
+              leaderboard,
+              setLeaderboard,
+              leaderboardloading,
+              setLeaderboardloading,
             }}
           >
             <RouterProvider router={router} />

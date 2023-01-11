@@ -39,20 +39,8 @@ const useStyles = createStyles(() => ({
 }));
 
 const Leaderboardhorizontal = () => {
-  const [leaderboard, setLeaderboard] = useState([]);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    setLoading(true);
-    leaderboardinfo(0)
-      .then((res) => {
-        setLeaderboard(res.data.leaderboard);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setLoading(true);
-      });
-  }, []);
-  const { darkmode } = useContext(AuthContext);
+  const { darkmode, leaderboard, leaderboardloading } = useContext(AuthContext);
+
   const { classes } = useStyles();
   const navigate = useNavigate();
   const screenwidth = useMediaQuery("(min-width: 440px)");
@@ -143,7 +131,7 @@ const Leaderboardhorizontal = () => {
           height: 190,
         }}
       >
-        {!loading ? (
+        {!leaderboardloading ? (
           <div
             style={{
               display: "flex",

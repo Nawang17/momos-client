@@ -51,10 +51,10 @@ const useStyles = createStyles(() => ({
 }));
 export const Sidebar = () => {
   const { classes } = useStyles();
-  const { darkmode } = useContext(AuthContext);
+  const { darkmode, leaderboard, setLeaderboard } = useContext(AuthContext);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  const [leaderboard, setLeaderboard] = useState([]);
+
   useEffect(() => {
     setLoading(true);
 
@@ -66,6 +66,7 @@ export const Sidebar = () => {
       })
       .catch((err) => {
         console.log(err);
+        setLoading(true);
       });
   }, []);
   return (

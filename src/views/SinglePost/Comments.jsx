@@ -1,10 +1,11 @@
 import { useContext, useState } from "react";
-import { createStyles, Text } from "@mantine/core";
+import { createStyles, Text, Tooltip } from "@mantine/core";
 import {
   ChatCircle,
   CircleWavyCheck,
   Heart,
   Lock,
+  ShieldStar,
   WarningCircle,
 } from "phosphor-react";
 import { CommentMenu } from "../../Components/CommentMenu";
@@ -64,7 +65,12 @@ const useStyles = createStyles(() => ({
     gap: "0.2rem",
   },
 }));
-export const Comments = ({ comments, setComments, postuser }) => {
+export const Comments = ({
+  comments,
+  setComments,
+  postuser,
+  sortcommentby,
+}) => {
   const { classes } = useStyles();
   const navigate = useNavigate();
   const formatDistanceLocale = {
@@ -394,6 +400,16 @@ export const Comments = ({ comments, setComments, postuser }) => {
     <>
       {/* commentfeed */}
       {comments
+        .sort((a, b) => {
+          if (sortcommentby === "Top") {
+            return b?.commentlikes.length - a?.commentlikes.length;
+          } else if (sortcommentby === "Latest") {
+            return new Date(b?.createdAt) - new Date(a?.createdAt);
+          } else if (sortcommentby === "Oldest") {
+            return new Date(a?.createdAt) - new Date(b?.createdAt);
+          }
+          return 0;
+        })
         .map((comment) => {
           return (
             <div key={comment.id}>
@@ -443,6 +459,17 @@ export const Comments = ({ comments, setComments, postuser }) => {
                             weight="fill"
                           />
                         ))}
+                      {postuser === comment?.user?.username && (
+                        <Tooltip label="Post author">
+                          <ShieldStar
+                            style={{
+                              cursor: "pointer",
+                            }}
+                            size={17}
+                          />
+                        </Tooltip>
+                      )}
+
                       <Text color="dimmed">·</Text>
                       <Text color="dimmed" size="13px">
                         {formatDistanceToNowStrict(
@@ -610,6 +637,16 @@ export const Comments = ({ comments, setComments, postuser }) => {
                                   weight="fill"
                                 />
                               ))}
+                            {postuser === data?.user.username && (
+                              <Tooltip label="Post author">
+                                <ShieldStar
+                                  style={{
+                                    cursor: "pointer",
+                                  }}
+                                  size={17}
+                                />
+                              </Tooltip>
+                            )}
                             <Text color="dimmed">·</Text>
                             <Text color="dimmed" size="13px">
                               {formatDistanceToNowStrict(
@@ -730,8 +767,7 @@ export const Comments = ({ comments, setComments, postuser }) => {
               })}
             </div>
           );
-        })
-        .reverse()}
+        })}
 
       {/* repliesfeed */}
 

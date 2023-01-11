@@ -82,7 +82,7 @@ const useStyles = createStyles(() => ({
   },
 }));
 
-export const Post = ({ post, setPosts }) => {
+export const Post = ({ post, setPosts, comments }) => {
   const { pathname } = useLocation();
   const { classes } = useStyles();
   const navigate = useNavigate();
@@ -592,7 +592,13 @@ export const Post = ({ post, setPosts }) => {
                   size="14px"
                   color={"rgb(134, 142, 150)"}
                 >
-                  {post.comments.length}
+                  {comments
+                    ? `${comments?.reduce((acc, curr) => {
+                        return acc + curr.nestedcomments?.length;
+                      }, comments.length)}`
+                    : `${post.comments?.reduce((acc, curr) => {
+                        return acc + curr.nestedcomments?.length;
+                      }, post.comments.length)}`}
                 </Text>
               </div>
             </div>

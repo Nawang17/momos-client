@@ -6,6 +6,7 @@ import { ArrowLeft, Fish } from "phosphor-react";
 import { Comments } from "./Comments";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/Auth";
+import { useState } from "react";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -28,7 +29,7 @@ export const SinglePostFeed = ({
   const navigate = useNavigate();
 
   const { classes } = useStyles();
-
+  const [sortcommentby, setsortcommentby] = useState("Latest");
   const { darkmode } = useContext(AuthContext);
 
   return (
@@ -45,7 +46,7 @@ export const SinglePostFeed = ({
         </ActionIcon>
       </div>
       {!loading ? (
-        <Post post={singlePostData} setPosts={setPosts} />
+        <Post post={singlePostData} setPosts={setPosts} comments={comments} />
       ) : (
         <div
           style={{
@@ -62,7 +63,13 @@ export const SinglePostFeed = ({
         </div>
       )}
 
-      <Reply singlePostData={singlePostData} setComments={setComments} />
+      <Reply
+        singlePostData={singlePostData}
+        setComments={setComments}
+        comments={comments}
+        sortcommentby={sortcommentby}
+        setsortcommentby={setsortcommentby}
+      />
       {comments.length === 0 && !loading ? (
         <div
           style={{
@@ -90,6 +97,7 @@ export const SinglePostFeed = ({
           comments={comments}
           setComments={setComments}
           postuser={singlePostData?.user.username}
+          sortcommentby={sortcommentby}
         />
       )}
     </div>

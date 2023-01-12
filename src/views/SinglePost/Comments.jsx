@@ -1,11 +1,10 @@
 import { useContext, useState } from "react";
-import { createStyles, Text, Tooltip } from "@mantine/core";
+import { Badge, createStyles, Popover, Text, Tooltip } from "@mantine/core";
 import {
   ChatCircle,
   CircleWavyCheck,
   Heart,
   Lock,
-  ShieldStar,
   WarningCircle,
 } from "phosphor-react";
 import { CommentMenu } from "../../Components/CommentMenu";
@@ -460,14 +459,31 @@ export const Comments = ({
                           />
                         ))}
                       {postuser === comment?.user?.username && (
-                        <Tooltip label="Post author">
-                          <ShieldStar
-                            style={{
-                              cursor: "pointer",
-                            }}
-                            size={17}
-                          />
-                        </Tooltip>
+                        <Popover
+                          width={"auto"}
+                          position="top"
+                          withArrow
+                          padding={0}
+                          shadow="md"
+                        >
+                          <Popover.Target>
+                            <Tooltip label="Original poster">
+                              <Badge
+                                style={{
+                                  cursor: "pointer",
+                                }}
+                                color="gray"
+                                variant="filled"
+                                size="xs"
+                              >
+                                OP
+                              </Badge>
+                            </Tooltip>
+                          </Popover.Target>
+                          <Popover.Dropdown>
+                            <Text size="sm">Original poster</Text>
+                          </Popover.Dropdown>
+                        </Popover>
                       )}
 
                       <Text color="dimmed">·</Text>
@@ -638,14 +654,31 @@ export const Comments = ({
                                 />
                               ))}
                             {postuser === data?.user.username && (
-                              <Tooltip label="Post author">
-                                <ShieldStar
-                                  style={{
-                                    cursor: "pointer",
-                                  }}
-                                  size={17}
-                                />
-                              </Tooltip>
+                              <Popover
+                                width={"auto"}
+                                position="top"
+                                withArrow
+                                padding={0}
+                                shadow="md"
+                              >
+                                <Popover.Target>
+                                  <Tooltip label="Original poster">
+                                    <Badge
+                                      style={{
+                                        cursor: "pointer",
+                                      }}
+                                      color="gray"
+                                      variant="filled"
+                                      size="xs"
+                                    >
+                                      OP
+                                    </Badge>
+                                  </Tooltip>
+                                </Popover.Target>
+                                <Popover.Dropdown>
+                                  <Text size="sm">Original poster</Text>
+                                </Popover.Dropdown>
+                              </Popover>
                             )}
                             <Text color="dimmed">·</Text>
                             <Text color="dimmed" size="13px">

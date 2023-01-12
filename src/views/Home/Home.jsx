@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { Button, Container, createStyles, Loader, Text } from "@mantine/core";
+import { Button, Container, createStyles, Loader } from "@mantine/core";
 import { PostFeed } from "../../Components/PostFeed";
 import { Sidebar } from "../../Components/Sidebar";
 import CreatePost from "../../Components/CreatePost";
@@ -7,14 +7,9 @@ import { followinguserposts, HomePosts } from "../../api/GET";
 import { AuthContext } from "../../context/Auth";
 import { showNotification } from "@mantine/notifications";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { SortMenu } from "./SortMenu";
 import {
-  CircleWavy,
   ClockCounterClockwise,
-  LadderSimple,
-  Rocket,
   Sparkle,
-  User,
   UserList,
   WarningCircle,
 } from "phosphor-react";

@@ -19,10 +19,11 @@ import { leaderboardinfo, suggestedusersreq } from "./api/GET";
 import { Editprofile } from "./views/UserSettings/Editprofile";
 import { Search } from "./views/Search/Search";
 import { SuggestedAccs } from "./views/SuggestedAccounts/SuggestedAccs";
-import { MantineProvider } from "@mantine/core";
-import { HandWaving } from "phosphor-react";
+import { Affix, Button, MantineProvider, Transition } from "@mantine/core";
+import { ArrowUp, HandWaving } from "phosphor-react";
 import { Leaderboard } from "./views/Leaderboard/Leaderboard";
 import ScrollToTop from "./helper/ScrollToTop";
+import { useWindowScroll } from "@mantine/hooks";
 function App() {
   const [darkmode, setdarkmode] = useState(true);
 
@@ -227,11 +228,28 @@ function App() {
       errorElement: <RouteError />,
     },
   ]);
+  const [scroll, scrollTo] = useWindowScroll();
 
   return (
     <MantineProvider theme={{ colorScheme: darkmode ? "dark" : "light" }}>
       <NotificationsProvider position="bottom-center">
         <div className="App">
+          <Affix position={{ bottom: 20, right: 20 }}>
+            <Transition transition="slide-up" mounted={scroll.y > 0}>
+              {(transitionStyles) => (
+                <Button
+                  size="xs"
+                  color="gray"
+                  radius="xl"
+                  leftIcon={<ArrowUp size={16} />}
+                  style={transitionStyles}
+                  onClick={() => scrollTo({ y: 0 })}
+                >
+                  Scroll to top
+                </Button>
+              )}
+            </Transition>
+          </Affix>
           <AuthContext.Provider
             value={{
               UserInfo,

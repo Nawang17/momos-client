@@ -29,7 +29,7 @@ export const SinglePostFeed = ({
   const navigate = useNavigate();
 
   const { classes } = useStyles();
-  const [sortcommentby, setsortcommentby] = useState("Latest");
+  const [sortcommentby, setsortcommentby] = useState("Top");
   const { darkmode } = useContext(AuthContext);
 
   return (

@@ -86,9 +86,9 @@ export const SinglePostFeed = ({
           }}
         >
           <Fish weight="fill" color={"#868e96"} size={60} />
-          <Text size={"15px"}>Be the first to reply</Text>
+          <Text size={"15px"}>Be the first to comment</Text>
           <Text align="center" size={"15px"}>
-            Nobody has replied to this post yet. Add your thoughts and get the
+            Nobody's responded to this post yet. Add your thoughts and get the
             conversation started.
           </Text>
         </div>

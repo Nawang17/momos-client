@@ -16,6 +16,7 @@ import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import locale from "date-fns/locale/en-US";
 import { useState } from "react";
 import reactStringReplace from "react-string-replace";
+
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -176,7 +177,7 @@ export const Post = ({ post, setPosts, comments }) => {
         );
       }
 
-      await likePost({ postid: post.id })
+      await likePost({ postId: post.id })
         .then((res) => {
           if (res.data.liked) {
             if (

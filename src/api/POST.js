@@ -18,11 +18,11 @@ export const AddNewPost = async (text, imageblob, filetype, quoteId) => {
   );
 };
 
-export const likePost = async ({ postid }) => {
+export const likePost = async ({ postId }) => {
   return await api.post(
     "/likepost",
     {
-      postId: postid,
+      postId,
     },
     {
       headers: {

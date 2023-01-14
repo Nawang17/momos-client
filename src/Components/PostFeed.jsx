@@ -28,16 +28,20 @@ export const PostFeed = ({ setPosts, posts, loading }) => {
   const screenwidth = useMediaQuery("(min-width: 440px)");
   const navigate = useNavigate();
   const { darkmode, suggestedUsers } = useContext(AuthContext);
+  let map = {};
+
   return (
     <div className={classes.wrapper}>
       {!loading
-        ? posts.map((post, id) => {
-            return (
-              <div key={post.id}>
-                {suggestedUsers.length !== 1 && (
+        ? posts
+            .filter((obj) => !map[obj.id] && (map[obj.id] = true))
+            .map((post, id) => {
+              return (
+                <div key={post.id}>
                   <div>
                     {(id === 6 || id === 50 || id === 80) &&
-                      pathname === "/" && (
+                      pathname === "/" &&
+                      suggestedUsers.length !== 1 && (
                         <div
                           style={{
                             backgroundColor: darkmode ? "#1A1B1E" : "white",
@@ -84,11 +88,11 @@ export const PostFeed = ({ setPosts, posts, loading }) => {
                         </div>
                       )}
                   </div>
-                )}
-                <Post key={post?.id} post={post} setPosts={setPosts} />
-              </div>
-            );
-          })
+
+                  <Post key={post?.id} post={post} setPosts={setPosts} />
+                </div>
+              );
+            })
         : new Array(6).fill(0).map((_, i) => {
             return (
               <div

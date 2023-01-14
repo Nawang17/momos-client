@@ -53,59 +53,62 @@ export const Home = () => {
     setsortby("Latest");
   }, [UserInfo]);
   useEffect(() => {
-    setpage(0);
-    setloading(true);
-    if (sortby === "Following") {
-      followinguserposts(0)
-        .then((res) => {
-          setHomePosts(res.data.homeposts);
-          setloading(false);
-          setpostCount(res.data.postCount);
-        })
-        .catch((err) => {
-          if (err.response.status === 0) {
-            showNotification({
-              icon: <WarningCircle size={18} />,
-              color: "red",
-              title: "Internal Server Error",
-              autoClose: 4000,
-            });
-          } else {
-            showNotification({
-              icon: <WarningCircle size={18} />,
-              color: "red",
-              title: err.response.data,
-              autoClose: 4000,
-            });
-          }
-        });
-    } else {
-      HomePosts(0, sortby)
-        .then((res) => {
-          setHomePosts(res.data.homeposts);
-          setloading(false);
-          setpostCount(res.data.postCount);
-        })
-        .catch((err) => {
-          if (err.response.status === 0) {
-            showNotification({
-              icon: <WarningCircle size={18} />,
-              color: "red",
-              title: "Internal Server Error",
-              autoClose: 4000,
-            });
-          } else {
-            showNotification({
-              icon: <WarningCircle size={18} />,
-              color: "red",
-              title: err.response.data,
-              autoClose: 4000,
-            });
-          }
-        });
-    }
+    const fetchposts = async () => {
+      setpage(0);
+      setloading(true);
+      if (sortby === "Following") {
+        await followinguserposts(0)
+          .then((res) => {
+            setHomePosts(res.data.homeposts);
+            setloading(false);
+            setpostCount(res.data.postCount);
+          })
+          .catch((err) => {
+            if (err.response.status === 0) {
+              showNotification({
+                icon: <WarningCircle size={18} />,
+                color: "red",
+                title: "Internal Server Error",
+                autoClose: 4000,
+              });
+            } else {
+              showNotification({
+                icon: <WarningCircle size={18} />,
+                color: "red",
+                title: err.response.data,
+                autoClose: 4000,
+              });
+            }
+          });
+      } else {
+        await HomePosts(0, sortby)
+          .then((res) => {
+            setHomePosts(res.data.homeposts);
+            setloading(false);
+            setpostCount(res.data.postCount);
+          })
+          .catch((err) => {
+            if (err.response.status === 0) {
+              showNotification({
+                icon: <WarningCircle size={18} />,
+                color: "red",
+                title: "Internal Server Error",
+                autoClose: 4000,
+              });
+            } else {
+              showNotification({
+                icon: <WarningCircle size={18} />,
+                color: "red",
+                title: err.response.data,
+                autoClose: 4000,
+              });
+            }
+          });
+      }
+    };
+    fetchposts();
   }, [sortby]);
-  const fetchMoreData = () => {
+  const fetchMoreData = async () => {
     setpage((prev) => prev + 1);
     if (sortby === "Following") {
       followinguserposts(page + 1)
@@ -129,8 +132,8 @@ export const Home = () => {
             });
           }
         });
-    } else {
-      HomePosts(page + 1, sortby)
+    } else if (sortby === "Popular" || sortby === "Latest") {
+      await HomePosts(page + 1, sortby)
         .then((res) => {
           setHomePosts((prev) => [...prev, ...res.data.homeposts]);
         })

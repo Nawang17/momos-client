@@ -60,26 +60,11 @@ export default function CreatePostModal({
   const [text, settext] = useState("");
   const [loading, setloading] = useState(false);
   const [filetype, setfiletype] = useState("");
-  const maxallowdsize = 41 * 1024 * 1024; //41mb
-  const handleflieInputChange = (e) => {
-    setError("");
-    setPreviewSource("");
-    setfiletype("");
-    const file = e.target.files[0];
+  const [media, setmedia] = useState(null);
 
-    if (file.size > maxallowdsize) {
-      setError("File size is too big. Max allowed size is 41MB");
-    } else {
-      if (file.type.match("image.*")) {
-        setfiletype("image");
-      }
+  const imgsizelimit = 9437184; //9mb
+  const videosizelimit = 52428800; //50 mb
 
-      if (file.type.match("video.*")) {
-        setfiletype("video");
-      }
-      previewFile(file);
-    }
-  };
   const previewFile = (file) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -88,6 +73,32 @@ export default function CreatePostModal({
       setPreviewSource(reader.result);
     };
   };
+  const handleflieInputChange = (e) => {
+    setError("");
+    setPreviewSource("");
+    setfiletype("");
+    const file = e.target.files[0];
+    if (file.type.match("image.*")) {
+      if (file.size > imgsizelimit) {
+        setError("Image size is too big. Max allowed size is 9MB");
+      } else {
+        setfiletype("image");
+        previewFile(file);
+        setmedia(file);
+      }
+    }
+    if (file.type.match("video.*")) {
+      if (file.size > videosizelimit) {
+        setError("Video size is too big. Max allowed size is 95MB");
+      } else {
+        setfiletype("video");
+
+        previewFile(file);
+        setmedia(file);
+      }
+    }
+  };
+
   const closemodal = () => {
     setOpened(false);
     setPreviewSource("");
@@ -96,17 +107,23 @@ export default function CreatePostModal({
     setError("");
     setFileInputState("");
     setfiletype("");
+    setmedia(null);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setloading(true);
     setError("");
-    e.preventDefault();
-    AddNewPost(text, previewSource, filetype, quotepostinfo?.id)
+    const formData = new FormData();
+    formData.append("media", media);
+    formData.append("text", text);
+    formData.append("quoteid", quotepostinfo?.id ? quotepostinfo?.id : "");
+
+    await AddNewPost(formData)
       .then((res) => {
         closemodal();
 
-        navigate(`/post/${res.data.newpost.id}`);
+        navigate(`/post/${res.data.newpostid}`);
         showNotification({
           color: "teal",
           icon: <Lightning size={18} />,
@@ -115,12 +132,12 @@ export default function CreatePostModal({
         });
       })
       .catch((err) => {
+        setloading(false);
         if (err.response.status === 0) {
           setError("Internal Server Error");
         } else {
           setError(err.response.data);
         }
-        setloading(false);
       });
   };
   const { darkmode } = useContext(AuthContext);
@@ -190,10 +207,11 @@ export default function CreatePostModal({
                 >
                   {filetype !== "video" && (
                     <span
-                      onClick={(e) => {
+                      onClick={() => {
                         setFileInputState("");
                         setfiletype("");
                         setPreviewSource("");
+                        setmedia(null);
                       }}
                       style={{
                         position: "absolute",
@@ -217,9 +235,9 @@ export default function CreatePostModal({
                         <span
                           onClick={() => {
                             setFileInputState("");
-
-                            setPreviewSource("");
                             setfiletype("");
+                            setPreviewSource("");
+                            setmedia(null);
                           }}
                           style={{
                             cursor: "pointer",

@@ -54,7 +54,7 @@ export const Leaderboard = () => {
   const [loading, setLoading] = useState(true);
   const [usercount, setusercount] = useState(0);
   const [page, setpage] = useState(0);
-
+  let map = {};
   useEffect(() => {
     setLoading(true);
 
@@ -205,113 +205,115 @@ export const Leaderboard = () => {
                 color: darkmode ? "white" : "black",
               }}
             >
-              {leaderboard.map((acc, index) => (
-                <div
-                  onClick={() => {
-                    navigate(`/${acc.username}`);
-                  }}
-                  key={acc.id}
-                  style={{
-                    padding: "1rem 1.4rem",
-                    display: "flex",
-                    gap: "0.6rem",
-                    alignItems: "center",
-                    cursor: "pointer",
-                  }}
-                >
+              {leaderboard
+                .filter((obj) => !map[obj.id] && (map[obj.id] = true))
+                .map((acc, index) => (
                   <div
+                    onClick={() => {
+                      navigate(`/${acc.username}`);
+                    }}
+                    key={acc.id}
                     style={{
+                      padding: "1rem 1.4rem",
                       display: "flex",
+                      gap: "0.6rem",
                       alignItems: "center",
-                      gap: "1rem",
+                      cursor: "pointer",
                     }}
                   >
-                    {index === 0 ? (
-                      <Crown
-                        weight="fill"
-                        size={30}
-                        color={darkmode ? "gold" : "orange"}
-                      />
-                    ) : (
-                      <Badge
-                        variant="filled"
-                        color={
-                          darkmode
-                            ? index === 0
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "1rem",
+                      }}
+                    >
+                      {index === 0 ? (
+                        <Crown
+                          weight="fill"
+                          size={30}
+                          color={darkmode ? "gold" : "orange"}
+                        />
+                      ) : (
+                        <Badge
+                          variant="filled"
+                          color={
+                            darkmode
+                              ? index === 0
+                                ? "yellow"
+                                : index === 1
+                                ? "indigo"
+                                : index === 2
+                                ? "teal"
+                                : "gray"
+                              : index === 0
                               ? "yellow"
                               : index === 1
                               ? "indigo"
                               : index === 2
                               ? "teal"
                               : "gray"
-                            : index === 0
-                            ? "yellow"
-                            : index === 1
-                            ? "indigo"
-                            : index === 2
-                            ? "teal"
-                            : "gray"
-                        }
-                      >
-                        {index + 1}
-                      </Badge>
-                    )}
+                          }
+                        >
+                          {index + 1}
+                        </Badge>
+                      )}
 
-                    <img
-                      style={{
-                        width: "50px",
-                        height: "50px",
-                        borderRadius: "50%",
-                      }}
-                      src={acc.avatar}
-                      alt=""
-                    />
-                  </div>
+                      <img
+                        style={{
+                          width: "50px",
+                          height: "50px",
+                          borderRadius: "50%",
+                        }}
+                        src={acc.avatar}
+                        alt=""
+                      />
+                    </div>
 
-                  <div
-                    style={{
-                      width: "100%",
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "0.5rem",
-                    }}
-                  >
                     <div
                       style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
                         width: "100%",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "0.5rem",
                       }}
                     >
                       <div
                         style={{
                           display: "flex",
-                          gap: "0.2rem",
+                          justifyContent: "space-between",
                           alignItems: "center",
+                          width: "100%",
                         }}
                       >
-                        <Text size={"16px"} weight={"500"}>
-                          {acc.username}
-                        </Text>{" "}
-                        {acc.verified && (
-                          <CircleWavyCheck
-                            size={16}
-                            color="#0ba6da"
-                            weight="fill"
-                          />
-                        )}
+                        <div
+                          style={{
+                            display: "flex",
+                            gap: "0.2rem",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Text size={"16px"} weight={"500"}>
+                            {acc.username}
+                          </Text>{" "}
+                          {acc.verified && (
+                            <CircleWavyCheck
+                              size={16}
+                              color="#0ba6da"
+                              weight="fill"
+                            />
+                          )}
+                        </div>
+                        <Text size={"xs"}>
+                          {acc.totalLikes + acc.totalposts + acc.totalFollowers}
+                          {acc.totalLikes + acc.totalposts !== 1
+                            ? " points"
+                            : " point"}
+                        </Text>
                       </div>
-                      <Text size={"xs"}>
-                        {acc.totalLikes + acc.totalposts + acc.totalFollowers}
-                        {acc.totalLikes + acc.totalposts !== 1
-                          ? " points"
-                          : " point"}
-                      </Text>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </div>
           </InfiniteScroll>
         ) : (

@@ -371,7 +371,6 @@ export const Post = ({ post, setPosts, comments }) => {
               <Text size="15px">{postvalue(post?.text)}</Text>
             </div>
           )}
-
           {post.image && (
             <div>
               {post?.filetype === "image" ? (
@@ -541,6 +540,52 @@ export const Post = ({ post, setPosts, comments }) => {
                 {" "}
                 This post was deleted by the author.{" "}
               </Text>
+            </div>
+          )}
+
+          {/* link preview  */}
+          {post.previewlink && (
+            <div
+              onClick={(e) => {
+                e.stopPropagation();
+
+                window.open(post?.previewlink?.url, "_blank");
+              }}
+              style={{
+                cursor: "pointer",
+                border: darkmode ? "1px solid #2f3136" : "1px solid #e6ecf0",
+
+                borderRadius: "8px",
+              }}
+            >
+              {post?.previewlink?.image && (
+                <img
+                  loading="lazy"
+                  style={{
+                    width: "100%",
+                    borderTopLeftRadius: "8px",
+                    borderTopRightRadius: "8px",
+                  }}
+                  src={post?.previewlink?.image}
+                  alt=""
+                />
+              )}
+
+              <div
+                style={{
+                  padding: "0.5rem",
+                }}
+              >
+                <Text size={"14px"} color={"dimmed"}>
+                  {" "}
+                  {post?.previewlink?.title}
+                </Text>
+                <Text size={"14px"}>
+                  {post?.previewlink?.description?.length > 115
+                    ? post?.previewlink?.description.substring(0, 115) + "..."
+                    : post?.previewlink?.description}
+                </Text>
+              </div>
             </div>
           )}
 

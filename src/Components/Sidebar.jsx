@@ -326,6 +326,80 @@ export const Sidebar = () => {
             </div>
           </div>
         )}
+        {/* about */}
+        <div
+          style={{
+            backgroundColor: darkmode ? "#1A1B1E" : "white",
+            marginBottom: "0.5rem",
+            borderRadius: "4px",
+            padding: "1rem",
+            color: darkmode ? "white" : "black",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              fontSize: "15px",
+              gap: "1rem",
+              fontWeight: 600,
+            }}
+          >
+            <img
+              onClick={() => {
+                navigate("/");
+              }}
+              style={{
+                width: "25px",
+                cursor: "pointer",
+              }}
+              src="/momologo.png"
+              alt=""
+            />
+            <Text
+              onClick={() => {
+                navigate("/about");
+              }}
+              style={{
+                cursor: "pointer",
+              }}
+            >
+              About
+            </Text>
+            <Text
+              onClick={() => {
+                window.open(
+                  "https://github.com/Nawang17/client-momo",
+                  "_blank"
+                );
+              }}
+              style={{
+                cursor: "pointer",
+              }}
+            >
+              Github
+            </Text>
+            <Text
+              onClick={() => {
+                window.open("https://discord.gg/n32dAAcCJY", "_blank");
+              }}
+              style={{
+                cursor: "pointer",
+              }}
+            >
+              Discord
+            </Text>
+          </div>
+          {/* <Text
+            style={{
+              paddingTop: "1rem",
+            }}
+            size={"15px"}
+          >
+            {" "}
+            © 2023 momos
+          </Text> */}
+        </div>
 
         {/* <div
           style={{

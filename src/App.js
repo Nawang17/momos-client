@@ -24,6 +24,7 @@ import { ArrowUp, HandWaving } from "phosphor-react";
 import { Leaderboard } from "./views/Leaderboard/Leaderboard";
 import ScrollToTop from "./helper/ScrollToTop";
 import { useWindowScroll } from "@mantine/hooks";
+import { About } from "./Components/About";
 function App() {
   const [darkmode, setdarkmode] = useState(true);
 
@@ -226,6 +227,15 @@ function App() {
         </>
       ),
       errorElement: <RouteError />,
+    },
+    {
+      path: "/About",
+      element: (
+        <>
+          <Navbar />
+          <About />
+        </>
+      ),
     },
   ]);
   const [scroll, scrollTo] = useWindowScroll();

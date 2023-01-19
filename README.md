@@ -21,6 +21,6 @@ To get started with the development of this project, you will need to have Node.
 1. Clone this repository and navigate to the project directory
 2. Run the command `npm install` or `yarn install` to install the necessary packages
 3. Start the development server by running `npm start` or `yarn start`
-4. Make sure to also check out the server-side repository for this project, which can be found at https://github.com/Nawang17/momos-backend.git.
+4. Make sure to also check out the server-side repository for this project, which can be found at https://github.com/Nawang17/momos-backend.git. (Private until i am done with the project)
 
 Please note that this project is for educational purposes and may have bugs or unfinished features. If you encounter any issues or have any suggestions, please feel free to reach out or submit a pull request.

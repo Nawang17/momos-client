@@ -1,6 +1,13 @@
 import { Menu, Switch } from "@mantine/core";
 
-import { MoonStars, SignIn, SignOut, Sun, UserCircle } from "phosphor-react";
+import {
+  Info,
+  MoonStars,
+  SignIn,
+  SignOut,
+  Sun,
+  UserCircle,
+} from "phosphor-react";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/Auth";
@@ -54,6 +61,7 @@ export function ProfileMenu() {
             >
               Profile
             </Menu.Item>
+
             <Menu.Divider />
 
             <Menu.Item
@@ -76,8 +84,20 @@ export function ProfileMenu() {
             >
               {darkmode ? "Switch to Light Mode" : "Switch to Dark Mode"}
             </Menu.Item>
+            <Menu.Divider />
+
+            <Menu.Item
+              onClick={() => {
+                navigate("/about");
+              }}
+              icon={<Info size={20} />}
+            >
+              {" "}
+              About momos
+            </Menu.Item>
 
             <Menu.Divider />
+
             <Menu.Item
               icon={<SignOut size={20} />}
               onClick={() => {
@@ -106,6 +126,15 @@ export function ProfileMenu() {
             >
               {" "}
               Register
+            </Menu.Item>
+            <Menu.Item
+              onClick={() => {
+                navigate("/about");
+              }}
+              icon={<Info size={14} />}
+            >
+              {" "}
+              About momos
             </Menu.Item>
           </>
         )}

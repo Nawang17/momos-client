@@ -204,71 +204,66 @@ export const Chat = () => {
             borderTop: darkmode ? "1px solid #2F3336" : "1px solid #E5E5E5",
           }}
         >
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              setText("");
-              setMessages((prev) => [
-                ...prev,
-                {
-                  id: 1,
-                  message: text,
-                  left: randomTrueFalse(),
-                },
-              ]);
+          <Input
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                setText("");
+                setMessages((prev) => [
+                  ...prev,
+                  {
+                    id: 1,
+                    message: text,
+                    left: randomTrueFalse(),
+                  },
+                ]);
+                e.target.blur();
+              }
+            }}
+            value={text}
+            onChange={(e) => {
+              setText(e.target.value);
+            }}
+            variant="filled"
+            placeholder="Send a message"
+          />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              alignItems: "center",
+              gap: "0.8rem",
+              paddingTop: "0.8rem",
             }}
           >
-            <Input
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  e.target.blur();
-                }
+            <Text size={12} color={darkmode ? "white" : "black"}>
+              {" "}
+              0 / 100
+            </Text>
+            <PaperPlaneRight
+              onClick={() => {
+                setText("");
+                setMessages((prev) => [
+                  ...prev,
+                  {
+                    id: 1,
+                    message: text,
+                    left: randomTrueFalse(),
+                  },
+                ]);
               }}
-              value={text}
-              onChange={(e) => {
-                setText(e.target.value);
-              }}
-              variant="filled"
-              placeholder="Send a message"
-            />
-            <div
+              type="submit"
               style={{
-                display: "flex",
-                justifyContent: "flex-end",
-                alignItems: "center",
-                gap: "0.8rem",
-                paddingTop: "0.8rem",
+                cursor: "pointer",
               }}
-            >
-              <Text size={12} color={darkmode ? "white" : "black"}>
-                {" "}
-                0 / 100
-              </Text>
-              <PaperPlaneRight
-                onClick={() => {
-                  setText("");
-                  setMessages((prev) => [
-                    ...prev,
-                    {
-                      id: 1,
-                      message: text,
-                      left: randomTrueFalse(),
-                    },
-                  ]);
-                }}
-                type="submit"
-                style={{
-                  cursor: "pointer",
-                }}
-                color={darkmode ? "white" : "black"}
-                size={20}
-              />
-            </div>
-          </form>
+              color={darkmode ? "white" : "black"}
+              size={20}
+            />
+          </div>
         </div>
       </div>
 
-      {/* <Sidebar /> */}
+      <Sidebar />
     </Container>
   );
 };

@@ -10,7 +10,13 @@ import {
 import { useContext } from "react";
 import { AuthContext } from "../context/Auth";
 import { useNavigate } from "react-router-dom";
-import { CircleWavyCheck, Crown, Info } from "phosphor-react";
+import {
+  CircleWavyCheck,
+  Crown,
+  DiscordLogo,
+  GithubLogo,
+  Info,
+} from "phosphor-react";
 import { leaderboardinfo } from "../api/GET";
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -340,22 +346,10 @@ export const Sidebar = () => {
             style={{
               display: "flex",
               alignItems: "center",
-              fontSize: "15px",
+              fontSize: "13px",
               gap: "1rem",
-              fontWeight: 600,
             }}
           >
-            <img
-              onClick={() => {
-                navigate("/");
-              }}
-              style={{
-                width: "25px",
-                cursor: "pointer",
-              }}
-              src="/momologo.png"
-              alt=""
-            />
             <Text
               onClick={() => {
                 navigate("/about");
@@ -366,7 +360,7 @@ export const Sidebar = () => {
             >
               About
             </Text>
-            <Text
+            <div
               onClick={() => {
                 window.open(
                   "https://github.com/Nawang17/client-momo",
@@ -375,30 +369,38 @@ export const Sidebar = () => {
               }}
               style={{
                 cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.3rem",
               }}
             >
-              Github
-            </Text>
-            <Text
+              <GithubLogo size={20} />
+              <Text>Github</Text>
+            </div>
+            <div
               onClick={() => {
                 window.open("https://discord.gg/n32dAAcCJY", "_blank");
               }}
               style={{
                 cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.3rem",
               }}
             >
-              Discord
-            </Text>
+              <DiscordLogo size={20} />
+
+              <Text>Discord</Text>
+            </div>
           </div>
-          {/* <Text
+          <Text
             style={{
               paddingTop: "1rem",
             }}
-            size={"15px"}
+            size="12px"
           >
-            {" "}
-            © 2023 momos
-          </Text> */}
+            © 2023 momos. All rights reserved.
+          </Text>
         </div>
 
         {/* <div

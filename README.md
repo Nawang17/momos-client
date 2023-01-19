@@ -7,6 +7,10 @@ Welcome to the Momos client-side repository! Momos is a social network webapp i 
 - Create posts with text and images
 - Like and comment on posts
 - Like comments and reply to them
+- Mention users in posts and comments
+- Quote other posts
+- Search for users and posts
+- Sort posts and comments by date or popularity
 - Follow other users
 - Customize profile with profile picture and description
 - Receive notifications for likes, comments, and new followers

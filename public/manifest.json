@@ -3,12 +3,12 @@
   "name": "momos",
   "icons": [
     {
-      "src": "momologo.png",
+      "src": "momologo.webp",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "momologo.png",
+      "src": "momologo.webp",
       "type": "image/png",
       "sizes": "512x512"
     }

@@ -85,6 +85,7 @@ export const Chat = () => {
 
   useEffect(() => {
     scrollToBottom();
+    window.scrollTo(0, 0);
   }, [messages]);
   return (
     <Container px={0} className={classes.wrapper}>
@@ -106,7 +107,7 @@ export const Chat = () => {
         <ScrollArea
           viewportRef={viewport}
           style={{
-            height: 300,
+            height: "50vh",
             backgroundColor: darkmode ? "#1A1B1E" : "white",
             // backgroundColor: "blue",
             color: darkmode ? "white" : "black",

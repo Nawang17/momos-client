@@ -25,6 +25,7 @@ import { Leaderboard } from "./views/Leaderboard/Leaderboard";
 import ScrollToTop from "./helper/ScrollToTop";
 import { useWindowScroll } from "@mantine/hooks";
 import { About } from "./Components/About";
+import { Chat } from "./views/Chat/Chat";
 function App() {
   const [darkmode, setdarkmode] = useState(true);
 
@@ -234,6 +235,15 @@ function App() {
         <>
           <Navbar />
           <About />
+        </>
+      ),
+    },
+    {
+      path: "/Chat",
+      element: (
+        <>
+          <Navbar />
+          <Chat />
         </>
       ),
     },

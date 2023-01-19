@@ -28,6 +28,7 @@ import { profilefollowdata } from "../../api/GET";
 import { useParams } from "react-router-dom";
 import { showNotification } from "@mantine/notifications";
 import * as DOMPurify from "dompurify";
+import reactStringReplace from "react-string-replace";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -168,7 +169,59 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
   };
   const [opened, setOpened] = useState(false);
   const [modaltitle, setmodaltitle] = useState("");
+  const description = (text) => {
+    let replacedText;
 
+    // Match URLs
+    replacedText = reactStringReplace(text, /(https?:\/\/\S+)/g, (match, i) => (
+      <span
+        onClick={(e) => {
+          e.stopPropagation();
+          window.location.href = match;
+        }}
+        className="link-style"
+        style={{
+          color: "#1d9bf0",
+        }}
+        key={match + i}
+      >
+        {match}
+      </span>
+    ));
+
+    // Match @-mentions
+
+    replacedText = reactStringReplace(replacedText, /@(\w+)/g, (match, i) => (
+      <span
+        className="link-style"
+        onClick={(e) => {
+          e.stopPropagation();
+          navigate(`/${match}`);
+        }}
+        style={{ color: "#1d9bf0" }}
+        key={match + i}
+      >
+        @{match}
+      </span>
+    ));
+
+    // Match hashtags
+    replacedText = reactStringReplace(replacedText, /#(\w+)/g, (match, i) => (
+      <span
+        className="link-style"
+        onClick={(e) => {
+          e.stopPropagation();
+          navigate(`/search/q/${match}`);
+        }}
+        style={{ color: "#1d9bf0" }}
+        key={match + i}
+      >
+        #{match}
+      </span>
+    ));
+
+    return replacedText;
+  };
   return (
     <>
       <div
@@ -562,13 +615,9 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                     textAlign: "center",
                     width: "300px",
                   }}
-                  dangerouslySetInnerHTML={{
-                    __html: sanitizer(profileInfo?.description, {
-                      ALLOWED_ATTR: [""],
-                      ALLOWED_TAGS: ["b", "i", "em", "strong"],
-                    }),
-                  }}
-                />
+                >
+                  {description(profileInfo?.description)}
+                </div>
               </div>
             )}
           </div>

@@ -219,6 +219,11 @@ export const Chat = () => {
             }}
           >
             <Input
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.target.blur();
+                }
+              }}
               value={text}
               onChange={(e) => {
                 setText(e.target.value);

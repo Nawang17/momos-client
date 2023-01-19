@@ -3,6 +3,7 @@ import {
   ChatCircle,
   CircleWavyCheck,
   Heart,
+  Link,
   Lock,
   WarningCircle,
 } from "phosphor-react";
@@ -558,33 +559,43 @@ export const Post = ({ post, setPosts, comments }) => {
                 borderRadius: "8px",
               }}
             >
-              {post?.previewlink?.image && (
-                <img
-                  loading="lazy"
-                  style={{
-                    width: "100%",
-                    borderTopLeftRadius: "8px",
-                    borderTopRightRadius: "8px",
-                  }}
-                  src={post?.previewlink?.image}
-                  alt=""
-                />
-              )}
-
               <div
                 style={{
+                  display: "flex",
                   padding: "0.5rem",
+                  gap: "0.5rem",
                 }}
               >
-                <Text size={"14px"} color={"dimmed"}>
-                  {" "}
-                  {post?.previewlink?.title}
-                </Text>
-                <Text size={"14px"}>
-                  {post?.previewlink?.description?.length > 115
-                    ? post?.previewlink?.description.substring(0, 115) + "..."
-                    : post?.previewlink?.description}
-                </Text>
+                <div
+                  style={{
+                    paddingTop: "0.2rem",
+                  }}
+                >
+                  <Link />
+                </div>
+                <div>
+                  {post?.previewlink?.url && (
+                    <Text size={"14px"} color={"dimmed"}>
+                      {post?.previewlink?.url
+                        ? post?.previewlink?.url
+                            .replace("https://", "")
+                            .replace("http://", "")
+                            .replace("www.", "")
+                            .split(/[/?#]/)[0]
+                        : ""}
+                    </Text>
+                  )}
+
+                  {post?.previewlink?.title && (
+                    <Text size={"14px"}> {post?.previewlink?.title}</Text>
+                  )}
+
+                  {post?.previewlink?.description && (
+                    <Text color={"dimmed"} size={"14px"}>
+                      {post?.previewlink?.description}
+                    </Text>
+                  )}
+                </div>
               </div>
             </div>
           )}

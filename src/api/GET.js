@@ -67,3 +67,10 @@ export const getmoreprofileposts = async (userid, page) => {
 export const getmorelikedposts = async (userid, page) => {
   return await api.get(`/profileinfo/likedposts/${userid}?page=${page}`);
 };
+export const userlevel = async () => {
+  return await api.get("/userlevel", {
+    headers: {
+      Authorization: `${localStorage.getItem("token")}`,
+    },
+  });
+};

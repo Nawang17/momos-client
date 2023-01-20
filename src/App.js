@@ -15,7 +15,7 @@ import {
   NotificationsProvider,
   showNotification,
 } from "@mantine/notifications";
-import { leaderboardinfo, suggestedusersreq } from "./api/GET";
+import { leaderboardinfo, suggestedusersreq, userlevel } from "./api/GET";
 import { Editprofile } from "./views/UserSettings/Editprofile";
 import { Search } from "./views/Search/Search";
 import { SuggestedAccs } from "./views/SuggestedAccounts/SuggestedAccs";
@@ -36,6 +36,7 @@ function App() {
   const [leaderboard, setLeaderboard] = useState([]);
   const [leaderboardloading, setLeaderboardloading] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [userlevelinfo, setUserlevelinfo] = useState(null);
   useLayoutEffect(() => {
     if (!localStorage.getItem("darkmode")) {
       localStorage.setItem("darkmode", "true");
@@ -104,8 +105,23 @@ function App() {
         setSuggestedusers(res.data.suggestedusers);
       });
     }
+    async function getuserlevel() {
+      await userlevel()
+        .then((res) => {
+          setUserlevelinfo(res.data.userlevel);
+        })
+
+        .catch(() => {
+          setUserlevelinfo(null);
+        });
+    }
     getleaderboard();
     getsuggestedusers();
+    if (UserInfo) {
+      getuserlevel();
+    } else {
+      setUserlevelinfo(null);
+    }
   }, [UserInfo]);
   const router = createBrowserRouter([
     {
@@ -284,6 +300,8 @@ function App() {
               setLeaderboard,
               leaderboardloading,
               setLeaderboardloading,
+              userlevelinfo,
+              setUserlevelinfo,
             }}
           >
             <RouterProvider router={router} />

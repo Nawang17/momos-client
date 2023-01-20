@@ -4,6 +4,7 @@ import {
   createStyles,
   Divider,
   Popover,
+  Progress,
   Skeleton,
   Text,
 } from "@mantine/core";
@@ -17,7 +18,8 @@ import {
   GithubLogo,
   Info,
 } from "phosphor-react";
-import { leaderboardinfo } from "../api/GET";
+import { leaderboardinfo, userlevel } from "../api/GET";
+
 const useStyles = createStyles(() => ({
   wrapper: {
     width: "100%",
@@ -57,27 +59,211 @@ const useStyles = createStyles(() => ({
 }));
 export const Sidebar = () => {
   const { classes } = useStyles();
-  const { darkmode, leaderboard, setLeaderboard } = useContext(AuthContext);
+  const {
+    darkmode,
+    leaderboard,
+    setLeaderboard,
+    UserInfo,
+    userlevelinfo,
+    setUserlevelinfo,
+  } = useContext(AuthContext);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const getLevel = () => {
+    const points =
+      userlevelinfo?.totalFollowers +
+      userlevelinfo?.totalLikes +
+      userlevelinfo?.totalposts;
+    let level = Math.floor(points / 10);
+    let progress = points % 10;
+    return { level, progress };
+  };
 
   useEffect(() => {
-    setLoading(true);
+    const getleaderboardinfo = async () => {
+      setLoading(true);
 
-    leaderboardinfo(0)
-      .then((res) => {
-        setLeaderboard(res.data.leaderboard);
+      await leaderboardinfo(0)
+        .then((res) => {
+          setLeaderboard(res.data.leaderboard);
 
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-        setLoading(true);
-      });
-  }, []);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setLoading(true);
+        });
+    };
+    const getuserlevel = async () => {
+      await userlevel()
+        .then((res) => {
+          setUserlevelinfo(res.data.userlevel);
+        })
+
+        .catch(() => {
+          setUserlevelinfo(null);
+        });
+    };
+    getleaderboardinfo();
+    if (UserInfo) {
+      getuserlevel();
+    } else {
+      setUserlevelinfo(null);
+    }
+  }, [UserInfo]);
   return (
     <div className={classes.wrapper}>
       <div className={classes.mainwrapper}>
+        {UserInfo && (
+          <div
+            style={{
+              backgroundColor: darkmode ? "#1A1B1E" : "white",
+              marginBottom: "0.5rem",
+              borderRadius: "4px",
+              padding: "1rem",
+              color: darkmode ? "white" : "black",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                gap: "0.5rem",
+                width: "100%",
+              }}
+            >
+              {userlevelinfo ? (
+                <img
+                  onClick={() => navigate(`/${userlevelinfo?.username}`)}
+                  loading="lazy"
+                  style={{
+                    cursor: "pointer",
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "50%",
+                  }}
+                  src={userlevelinfo?.avatar}
+                  alt=""
+                />
+              ) : (
+                <Skeleton
+                  style={{
+                    width: "50px",
+                    height: "40px",
+                    borderRadius: "50%",
+                  }}
+                />
+              )}
+              {!userlevelinfo ? (
+                <Skeleton height={10} radius="xl" mt={15} />
+              ) : (
+                <div
+                  style={{
+                    width: "100%",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.3rem",
+                    }}
+                  >
+                    <Text
+                      style={{
+                        cursor: "pointer",
+                      }}
+                      onClick={() => navigate(`/${userlevelinfo?.username}`)}
+                      size="xs"
+                      weight={700}
+                      clor="dimmed"
+                    >
+                      {userlevelinfo?.username}
+                    </Text>
+                    <Popover
+                      width={220}
+                      position="bottom"
+                      withArrow
+                      shadow="md"
+                    >
+                      <Popover.Target>
+                        <Badge
+                          style={{
+                            cursor: "pointer",
+                          }}
+                          color="cyan"
+                          size="xs"
+                        >
+                          LVL {getLevel().level}
+                        </Badge>
+                      </Popover.Target>
+                      <Popover.Dropdown>
+                        <Text
+                          color={darkmode ? "#c1c2c5" : "#000000"}
+                          weight={700}
+                          size={"xs"}
+                        >
+                          How does levels work?
+                        </Text>
+                        <Text size={"xs"}></Text>
+
+                        <Text pt={5} size={"xs"}>
+                          · Level is based on total points.
+                        </Text>
+                        <Text pt={5} size={"xs"}>
+                          · Your level will increase by 1 for every 10 points.
+                        </Text>
+                        <Text pt={5} size={"xs"}>
+                          · You can earn points by posting, and gaining likes
+                          and new followers.
+                        </Text>
+                      </Popover.Dropdown>
+                    </Popover>
+                  </div>
+
+                  <Text
+                    color={darkmode ? "#c1c2c5" : "#000000"}
+                    pt={5}
+                    size={12}
+                    weight={500}
+                  >
+                    {getLevel().progress} / 10 points
+                  </Text>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      marginTop: "0.2rem",
+                    }}
+                  >
+                    <Text
+                      color={darkmode ? "#c1c2c5" : "#000000"}
+                      pt={5}
+                      size={10}
+                    >
+                      {" "}
+                      Progress
+                    </Text>
+                    <Text
+                      color={darkmode ? "#c1c2c5" : "#000000"}
+                      pt={5}
+                      size={10}
+                    >
+                      {" "}
+                      LVL {getLevel().level + 1}
+                    </Text>
+                  </div>
+                  <Progress
+                    value={getLevel().progress * 10}
+                    mt={4}
+                    radius="xl"
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
         {!loading ? (
           <div
             style={{
@@ -217,8 +403,17 @@ export const Sidebar = () => {
                               weight="fill"
                             />
                           ))}
+                        {/* <Badge color="lime" size="xs">
+                          LVL{" "}
+                          {getLevel(
+                            val.totalLikes + val.totalposts + val.totalFollowers
+                          )}
+                        </Badge> */}
                       </div>
-                      <Text size={"12px"}>
+                      <Text
+                        color={darkmode ? "#c1c2c5" : "#000000"}
+                        size={"12px"}
+                      >
                         {val.totalLikes + val.totalposts + val.totalFollowers}
                         {val.totalLikes + val.totalposts !== 1
                           ? " points"

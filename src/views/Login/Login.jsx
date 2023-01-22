@@ -6,8 +6,6 @@ import {
   Text,
   Container,
   Button,
-  Checkbox,
-  Group,
   Divider,
 } from "@mantine/core";
 import { Link } from "react-router-dom";
@@ -16,8 +14,9 @@ import { GLoginReq, LoginReq, LoginStatus } from "../../api/AUTH";
 import { showNotification } from "@mantine/notifications";
 import { AuthContext } from "../../context/Auth";
 import { useNavigate } from "react-router-dom";
-import { likedPosts } from "../../api/GET";
+
 import { useEffect } from "react";
+
 import GoogleLogin from "@leecheuk/react-google-login";
 import { ShieldCheck, WarningCircle } from "phosphor-react";
 
@@ -36,7 +35,8 @@ export function Login() {
     if (UserInfo) {
       navigate("/");
     }
-  }, []);
+  }, [UserInfo]);
+
   const handlelogin = async (e) => {
     setloading(true);
     seterror("");
@@ -46,8 +46,6 @@ export function Login() {
       .then(async (res) => {
         setUserInfo(res.data.user);
         localStorage.setItem("token", res.data.token);
-
-        navigate("/");
 
         showNotification({
           icon: <ShieldCheck size={18} />,
@@ -76,8 +74,6 @@ export function Login() {
       .then(async (res) => {
         setUserInfo(res.data.user);
         localStorage.setItem("token", res.data.token);
-
-        navigate("/");
 
         showNotification({
           icon: <ShieldCheck size={18} />,
@@ -162,6 +158,7 @@ export function Login() {
             <span>Register</span>
           </Link>
         </Text>
+
         <Paper withBorder shadow="md" p={30} mt={30} radius="sm">
           <Text weight={"500"} color={"red"} size="sm">
             {error}

@@ -30,7 +30,7 @@ export function Register() {
     if (UserInfo) {
       navigate("/");
     }
-  }, []);
+  }, [UserInfo]);
   const handleRegister = (e) => {
     setloading(true);
     seterror("");
@@ -39,7 +39,6 @@ export function Register() {
       .then((res) => {
         setUserInfo(res.data.user);
         localStorage.setItem("token", res.data.token);
-        navigate("/");
         confetti({
           particleCount: 300,
           spread: 70,
@@ -72,7 +71,6 @@ export function Register() {
       .then((res) => {
         setUserInfo(res.data.user);
         localStorage.setItem("token", res.data.token);
-        navigate("/");
         confetti({
           particleCount: 300,
           spread: 70,

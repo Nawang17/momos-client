@@ -73,8 +73,7 @@ function App() {
           setfollowingdata(res.data.userfollowingarr);
           showNotification({
             icon: <HandWaving size={18} />,
-            title: `You are logged in as ${res.data.user.username}`,
-            message: "Welcome back to momos",
+            title: `Welcome back ${res.data.user.username}`,
 
             autoClose: 3000,
           });

@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 
-import { Container, createStyles, Loader, Tabs } from "@mantine/core";
+import { Container, createStyles, Loader, Tabs, Text } from "@mantine/core";
 import { PostFeed } from "../../Components/PostFeed";
 import { Sidebar } from "../../Components/Sidebar";
 import { ProfileHeader } from "./ProfileHeader";
@@ -133,64 +133,91 @@ export const Profile = () => {
           </Tabs.List>
 
           <Tabs.Panel value="posts" pt="xs">
-            <InfiniteScroll
-              dataLength={posts.length}
-              next={fetchMoreposts}
-              hasMore={postCount > posts.length}
-              loader={
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    marginTop: "1rem",
-                  }}
-                >
-                  <Loader />
-                </div>
-              }
-              endMessage={
-                <>
-                  {/* <Text
-                  style={{
-                    marginTop: "1rem",
-                  }}
-                  align="center"
+            {posts.length === 0 && !loading ? (
+              <div
+                style={{
+                  padding: "1rem",
+                }}
+              >
+                <Text
                   color={darkmode ? "white" : "dark"}
+                  weight="bold"
+                  size="xl"
+                  align="center"
                 >
-                  You have seen it all
-                </Text> */}
-                </>
-              }
-            >
-              <PostFeed posts={posts} loading={loading} setPosts={setposts} />
-            </InfiniteScroll>
+                  @{profileInfo?.username} hasn't posted anything yet
+                </Text>
+                <Text align="center" size={"sm"} color={"dimmed"}>
+                  When they do, you'll see them here.
+                </Text>
+              </div>
+            ) : (
+              <InfiniteScroll
+                dataLength={posts.length}
+                next={fetchMoreposts}
+                hasMore={postCount > posts.length}
+                loader={
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      marginTop: "1rem",
+                    }}
+                  >
+                    <Loader />
+                  </div>
+                }
+              >
+                <PostFeed posts={posts} loading={loading} setPosts={setposts} />
+              </InfiniteScroll>
+            )}
           </Tabs.Panel>
 
           <Tabs.Panel value="likedposts" pt="xs">
-            <InfiniteScroll
-              dataLength={userlikedposts.length}
-              next={fetchMorelikedposts}
-              hasMore={likedpostCount > userlikedposts.length}
-              loader={
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    marginTop: "1rem",
-                  }}
+            {userlikedposts.length > 0 && !loading ? (
+              <InfiniteScroll
+                dataLength={userlikedposts.length}
+                next={fetchMorelikedposts}
+                hasMore={likedpostCount > userlikedposts.length}
+                loader={
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      marginTop: "1rem",
+                    }}
+                  >
+                    <Loader />
+                  </div>
+                }
+              >
+                <PostFeed
+                  posts={userlikedposts}
+                  loading={loading}
+                  setPosts={setuserlikedposts}
+                />
+              </InfiniteScroll>
+            ) : (
+              <div
+                style={{
+                  padding: "1rem",
+                }}
+              >
+                <Text
+                  color={darkmode ? "white" : "dark"}
+                  weight="bold"
+                  size="xl"
+                  align="center"
                 >
-                  <Loader />
-                </div>
-              }
-            >
-              <PostFeed
-                posts={userlikedposts}
-                loading={loading}
-                setPosts={setuserlikedposts}
-              />
-            </InfiniteScroll>
+                  @{profileInfo?.username} hasn't liked any posts
+                </Text>
+                <Text align="center" size={"sm"} color={"dimmed"}>
+                  When they do, you'll see them here.
+                </Text>
+              </div>
+            )}
           </Tabs.Panel>
         </Tabs>
       </div>

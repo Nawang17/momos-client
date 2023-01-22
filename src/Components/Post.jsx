@@ -1,5 +1,6 @@
 import { createStyles, Modal, Text } from "@mantine/core";
 import {
+  ArrowsClockwise,
   ChatCircle,
   CircleWavyCheck,
   Heart,
@@ -17,6 +18,7 @@ import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import locale from "date-fns/locale/en-US";
 import { useState } from "react";
 import reactStringReplace from "react-string-replace";
+import CreatePostModal from "./CreatePostModal";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -92,6 +94,7 @@ export const Post = ({ post, setPosts, comments }) => {
   const [viewimg, setviewimg] = useState("");
   const { UserInfo, darkmode } = useContext(AuthContext);
   const [likemodal, setlikemodal] = useState(false);
+  const [openConfirm, setOpenConfirm] = useState(false);
   const formatDistanceLocale = {
     lessThanXSeconds: "{{count}}s",
     xSeconds: "{{count}}s",
@@ -658,6 +661,30 @@ export const Post = ({ post, setPosts, comments }) => {
                       }, post.comments.length)}`}
                 </Text>
               </div>
+              <div
+                onClick={() => {
+                  if (UserInfo) {
+                    setOpenConfirm(true);
+                  } else {
+                    showNotification({
+                      icon: <Lock size={18} />,
+                      title: "Login required",
+                      autoClose: 3000,
+                      color: "red",
+                    });
+                  }
+                }}
+                className={classes.fRight}
+              >
+                <ArrowsClockwise color="gray" weight="light" size={17} />
+                <Text
+                  className="unclickablevalue"
+                  size="14px"
+                  color={"rgb(134, 142, 150)"}
+                >
+                  {post.postquotes.length}
+                </Text>
+              </div>
             </div>
             {pathname === `/post/${post.id}` && (
               <div
@@ -676,6 +703,13 @@ export const Post = ({ post, setPosts, comments }) => {
           </div>
         </div>
       </div>
+      <CreatePostModal
+        opened={openConfirm}
+        setOpened={setOpenConfirm}
+        setHomePosts={setPosts}
+        UserInfo={UserInfo}
+        quotepostinfo={post}
+      />
       <Modal
         title={`Likes (${post.likes.length})`}
         overflow="inside"

@@ -324,17 +324,6 @@ export const Post = ({ post, setPosts, comments }) => {
         }}
         className={classes.wrapper}
       >
-        {/* <div className={classes.left}>
-          <img
-            onClick={() => {
-              navigate(`/${post.user.username}`);
-            }}
-            loading="lazy"
-            className={classes.avatar}
-            src={post.user.avatar}
-            alt=""
-          />
-        </div> */}
         <div className={classes.right}>
           <div className={classes.header}>
             <div className={classes.hLeft}>
@@ -664,6 +653,7 @@ export const Post = ({ post, setPosts, comments }) => {
           >
             {/* poststatsinfo */}
             <Text
+              className="hoveru"
               style={{
                 cursor: "pointer",
               }}
@@ -681,11 +671,14 @@ export const Post = ({ post, setPosts, comments }) => {
               }}
             >
               <Text
+                className="hoveru"
                 style={{
                   cursor: "pointer",
                 }}
                 onClick={() => {
-                  navigate(`/post/${post.id}`);
+                  if (pathname !== `/post/${post.id}`) {
+                    navigate(`/post/${post.id}`);
+                  }
                 }}
               >
                 {comments
@@ -699,6 +692,7 @@ export const Post = ({ post, setPosts, comments }) => {
               </Text>
               <Text>·</Text>
               <Text
+                className="hoveru"
                 style={{
                   cursor: "pointer",
                 }}

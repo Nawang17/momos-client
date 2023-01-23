@@ -538,7 +538,7 @@ export const Sidebar = () => {
             marginBottom: "0.5rem",
             borderRadius: "4px",
             padding: "1rem",
-            color: darkmode ? "white" : "black",
+            color: darkmode ? "#c1c2c5" : "black",
           }}
         >
           <div
@@ -549,17 +549,23 @@ export const Sidebar = () => {
               gap: "1rem",
             }}
           >
-            <Text
+            {" "}
+            <div
+              className="hoveru"
               onClick={() => {
                 navigate("/about");
               }}
               style={{
                 cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.3rem",
               }}
             >
-              About
-            </Text>
+              <Text>About</Text>
+            </div>
             <div
+              className="hoveru"
               onClick={() => {
                 window.open(
                   "https://github.com/Nawang17/client-momo",
@@ -573,10 +579,10 @@ export const Sidebar = () => {
                 gap: "0.3rem",
               }}
             >
-              <GithubLogo size={20} />
               <Text>Github</Text>
             </div>
             <div
+              className="hoveru"
               onClick={() => {
                 window.open("https://discord.gg/n32dAAcCJY", "_blank");
               }}
@@ -587,8 +593,6 @@ export const Sidebar = () => {
                 gap: "0.3rem",
               }}
             >
-              <DiscordLogo size={20} />
-
               <Text>Discord</Text>
             </div>
           </div>

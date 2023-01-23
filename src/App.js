@@ -73,7 +73,7 @@ function App() {
           setfollowingdata(res.data.userfollowingarr);
           showNotification({
             icon: <HandWaving size={18} />,
-            title: `Welcome back ${res.data.user.username}`,
+            title: `Welcome back, ${res.data.user.username}`,
 
             autoClose: 3000,
           });

@@ -31,7 +31,7 @@ import CreatePostModal from "./CreatePostModal";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
-    padding: "1rem",
+    padding: "1rem 1rem 0.5rem 1rem",
     display: "flex",
     gap: "1rem",
     borderRadius: "4px",
@@ -357,37 +357,44 @@ export const Post = ({ post, setPosts, comments }) => {
                 <div
                   style={{
                     display: "flex",
-                    alignItems: "center",
-                    gap: "0.2rem",
+                    flexDirection: "column",
                   }}
                 >
-                  <Text
-                    style={{ cursor: "pointer" }}
-                    onClick={() => {
-                      navigate(`/${post.user.username}`);
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.2rem",
                     }}
-                    weight={500}
-                    size="15px"
                   >
-                    {post.user.username}
-                  </Text>
-                  {post?.user?.verified &&
-                    (post?.user?.id !== 5 ? (
-                      <CircleWavyCheck
-                        size={17}
-                        color="#0ba6da"
-                        weight="fill"
-                      />
-                    ) : (
-                      <CircleWavyCheck
-                        size={17}
-                        color="#0ba6da"
-                        weight="fill"
-                      />
-                    ))}
+                    {" "}
+                    <Text
+                      style={{ cursor: "pointer" }}
+                      onClick={() => {
+                        navigate(`/${post.user.username}`);
+                      }}
+                      weight={500}
+                      size="15px"
+                    >
+                      {post.user.username}
+                    </Text>
+                    {post?.user?.verified &&
+                      (post?.user?.id !== 5 ? (
+                        <CircleWavyCheck
+                          size={16}
+                          color="#0ba6da"
+                          weight="fill"
+                        />
+                      ) : (
+                        <CircleWavyCheck
+                          size={16}
+                          color="#0ba6da"
+                          weight="fill"
+                        />
+                      ))}
+                  </div>
 
-                  <Text color="dimmed">·</Text>
-                  <Text color="dimmed" size="sm">
+                  <Text color="dimmed" size={12}>
                     {formatDistanceToNowStrict(new Date(post.createdAt), {
                       locale: {
                         ...locale,

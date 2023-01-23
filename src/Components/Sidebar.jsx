@@ -11,13 +11,7 @@ import {
 import { useContext } from "react";
 import { AuthContext } from "../context/Auth";
 import { useNavigate } from "react-router-dom";
-import {
-  CircleWavyCheck,
-  Crown,
-  DiscordLogo,
-  GithubLogo,
-  Info,
-} from "phosphor-react";
+import { CircleWavyCheck, DiscordLogo, GithubLogo, Info } from "phosphor-react";
 import { leaderboardinfo, userlevel } from "../api/GET";
 
 const useStyles = createStyles(() => ({
@@ -39,6 +33,7 @@ const useStyles = createStyles(() => ({
     paddingTop: "0.5rem",
     display: "flex",
     flexDirection: "column",
+    gap: "0.5rem",
   },
   title: {
     padding: "0.7rem 1rem 0 1rem",
@@ -78,6 +73,11 @@ export const Sidebar = () => {
     let progress = points % 10;
     return { level, progress };
   };
+  function numberToOrdinal(n) {
+    var s = ["th", "st", "nd", "rd"],
+      v = n % 100;
+    return n + (s[(v - 20) % 10] || s[v] || s[0]);
+  }
 
   useEffect(() => {
     const getleaderboardinfo = async () => {
@@ -281,14 +281,16 @@ export const Sidebar = () => {
                 alignItems: "center",
               }}
             >
-              <Text size="sm">Leaderboard</Text>{" "}
+              <Text weight={700} size={12}>
+                Leaderboard
+              </Text>{" "}
               <Popover width={220} position="bottom" withArrow shadow="md">
                 <Popover.Target>
                   <Info
                     style={{
                       cursor: "pointer",
                     }}
-                    size={18}
+                    size={15}
                   />
                 </Popover.Target>
                 <Popover.Dropdown>
@@ -312,12 +314,13 @@ export const Sidebar = () => {
               </Popover>
             </div>
             <div className={classes.accounts}>
-              {leaderboard.slice(0, 4).map((val, index) => {
+              {leaderboard.slice(0, 3).map((val, index) => {
                 return (
                   <div
                     style={{
                       display: "flex",
                       alignItems: "center",
+                      justifyContent: "space-between",
                     }}
                     onClick={() => {
                       navigate(`/${val.username}`);
@@ -325,47 +328,6 @@ export const Sidebar = () => {
                     key={val.id}
                     className={classes.account}
                   >
-                    <div
-                      style={{
-                        width: "2rem",
-                        height: "2rem",
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                    >
-                      {index === 0 ? (
-                        <Crown
-                          weight="fill"
-                          size={25}
-                          color={darkmode ? "gold" : "orange"}
-                        />
-                      ) : (
-                        <Badge
-                          size="md"
-                          variant="filled"
-                          color={
-                            darkmode
-                              ? index === 0
-                                ? "yellow"
-                                : index === 1
-                                ? "indigo"
-                                : index === 2
-                                ? "teal"
-                                : "gray"
-                              : index === 0
-                              ? "yellow"
-                              : index === 1
-                              ? "indigo"
-                              : index === 2
-                              ? "teal"
-                              : "gray"
-                          }
-                        >
-                          {index + 1}
-                        </Badge>
-                      )}
-                    </div>
-
                     <div
                       style={{
                         display: "flex",
@@ -381,49 +343,86 @@ export const Sidebar = () => {
                           gap: "0.5rem",
                         }}
                       >
-                        {" "}
-                        <Text
-                          color={index === 0 && (darkmode ? "gold" : "orange")}
-                          weight={500}
-                          size="15px"
-                        >
-                          {val.username}
-                        </Text>
-                        {val.verified &&
-                          (val?.id !== 5 ? (
-                            <CircleWavyCheck
-                              size={17}
-                              color="#0ba6da"
-                              weight="fill"
-                            />
-                          ) : (
-                            <CircleWavyCheck
-                              size={17}
-                              color="#0ba6da"
-                              weight="fill"
-                            />
-                          ))}
-                        {/* <Badge color="lime" size="xs">
-                          LVL{" "}
-                          {getLevel(
-                            val.totalLikes + val.totalposts + val.totalFollowers
-                          )}
-                        </Badge> */}
-                      </div>
-                      <Text
-                        color={darkmode ? "#c1c2c5" : "#000000"}
-                        size={"12px"}
-                      >
-                        {val.totalLikes + val.totalposts + val.totalFollowers}
-                        {val.totalLikes + val.totalposts !== 1
-                          ? " points"
-                          : " point"}
-                      </Text>
-                    </div>
-                    {/* <Text size={"xs"}>212pts</Text> */}
-                  </div>
+                        <img
+                          loading="lazy"
+                          style={{
+                            cursor: "pointer",
+                            width: "40px",
+                            height: "40px",
+                            borderRadius: "50%",
+                          }}
+                          src={val?.avatar}
+                          alt=""
+                        />
+                        <div>
+                          <Text
+                            color={darkmode ? "#c1c2c5" : "#000000"}
+                            size={"12px"}
+                          >
+                            <div
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "0.2rem",
+                              }}
+                            >
+                              <Text
+                                color={darkmode ? "white" : "black"}
+                                weight={700}
+                                size="12px"
+                              >
+                                {val.username}
+                              </Text>
 
-                  //y
+                              {val.verified &&
+                                (val?.id !== 5 ? (
+                                  <CircleWavyCheck
+                                    size={15}
+                                    color="#0ba6da"
+                                    weight="fill"
+                                  />
+                                ) : (
+                                  <CircleWavyCheck
+                                    size={15}
+                                    color="#0ba6da"
+                                    weight="fill"
+                                  />
+                                ))}
+                            </div>
+                            {val.totalLikes +
+                              val.totalposts +
+                              val.totalFollowers}
+                            {val.totalLikes + val.totalposts !== 1
+                              ? " points"
+                              : " point"}
+                          </Text>
+                        </div>
+                      </div>
+                    </div>
+                    <Badge
+                      variant="filled"
+                      size={"xs"}
+                      color={
+                        darkmode
+                          ? index === 0
+                            ? "yellow"
+                            : index === 1
+                            ? "indigo"
+                            : index === 2
+                            ? "teal"
+                            : "gray"
+                          : index === 0
+                          ? "orange"
+                          : index === 1
+                          ? "indigo"
+                          : index === 2
+                          ? "teal"
+                          : "gray"
+                      }
+                    >
+                      {numberToOrdinal(index + 1)}
+                    </Badge>
+                  </div>
                 );
               })}
             </div>
@@ -431,12 +430,12 @@ export const Sidebar = () => {
             <Text
               style={{
                 cursor: "pointer",
-                padding: "0.3rem 1rem 0.7rem 1.2rem",
+                padding: "0.7rem 1rem 0.7rem 1.2rem",
               }}
               onClick={() => {
                 navigate("/Leaderboard");
               }}
-              size={"14px"}
+              size={"12px"}
             >
               {" "}
               View all
@@ -459,14 +458,16 @@ export const Sidebar = () => {
                 alignItems: "center",
               }}
             >
-              <Text size="sm">Leaderboard</Text>{" "}
+              <Text weight={700} size={12}>
+                Leaderboard
+              </Text>{" "}
               <Popover width={220} position="bottom" withArrow shadow="md">
                 <Popover.Target>
                   <Info
                     style={{
                       cursor: "pointer",
                     }}
-                    size={18}
+                    size={15}
                   />
                 </Popover.Target>
                 <Popover.Dropdown>
@@ -489,8 +490,13 @@ export const Sidebar = () => {
                 </Popover.Dropdown>
               </Popover>
             </div>
-            <div className={classes.accounts}>
-              {new Array(5).fill(0).map((_, index) => {
+            <div
+              style={{
+                paddingBottom: "0.7rem",
+              }}
+              className={classes.accounts}
+            >
+              {new Array(3).fill(0).map((_, index) => {
                 return (
                   <div
                     style={{
@@ -500,15 +506,13 @@ export const Sidebar = () => {
                     key={index}
                     className={classes.account}
                   >
-                    <div
+                    <Skeleton
                       style={{
-                        height: "2rem",
-                        display: "flex",
-                        alignItems: "center",
+                        width: "40px",
+                        height: "40px",
+                        borderRadius: "50%",
                       }}
-                    >
-                      <Skeleton height={20} circle />
-                    </div>
+                    />
 
                     <div
                       style={{

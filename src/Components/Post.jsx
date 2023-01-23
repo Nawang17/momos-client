@@ -1,4 +1,4 @@
-import { createStyles, Modal, Text } from "@mantine/core";
+import { Button, createStyles, Divider, Modal, Text } from "@mantine/core";
 import {
   ArrowsClockwise,
   ChatCircle,
@@ -6,6 +6,7 @@ import {
   Heart,
   Link,
   Lock,
+  Share,
   WarningCircle,
 } from "phosphor-react";
 import { PostMenu } from "./PostMenu";
@@ -66,6 +67,7 @@ const useStyles = createStyles(() => ({
   body: {
     wordBreak: "break-word",
     whiteSpace: "pre-wrap",
+    paddingTop: "0.5rem",
   },
   footer: {
     display: "flex",
@@ -315,7 +317,7 @@ export const Post = ({ post, setPosts, comments }) => {
         }}
         className={classes.wrapper}
       >
-        <div className={classes.left}>
+        {/* <div className={classes.left}>
           <img
             onClick={() => {
               navigate(`/${post.user.username}`);
@@ -325,39 +327,68 @@ export const Post = ({ post, setPosts, comments }) => {
             src={post.user.avatar}
             alt=""
           />
-        </div>
+        </div> */}
         <div className={classes.right}>
           <div className={classes.header}>
             <div className={classes.hLeft}>
               <div
-                style={{ display: "flex", alignItems: "center", gap: "0.2rem" }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.5rem",
+                }}
               >
-                <Text
-                  style={{ cursor: "pointer" }}
+                <img
                   onClick={() => {
                     navigate(`/${post.user.username}`);
                   }}
-                  weight={500}
-                  size="15px"
+                  loading="lazy"
+                  className={classes.avatar}
+                  src={post.user.avatar}
+                  alt=""
+                />
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.2rem",
+                  }}
                 >
-                  {post.user.username}
-                </Text>
-                {post?.user?.verified &&
-                  (post?.user?.id !== 5 ? (
-                    <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
-                  ) : (
-                    <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
-                  ))}
+                  <Text
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      navigate(`/${post.user.username}`);
+                    }}
+                    weight={500}
+                    size="15px"
+                  >
+                    {post.user.username}
+                  </Text>
+                  {post?.user?.verified &&
+                    (post?.user?.id !== 5 ? (
+                      <CircleWavyCheck
+                        size={17}
+                        color="#0ba6da"
+                        weight="fill"
+                      />
+                    ) : (
+                      <CircleWavyCheck
+                        size={17}
+                        color="#0ba6da"
+                        weight="fill"
+                      />
+                    ))}
 
-                <Text color="dimmed">·</Text>
-                <Text color="dimmed" size="sm">
-                  {formatDistanceToNowStrict(new Date(post.createdAt), {
-                    locale: {
-                      ...locale,
-                      formatDistance,
-                    },
-                  })}
-                </Text>
+                  <Text color="dimmed">·</Text>
+                  <Text color="dimmed" size="sm">
+                    {formatDistanceToNowStrict(new Date(post.createdAt), {
+                      locale: {
+                        ...locale,
+                        formatDistance,
+                      },
+                    })}
+                  </Text>
+                </div>
               </div>
             </div>
             <div className={classes.hRight}>
@@ -376,7 +407,11 @@ export const Post = ({ post, setPosts, comments }) => {
             </div>
           )}
           {post.image && (
-            <div>
+            <div
+              style={{
+                paddingTop: "0.5rem",
+              }}
+            >
               {post?.filetype === "image" ? (
                 <img
                   style={{
@@ -603,103 +638,144 @@ export const Post = ({ post, setPosts, comments }) => {
             </div>
           )}
 
-          <div className={classes.footer}>
+          {/* new footer */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              fontSize: "13px",
+              color: "#868e96",
+              marginTop: "0.4rem",
+            }}
+          >
+            {/* poststatsinfo */}
+            <Text
+              style={{
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                setlikemodal(true);
+              }}
+            >
+              {post.likes.length} likes
+            </Text>
             <div
               style={{
                 display: "flex",
-                gap: "1rem",
                 alignItems: "center",
+                gap: "0.3rem",
               }}
             >
-              <div
-                onClick={() => {
-                  handleLike();
+              <Text
+                style={{
+                  cursor: "pointer",
                 }}
-                className={classes.fLeft}
+                onClick={() => {
+                  navigate(`/post/${post.id}`);
+                }}
               >
-                {!post?.likes.find((like) => {
+                {comments
+                  ? `${comments?.reduce((acc, curr) => {
+                      return acc + curr.nestedcomments?.length;
+                    }, comments.length)}`
+                  : `${post.comments?.reduce((acc, curr) => {
+                      return acc + curr.nestedcomments?.length;
+                    }, post.comments.length)}`}{" "}
+                comments
+              </Text>
+              <Text>·</Text>
+              <Text> {post.postquotes.length} reposts</Text>
+            </div>
+          </div>
+          <Divider my={2} />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <Button
+              onClick={() => {
+                handleLike();
+              }}
+              color={
+                !post?.likes.find((like) => {
                   return like?.user?.username === UserInfo?.username;
-                }) ? (
-                  <Heart color="gray" weight="light" size={19} />
-                ) : (
-                  <Heart color={"rgb(255, 69, 0)"} weight="fill" size={19} />
-                )}
-
-                <Text
-                  className="unclickablevalue"
+                })
+                  ? "gray"
+                  : "red"
+              }
+              size="xs"
+              leftIcon={
+                <Heart
+                  weight={
+                    !post?.likes.find((like) => {
+                      return like?.user?.username === UserInfo?.username;
+                    })
+                      ? "light"
+                      : "fill"
+                  }
                   color={
                     !post?.likes.find((like) => {
                       return like?.user?.username === UserInfo?.username;
                     })
-                      ? "rgb(134, 142, 150)"
-                      : "rgb(255, 69, 0)"
+                      ? "gray"
+                      : "red"
                   }
-                  size="14px"
-                >
-                  {post.likes.length}
-                </Text>
-              </div>
-
-              <div
-                onClick={() => {
-                  navigate(`/post/${post.id}`);
-                }}
-                className={classes.fRight}
-              >
-                <ChatCircle color="gray" weight="light" size={17} />
-                <Text
-                  className="unclickablevalue"
-                  size="14px"
-                  color={"rgb(134, 142, 150)"}
-                >
-                  {comments
-                    ? `${comments?.reduce((acc, curr) => {
-                        return acc + curr.nestedcomments?.length;
-                      }, comments.length)}`
-                    : `${post.comments?.reduce((acc, curr) => {
-                        return acc + curr.nestedcomments?.length;
-                      }, post.comments.length)}`}
-                </Text>
-              </div>
-              <div
-                onClick={() => {
-                  if (UserInfo) {
-                    setOpenConfirm(true);
-                  } else {
-                    showNotification({
-                      icon: <Lock size={18} />,
-                      title: "Login required",
-                      autoClose: 3000,
-                      color: "red",
-                    });
-                  }
-                }}
-                className={classes.fRight}
-              >
-                <ArrowsClockwise color="gray" weight="light" size={17} />
-                <Text
-                  className="unclickablevalue"
-                  size="14px"
-                  color={"rgb(134, 142, 150)"}
-                >
-                  {post.postquotes.length}
-                </Text>
-              </div>
-            </div>
-            {pathname === `/post/${post.id}` && (
-              <div
-                onClick={() => {
-                  setlikemodal(true);
-                }}
-                style={{
-                  fontSize: "0.9rem",
-                  cursor: "pointer",
-                  color: "rgb(134, 142, 150)",
-                }}
-              >
-                View Likes
-              </div>
-            )}
+                  size={18}
+                />
+              }
+              variant="subtle"
+            >
+              Like
+            </Button>
+            <Button
+              onClick={() => {
+                navigate(`/post/${post.id}`);
+              }}
+              color={"gray"}
+              size="xs"
+              leftIcon={<ChatCircle size={18} />}
+              variant="subtle"
+            >
+              Comment
+            </Button>
+            <Button
+              onClick={() => {
+                if (UserInfo) {
+                  setOpenConfirm(true);
+                } else {
+                  showNotification({
+                    icon: <Lock size={18} />,
+                    title: "Login required",
+                    autoClose: 3000,
+                    color: "red",
+                  });
+                }
+              }}
+              color={"gray"}
+              size="xs"
+              leftIcon={<ArrowsClockwise size={18} />}
+              variant="subtle"
+            >
+              Repost
+            </Button>
+            <Button
+              onClick={() => {
+                if (navigator.share) {
+                  navigator.share({
+                    title: "Share Post",
+                    url: `https://momosz.com/post/${post?.id}`,
+                  });
+                }
+              }}
+              color={"gray"}
+              size="xs"
+              leftIcon={<Share size={18} />}
+              variant="subtle"
+            >
+              Share
+            </Button>
           </div>
         </div>
       </div>

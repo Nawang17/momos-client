@@ -74,3 +74,6 @@ export const userlevel = async () => {
     },
   });
 };
+export const getreposts = async (postid) => {
+  return await api.get(`/reposts/${postid}`);
+};

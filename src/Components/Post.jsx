@@ -691,7 +691,19 @@ export const Post = ({ post, setPosts, comments }) => {
                 comments
               </Text>
               <Text>·</Text>
-              <Text> {post.postquotes.length} reposts</Text>
+              <Text
+                style={{
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  if (post.postquotes.length > 0) {
+                    navigate(`/reposts/${post.id}`);
+                  }
+                }}
+              >
+                {" "}
+                {post.postquotes.length} reposts
+              </Text>
             </div>
           </div>
           <Divider my={2} />

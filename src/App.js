@@ -26,6 +26,7 @@ import ScrollToTop from "./helper/ScrollToTop";
 import { useWindowScroll } from "@mantine/hooks";
 import { About } from "./Components/About";
 import { Chat } from "./views/Chat/Chat";
+import { Reposts } from "./views/Reposts/Reposts";
 function App() {
   const [darkmode, setdarkmode] = useState(true);
 
@@ -175,6 +176,19 @@ function App() {
           <Navbar />
 
           <Profile />
+        </>
+      ),
+      errorElement: <RouteError />,
+    },
+    {
+      path: "/reposts/:postId",
+      element: (
+        <>
+          <ScrollToTop />
+
+          <Navbar />
+
+          <Reposts />
         </>
       ),
       errorElement: <RouteError />,

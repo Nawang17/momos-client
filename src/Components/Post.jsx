@@ -712,6 +712,7 @@ export const Post = ({ post, setPosts, comments }) => {
             style={{
               display: "flex",
               justifyContent: "space-between",
+              overflow: "auto",
             }}
           >
             {/* <HoverCard position="top" width={280} shadow="md">

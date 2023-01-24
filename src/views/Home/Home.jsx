@@ -172,6 +172,7 @@ export const Home = () => {
                 padding: "1rem 0.5rem",
                 backgroundColor: darkmode ? "#1A1B1E" : "white",
                 marginBottom: "0.5rem ",
+                overflow: "auto",
               }}
             >
               <Button

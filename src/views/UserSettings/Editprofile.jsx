@@ -35,6 +35,7 @@ const useStyles = createStyles(() => ({
     },
   },
   leftWrapper: {
+    width: "100%",
     flex: 0.7,
     "@media (max-width: 700px)": {
       flex: 1,
@@ -336,6 +337,7 @@ export const Editprofile = () => {
               style={{
                 display: "flex",
                 gap: "1rem",
+                flexWrap: "wrap",
               }}
             >
               <Button onClick={handleSave} disabled={btndisabled} radius="sm">

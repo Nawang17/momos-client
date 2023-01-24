@@ -38,6 +38,7 @@ const useStyles = createStyles(() => ({
     },
   },
   leftWrapper: {
+    width: "100%",
     flex: 0.7,
     "@media (max-width: 700px)": {
       flex: 1,

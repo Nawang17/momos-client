@@ -19,6 +19,8 @@ const useStyles = createStyles(() => ({
     },
   },
   leftWrapper: {
+    width: "100%",
+
     flex: 0.7,
     "@media (max-width: 700px)": {
       flex: 1,
@@ -60,14 +62,21 @@ export const Reposts = () => {
           <ActionIcon onClick={() => navigate(-1)}>
             <ArrowLeft size="20px" />
           </ActionIcon>
-          <Text size="sm" weight={700}>
-            {reposts.length} reposts
-          </Text>
-          <div></div>
         </div>
-        <div>
+        <Text
+          style={{
+            backgroundColor: darkmode ? "#1A1B1E" : "white",
+            color: darkmode ? "white" : "black",
+            padding: "1rem 0rem 0.5rem 1rem",
+          }}
+          size="sm"
+          weight={700}
+        >
+          {reposts.length} reposts
+        </Text>
+        {reposts.length !== 0 && !loading && (
           <PostFeed setPosts={setreposts} posts={reposts} loading={loading} />
-        </div>
+        )}
       </div>
 
       <Sidebar />

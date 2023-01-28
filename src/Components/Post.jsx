@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Button,
   createStyles,
   Divider,
@@ -16,6 +17,7 @@ import {
   Share,
   WarningCircle,
 } from "phosphor-react";
+import { useMediaQuery } from "@mantine/hooks";
 import { PostMenu } from "./PostMenu";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useContext } from "react";
@@ -104,6 +106,7 @@ export const Post = ({ post, setPosts, comments }) => {
   const { UserInfo, darkmode } = useContext(AuthContext);
   const [likemodal, setlikemodal] = useState(false);
   const [openConfirm, setOpenConfirm] = useState(false);
+  const matches = useMediaQuery("(min-width: 530px)");
   const formatDistanceLocale = {
     lessThanXSeconds: "{{count}}s",
     xSeconds: "{{count}}s",
@@ -649,20 +652,90 @@ export const Post = ({ post, setPosts, comments }) => {
               fontSize: "13px",
               color: "#868e96",
               marginTop: "0.4rem",
+              overflow: "auto",
             }}
           >
             {/* poststatsinfo */}
-            <Text
-              className="hoveru"
-              style={{
-                cursor: "pointer",
-              }}
-              onClick={() => {
-                setlikemodal(true);
-              }}
-            >
-              {post.likes.length} likes
-            </Text>
+            {matches ? (
+              post?.likes?.length > 3 ? (
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "0.3rem",
+                    alignItems: "center",
+                  }}
+                >
+                  <Avatar.Group
+                    style={{
+                      cursor: "pointer",
+                    }}
+                    onClick={() => {
+                      setlikemodal(true);
+                    }}
+                    spacing="sm"
+                  >
+                    <Avatar
+                      size="sm"
+                      src={post?.likes[post?.likes?.length - 1]?.user?.avatar}
+                      radius="xl"
+                    />
+                    <Avatar
+                      size="sm"
+                      src={post?.likes[post?.likes?.length - 2]?.user?.avatar}
+                      radius="xl"
+                    />
+                    <Avatar
+                      size="sm"
+                      src={post?.likes[post?.likes?.length - 3]?.user?.avatar}
+                      radius="xl"
+                    />{" "}
+                  </Avatar.Group>
+                  <Text
+                    className="hoveru"
+                    style={{
+                      cursor: "pointer",
+                    }}
+                    onClick={() => {
+                      setlikemodal(true);
+                    }}
+                  >
+                    Liked by{" "}
+                    <Text weight={500} component="span">
+                      {post?.likes[post?.likes?.length - 1]?.user?.username}{" "}
+                    </Text>{" "}
+                    and{" "}
+                    <Text weight={500} component="span">
+                      {post.likes.length - 1} others
+                    </Text>
+                  </Text>
+                </div>
+              ) : (
+                <Text
+                  className="hoveru"
+                  style={{
+                    cursor: "pointer",
+                  }}
+                  onClick={() => {
+                    setlikemodal(true);
+                  }}
+                >
+                  {post.likes.length} likes
+                </Text>
+              )
+            ) : (
+              <Text
+                className="hoveru"
+                style={{
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  setlikemodal(true);
+                }}
+              >
+                {post.likes.length} likes
+              </Text>
+            )}
+
             <div
               style={{
                 display: "flex",

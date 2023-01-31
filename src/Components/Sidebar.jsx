@@ -595,6 +595,20 @@ export const Sidebar = () => {
             >
               <Text>Discord</Text>
             </div>
+            <div
+              className="hoveru"
+              onClick={() => {
+                navigate("/search/q/null");
+              }}
+              style={{
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.3rem",
+              }}
+            >
+              <Text>Search</Text>
+            </div>
           </div>
           <Text
             style={{

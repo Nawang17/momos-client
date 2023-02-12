@@ -1,5 +1,6 @@
 import {
   ActionIcon,
+  Avatar,
   Button,
   Container,
   createStyles,
@@ -185,19 +186,21 @@ export const Chat = ({ socket }) => {
             }}
           >
             {" "}
-            <img
-              style={{
-                width: "30px",
-                height: "30px",
-                borderRadius: "50%",
-              }}
-              src={
-                chatinfo?.userone?.username === UserInfo?.username
-                  ? chatinfo?.usertwo?.avatar
-                  : chatinfo?.userone?.avatar
-              }
-              alt=""
-            />
+            {chatinfo && (
+              <img
+                style={{
+                  width: "30px",
+                  height: "30px",
+                  borderRadius: "50%",
+                }}
+                src={
+                  chatinfo?.userone?.username === UserInfo?.username
+                    ? chatinfo?.usertwo?.avatar
+                    : chatinfo?.userone?.avatar
+                }
+                alt=""
+              />
+            )}
             <Text weight={500}>
               {chatinfo?.userone?.username === UserInfo?.username
                 ? chatinfo?.usertwo?.username

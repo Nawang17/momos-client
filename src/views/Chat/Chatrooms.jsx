@@ -1,17 +1,22 @@
 import {
   ActionIcon,
+  Button,
   Container,
   createStyles,
   Input,
   Loader,
+  Modal,
   NavLink,
   Text,
 } from "@mantine/core";
+import { useDebouncedValue } from "@mantine/hooks";
+import { showNotification } from "@mantine/notifications";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import locale from "date-fns/locale/en-US";
 import {
   ArrowLeft,
   ChatCircleDots,
+  Lock,
   MagnifyingGlass,
   NotePencil,
 } from "phosphor-react";
@@ -19,7 +24,7 @@ import { useEffect, useState } from "react";
 
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { getchatrooms } from "../../api/GET";
+import { getchat, getchatrooms, searchusers } from "../../api/GET";
 import { Sidebar } from "../../Components/Sidebar";
 import { AuthContext } from "../../context/Auth";
 const useStyles = createStyles(() => ({
@@ -83,6 +88,28 @@ export const Chatrooms = () => {
   const navigate = useNavigate();
   const [chatrooms, setChatrooms] = useState([]);
   const [filterchat, setFilterchat] = useState("");
+  const [opened, setOpened] = useState(false);
+  const [searchuser, setSearchuser] = useState("");
+  const [debouncedSearch] = useDebouncedValue(searchuser, 500);
+  const [searchloading, setsearchLoading] = useState(false);
+  const [searchresults, setSearchresults] = useState([]);
+  useEffect(() => {
+    async function searchuser() {
+      setsearchLoading(true);
+      await searchusers({ searchvalue: debouncedSearch }).then((res) => {
+        if (!res.data) {
+          setSearchresults([]);
+        }
+        setSearchresults(res.data);
+      });
+
+      setsearchLoading(false);
+    }
+
+    if (debouncedSearch) {
+      searchuser();
+    }
+  }, [debouncedSearch]);
   useEffect(() => {
     if (!UserInfo) {
       navigate("/");
@@ -139,14 +166,14 @@ export const Chatrooms = () => {
               Chats
             </Text>
           </div>
-          {/* <ActionIcon>
+          <ActionIcon onClick={() => setOpened(true)}>
             <NotePencil
               style={{
                 color: darkmode ? "white" : "black",
               }}
               size="20px"
             />
-          </ActionIcon> */}
+          </ActionIcon>
         </div>
         <div
           style={{
@@ -208,7 +235,7 @@ export const Chatrooms = () => {
                         ? rooms?.chats[0]?.message.length > 80
                           ? rooms?.chats[0]?.message.substring(0, 80) + "..."
                           : rooms?.chats[0]?.message
-                        : "no message yet, say hi!"
+                        : "No messages yet"
                     }
                     rightSection={
                       rooms?.chats[0]?.createdAt && (
@@ -247,18 +274,24 @@ export const Chatrooms = () => {
               <div
                 style={{
                   backgroundColor: darkmode ? "#1A1B1E" : "white",
-                  display: "flex",
                   color: darkmode ? "white" : "black",
 
-                  justifyContent: "center",
                   padding: "1rem",
-                  fontWeight: "600",
-                  alignItems: "center",
-                  gap: "0.5rem",
                 }}
               >
-                <ChatCircleDots size="40px" />
-                <div> Start a new chat by going to a user's profile</div>
+                <Text weight={700} size={25}>
+                  Welcome to your inbox!
+                </Text>
+                <Text mt={5} color={"dimmed"}>
+                  Chat with other users in private
+                </Text>
+                <Button
+                  mt={20}
+                  leftIcon={<ChatCircleDots />}
+                  onClick={() => setOpened(true)}
+                >
+                  Start a new chat
+                </Button>
               </div>
             )
           ) : (
@@ -276,6 +309,79 @@ export const Chatrooms = () => {
       </div>
 
       <Sidebar />
+      <>
+        <Modal
+          overflow="inside"
+          opened={opened}
+          onClose={() => {
+            setOpened(false);
+            setSearchuser("");
+            setSearchresults([]);
+          }}
+          title="Start a new chat"
+        >
+          <>
+            <Input
+              onChange={(e) => setSearchuser(e.target.value)}
+              icon={<MagnifyingGlass size={16} />}
+              placeholder="Search for a user"
+            />
+            {!searchloading ? (
+              searchresults.map((user) => {
+                return (
+                  <NavLink
+                    key={user.id}
+                    onClick={async () => {
+                      if (!UserInfo) {
+                        showNotification({
+                          icon: <Lock size={18} />,
+                          title: "Login required",
+                          autoClose: 3000,
+                          color: "red",
+                        });
+                      } else {
+                        await getchat(user?.id).then((res) => {
+                          navigate(`/chat/${res.data.chatroomid}`);
+                        });
+                      }
+                    }}
+                    style={{
+                      marginTop: "1rem",
+                      padding: "0.5rem",
+                    }}
+                    label={user?.username}
+                    icon={
+                      <img
+                        style={{
+                          borderRadius: "50%",
+                          width: "2.5rem",
+                          height: "2.5rem",
+                        }}
+                        src={user?.avatar}
+                        alt=""
+                        loading="lazy"
+                      />
+                    }
+                  />
+                );
+              })
+            ) : (
+              <>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    padding: "1rem",
+                  }}
+                >
+                  <Loader />
+                </div>
+              </>
+            )}
+          </>
+        </Modal>
+      </>
     </Container>
   );
 };

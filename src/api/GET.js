@@ -77,3 +77,25 @@ export const userlevel = async () => {
 export const getreposts = async (postid) => {
   return await api.get(`/reposts/${postid}`);
 };
+
+export const getchatrooms = async () => {
+  return await api.get("/chat/get/chatrooms", {
+    headers: {
+      Authorization: `${localStorage.getItem("token")}`,
+    },
+  });
+};
+export const getchat = async (id) => {
+  return await api.get(`/chat/${id}`, {
+    headers: {
+      Authorization: `${localStorage.getItem("token")}`,
+    },
+  });
+};
+export const getchatmessages = async (roomid, page) => {
+  return await api.get(`/chat/getchatmessages/${roomid}/${page}`, {
+    headers: {
+      Authorization: `${localStorage.getItem("token")}`,
+    },
+  });
+};

@@ -97,3 +97,18 @@ export const nestedlikecomment = async ({ nestedcommentId }) => {
     }
   );
 };
+
+export const sendmessage = async (chatroomid, message) => {
+  return await api.post(
+    "/chat/sendmessage",
+    {
+      chatroomid,
+      message,
+    },
+    {
+      headers: {
+        Authorization: `${localStorage.getItem("token")}`,
+      },
+    }
+  );
+};

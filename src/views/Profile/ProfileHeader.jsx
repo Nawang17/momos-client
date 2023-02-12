@@ -24,7 +24,7 @@ import { useNavigate } from "react-router-dom";
 import { follow } from "../../api/POST";
 import { AuthContext } from "../../context/Auth";
 import format from "date-fns/format";
-import { profilefollowdata } from "../../api/GET";
+import { getchat, profilefollowdata } from "../../api/GET";
 import { useParams } from "react-router-dom";
 import { showNotification } from "@mantine/notifications";
 import * as DOMPurify from "dompurify";
@@ -578,6 +578,34 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                     {followingArr.includes(UserInfo?.username)
                       ? "Follow back"
                       : "Follow"}
+                  </Button>
+                )}
+                {UserInfo?.username !== profileInfo?.username && (
+                  <Button
+                    onClick={async () => {
+                      if (!UserInfo) {
+                        showNotification({
+                          icon: <Lock size={18} />,
+                          title: "Login required",
+                          autoClose: 3000,
+                          color: "red",
+                        });
+                      } else {
+                        await getchat(profileInfo?.id)
+                          .then((res) => {
+                            navigate(`/chat/${res.data.chatroomid}`);
+                          })
+                          .catch(() => {});
+                      }
+                    }}
+                    variant="default"
+                    style={{
+                      width: "120px",
+                    }}
+                    radius={2}
+                    size="sm"
+                  >
+                    Message
                   </Button>
                 )}
 

@@ -27,7 +27,19 @@ import { useWindowScroll } from "@mantine/hooks";
 import { About } from "./Components/About";
 import { Chat } from "./views/Chat/Chat";
 import { Reposts } from "./views/Reposts/Reposts";
+import { io } from "socket.io-client";
+import { Chatrooms } from "./views/Chat/Chatrooms";
+const url = (value) => {
+  return value === "local"
+    ? "http://localhost:3001"
+    : "https://momos-backend.onrender.com";
+};
+
+const socket = io(url("locals"));
+
 function App() {
+  const [isConnected, setIsConnected] = useState(socket.connected);
+
   const [darkmode, setdarkmode] = useState(true);
 
   const [UserInfo, setUserInfo] = useState(null);
@@ -38,6 +50,24 @@ function App() {
   const [leaderboardloading, setLeaderboardloading] = useState(true);
   const [loading, setLoading] = useState(false);
   const [userlevelinfo, setUserlevelinfo] = useState(null);
+  useEffect(() => {
+    socket.on("connect", () => {
+      setIsConnected(true);
+    });
+    socket.on("newpost", (data) => {
+      console.log(data);
+    });
+
+    socket.on("disconnect", () => {
+      setIsConnected(false);
+    });
+
+    return () => {
+      socket.off("connect");
+      socket.off("disconnect");
+    };
+  }, []);
+
   useLayoutEffect(() => {
     if (!localStorage.getItem("darkmode")) {
       localStorage.setItem("darkmode", "true");
@@ -268,11 +298,20 @@ function App() {
       ),
     },
     {
-      path: "/Chat",
+      path: "/Chat/:roomid",
       element: (
         <>
           <Navbar />
-          <Chat />
+          <Chat socket={socket} />
+        </>
+      ),
+    },
+    {
+      path: "/Chatrooms",
+      element: (
+        <>
+          <Navbar />
+          <Chatrooms />
         </>
       ),
     },

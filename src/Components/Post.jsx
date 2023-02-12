@@ -107,6 +107,7 @@ export const Post = ({ post, setPosts, comments }) => {
   const [likemodal, setlikemodal] = useState(false);
   const [openConfirm, setOpenConfirm] = useState(false);
   const matches = useMediaQuery("(min-width: 530px)");
+  const showoverflow = useMediaQuery("(max-width: 390px)");
   const formatDistanceLocale = {
     lessThanXSeconds: "{{count}}s",
     xSeconds: "{{count}}s",
@@ -785,7 +786,7 @@ export const Post = ({ post, setPosts, comments }) => {
             style={{
               display: "flex",
               justifyContent: "space-between",
-              overflow: "auto",
+              overflow: showoverflow ? "auto" : "hidden",
             }}
           >
             {/* <HoverCard position="top" width={280} shadow="md">

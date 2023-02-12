@@ -8,7 +8,13 @@ import {
   ActionIcon,
 } from "@mantine/core";
 import { useLocation, useNavigate, s } from "react-router-dom";
-import { House, MagnifyingGlass, MoonStars, Sun } from "phosphor-react";
+import {
+  ChatCircleDots,
+  House,
+  MagnifyingGlass,
+  MoonStars,
+  Sun,
+} from "phosphor-react";
 import { ProfileMenu } from "./ProfileMenu";
 import Notis from "../views/Notis/Notis";
 import { AuthContext } from "../context/Auth";
@@ -116,9 +122,15 @@ export function Navbar() {
                     size={28}
                   />
                 </ActionIcon>
-                {/* <ActionIcon>
-                  <ChatCircleDots size={28} color="black" />
-                </ActionIcon> */}
+                <ActionIcon>
+                  <ChatCircleDots
+                    onClick={() => {
+                      navigate("/chatrooms");
+                    }}
+                    color={darkmode ? "white" : "black"}
+                    size={28}
+                  />
+                </ActionIcon>
                 <Notis darkmode={darkmode} />
               </>
             )}

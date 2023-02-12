@@ -161,16 +161,17 @@ export const Chatrooms = () => {
             placeholder="Search for a chat"
           />
         </div>
-        {chatrooms.length !== 0 ? (
-          <div
-            style={{
-              backgroundColor: darkmode ? "#1A1B1E" : "white",
-              display: "flex",
-              flexDirection: "column",
-              paddingBottom: "2rem",
-            }}
-          >
-            {!loading ? (
+
+        <div
+          style={{
+            backgroundColor: darkmode ? "#1A1B1E" : "white",
+            display: "flex",
+            flexDirection: "column",
+            paddingBottom: "2rem",
+          }}
+        >
+          {!loading ? (
+            chatrooms.length !== 0 ? (
               chatrooms
                 .filter((val) => {
                   return val?.userone.username !== UserInfo?.username
@@ -245,33 +246,33 @@ export const Chatrooms = () => {
             ) : (
               <div
                 style={{
+                  backgroundColor: darkmode ? "#1A1B1E" : "white",
                   display: "flex",
+                  color: darkmode ? "white" : "black",
+
                   justifyContent: "center",
+                  padding: "1rem",
+                  fontWeight: "600",
                   alignItems: "center",
+                  gap: "0.5rem",
                 }}
               >
-                <Loader />
+                <ChatCircleDots size="40px" />
+                <div> Start a new chat by going to a user's profile</div>
               </div>
-            )}
-          </div>
-        ) : (
-          <div
-            style={{
-              backgroundColor: darkmode ? "#1A1B1E" : "white",
-              display: "flex",
-              color: darkmode ? "white" : "black",
-
-              justifyContent: "center",
-              padding: "1rem",
-              fontWeight: "600",
-              alignItems: "center",
-              gap: "0.5rem",
-            }}
-          >
-            <ChatCircleDots size="40px" />
-            <div> Start a new chat by going to a user's profile</div>
-          </div>
-        )}
+            )
+          ) : (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Loader />
+            </div>
+          )}
+        </div>
       </div>
 
       <Sidebar />

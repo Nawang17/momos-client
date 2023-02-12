@@ -264,19 +264,6 @@ export const Chat = ({ socket }) => {
                           justifyContent: "flex-start",
                         }}
                       >
-                        <img
-                          onClick={() =>
-                            navigate(`/${message?.user?.username}`)
-                          }
-                          style={{
-                            width: "30px",
-                            height: "30px",
-                            borderRadius: "50%",
-                            cursor: "pointer",
-                          }}
-                          src={message?.user?.avatar}
-                          alt=""
-                        />
                         <div>
                           <div
                             style={{
@@ -284,7 +271,7 @@ export const Chat = ({ socket }) => {
                                 ? "rgb(47, 51, 54)"
                                 : "rgb(239, 243, 244)",
                               padding: "0.5rem",
-                              borderRadius: "8px",
+                              borderRadius: "8px 8px 8px 0px",
                               wordBreak: "break-all",
                               width: "fit-content",
                             }}

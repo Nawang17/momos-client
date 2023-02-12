@@ -52,7 +52,7 @@ export const Chat = ({ socket }) => {
       behavior: "smooth",
     });
   const [text, setText] = useState("");
-
+  const [loading, setloading] = useState(true);
   const [messages, setMessages] = useState([]);
   const [chatinfo, setChatinfo] = useState();
   const [msgcount, setmsgcount] = useState(0);
@@ -86,7 +86,7 @@ export const Chat = ({ socket }) => {
           setMessages(res.data.chatmessages.chats);
           setscrolldown(true);
           setChatinfo(res.data.chatmessages);
-
+          setloading(false);
           setmsgcount(res.data.chatmsgcount);
         })
         .catch(() => {
@@ -235,116 +235,129 @@ export const Chat = ({ socket }) => {
               </Button>
             </div>
           )}
-
-          {messages
-            .filter((obj) => !map[obj.id] && (map[obj.id] = true))
-            .map((message) => {
-              return (
-                <div key={message?.id}>
-                  {message?.user?.username !== UserInfo?.username ? (
-                    /* left side of chat */ <div
-                      style={{
-                        display: "flex",
-                        gap: "0.5rem",
-                        alignItems: "center",
-                        marginBottom: "1.5rem",
-                        justifyContent: "flex-start",
-                      }}
-                    >
-                      <img
-                        onClick={() => navigate(`/${message?.user?.username}`)}
+          {loading ? (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Loader />
+            </div>
+          ) : (
+            messages
+              .filter((obj) => !map[obj.id] && (map[obj.id] = true))
+              .map((message) => {
+                return (
+                  <div key={message?.id}>
+                    {message?.user?.username !== UserInfo?.username ? (
+                      /* left side of chat */ <div
                         style={{
-                          width: "30px",
-                          height: "30px",
-                          borderRadius: "50%",
-                          cursor: "pointer",
+                          display: "flex",
+                          gap: "0.5rem",
+                          alignItems: "center",
+                          marginBottom: "1.5rem",
+                          justifyContent: "flex-start",
                         }}
-                        src={message?.user?.avatar}
-                        alt=""
-                      />
-                      <div>
-                        <div
+                      >
+                        <img
+                          onClick={() =>
+                            navigate(`/${message?.user?.username}`)
+                          }
                           style={{
-                            backgroundColor: darkmode
-                              ? "rgb(47, 51, 54)"
-                              : "rgb(239, 243, 244)",
-                            padding: "0.5rem",
-                            borderRadius: "8px",
-                            wordBreak: "break-all",
-                            width: "fit-content",
+                            width: "30px",
+                            height: "30px",
+                            borderRadius: "50%",
+                            cursor: "pointer",
                           }}
-                        >
-                          <Text
-                            align="left"
-                            color={darkmode ? "white" : "#0F1419"}
-                            size={14}
+                          src={message?.user?.avatar}
+                          alt=""
+                        />
+                        <div>
+                          <div
+                            style={{
+                              backgroundColor: darkmode
+                                ? "rgb(47, 51, 54)"
+                                : "rgb(239, 243, 244)",
+                              padding: "0.5rem",
+                              borderRadius: "8px",
+                              wordBreak: "break-all",
+                              width: "fit-content",
+                            }}
                           >
-                            {message?.message}
+                            <Text
+                              align="left"
+                              color={darkmode ? "white" : "#0F1419"}
+                              size={14}
+                            >
+                              {message?.message}
+                            </Text>
+                          </div>
+                          <Text pt={5} size={12} color={"dimmed"}>
+                            {format(
+                              new Date(message?.createdAt),
+                              "MMM d yyyy"
+                            ) === format(new Date(), "MMM d yyyy")
+                              ? format(new Date(message?.createdAt), "h:mm a")
+                              : format(
+                                  new Date(message?.createdAt),
+                                  "MMM d yyyy h:mm a"
+                                )}
                           </Text>
                         </div>
-                        <Text pt={5} size={12} color={"dimmed"}>
-                          {format(
-                            new Date(message?.createdAt),
-                            "MMM d yyyy"
-                          ) === format(new Date(), "MMM d yyyy")
-                            ? format(new Date(message?.createdAt), "h:mm a")
-                            : format(
-                                new Date(message?.createdAt),
-                                "MMM d yyyy h:mm a"
-                              )}
-                        </Text>
                       </div>
-                    </div>
-                  ) : (
-                    <div
-                      style={{
-                        display: "flex",
-                        gap: "0.5rem",
-                        alignItems: "center",
-                        marginBottom: "1rem",
-                        justifyContent: "flex-end",
-                      }}
-                    >
+                    ) : (
                       <div
                         style={{
                           display: "flex",
-                          flexDirection: "column",
-                          alignItems: "flex-end",
-                          gap: "0.4rem",
+                          gap: "0.5rem",
+                          alignItems: "center",
+                          marginBottom: "1rem",
+                          justifyContent: "flex-end",
                         }}
                       >
                         <div
                           style={{
-                            backgroundColor: "rgb(29, 155, 240)",
-                            padding: "0.5rem",
-                            borderRadius: "8px 8px 0px 8px",
-
-                            wordBreak: "break-all",
-                            width: "fit-content",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "flex-end",
+                            gap: "0.4rem",
                           }}
                         >
-                          <Text align="left" color="white" size={14}>
-                            {message?.message}
+                          <div
+                            style={{
+                              backgroundColor: "rgb(29, 155, 240)",
+                              padding: "0.5rem",
+                              borderRadius: "8px 8px 0px 8px",
+
+                              wordBreak: "break-all",
+                              width: "fit-content",
+                            }}
+                          >
+                            <Text align="left" color="white" size={14}>
+                              {message?.message}
+                            </Text>
+                          </div>
+                          <Text align="right" size={12} color={"dimmed"}>
+                            {format(
+                              new Date(message?.createdAt),
+                              "MMM d yyyy"
+                            ) === format(new Date(), "MMM d yyyy")
+                              ? format(new Date(message?.createdAt), "h:mm a")
+                              : format(
+                                  new Date(message?.createdAt),
+                                  "MMM d yyyy h:mm a"
+                                )}
                           </Text>
                         </div>
-                        <Text align="right" size={12} color={"dimmed"}>
-                          {format(
-                            new Date(message?.createdAt),
-                            "MMM d yyyy"
-                          ) === format(new Date(), "MMM d yyyy")
-                            ? format(new Date(message?.createdAt), "h:mm a")
-                            : format(
-                                new Date(message?.createdAt),
-                                "MMM d yyyy h:mm a"
-                              )}
-                        </Text>
                       </div>
-                    </div>
-                  )}
-                </div>
-              );
-            })
-            .reverse()}
+                    )}
+                  </div>
+                );
+              })
+              .reverse()
+          )}
           {/* {new Array(101).fill(0).map((_, index) => (
             <Text key={index} style={{ marginBottom: 10 }}>
               {index}

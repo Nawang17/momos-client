@@ -9,7 +9,12 @@ import {
 } from "@mantine/core";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import locale from "date-fns/locale/en-US";
-import { ArrowLeft, MagnifyingGlass, NotePencil } from "phosphor-react";
+import {
+  ArrowLeft,
+  ChatCircleDots,
+  MagnifyingGlass,
+  NotePencil,
+} from "phosphor-react";
 import { useEffect, useState } from "react";
 
 import { useContext } from "react";
@@ -156,98 +161,117 @@ export const Chatrooms = () => {
             placeholder="Search for a chat"
           />
         </div>
-        <div
-          style={{
-            backgroundColor: darkmode ? "#1A1B1E" : "white",
-            display: "flex",
-            flexDirection: "column",
-            paddingBottom: "2rem",
-          }}
-        >
-          {!loading ? (
-            chatrooms
-              .filter((val) => {
-                return val?.userone.username !== UserInfo?.username
-                  ? val.userone.username
-                      .toLowerCase()
-                      .includes(filterchat.toLowerCase())
-                  : val.usertwo.username
-                      .toLowerCase()
-                      .includes(filterchat.toLowerCase());
-              })
+        {chatrooms.length !== 0 ? (
+          <div
+            style={{
+              backgroundColor: darkmode ? "#1A1B1E" : "white",
+              display: "flex",
+              flexDirection: "column",
+              paddingBottom: "2rem",
+            }}
+          >
+            {!loading ? (
+              chatrooms
+                .filter((val) => {
+                  return val?.userone.username !== UserInfo?.username
+                    ? val.userone.username
+                        .toLowerCase()
+                        .includes(filterchat.toLowerCase())
+                    : val.usertwo.username
+                        .toLowerCase()
+                        .includes(filterchat.toLowerCase());
+                })
 
-              .sort((a, b) => {
-                return (
-                  new Date(b?.chats[0]?.createdAt) -
-                  new Date(a?.chats[0]?.createdAt)
-                );
-              })
-              .map((rooms) => (
-                <NavLink
-                  onClick={() => {
-                    navigate(`/chat/${rooms.roomid}`);
-                  }}
-                  key={rooms.id}
-                  style={{
-                    padding: "1rem 1rem ",
-                  }}
-                  label={
-                    rooms.userone.username !== UserInfo?.username
-                      ? rooms.userone.username
-                      : rooms.usertwo.username
-                  }
-                  description={
-                    rooms?.chats[0]?.message
-                      ? rooms?.chats[0]?.message.length > 80
-                        ? rooms?.chats[0]?.message.substring(0, 80) + "..."
-                        : rooms?.chats[0]?.message
-                      : "no message yet, say hi!"
-                  }
-                  rightSection={
-                    rooms?.chats[0]?.createdAt && (
-                      <Text size={14} color="dimmed">
-                        {formatDistanceToNowStrict(
-                          new Date(rooms?.chats[0]?.createdAt),
-                          {
-                            locale: {
-                              ...locale,
-                              formatDistance,
-                            },
-                          }
-                        )}
-                      </Text>
-                    )
-                  }
-                  icon={
-                    <img
-                      style={{
-                        borderRadius: "50%",
-                        width: "2.5rem",
-                        height: "2.5rem",
-                      }}
-                      src={
-                        rooms.userone.username !== UserInfo?.username
-                          ? rooms.userone.avatar
-                          : rooms.usertwo.avatar
-                      }
-                      alt=""
-                      loading="lazy"
-                    />
-                  }
-                />
-              ))
-          ) : (
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Loader />
-            </div>
-          )}
-        </div>
+                .sort((a, b) => {
+                  return (
+                    new Date(b?.chats[0]?.createdAt) -
+                    new Date(a?.chats[0]?.createdAt)
+                  );
+                })
+                .map((rooms) => (
+                  <NavLink
+                    onClick={() => {
+                      navigate(`/chat/${rooms.roomid}`);
+                    }}
+                    key={rooms.id}
+                    style={{
+                      padding: "1rem 1rem ",
+                    }}
+                    label={
+                      rooms.userone.username !== UserInfo?.username
+                        ? rooms.userone.username
+                        : rooms.usertwo.username
+                    }
+                    description={
+                      rooms?.chats[0]?.message
+                        ? rooms?.chats[0]?.message.length > 80
+                          ? rooms?.chats[0]?.message.substring(0, 80) + "..."
+                          : rooms?.chats[0]?.message
+                        : "no message yet, say hi!"
+                    }
+                    rightSection={
+                      rooms?.chats[0]?.createdAt && (
+                        <Text size={14} color="dimmed">
+                          {formatDistanceToNowStrict(
+                            new Date(rooms?.chats[0]?.createdAt),
+                            {
+                              locale: {
+                                ...locale,
+                                formatDistance,
+                              },
+                            }
+                          )}
+                        </Text>
+                      )
+                    }
+                    icon={
+                      <img
+                        style={{
+                          borderRadius: "50%",
+                          width: "2.5rem",
+                          height: "2.5rem",
+                        }}
+                        src={
+                          rooms.userone.username !== UserInfo?.username
+                            ? rooms.userone.avatar
+                            : rooms.usertwo.avatar
+                        }
+                        alt=""
+                        loading="lazy"
+                      />
+                    }
+                  />
+                ))
+            ) : (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Loader />
+              </div>
+            )}
+          </div>
+        ) : (
+          <div
+            style={{
+              backgroundColor: darkmode ? "#1A1B1E" : "white",
+              display: "flex",
+              color: darkmode ? "white" : "black",
+
+              justifyContent: "center",
+              padding: "1rem",
+              fontWeight: "600",
+              alignItems: "center",
+              gap: "0.5rem",
+            }}
+          >
+            <ChatCircleDots size="40px" />
+            <div> Start a new chat by going to a user's profile</div>
+          </div>
+        )}
       </div>
 
       <Sidebar />

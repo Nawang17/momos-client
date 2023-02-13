@@ -30,8 +30,8 @@ export const About = () => {
   const features = [
     "Create posts with text and images",
     "Like and comment on posts",
-
     "Like comments and reply to them",
+    "Chat with other users in real time",
     "Mention users in posts and comments",
     "Quote other posts",
     "Search for users and posts",
@@ -101,8 +101,8 @@ export const About = () => {
           >
             <List>
               <List.Item>Client - React, Mantine</List.Item>
-              <List.Item>Server - Nodejs, Express </List.Item>
-              <List.Item>Database - MYSQL </List.Item>
+              <List.Item>Server - Nodejs, Express, Socket.IO </List.Item>
+              <List.Item>Database - MYSQL, Cloudinary </List.Item>
               <List.Item>Deployment - Netlify, Render </List.Item>
             </List>
           </Text>

@@ -215,7 +215,7 @@ export const Chat = ({ socket }) => {
             color: darkmode ? "white" : "black",
             borderTop: darkmode ? "1px solid #2F3336" : "1px solid #E5E5E5",
 
-            padding: "0rem 1.5rem 0rem 1.5rem",
+            padding: "0.5rem 1.5rem 0rem 1.5rem",
           }}
         >
           {msgcount + newmsgcount > messages.length && (

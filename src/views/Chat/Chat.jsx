@@ -1,10 +1,8 @@
 import {
   ActionIcon,
-  Avatar,
   Button,
   Container,
   createStyles,
-  Input,
   Loader,
   ScrollArea,
   Text,
@@ -159,7 +157,7 @@ export const Chat = ({ socket }) => {
           style={{
             backgroundColor: darkmode ? "#1A1B1E" : "white",
             color: darkmode ? "white" : "black",
-            padding: "1rem 0rem 0rem 1rem",
+            padding: "1rem 0rem 1rem 1rem",
             display: "flex",
             alignItems: "center",
             gap: "1rem",
@@ -215,8 +213,9 @@ export const Chat = ({ socket }) => {
             backgroundColor: darkmode ? "#1A1B1E" : "white",
             // backgroundColor: "blue",
             color: darkmode ? "white" : "black",
+            borderTop: darkmode ? "1px solid #2F3336" : "1px solid #E5E5E5",
 
-            padding: "1.5rem 1.5rem 0rem 1.5rem",
+            padding: "0rem 1.5rem 0rem 1.5rem",
           }}
         >
           {msgcount + newmsgcount > messages.length && (
@@ -361,11 +360,6 @@ export const Chat = ({ socket }) => {
               })
               .reverse()
           )}
-          {/* {new Array(101).fill(0).map((_, index) => (
-            <Text key={index} style={{ marginBottom: 10 }}>
-              {index}
-            </Text>
-          ))} */}
         </ScrollArea>
 
         <div

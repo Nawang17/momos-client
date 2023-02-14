@@ -7,7 +7,7 @@ import {
   Text,
   ActionIcon,
 } from "@mantine/core";
-import { useLocation, useNavigate, s } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   ChatCircleDots,
   House,
@@ -112,9 +112,10 @@ export function Navbar() {
                 >
                   <House size={28} color={darkmode ? "white" : "black"} />
                 </ActionIcon>
+
                 <ActionIcon
                   onClick={() => {
-                    navigate("/search/q/null");
+                    navigate("/discover");
                   }}
                 >
                   <MagnifyingGlass

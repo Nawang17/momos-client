@@ -99,3 +99,6 @@ export const getchatmessages = async (roomid, page) => {
     },
   });
 };
+export const gettrending = async () => {
+  return await api.get(`/search/trending`);
+};

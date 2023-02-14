@@ -42,6 +42,8 @@ const UserSearch = () => {
   useEffect(() => {
     if (searchquery !== "null") {
       setSearch(searchquery);
+      setLoading(true);
+      setuLoading(true);
     }
   }, [searchquery]);
   useEffect(() => {
@@ -154,6 +156,7 @@ const UserSearch = () => {
           <ArrowLeft size="20px" />
         </ActionIcon>
         <Input
+          autoFocus
           style={{
             width: "100%",
           }}

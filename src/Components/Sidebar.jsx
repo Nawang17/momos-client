@@ -598,7 +598,7 @@ export const Sidebar = () => {
             <div
               className="hoveru"
               onClick={() => {
-                navigate("/search/q/null");
+                navigate("/discover");
               }}
               style={{
                 cursor: "pointer",

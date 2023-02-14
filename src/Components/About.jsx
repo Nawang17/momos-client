@@ -81,10 +81,9 @@ export const About = () => {
             style={{ marginTop: "1rem" }}
           >
             As a developer, I am always looking for new ways to improve my
-            skills and push the boundaries of what is possible. Building Momos
-            has been a challenging and rewarding experience, as it has allowed
-            me to learn new technologies and improve my full stack development
-            skills.
+            skills. Building Momos has been a challenging and rewarding
+            experience, as it has allowed me to learn new technologies and
+            improve my full stack development skills.
           </Text>
           <Text
             style={{ marginTop: "1rem" }}

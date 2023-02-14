@@ -29,6 +29,7 @@ import { Chat } from "./views/Chat/Chat";
 import { Reposts } from "./views/Reposts/Reposts";
 import { io } from "socket.io-client";
 import { Chatrooms } from "./views/Chat/Chatrooms";
+import { Discover } from "./views/Discover/Discover";
 const url = (value) => {
   return value === "local"
     ? "http://localhost:3001"
@@ -154,6 +155,19 @@ function App() {
     }
   }, [UserInfo]);
   const router = createBrowserRouter([
+    {
+      path: "/discover",
+      element: (
+        <>
+          <Navbar />
+
+          <ScrollToTop />
+
+          <Discover />
+        </>
+      ),
+      errorElement: <RouteError />,
+    },
     {
       path: "/",
       element: (
@@ -293,6 +307,8 @@ function App() {
       element: (
         <>
           <Navbar />
+          <ScrollToTop />
+
           <About />
         </>
       ),
@@ -302,6 +318,8 @@ function App() {
       element: (
         <>
           <Navbar />
+          <ScrollToTop />
+
           <Chat socket={socket} />
         </>
       ),
@@ -311,6 +329,8 @@ function App() {
       element: (
         <>
           <Navbar />
+          <ScrollToTop />
+
           <Chatrooms />
         </>
       ),

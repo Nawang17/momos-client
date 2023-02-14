@@ -156,7 +156,7 @@ const UserSearch = () => {
           <ArrowLeft size="20px" />
         </ActionIcon>
         <Input
-          autoFocus
+          autoFocus={searchquery === "null"}
           style={{
             width: "100%",
           }}

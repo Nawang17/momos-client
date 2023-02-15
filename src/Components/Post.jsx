@@ -905,22 +905,24 @@ export const Post = ({ post, setPosts, comments }) => {
             >
               Repost
             </Button>
-            <Button
-              onClick={() => {
-                if (navigator.share) {
-                  navigator.share({
-                    title: "Share Post",
-                    url: `https://momosz.com/post/${post?.id}`,
-                  });
-                }
-              }}
-              color={"gray"}
-              size="xs"
-              leftIcon={<Share size={18} />}
-              variant="subtle"
-            >
-              Share
-            </Button>
+            {matches && (
+              <Button
+                onClick={() => {
+                  if (navigator.share) {
+                    navigator.share({
+                      title: "Share Post",
+                      url: `https://momosz.com/post/${post?.id}`,
+                    });
+                  }
+                }}
+                color={"gray"}
+                size="xs"
+                leftIcon={<Share size={18} />}
+                variant="subtle"
+              >
+                Share
+              </Button>
+            )}
           </div>
         </div>
       </div>

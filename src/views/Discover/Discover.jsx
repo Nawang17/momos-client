@@ -103,7 +103,7 @@ export const Discover = () => {
               {trending.map((trends, key) => (
                 <div
                   onClick={() => {
-                    navigate(`/search/q/${trends?.hashtag.slice(1)}`);
+                    navigate(`/search/q/%23${trends?.hashtag.slice(1)}`);
                   }}
                   key={key}
                   style={{

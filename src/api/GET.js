@@ -51,10 +51,18 @@ export const editprofileinfo = async () => {
   });
 };
 export const searchusers = async ({ searchvalue }) => {
-  return await api.get(`/search/getusers/${searchvalue}`);
+  return await api.get(
+    `/search/getusers/${searchvalue.replace(/[\W]/g, function (match) {
+      return "%" + match.charCodeAt(0).toString(16).toUpperCase();
+    })}`
+  );
 };
 export const searchposts = async ({ searchvalue }) => {
-  return await api.get(`/search/getposts/${searchvalue}`);
+  return await api.get(
+    `/search/getposts/${searchvalue.replace(/[\W]/g, function (match) {
+      return "%" + match.charCodeAt(0).toString(16).toUpperCase();
+    })}`
+  );
 };
 
 export const leaderboardinfo = async (page) => {

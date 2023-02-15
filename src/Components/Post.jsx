@@ -307,7 +307,7 @@ export const Post = ({ post, setPosts, comments }) => {
         className="link-style"
         onClick={(e) => {
           e.stopPropagation();
-          navigate(`/search/q/${match}`);
+          navigate(`/search/q/%23${match}`);
         }}
         style={{ color: "#1d9bf0" }}
         key={match + i}

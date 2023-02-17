@@ -2,7 +2,14 @@ import { Popover, Text, ActionIcon, ScrollArea, Skeleton } from "@mantine/core";
 import { formatDistanceToNowStrict } from "date-fns";
 import locale from "date-fns/locale/en-US";
 
-import { Bell } from "phosphor-react";
+import {
+  ArrowsClockwise,
+  At,
+  Bell,
+  ChatCircle,
+  Heart,
+  UserPlus,
+} from "phosphor-react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -126,15 +133,86 @@ export default function Notis({ darkmode }) {
                           cursor: "pointer",
                         }}
                       >
-                        <img
+                        <div
                           style={{
-                            width: "35px",
-                            height: "35px",
-                            borderRadius: "50%",
+                            width: "45px",
                           }}
-                          src={data?.user?.avatar}
-                          alt=""
-                        />
+                        >
+                          <div
+                            style={{
+                              position: "relative",
+                            }}
+                          >
+                            <img
+                              style={{
+                                width: "35px",
+                                height: "35px",
+                                borderRadius: "50%",
+                              }}
+                              src={data?.user?.avatar}
+                              alt=""
+                            />
+                            <div
+                              style={{
+                                position: "absolute",
+                                bottom: 1,
+                                right: 8,
+                              }}
+                            >
+                              {data.type === "LIKE" && (
+                                <ActionIcon
+                                  color="red"
+                                  radius="lg"
+                                  variant="filled"
+                                  size={"xs"}
+                                >
+                                  <Heart weight="fill" size={12} />
+                                </ActionIcon>
+                              )}
+                              {data.type === "FOLLOW" && (
+                                <ActionIcon
+                                  color="blue"
+                                  radius="lg"
+                                  variant="filled"
+                                  size={"xs"}
+                                >
+                                  <UserPlus weight="bold" size={12} />
+                                </ActionIcon>
+                              )}
+                              {(data.type === "COMMENT" ||
+                                data.type === "REPLY") && (
+                                <ActionIcon
+                                  color="teal"
+                                  radius="lg"
+                                  variant="filled"
+                                  size={"xs"}
+                                >
+                                  <ChatCircle weight="bold" size={12} />
+                                </ActionIcon>
+                              )}
+                              {data.type === "QUOTE" && (
+                                <ActionIcon
+                                  color="yellow"
+                                  radius="lg"
+                                  variant="filled"
+                                  size={"xs"}
+                                >
+                                  <ArrowsClockwise weight="bold" size={12} />
+                                </ActionIcon>
+                              )}
+                              {data.type === "MENTION" && (
+                                <ActionIcon
+                                  color="indigo"
+                                  radius="lg"
+                                  variant="filled"
+                                  size={"xs"}
+                                >
+                                  <At weight="bold" size={12} />
+                                </ActionIcon>
+                              )}
+                            </div>
+                          </div>
+                        </div>
                         <div
                           style={{
                             width: "200px",
@@ -157,7 +235,7 @@ export default function Notis({ darkmode }) {
 `}
                               </span>
                               {`
-             quoted your post 
+             reposted your post 
 `}
                             </Text>
                           )}

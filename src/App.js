@@ -30,13 +30,8 @@ import { Reposts } from "./views/Reposts/Reposts";
 import { io } from "socket.io-client";
 import { Chatrooms } from "./views/Chat/Chatrooms";
 import { Discover } from "./views/Discover/Discover";
-const url = (value) => {
-  return value === "local"
-    ? "http://localhost:3001"
-    : "https://momos-backend.onrender.com";
-};
 
-const socket = io(url("locals"));
+const socket = io(process.env.REACT_APP_SERVER_URL);
 
 function App() {
   const [isConnected, setIsConnected] = useState(socket.connected);
@@ -51,14 +46,19 @@ function App() {
   const [leaderboardloading, setLeaderboardloading] = useState(true);
   const [loading, setLoading] = useState(false);
   const [userlevelinfo, setUserlevelinfo] = useState(null);
+  const [onlineusers, setonlineusers] = useState([]);
   useEffect(() => {
     socket.on("connect", () => {
       setIsConnected(true);
     });
-    socket.on("newpost", (data) => {
-      console.log(data);
+
+    socket.emit("onlinestatus", {
+      token: localStorage.getItem("token"),
     });
 
+    socket.on("onlineusers", (data) => {
+      setonlineusers(data);
+    });
     socket.on("disconnect", () => {
       setIsConnected(false);
     });
@@ -159,7 +159,7 @@ function App() {
       path: "/discover",
       element: (
         <>
-          <Navbar />
+          <Navbar socket={socket} />
 
           <ScrollToTop />
 
@@ -172,7 +172,7 @@ function App() {
       path: "/",
       element: (
         <>
-          <Navbar />
+          <Navbar socket={socket} />
 
           <ScrollToTop />
 
@@ -187,7 +187,7 @@ function App() {
       path: "/search/q/:searchquery",
       element: (
         <>
-          <Navbar />
+          <Navbar socket={socket} />
 
           <ScrollToTop />
 
@@ -203,7 +203,7 @@ function App() {
         <>
           <ScrollToTop />
 
-          <Navbar />
+          <Navbar socket={socket} />
 
           <SinglePost />
         </>
@@ -217,7 +217,7 @@ function App() {
         <>
           <ScrollToTop />
 
-          <Navbar />
+          <Navbar socket={socket} />
 
           <Profile />
         </>
@@ -230,7 +230,7 @@ function App() {
         <>
           <ScrollToTop />
 
-          <Navbar />
+          <Navbar socket={socket} />
 
           <Reposts />
         </>
@@ -241,7 +241,7 @@ function App() {
       path: "/suggestedaccounts",
       element: (
         <>
-          <Navbar />
+          <Navbar socket={socket} />
 
           <ScrollToTop />
 
@@ -254,7 +254,7 @@ function App() {
       path: "/Leaderboard",
       element: (
         <>
-          <Navbar />
+          <Navbar socket={socket} />
 
           <ScrollToTop />
 
@@ -267,7 +267,7 @@ function App() {
       path: "/editprofile",
       element: (
         <>
-          <Navbar />
+          <Navbar socket={socket} />
 
           <ScrollToTop />
 
@@ -280,11 +280,11 @@ function App() {
       path: "/Login",
       element: (
         <>
-          <Navbar />
+          <Navbar socket={socket} />
 
           <ScrollToTop />
 
-          <Login />
+          <Login socket={socket} />
         </>
       ),
       errorElement: <RouteError />,
@@ -293,11 +293,11 @@ function App() {
       path: "/Register",
       element: (
         <>
-          <Navbar />
+          <Navbar socket={socket} />
 
           <ScrollToTop />
 
-          <Register />
+          <Register socket={socket} />
         </>
       ),
       errorElement: <RouteError />,
@@ -306,7 +306,8 @@ function App() {
       path: "/About",
       element: (
         <>
-          <Navbar />
+          <Navbar socket={socket} />
+
           <ScrollToTop />
 
           <About />
@@ -317,7 +318,8 @@ function App() {
       path: "/Chat/:roomid",
       element: (
         <>
-          <Navbar />
+          <Navbar socket={socket} />
+
           <ScrollToTop />
 
           <Chat socket={socket} />
@@ -328,7 +330,8 @@ function App() {
       path: "/Chatrooms",
       element: (
         <>
-          <Navbar />
+          <Navbar socket={socket} />
+
           <ScrollToTop />
 
           <Chatrooms />
@@ -374,6 +377,7 @@ function App() {
               setLeaderboardloading,
               userlevelinfo,
               setUserlevelinfo,
+              onlineusers,
             }}
           >
             <RouterProvider router={router} />

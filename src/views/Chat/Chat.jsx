@@ -1,8 +1,10 @@
 import {
   ActionIcon,
+  Avatar,
   Button,
   Container,
   createStyles,
+  Indicator,
   Loader,
   ScrollArea,
   Text,
@@ -41,7 +43,7 @@ const useStyles = createStyles(() => ({
 
 export const Chat = ({ socket }) => {
   const { classes } = useStyles();
-  const { darkmode, UserInfo } = useContext(AuthContext);
+  const { darkmode, UserInfo, onlineusers } = useContext(AuthContext);
   const [page, setpage] = useState(0);
   const navigate = useNavigate();
   const viewport = useRef(null);
@@ -185,25 +187,59 @@ export const Chat = ({ socket }) => {
           >
             {" "}
             {chatinfo && (
-              <img
-                style={{
-                  width: "30px",
-                  height: "30px",
-                  borderRadius: "50%",
-                }}
-                src={
-                  chatinfo?.userone?.username === UserInfo?.username
-                    ? chatinfo?.usertwo?.avatar
-                    : chatinfo?.userone?.avatar
+              <Indicator
+                disabled={
+                  !onlineusers.includes(
+                    chatinfo?.userone?.username === UserInfo?.username
+                      ? chatinfo?.usertwo?.id
+                      : chatinfo?.userone?.id
+                  )
                 }
-                alt=""
-              />
+                style={{
+                  cursor: "pointer",
+                }}
+                withBorder
+                inline
+                color="green"
+                size={9}
+                offset={6}
+                position="bottom-end"
+              >
+                <Avatar
+                  size="30px"
+                  radius={"xl"}
+                  src={
+                    chatinfo?.userone?.username === UserInfo?.username
+                      ? chatinfo?.usertwo?.avatar
+                      : chatinfo?.userone?.avatar
+                  }
+                  alt=""
+                  loading="lazy"
+                />
+              </Indicator>
             )}
-            <Text weight={500}>
-              {chatinfo?.userone?.username === UserInfo?.username
-                ? chatinfo?.usertwo?.username
-                : chatinfo?.userone?.username}
-            </Text>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <Text weight={500}>
+                {chatinfo?.userone?.username === UserInfo?.username
+                  ? chatinfo?.usertwo?.username
+                  : chatinfo?.userone?.username}
+              </Text>
+              {onlineusers.includes(
+                chatinfo?.userone?.username === UserInfo?.username
+                  ? chatinfo?.usertwo?.id
+                  : chatinfo?.userone?.id
+              ) && (
+                <Text color={"dimmed"} size={10}>
+                  {" "}
+                  Active now
+                </Text>
+              )}
+            </div>
           </div>
         </div>
         <ScrollArea

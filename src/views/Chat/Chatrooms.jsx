@@ -1,8 +1,10 @@
 import {
   ActionIcon,
+  Avatar,
   Button,
   Container,
   createStyles,
+  Indicator,
   Input,
   Loader,
   Modal,
@@ -83,7 +85,7 @@ export const Chatrooms = () => {
   }
 
   const { classes } = useStyles();
-  const { darkmode, UserInfo } = useContext(AuthContext);
+  const { darkmode, UserInfo, onlineusers } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const [chatrooms, setChatrooms] = useState([]);
@@ -253,20 +255,36 @@ export const Chatrooms = () => {
                       )
                     }
                     icon={
-                      <img
-                        style={{
-                          borderRadius: "50%",
-                          width: "2.5rem",
-                          height: "2.5rem",
-                        }}
-                        src={
-                          rooms.userone.username !== UserInfo?.username
-                            ? rooms.userone.avatar
-                            : rooms.usertwo.avatar
+                      <Indicator
+                        disabled={
+                          !onlineusers.includes(
+                            rooms.userone.username !== UserInfo?.username
+                              ? rooms.userone.id
+                              : rooms.usertwo.id
+                          )
                         }
-                        alt=""
-                        loading="lazy"
-                      />
+                        style={{
+                          cursor: "pointer",
+                        }}
+                        withBorder
+                        inline
+                        color="green"
+                        size={9}
+                        offset={7}
+                        position="bottom-end"
+                      >
+                        <Avatar
+                          size="40px"
+                          radius={"xl"}
+                          src={
+                            rooms.userone.username !== UserInfo?.username
+                              ? rooms.userone.avatar
+                              : rooms.usertwo.avatar
+                          }
+                          alt=""
+                          loading="lazy"
+                        />
+                      </Indicator>
                     }
                   />
                 ))

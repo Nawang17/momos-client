@@ -3,7 +3,7 @@ import {
   Button,
   createStyles,
   Divider,
-  HoverCard,
+  Indicator,
   Modal,
   Text,
 } from "@mantine/core";
@@ -103,7 +103,7 @@ export const Post = ({ post, setPosts, comments }) => {
   const navigate = useNavigate();
   const [opened, setOpened] = useState(false);
   const [viewimg, setviewimg] = useState("");
-  const { UserInfo, darkmode } = useContext(AuthContext);
+  const { UserInfo, darkmode, onlineusers } = useContext(AuthContext);
   const [likemodal, setlikemodal] = useState(false);
   const [openConfirm, setOpenConfirm] = useState(false);
   const matches = useMediaQuery("(min-width: 530px)");
@@ -338,15 +338,29 @@ export const Post = ({ post, setPosts, comments }) => {
                   gap: "0.5rem",
                 }}
               >
-                <img
-                  onClick={() => {
-                    navigate(`/${post.user.username}`);
+                <Indicator
+                  disabled={!onlineusers.includes(post?.user?.id)}
+                  style={{
+                    cursor: "pointer",
                   }}
-                  loading="lazy"
-                  className={classes.avatar}
-                  src={post.user.avatar}
-                  alt=""
-                />
+                  withBorder
+                  inline
+                  color="green"
+                  size={9}
+                  offset={7}
+                  position="bottom-end"
+                >
+                  <Avatar
+                    onClick={() => {
+                      navigate(`/${post.user.username}`);
+                    }}
+                    size="40px"
+                    radius={"xl"}
+                    src={post.user.avatar}
+                    alt=""
+                    loading="lazy"
+                  />
+                </Indicator>
                 <div
                   style={{
                     display: "flex",

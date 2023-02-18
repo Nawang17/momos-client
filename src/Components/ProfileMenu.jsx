@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/Auth";
 import { showNotification } from "@mantine/notifications";
-export function ProfileMenu() {
+export function ProfileMenu({ socket }) {
   const {
     UserInfo,
     setUserInfo,
@@ -23,7 +23,9 @@ export function ProfileMenu() {
   } = useContext(AuthContext);
   const navigate = useNavigate();
   const handlelogout = () => {
+    socket.emit("removeOnlinestatus", { token: localStorage.getItem("token") });
     setUserInfo(null);
+
     localStorage.removeItem("token");
 
     setfollowingdata([]);

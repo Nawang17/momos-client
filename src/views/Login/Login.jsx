@@ -20,7 +20,7 @@ import { useEffect } from "react";
 import GoogleLogin from "@leecheuk/react-google-login";
 import { ShieldCheck, WarningCircle } from "phosphor-react";
 
-export function Login() {
+export function Login({ socket }) {
   const { setUserInfo, UserInfo, setfollowingdata, darkmode } =
     useContext(AuthContext);
   const navigate = useNavigate();
@@ -46,7 +46,9 @@ export function Login() {
       .then(async (res) => {
         setUserInfo(res.data.user);
         localStorage.setItem("token", res.data.token);
-
+        socket.emit("onlinestatus", {
+          token: res.data.token,
+        });
         showNotification({
           icon: <ShieldCheck size={18} />,
           title: "Login Successful",
@@ -74,7 +76,9 @@ export function Login() {
       .then(async (res) => {
         setUserInfo(res.data.user);
         localStorage.setItem("token", res.data.token);
-
+        socket.emit("onlinestatus", {
+          token: res.data.token,
+        });
         showNotification({
           icon: <ShieldCheck size={18} />,
           title: "Login Successful",
@@ -100,7 +104,9 @@ export function Login() {
       .then(async (res) => {
         setUserInfo(res.data.user);
         localStorage.setItem("token", res.data.token);
-
+        socket.emit("onlinestatus", {
+          token: res.data.token,
+        });
         navigate("/");
         showNotification({
           icon: <ShieldCheck size={18} />,

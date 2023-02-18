@@ -18,7 +18,7 @@ import { AuthContext } from "../../context/Auth";
 import GoogleLogin from "@leecheuk/react-google-login";
 import { User, WarningCircle } from "phosphor-react";
 
-export function Register() {
+export function Register({ socket }) {
   const navigate = useNavigate();
   const { setUserInfo, UserInfo, darkmode } = useContext(AuthContext);
   const [Username, setUsername] = useState("");
@@ -39,6 +39,9 @@ export function Register() {
       .then((res) => {
         setUserInfo(res.data.user);
         localStorage.setItem("token", res.data.token);
+        socket.emit("onlinestatus", {
+          token: res.data.token,
+        });
         confetti({
           particleCount: 300,
           spread: 70,
@@ -71,6 +74,9 @@ export function Register() {
       .then((res) => {
         setUserInfo(res.data.user);
         localStorage.setItem("token", res.data.token);
+        socket.emit("onlinestatus", {
+          token: res.data.token,
+        });
         confetti({
           particleCount: 300,
           spread: 70,

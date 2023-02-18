@@ -1,5 +1,13 @@
 import { useContext, useState } from "react";
-import { Badge, createStyles, Popover, Text, Tooltip } from "@mantine/core";
+import {
+  Avatar,
+  Badge,
+  createStyles,
+  Indicator,
+  Popover,
+  Text,
+  Tooltip,
+} from "@mantine/core";
 import {
   ChatCircle,
   CircleWavyCheck,
@@ -107,7 +115,7 @@ export const Comments = ({
     return result;
   }
   const [opened, setOpened] = useState(false);
-  const { UserInfo, darkmode } = useContext(AuthContext);
+  const { UserInfo, darkmode, onlineusers } = useContext(AuthContext);
   const [replypost, setReplyPost] = useState(null);
   const postvalue = (text) => {
     let replacedText;
@@ -420,16 +428,29 @@ export const Comments = ({
                 className={classes.wrapper}
               >
                 <div className={classes.left}>
-                  <img
-                    onClick={() => {
-                      navigate(`/${comment.user.username}`);
+                  <Indicator
+                    disabled={!onlineusers.includes(comment?.user?.id)}
+                    style={{
+                      cursor: "pointer",
                     }}
-                    style={{ cursor: "pointer" }}
-                    loading="lazy"
-                    className={classes.avatar}
-                    src={comment.user.avatar}
-                    alt=""
-                  />
+                    withBorder
+                    inline
+                    color="green"
+                    size={9}
+                    offset={7}
+                    position="bottom-end"
+                  >
+                    <Avatar
+                      onClick={() => {
+                        navigate(`/${comment.user.username}`);
+                      }}
+                      size="40px"
+                      radius={"xl"}
+                      src={comment.user.avatar}
+                      alt=""
+                      loading="lazy"
+                    />
+                  </Indicator>
                 </div>
                 <div className={classes.right}>
                   <div className={classes.header}>
@@ -608,16 +629,29 @@ export const Comments = ({
                     className={classes.replywrapper}
                   >
                     <div className={classes.left}>
-                      <img
-                        onClick={() => {
-                          navigate(`/${data.user.username}`);
+                      <Indicator
+                        disabled={!onlineusers.includes(data?.user?.id)}
+                        style={{
+                          cursor: "pointer",
                         }}
-                        style={{ cursor: "pointer" }}
-                        loading="lazy"
-                        className={classes.replyavatar}
-                        src={data.user.avatar}
-                        alt=""
-                      />
+                        withBorder
+                        inline
+                        color="green"
+                        size={9}
+                        offset={6}
+                        position="bottom-end"
+                      >
+                        <Avatar
+                          onClick={() => {
+                            navigate(`/${data.user.username}`);
+                          }}
+                          size="30px"
+                          radius={"xl"}
+                          src={data.user.avatar}
+                          alt=""
+                          loading="lazy"
+                        />
+                      </Indicator>
                     </div>
                     <div className={classes.right}>
                       <div className={classes.header}>

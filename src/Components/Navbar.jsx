@@ -73,7 +73,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export function Navbar() {
+export function Navbar({ socket }) {
   const { UserInfo, setdarkmode, darkmode } = useContext(AuthContext);
   const { classes, cx } = useStyles();
   const navigate = useNavigate();
@@ -157,7 +157,7 @@ export function Navbar() {
             )}
 
             <ActionIcon>
-              <ProfileMenu />
+              <ProfileMenu socket={socket} />
             </ActionIcon>
           </div>
         </Group>

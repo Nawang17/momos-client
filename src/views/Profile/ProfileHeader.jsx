@@ -6,9 +6,9 @@ import {
   Text,
   ActionIcon,
   Skeleton,
-  Badge,
   Popover,
-  Tooltip,
+  Avatar,
+  Indicator,
 } from "@mantine/core";
 import {
   ArrowLeft,
@@ -23,7 +23,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { follow } from "../../api/POST";
 import { AuthContext } from "../../context/Auth";
-import format from "date-fns/format";
+
 import { getchat, profilefollowdata } from "../../api/GET";
 import { useParams } from "react-router-dom";
 import { showNotification } from "@mantine/notifications";
@@ -51,7 +51,7 @@ const useStyles = createStyles(() => ({
 export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
   const { userprofile } = useParams();
 
-  const { UserInfo, setfollowingdata, followingdata, darkmode } =
+  const { UserInfo, setfollowingdata, followingdata, darkmode, onlineusers } =
     useContext(AuthContext);
   const navigate = useNavigate();
   const { classes } = useStyles();
@@ -63,6 +63,7 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
   const [unfollowconfirm, setunfollowconfirm] = useState(false);
   const [btndisabled, setbtndisabled] = useState(false);
   const sanitizer = DOMPurify.sanitize;
+
   useEffect(() => {
     setloading(true);
     setbtndisabled(true);
@@ -251,12 +252,26 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
             className={classes.left}
           >
             {!profileloading ? (
-              <img
-                loading="lazy"
-                className={classes.avatar}
-                src={profileInfo?.avatar}
-                alt=""
-              />
+              <Indicator
+                disabled={!onlineusers.includes(profileInfo?.id)}
+                style={{
+                  cursor: "pointer",
+                }}
+                withBorder
+                inline
+                color="green"
+                size={12}
+                offset={9}
+                position="bottom-end"
+              >
+                <Avatar
+                  size="60px"
+                  radius={"xl"}
+                  src={profileInfo?.avatar}
+                  alt=""
+                  loading="lazy"
+                />
+              </Indicator>
             ) : (
               <Skeleton height={60} circle />
             )}

@@ -59,7 +59,6 @@ function App() {
     });
 
     socket.on("onlineusers", (data) => {
-      console.log(data);
       setonlinelist(data);
       setonlineusers(
         data.map((user) => {

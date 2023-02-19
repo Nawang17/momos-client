@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {
+  Avatar,
   Badge,
   createStyles,
   Divider,
+  Indicator,
+  NavLink,
   Popover,
   Progress,
   Skeleton,
@@ -11,7 +14,7 @@ import {
 import { useContext } from "react";
 import { AuthContext } from "../context/Auth";
 import { useNavigate } from "react-router-dom";
-import { CircleWavyCheck, DiscordLogo, GithubLogo, Info } from "phosphor-react";
+import { CircleWavyCheck, Info } from "phosphor-react";
 import { leaderboardinfo, userlevel } from "../api/GET";
 
 const useStyles = createStyles(() => ({
@@ -61,6 +64,7 @@ export const Sidebar = () => {
     UserInfo,
     userlevelinfo,
     setUserlevelinfo,
+    onlinelist,
   } = useContext(AuthContext);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
@@ -531,6 +535,56 @@ export const Sidebar = () => {
             </div>
           </div>
         )}
+
+        {/* online users */}
+
+        <div
+          style={{
+            backgroundColor: darkmode ? "#1A1B1E" : "white",
+            color: darkmode ? "white" : "black",
+            marginBottom: "0.5rem",
+            borderRadius: "4px",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              padding: "0.7rem 1rem 0rem 1rem",
+              paddingBottom: onlinelist.length === 0 ? "0.4rem" : "Orem",
+              alignItems: "center",
+            }}
+          >
+            <Text weight={700} size={12}>
+              Online - {onlinelist.length}
+            </Text>
+          </div>
+
+          <div>
+            {onlinelist.map((val) => {
+              return (
+                <NavLink
+                  onClick={() => {
+                    navigate(`/${val.username}`);
+                  }}
+                  key={val.username}
+                  label={val.username}
+                  description={val.description}
+                  icon={
+                    <Indicator
+                      offset={7}
+                      color="green"
+                      position="bottom-end"
+                      withBorder
+                    >
+                      <Avatar radius={"xl"} size="40px" src={val.avatar} />
+                    </Indicator>
+                  }
+                />
+              );
+            })}
+          </div>
+        </div>
+
         {/* about */}
         <div
           style={{

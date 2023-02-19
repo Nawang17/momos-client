@@ -42,25 +42,13 @@ export function ProfileMenu({ socket }) {
         {!UserInfo ? (
           <UserCircle size={28} color={darkmode ? "white" : "black"} />
         ) : (
-          <Indicator
-            style={{
-              cursor: "pointer",
-            }}
-            withBorder
-            inline
-            color="green"
-            size={9}
-            offset={5}
-            position="bottom-end"
-          >
-            <Avatar
-              size="28px"
-              radius={"xl"}
-              src={UserInfo?.avatar}
-              alt=""
-              loading="lazy"
-            />
-          </Indicator>
+          <Avatar
+            size="28px"
+            radius={"xl"}
+            src={UserInfo?.avatar}
+            alt=""
+            loading="lazy"
+          />
         )}
       </Menu.Target>
 

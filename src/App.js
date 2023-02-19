@@ -30,10 +30,11 @@ import { Reposts } from "./views/Reposts/Reposts";
 import { io } from "socket.io-client";
 import { Chatrooms } from "./views/Chat/Chatrooms";
 import { Discover } from "./views/Discover/Discover";
-
+import { useNetwork } from "@mantine/hooks";
 const socket = io(process.env.REACT_APP_SERVER_URL);
 
 function App() {
+  const networkStatus = useNetwork();
   const [isConnected, setIsConnected] = useState(socket.connected);
 
   const [darkmode, setdarkmode] = useState(true);
@@ -47,6 +48,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [userlevelinfo, setUserlevelinfo] = useState(null);
   const [onlineusers, setonlineusers] = useState([]);
+  const [onlinelist, setonlinelist] = useState([]);
   useEffect(() => {
     socket.on("connect", () => {
       setIsConnected(true);
@@ -57,7 +59,13 @@ function App() {
     });
 
     socket.on("onlineusers", (data) => {
-      setonlineusers(data);
+      console.log(data);
+      setonlinelist(data);
+      setonlineusers(
+        data.map((user) => {
+          return user?.userid;
+        })
+      );
     });
     socket.on("disconnect", () => {
       setIsConnected(false);
@@ -68,6 +76,20 @@ function App() {
       socket.off("disconnect");
     };
   }, []);
+  useEffect(() => {
+    socket.on("connect", () => {
+      setIsConnected(true);
+    });
+    if (networkStatus.online) {
+      socket.emit("onlinestatus", {
+        token: localStorage.getItem("token"),
+      });
+    } else {
+      socket.emit("removeOnlinestatus", {
+        token: localStorage.getItem("token"),
+      });
+    }
+  }, [networkStatus.online]);
 
   useLayoutEffect(() => {
     if (!localStorage.getItem("darkmode")) {
@@ -378,6 +400,7 @@ function App() {
               userlevelinfo,
               setUserlevelinfo,
               onlineusers,
+              onlinelist,
             }}
           >
             <RouterProvider router={router} />

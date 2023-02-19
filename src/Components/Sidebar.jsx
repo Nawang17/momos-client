@@ -537,53 +537,54 @@ export const Sidebar = () => {
         )}
 
         {/* online users */}
-
-        <div
-          style={{
-            backgroundColor: darkmode ? "#1A1B1E" : "white",
-            color: darkmode ? "white" : "black",
-            marginBottom: "0.5rem",
-            borderRadius: "4px",
-          }}
-        >
+        {onlinelist.length > 0 && (
           <div
             style={{
-              display: "flex",
-              padding: "0.7rem 1rem 0rem 1rem",
-              paddingBottom: onlinelist.length === 0 ? "0.4rem" : "Orem",
-              alignItems: "center",
+              backgroundColor: darkmode ? "#1A1B1E" : "white",
+              color: darkmode ? "white" : "black",
+              marginBottom: "0.5rem",
+              borderRadius: "4px",
             }}
           >
-            <Text weight={700} size={12}>
-              Online - {onlinelist.length}
-            </Text>
-          </div>
+            <div
+              style={{
+                display: "flex",
+                padding: "0.7rem 1rem 0rem 1rem",
+                paddingBottom: onlinelist.length === 0 ? "0.4rem" : "Orem",
+                alignItems: "center",
+              }}
+            >
+              <Text weight={700} size={12}>
+                Online - {onlinelist.length}
+              </Text>
+            </div>
 
-          <div>
-            {onlinelist.map((val) => {
-              return (
-                <NavLink
-                  onClick={() => {
-                    navigate(`/${val.username}`);
-                  }}
-                  key={val.username}
-                  label={val.username}
-                  description={val.description}
-                  icon={
-                    <Indicator
-                      offset={7}
-                      color="green"
-                      position="bottom-end"
-                      withBorder
-                    >
-                      <Avatar radius={"xl"} size="40px" src={val.avatar} />
-                    </Indicator>
-                  }
-                />
-              );
-            })}
+            <div>
+              {onlinelist.map((val) => {
+                return (
+                  <NavLink
+                    onClick={() => {
+                      navigate(`/${val.username}`);
+                    }}
+                    key={val.username}
+                    label={val.username}
+                    description={val.description}
+                    icon={
+                      <Indicator
+                        offset={7}
+                        color="green"
+                        position="bottom-end"
+                        withBorder
+                      >
+                        <Avatar radius={"xl"} size="40px" src={val.avatar} />
+                      </Indicator>
+                    }
+                  />
+                );
+              })}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* about */}
         <div

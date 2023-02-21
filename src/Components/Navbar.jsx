@@ -80,7 +80,14 @@ export function Navbar({ socket }) {
   const { pathname } = useLocation();
 
   return (
-    <Header height={60} mb={0} className={classes.root}>
+    <Header
+      style={{
+        zIndex: 999,
+      }}
+      height={60}
+      mb={0}
+      className={classes.root}
+    >
       <Container className={classes.header}>
         <div
           style={{ textDecoration: "none", cursor: "pointer", color: "black" }}

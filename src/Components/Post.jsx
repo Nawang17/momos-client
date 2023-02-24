@@ -962,6 +962,7 @@ export const Post = ({ post, setPosts, comments }) => {
 
       {/* like data modal  */}
       <Modal
+        zIndex={1000}
         title={`Likes (${post.likes.length})`}
         overflow="inside"
         opened={likemodal}
@@ -1013,6 +1014,7 @@ export const Post = ({ post, setPosts, comments }) => {
       </Modal>
       {/* view img modal  */}
       <Modal
+        zIndex={1000}
         padding={0}
         size="lg"
         withCloseButton={false}

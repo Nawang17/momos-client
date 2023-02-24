@@ -144,6 +144,7 @@ export default function CreatePostModal({
   return (
     <>
       <Modal
+        zIndex={1000}
         padding={0}
         opened={opened}
         onClose={() => closemodal()}

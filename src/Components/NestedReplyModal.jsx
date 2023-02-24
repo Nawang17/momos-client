@@ -65,6 +65,7 @@ export default function NestedReplyModal({
   return (
     <>
       <Modal
+        zIndex={1000}
         padding={0}
         opened={opened}
         onClose={() => closemodal()}

@@ -329,6 +329,7 @@ export const Chatrooms = () => {
       <Sidebar />
       <>
         <Modal
+          zIndex={1000}
           overflow="inside"
           opened={opened}
           onClose={() => {

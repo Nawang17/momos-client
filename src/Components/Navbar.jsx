@@ -82,7 +82,7 @@ export function Navbar({ socket }) {
   return (
     <Header
       style={{
-        zIndex: 999,
+        zIndex: 899,
       }}
       height={60}
       mb={0}

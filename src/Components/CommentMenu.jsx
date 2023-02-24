@@ -175,6 +175,7 @@ export function CommentMenu({ postinfo, setComments }) {
         </Menu.Dropdown>
       </Menu>
       <Modal
+        zIndex={1000}
         overlayOpacity={0.3}
         padding={0}
         withCloseButton={false}

@@ -260,7 +260,6 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                 paddingBottom: "0.7rem",
               }}
             >
-              {" "}
               <Indicator
                 disabled={rankinfo.rank !== 1 ? true : false}
                 color={"black"}
@@ -486,14 +485,9 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                 paddingBottom: "0.7rem",
               }}
             >
-              <Avatar
-                style={{
-                  width: "70px",
-                  height: "70px",
-                  borderRadius: "50%",
-                }}
-                size="lg"
-              />
+              <div>
+                <Skeleton height={70} circle />
+              </div>
               {/* profile info */}
               <div
                 style={{
@@ -536,6 +530,7 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
       )}
 
       <Modal
+        zIndex={1000}
         size="sm"
         overflow="inside"
         opened={opened}
@@ -658,6 +653,7 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
         </div>
       </Modal>
       <Modal
+        zIndex={1000}
         overlayOpacity={0.3}
         padding={0}
         withCloseButton={false}

@@ -314,8 +314,17 @@ const UserSearch = () => {
                           </Button>
                         ))}
                     </div>
+
                     {val.description && (
-                      <Text size={"15px"}> {val.description}</Text>
+                      <Text
+                        style={{
+                          wordBreak: "break-word",
+                        }}
+                        size={"15px"}
+                      >
+                        {" "}
+                        {val.description}
+                      </Text>
                     )}
                   </div>
                 </div>

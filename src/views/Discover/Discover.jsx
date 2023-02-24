@@ -167,6 +167,7 @@ export const Discover = () => {
                     style={{
                       paddingTop: "0.8rem",
                       paddingBottom: "0.8rem",
+                      wordBreak: "break-word",
                     }}
                     onClick={() => {
                       navigate(`/${user?.username}`);

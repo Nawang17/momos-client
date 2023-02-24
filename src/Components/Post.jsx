@@ -487,15 +487,27 @@ export const Post = ({ post, setPosts, comments }) => {
                   padding: "0.7rem 0.7rem 0 0.7rem",
                 }}
               >
-                <img
+                <Indicator
+                  disabled={!onlineusers.includes(post?.post.user?.id)}
                   style={{
-                    width: "18px",
-                    height: "18px",
-                    borderRadius: "50%",
+                    cursor: "pointer",
                   }}
-                  src={post?.post.user?.avatar}
-                  alt=""
-                />
+                  withBorder
+                  inline
+                  color="green"
+                  size={5}
+                  offset={3}
+                  position="bottom-end"
+                >
+                  <Avatar
+                    size="18px"
+                    radius={"xl"}
+                    src={post?.post.user?.avatar}
+                    alt=""
+                    loading="lazy"
+                  />
+                </Indicator>
+
                 <div
                   style={{
                     display: "flex",
@@ -947,6 +959,8 @@ export const Post = ({ post, setPosts, comments }) => {
         UserInfo={UserInfo}
         quotepostinfo={post}
       />
+
+      {/* like data modal  */}
       <Modal
         title={`Likes (${post.likes.length})`}
         overflow="inside"
@@ -997,6 +1011,7 @@ export const Post = ({ post, setPosts, comments }) => {
           })
           .reverse()}
       </Modal>
+      {/* view img modal  */}
       <Modal
         padding={0}
         size="lg"
@@ -1015,7 +1030,6 @@ export const Post = ({ post, setPosts, comments }) => {
             alt=""
           />
         </div>
-        {/* revert */}
       </Modal>
     </>
   );

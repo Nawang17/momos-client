@@ -563,6 +563,10 @@ export const Sidebar = () => {
               {onlinelist.map((val) => {
                 return (
                   <NavLink
+                    style={{
+                      wordBreak: "break-word",
+                      whiteSpace: "pre-wrap",
+                    }}
                     onClick={() => {
                       navigate(`/${val.username}`);
                     }}

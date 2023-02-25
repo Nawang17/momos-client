@@ -437,11 +437,6 @@ export const Post = ({ post, setPosts, comments }) => {
             >
               {post?.filetype === "image" ? (
                 <img
-                  style={{
-                    border: darkmode
-                      ? "1px solid #2f3136"
-                      : "1px solid #e6ecf0",
-                  }}
                   onClick={() => {
                     setviewimg(post?.image);
                     setOpened(true);

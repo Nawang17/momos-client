@@ -18,6 +18,7 @@ import {
   UserMinus,
   CrownSimple,
   CalendarBlank,
+  UsersThree,
 } from "phosphor-react";
 import { useNavigate } from "react-router-dom";
 import { follow } from "../../api/POST";
@@ -313,7 +314,7 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
             <div
               style={{
                 display: "flex",
-                gap: "1.2rem",
+                gap: "0.5rem",
                 alignItems: "center",
                 paddingBottom: "0.4rem",
               }}
@@ -422,11 +423,11 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
               <div
                 style={{
                   display: "flex",
-                  gap: "0.3rem",
+                  gap: "0.4rem",
                   alignItems: "center",
                 }}
               >
-                <CalendarBlank weight="light" size={18} />
+                <CalendarBlank color={"#71767b"} size={18} />
                 <Text color={"#71767b"} weight={"400"}>
                   Joined{" "}
                   {new Date(profileInfo?.createdAt).toLocaleString("default", {
@@ -440,41 +441,50 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
             <div
               style={{
                 display: "flex",
-
-                gap: "1.2rem",
+                alignItems: "center",
+                gap: "0.4rem",
               }}
             >
-              <Text
+              <UsersThree color={"#71767b"} size={18} />
+              <div
                 style={{
-                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "1rem",
                 }}
-                onClick={() => {
-                  setOpened(true);
-                  setmodaltitle(`Following (${following.length})`);
-                }}
-                weight={500}
               >
-                {following.length}{" "}
-                <Text color={"#71767b"} weight={"400"} component="span">
-                  Following
+                <Text
+                  style={{
+                    cursor: "pointer",
+                  }}
+                  onClick={() => {
+                    setOpened(true);
+                    setmodaltitle(`Following (${following.length})`);
+                  }}
+                  weight={500}
+                >
+                  {following.length}{" "}
+                  <Text color={"#71767b"} weight={"400"} component="span">
+                    Following
+                  </Text>
                 </Text>
-              </Text>
-              <Text
-                onClick={() => {
-                  setOpened(true);
+                <Text
+                  onClick={() => {
+                    setOpened(true);
 
-                  setmodaltitle(`Followers (${followers.length})`);
-                }}
-                style={{
-                  cursor: "pointer",
-                }}
-                weight={500}
-              >
-                {followers.length}{" "}
-                <Text color={"#71767b"} weight={"400"} component="span">
-                  Followers
+                    setmodaltitle(`Followers (${followers.length})`);
+                  }}
+                  style={{
+                    cursor: "pointer",
+                  }}
+                  weight={500}
+                >
+                  {followers.length}{" "}
+                  <Text color={"#71767b"} weight={"400"} component="span">
+                    Followers
+                  </Text>
                 </Text>
-              </Text>
+              </div>
             </div>
           </div>
         </div>
@@ -533,9 +543,9 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
             </div>
 
             {/* description */}
-            <Skeleton height={5} width={"70%"} mb={10} />
-            <Skeleton height={5} width={"30%"} mb={5} />
-            <Skeleton height={5} width={"50%"} />
+            <Skeleton height={5} width={"60%"} mb={10} />
+            <Skeleton height={5} width={"50%"} mb={10} />
+            <Skeleton height={5} width={"40%"} mb={10} />
           </div>
         </div>
       )}

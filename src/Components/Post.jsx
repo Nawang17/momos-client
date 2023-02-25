@@ -33,17 +33,13 @@ import CreatePostModal from "./CreatePostModal";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
-    padding: "1rem 1rem 0.5rem 1rem",
+    padding: "1rem 0rem 0.5rem 0rem",
     display: "flex",
     gap: "1rem",
     borderRadius: "4px",
     "@media (max-width: 700px)": {
       borderRadius: "0px",
     },
-
-    // "&:hover": {
-    //   background: "#f5f5f5",
-    // },
   },
   avatar: {
     width: "40px",
@@ -64,13 +60,10 @@ const useStyles = createStyles(() => ({
   gifimg: {
     width: "100%",
     height: "auto",
-    borderRadius: "4px",
   },
   img: {
     width: "100%",
     height: "auto",
-    borderRadius: "8px",
-    border: "1px solid #f5f5f5",
   },
 
   body: {
@@ -329,7 +322,12 @@ export const Post = ({ post, setPosts, comments }) => {
         className={classes.wrapper}
       >
         <div className={classes.right}>
-          <div className={classes.header}>
+          <div
+            style={{
+              padding: "0rem 1rem ",
+            }}
+            className={classes.header}
+          >
             <div className={classes.hLeft}>
               <div
                 style={{
@@ -418,7 +416,11 @@ export const Post = ({ post, setPosts, comments }) => {
           </div>
           {post.text && (
             <div
-              style={{ cursor: "pointer" }}
+              style={{
+                cursor: "pointer",
+
+                padding: "0rem 1rem 0rem 1rem",
+              }}
               onClick={() => {
                 navigate(`/post/${post.id}`);
               }}
@@ -446,14 +448,16 @@ export const Post = ({ post, setPosts, comments }) => {
                   }}
                   loading="lazy"
                   className={classes.img}
-                  src={post?.image}
+                  src={
+                    "https://res.cloudinary.com/dwzjfylgh/image/upload/v1676488035/f4ikjtsy3s6rhk9yda6z.jpg"
+                  }
                   alt=""
                 />
               ) : (
                 <video
                   poster={post?.image.slice(0, -3) + "jpg"}
                   // preload="none"
-                  style={{ width: "100%", height: "auto", borderRadius: "8px" }}
+                  style={{ width: "100%", height: "auto" }}
                   controls
                 >
                   <source src={post?.image} type="video/mp4" />
@@ -462,215 +466,233 @@ export const Post = ({ post, setPosts, comments }) => {
               )}
             </div>
           )}
+
           {post.hasquote && post.post && (
             <div
-              onClick={() => {
-                navigate(`/post/${post.post.id}`);
-              }}
               style={{
-                cursor: "pointer",
-                fontSize: "0.9rem",
-
-                border: darkmode ? "1px solid #2f3136" : "1px solid #e6ecf0",
-                display: "flex",
-                flexDirection: "column",
-                paddingBottom: !post?.post.image ? "0.7rem" : "0",
-                gap: "0.5rem",
-                borderRadius: "0.5rem",
+                padding: "0rem 1rem 0rem 1rem",
               }}
             >
+              {" "}
               <div
+                onClick={() => {
+                  navigate(`/post/${post.post.id}`);
+                }}
                 style={{
+                  cursor: "pointer",
+                  fontSize: "0.9rem",
+
+                  border: darkmode ? "1px solid #2f3136" : "1px solid #e6ecf0",
                   display: "flex",
-                  gap: "0.3rem",
-                  alignItems: "center",
-                  padding: "0.7rem 0.7rem 0 0.7rem",
+                  flexDirection: "column",
+                  paddingBottom: !post?.post.image ? "0.7rem" : "0",
+                  gap: "0.5rem",
+                  borderRadius: "0.5rem",
                 }}
               >
-                <Indicator
-                  disabled={!onlineusers.includes(post?.post.user?.id)}
-                  style={{
-                    cursor: "pointer",
-                  }}
-                  withBorder
-                  inline
-                  color="green"
-                  size={5}
-                  offset={3}
-                  position="bottom-end"
-                >
-                  <Avatar
-                    size="18px"
-                    radius={"xl"}
-                    src={post?.post.user?.avatar}
-                    alt=""
-                    loading="lazy"
-                  />
-                </Indicator>
-
                 <div
                   style={{
                     display: "flex",
-                    gap: "0.2rem",
+                    gap: "0.3rem",
                     alignItems: "center",
+                    padding: "0.7rem 0.7rem 0 0.7rem",
                   }}
                 >
-                  <Text size="15px" weight={500}>
+                  <Indicator
+                    disabled={!onlineusers.includes(post?.post.user?.id)}
+                    style={{
+                      cursor: "pointer",
+                    }}
+                    withBorder
+                    inline
+                    color="green"
+                    size={5}
+                    offset={3}
+                    position="bottom-end"
+                  >
+                    <Avatar
+                      size="18px"
+                      radius={"xl"}
+                      src={post?.post.user?.avatar}
+                      alt=""
+                      loading="lazy"
+                    />
+                  </Indicator>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "0.2rem",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text size="15px" weight={500}>
+                      {" "}
+                      {post?.post.user?.username}
+                    </Text>
+                    {post?.post.user.verified &&
+                      (post?.post.user.id !== 5 ? (
+                        <CircleWavyCheck
+                          size={17}
+                          color="#0ba6da"
+                          weight="fill"
+                        />
+                      ) : (
+                        <CircleWavyCheck
+                          size={17}
+                          color="#0ba6da"
+                          weight="fill"
+                        />
+                      ))}
+                  </div>
+                  <Text color={"dimmed"}>·</Text>
+                  <Text color={"dimmed"}>
                     {" "}
-                    {post?.post.user?.username}
+                    {formatDistanceToNowStrict(new Date(post?.post.createdAt), {
+                      locale: {
+                        ...locale,
+                        formatDistance,
+                      },
+                    })}
                   </Text>
-                  {post?.post.user.verified &&
-                    (post?.post.user.id !== 5 ? (
-                      <CircleWavyCheck
-                        size={17}
-                        color="#0ba6da"
-                        weight="fill"
+                </div>
+                {post?.post.text && (
+                  <Text
+                    size="15px"
+                    style={{
+                      wordBreak: "break-word",
+                      whiteSpace: "pre-wrap",
+                      padding: "0 0.7rem 0 0.7rem",
+                    }}
+                  >
+                    {post?.post.text}
+                  </Text>
+                )}
+
+                {post?.post.image && (
+                  <>
+                    {post?.post.filetype === "image" ? (
+                      <img
+                        style={{
+                          width: "100%",
+                          height: "auto",
+                          borderRadius: "0 0 0.5rem 0.5rem",
+                        }}
+                        loading="lazy"
+                        src={post?.post.image}
+                        alt=""
                       />
                     ) : (
-                      <CircleWavyCheck
-                        size={17}
-                        color="#0ba6da"
-                        weight="fill"
-                      />
-                    ))}
-                </div>
-                <Text color={"dimmed"}>·</Text>
-                <Text color={"dimmed"}>
-                  {" "}
-                  {formatDistanceToNowStrict(new Date(post?.post.createdAt), {
-                    locale: {
-                      ...locale,
-                      formatDistance,
-                    },
-                  })}
-                </Text>
+                      <video
+                        onClick={(e) => {
+                          e.stopPropagation();
+                        }}
+                        poster={post?.post.image.slice(0, -3) + "jpg"}
+                        // preload="none"
+                        style={{
+                          width: "100%",
+                          height: "auto",
+                          borderRadius: "0 0 0.5rem 0.5rem",
+                        }}
+                        controls
+                      >
+                        <source src={post?.post.image} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    )}
+                  </>
+                )}
               </div>
-              {post?.post.text && (
-                <Text
-                  size="15px"
-                  style={{
-                    wordBreak: "break-word",
-                    whiteSpace: "pre-wrap",
-                    padding: "0 0.7rem 0 0.7rem",
-                  }}
-                >
-                  {post?.post.text}
-                </Text>
-              )}
-
-              {post?.post.image && (
-                <>
-                  {post?.post.filetype === "image" ? (
-                    <img
-                      style={{
-                        width: "100%",
-                        height: "auto",
-                        borderRadius: "0 0 0.5rem 0.5rem",
-                      }}
-                      loading="lazy"
-                      src={post?.post.image}
-                      alt=""
-                    />
-                  ) : (
-                    <video
-                      onClick={(e) => {
-                        e.stopPropagation();
-                      }}
-                      poster={post?.post.image.slice(0, -3) + "jpg"}
-                      // preload="none"
-                      style={{
-                        width: "100%",
-                        height: "auto",
-                        borderRadius: "0 0 0.5rem 0.5rem",
-                      }}
-                      controls
-                    >
-                      <source src={post?.post.image} type="video/mp4" />
-                      Your browser does not support the video tag.
-                    </video>
-                  )}
-                </>
-              )}
             </div>
           )}
           {post.hasquote && !post.post && (
             <div
               style={{
-                backgroundColor: darkmode ? "#2f3136" : "#f5f8fa",
-                cursor: "pointer",
-                fontSize: "0.9rem",
-
-                border: darkmode ? "1px solid #2f3136" : "1px solid #e6ecf0",
-                display: "flex",
-
-                padding: "0.7rem",
-
-                borderRadius: "0.5rem",
-              }}
-            >
-              <Text color={"dimmed"}>
-                {" "}
-                This post was deleted by the author.{" "}
-              </Text>
-            </div>
-          )}
-
-          {/* link preview  */}
-          {post.previewlink && (
-            <div
-              onClick={(e) => {
-                e.stopPropagation();
-
-                window.open(post?.previewlink?.url, "_blank");
-              }}
-              style={{
-                cursor: "pointer",
-                border: darkmode ? "1px solid #2f3136" : "1px solid #e6ecf0",
-
-                borderRadius: "8px",
+                padding: "0rem 1rem 0rem 1rem",
               }}
             >
               <div
                 style={{
+                  backgroundColor: darkmode ? "#2f3136" : "#f5f8fa",
+                  cursor: "pointer",
+                  fontSize: "0.9rem",
+
+                  border: darkmode ? "1px solid #2f3136" : "1px solid #e6ecf0",
                   display: "flex",
-                  padding: "0.5rem",
-                  gap: "0.5rem",
+
+                  padding: "0.7rem",
+
+                  borderRadius: "0.5rem",
+                }}
+              >
+                <Text color={"dimmed"}>
+                  {" "}
+                  This post was deleted by the author.{" "}
+                </Text>
+              </div>
+            </div>
+          )}
+          {/* link preview  */}
+          {post.previewlink && (
+            <div
+              style={{
+                padding: "0rem 1rem 0rem 1rem",
+              }}
+            >
+              <div
+                onClick={(e) => {
+                  e.stopPropagation();
+
+                  window.open(post?.previewlink?.url, "_blank");
+                }}
+                style={{
+                  cursor: "pointer",
+                  border: darkmode ? "1px solid #2f3136" : "1px solid #e6ecf0",
+
+                  borderRadius: "8px",
                 }}
               >
                 <div
                   style={{
-                    paddingTop: "0.2rem",
+                    display: "flex",
+                    padding: "0.5rem",
+                    gap: "0.5rem",
                   }}
                 >
-                  <Link />
-                </div>
-                <div>
-                  {post?.previewlink?.url && (
-                    <Text size={"14px"} color={"dimmed"}>
-                      {post?.previewlink?.url
-                        ? post?.previewlink?.url
-                            .replace("https://", "")
-                            .replace("http://", "")
-                            .replace("www.", "")
-                            .split(/[/?#]/)[0]
-                        : ""}
-                    </Text>
-                  )}
+                  <div
+                    style={{
+                      paddingTop: "0.2rem",
+                    }}
+                  >
+                    <Link />
+                  </div>
+                  <div>
+                    {post?.previewlink?.url && (
+                      <Text size={"14px"} color={"dimmed"}>
+                        {post?.previewlink?.url
+                          ? post?.previewlink?.url
+                              .replace("https://", "")
+                              .replace("http://", "")
+                              .replace("www.", "")
+                              .split(/[/?#]/)[0]
+                          : ""}
+                      </Text>
+                    )}
 
-                  {post?.previewlink?.title && (
-                    <Text size={"14px"}> {post?.previewlink?.title}</Text>
-                  )}
+                    {post?.previewlink?.title && (
+                      <Text size={"14px"}> {post?.previewlink?.title}</Text>
+                    )}
 
-                  {post?.previewlink?.description && (
-                    <Text color={"dimmed"} size={"14px"}>
-                      {post?.previewlink?.description}
-                    </Text>
-                  )}
+                    {post?.previewlink?.description && (
+                      <Text color={"dimmed"} size={"14px"}>
+                        {post?.previewlink?.description}
+                      </Text>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
           )}
-
           {/* new footer */}
           <div
             style={{
@@ -680,6 +702,7 @@ export const Post = ({ post, setPosts, comments }) => {
               color: "#868e96",
               marginTop: "0.4rem",
               overflow: "auto",
+              padding: "0rem 1rem",
             }}
           >
             {/* poststatsinfo */}
@@ -807,12 +830,19 @@ export const Post = ({ post, setPosts, comments }) => {
               </Text>
             </div>
           </div>
-          <Divider my={2} />
+          <div
+            style={{
+              padding: "0rem 0.5rem",
+            }}
+          >
+            <Divider my={2} />
+          </div>
           <div
             style={{
               display: "flex",
               justifyContent: "space-between",
               overflow: showoverflow ? "auto" : "hidden",
+              padding: "0rem 1rem ",
             }}
           >
             {/* <HoverCard position="top" width={280} shadow="md">

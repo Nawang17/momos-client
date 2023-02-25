@@ -119,7 +119,11 @@ export function PostMenu({ postinfo, setPosts }) {
   return (
     <>
       <Menu position="bottom-end" shadow="md" width={200}>
-        <Menu.Target>
+        <Menu.Target
+          style={{
+            cursor: "pointer",
+          }}
+        >
           <DotsThree size={20} />
         </Menu.Target>
 

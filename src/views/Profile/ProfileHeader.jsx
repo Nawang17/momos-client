@@ -8,7 +8,6 @@ import {
   Skeleton,
   Avatar,
   Indicator,
-  Badge,
 } from "@mantine/core";
 import {
   ArrowLeft,
@@ -18,6 +17,7 @@ import {
   UserPlus,
   UserMinus,
   CrownSimple,
+  CalendarBlank,
 } from "phosphor-react";
 import { useNavigate } from "react-router-dom";
 import { follow } from "../../api/POST";
@@ -247,7 +247,7 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
             style={{
               display: "flex",
               flexDirection: "column",
-              gap: "0.7rem",
+              gap: "0.5rem",
               fontSize: "15px",
             }}
           >
@@ -292,119 +292,120 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                 <div
                   style={{
                     display: "flex",
-                    gap: "0.3rem",
-                    alignItems: "center",
+                    flexDirection: "column",
+                    width: "auto",
                   }}
                 >
                   <Text weight={500} size={"lg"}>
                     {" "}
                     {userprofile}
                   </Text>
-                  <Badge>Rank #{rankinfo.rank}</Badge>
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    gap: "1rem",
-                    alignItems: "center",
-                  }}
-                >
-                  {UserInfo?.username === profileInfo.username ? (
-                    <>
-                      <Button
-                        size="xs"
-                        variant="default"
-                        onClick={() => {
-                          navigate("/editprofile");
-                        }}
-                        color={"gray"}
-                        fullWidth
-                      >
-                        Edit profile
-                      </Button>
-                      <Button
-                        size="xs"
-                        variant="default"
-                        onClick={() => {
-                          if (navigator.share) {
-                            navigator.share({
-                              title: "Share Profile",
-                              url: `https://momosz.com/${userprofile}`,
-                            });
-                          }
-                        }}
-                        color={"gray"}
-                        fullWidth
-                      >
-                        Share profile
-                      </Button>
-                    </>
-                  ) : followingdata?.includes(profileInfo?.username) ? (
-                    <>
-                      <Button
-                        size="xs"
-                        fullWidth
-                        disabled={btndisabled}
-                        variant="default"
-                        onClick={() => {
-                          setunfollowconfirm(true);
-                        }}
-                      >
-                        Following
-                      </Button>
-                      <Button
-                        size="xs"
-                        variant="default"
-                        color={"gray"}
-                        fullWidth
-                      >
-                        Message
-                      </Button>
-                    </>
-                  ) : (
-                    <>
-                      <Button
-                        size="xs"
-                        disabled={btndisabled}
-                        onClick={() => {
-                          handlefollow();
-                        }}
-                        fullWidth
-                      >
-                        {followingArr.includes(UserInfo?.username)
-                          ? "Follow back"
-                          : "Follow"}
-                      </Button>
-                      <Button
-                        size="xs"
-                        onClick={async () => {
-                          if (!UserInfo) {
-                            showNotification({
-                              icon: <Lock size={18} />,
-                              title: "Login required",
-                              autoClose: 3000,
-                              color: "red",
-                            });
-                          } else {
-                            await getchat(profileInfo?.id)
-                              .then((res) => {
-                                navigate(`/chat/${res.data.chatroomid}`);
-                              })
-                              .catch(() => {});
-                          }
-                        }}
-                        variant="default"
-                        color={"gray"}
-                        fullWidth
-                      >
-                        Message
-                      </Button>
-                    </>
-                  )}
+                  <div>
+                    <Text color={"#71767b"} weight={500} size={"sm"}>
+                      {" "}
+                      Rank #{rankinfo.rank}
+                    </Text>
+                    {/* <Badge>Rank #{rankinfo.rank}</Badge> */}
+                  </div>
                 </div>
               </div>
             </div>
-
+            <div
+              style={{
+                display: "flex",
+                gap: "1.2rem",
+                alignItems: "center",
+                paddingBottom: "0.4rem",
+              }}
+            >
+              {UserInfo?.username === profileInfo.username ? (
+                <>
+                  <Button
+                    size="xs"
+                    variant="default"
+                    onClick={() => {
+                      navigate("/editprofile");
+                    }}
+                    color={"gray"}
+                    fullWidth
+                  >
+                    Edit profile
+                  </Button>
+                  <Button
+                    size="xs"
+                    variant="default"
+                    onClick={() => {
+                      if (navigator.share) {
+                        navigator.share({
+                          title: "Share Profile",
+                          url: `https://momosz.com/${userprofile}`,
+                        });
+                      }
+                    }}
+                    color={"gray"}
+                    fullWidth
+                  >
+                    Share profile
+                  </Button>
+                </>
+              ) : followingdata?.includes(profileInfo?.username) ? (
+                <>
+                  <Button
+                    size="xs"
+                    fullWidth
+                    disabled={btndisabled}
+                    variant="default"
+                    onClick={() => {
+                      setunfollowconfirm(true);
+                    }}
+                  >
+                    Following
+                  </Button>
+                  <Button size="xs" variant="default" color={"gray"} fullWidth>
+                    Message
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button
+                    size="xs"
+                    disabled={btndisabled}
+                    onClick={() => {
+                      handlefollow();
+                    }}
+                    fullWidth
+                  >
+                    {followingArr.includes(UserInfo?.username)
+                      ? "Follow back"
+                      : "Follow"}
+                  </Button>
+                  <Button
+                    size="xs"
+                    onClick={async () => {
+                      if (!UserInfo) {
+                        showNotification({
+                          icon: <Lock size={18} />,
+                          title: "Login required",
+                          autoClose: 3000,
+                          color: "red",
+                        });
+                      } else {
+                        await getchat(profileInfo?.id)
+                          .then((res) => {
+                            navigate(`/chat/${res.data.chatroomid}`);
+                          })
+                          .catch(() => {});
+                      }
+                    }}
+                    variant="default"
+                    color={"gray"}
+                    fullWidth
+                  >
+                    Message
+                  </Button>
+                </>
+              )}
+            </div>
             {/* description */}
             {profileInfo?.description && (
               <div
@@ -414,6 +415,25 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                 }}
               >
                 <Text>{description(profileInfo?.description)}</Text>
+              </div>
+            )}
+            {/* joined date */}
+            {profileInfo?.createdAt && (
+              <div
+                style={{
+                  display: "flex",
+                  gap: "0.3rem",
+                  alignItems: "center",
+                }}
+              >
+                <CalendarBlank weight="light" size={18} />
+                <Text color={"#71767b"} weight={"400"}>
+                  Joined{" "}
+                  {new Date(profileInfo?.createdAt).toLocaleString("default", {
+                    month: "long",
+                    year: "numeric",
+                  })}
+                </Text>
               </div>
             )}
 
@@ -509,22 +529,13 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                     {userprofile}
                   </Text>
                 </div>
-                <div
-                  style={{
-                    display: "flex",
-                    gap: "1rem",
-                    alignItems: "center",
-                  }}
-                >
-                  <Skeleton height={30} width={"50%"} />
-                  <Skeleton height={30} width={"50%"} />
-                </div>
               </div>
             </div>
 
             {/* description */}
+            <Skeleton height={5} width={"70%"} mb={10} />
+            <Skeleton height={5} width={"30%"} mb={5} />
             <Skeleton height={5} width={"50%"} />
-            <Skeleton height={5} width={"70%"} />
           </div>
         </div>
       )}

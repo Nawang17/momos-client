@@ -184,6 +184,7 @@ export const Sidebar = () => {
                       {userlevelinfo?.username}
                     </Text>
                     <Popover
+                      zIndex={1000}
                       width={220}
                       position="bottom"
                       withArrow

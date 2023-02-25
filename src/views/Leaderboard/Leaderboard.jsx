@@ -8,14 +8,9 @@ import {
   Popover,
   Divider,
   Loader,
+  NavLink,
 } from "@mantine/core";
-import {
-  ArrowLeft,
-  CircleWavyCheck,
-  Crown,
-  Info,
-  WarningCircle,
-} from "phosphor-react";
+import { ArrowLeft, Info, WarningCircle } from "phosphor-react";
 
 import { useNavigate } from "react-router-dom";
 import { Sidebar } from "../../Components/Sidebar";
@@ -123,6 +118,7 @@ export const Leaderboard = () => {
             justifyContent: "space-between",
             gap: "1.5rem",
           }}
+          edit
         >
           <div
             style={{
@@ -138,7 +134,13 @@ export const Leaderboard = () => {
               Leaderboard
             </Text>
           </div>
-          <Popover width={220} position="left" withArrow shadow="md">
+          <Popover
+            zIndex={1000}
+            width={220}
+            position="left"
+            withArrow
+            shadow="md"
+          >
             <Popover.Target>
               <Info
                 style={{
@@ -184,19 +186,6 @@ export const Leaderboard = () => {
                 <Loader />
               </div>
             }
-            endMessage={
-              <>
-                {/* <Text
-                  style={{
-                    marginTop: "1rem",
-                  }}
-                  align="center"
-                  color={darkmode ? "white" : "dark"}
-                >
-                  You have seen it all
-                </Text> */}
-              </>
-            }
           >
             <div
               style={{
@@ -209,111 +198,40 @@ export const Leaderboard = () => {
               {leaderboard
                 .filter((obj) => !map[obj.id] && (map[obj.id] = true))
                 .map((acc, index) => (
-                  <div
-                    onClick={() => {
-                      navigate(`/${acc.username}`);
-                    }}
-                    key={acc.id}
+                  <NavLink
                     style={{
                       padding: "1rem 1.4rem",
-                      display: "flex",
-                      gap: "0.6rem",
-                      alignItems: "center",
-                      cursor: "pointer",
                     }}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "1rem",
-                      }}
-                    >
-                      {index === 0 ? (
-                        <Crown
-                          weight="fill"
-                          size={30}
-                          color={darkmode ? "gold" : "orange"}
-                        />
-                      ) : (
-                        <Badge
-                          variant="filled"
-                          color={
-                            darkmode
-                              ? index === 0
-                                ? "yellow"
-                                : index === 1
-                                ? "indigo"
-                                : index === 2
-                                ? "teal"
-                                : "gray"
-                              : index === 0
-                              ? "yellow"
-                              : index === 1
-                              ? "indigo"
-                              : index === 2
-                              ? "teal"
-                              : "gray"
-                          }
-                        >
-                          {index + 1}
-                        </Badge>
-                      )}
-
+                    key={index}
+                    onClick={() => {
+                      navigate(`/${acc?.username}`);
+                    }}
+                    description={`${
+                      acc.totalLikes + acc.totalposts + acc.totalFollowers
+                    } 
+                       ${
+                         acc.totalLikes + acc.totalposts !== 1
+                           ? " points"
+                           : " point"
+                       }`}
+                    label={acc?.username}
+                    icon={
                       <img
+                        src={acc?.avatar}
                         style={{
-                          width: "50px",
-                          height: "50px",
+                          width: "45px",
+                          height: "45px",
                           borderRadius: "50%",
                         }}
-                        src={acc.avatar}
                         alt=""
                       />
-                    </div>
-
-                    <div
-                      style={{
-                        width: "100%",
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "0.5rem",
-                      }}
-                    >
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          width: "100%",
-                        }}
-                      >
-                        <div
-                          style={{
-                            display: "flex",
-                            gap: "0.2rem",
-                            alignItems: "center",
-                          }}
-                        >
-                          <Text size={"16px"} weight={"500"}>
-                            {acc.username}
-                          </Text>{" "}
-                          {acc.verified && (
-                            <CircleWavyCheck
-                              size={16}
-                              color="#0ba6da"
-                              weight="fill"
-                            />
-                          )}
-                        </div>
-                        <Text size={"xs"}>
-                          {acc.totalLikes + acc.totalposts + acc.totalFollowers}
-                          {acc.totalLikes + acc.totalposts !== 1
-                            ? " points"
-                            : " point"}
-                        </Text>
-                      </div>
-                    </div>
-                  </div>
+                    }
+                    rightSection={
+                      <Badge variant="filled" color={"teal"}>
+                        {index + 1}
+                      </Badge>
+                    }
+                  />
                 ))}
             </div>
           </InfiniteScroll>
@@ -344,7 +262,6 @@ export const Leaderboard = () => {
                     gap: "1rem",
                   }}
                 >
-                  <Skeleton height={5} width="10px" radius="xl" />
                   <Skeleton height={50} circle />
                 </div>
 
@@ -371,9 +288,9 @@ export const Leaderboard = () => {
                         alignItems: "center",
                       }}
                     >
-                      <Skeleton height={5} width="70px" radius="xl" />
+                      <Skeleton height={5} width="100px" radius="xl" />
                     </div>
-                    <Skeleton height={5} width="20px" radius="xl" />
+                    <Skeleton height={5} width="30px" radius="xl" />
                   </div>
                 </div>
               </div>

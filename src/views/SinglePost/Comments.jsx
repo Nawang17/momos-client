@@ -481,6 +481,7 @@ export const Comments = ({
                         ))}
                       {postuser === comment?.user?.username && (
                         <Popover
+                          zIndex={1000}
                           width={"auto"}
                           position="top"
                           withArrow
@@ -689,6 +690,7 @@ export const Comments = ({
                               ))}
                             {postuser === data?.user.username && (
                               <Popover
+                                zIndex={1000}
                                 width={"auto"}
                                 position="top"
                                 withArrow

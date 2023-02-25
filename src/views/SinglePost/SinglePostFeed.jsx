@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { createStyles, ActionIcon, Skeleton, Text } from "@mantine/core";
 import { Post } from "../../Components/Post";
 import Reply from "./Reply";
-import { ArrowLeft, Fish } from "phosphor-react";
+import { ArrowLeft, ChatCircleDots } from "phosphor-react";
 import { Comments } from "./Comments";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/Auth";
@@ -73,23 +73,23 @@ export const SinglePostFeed = ({
       {comments.length === 0 && !loading ? (
         <div
           style={{
+            color: "#868e96",
             display: "flex",
-            justifyContent: "center",
+            backgroundColor: darkmode ? "#1A1B1E" : "white",
             flexDirection: "column",
             alignItems: "center",
+            justifyContent: "center",
+            padding: "2rem",
             gap: "0.6rem",
-            fontWeight: "500",
-            color: "#868e96",
-            margin: "0 auto",
-            maxWidth: "27rem",
-            padding: "1rem",
           }}
         >
-          <Fish weight="fill" color={"#868e96"} size={60} />
-          <Text size={"15px"}>Be the first to comment</Text>
-          <Text align="center" size={"15px"}>
-            Nobody's responded to this post yet. Add your thoughts and get the
-            conversation started.
+          <ChatCircleDots weight="fill" color={"#868e96"} size={60} />
+          <Text weight={"500"} size={"15px"}>
+            {" "}
+            No comments yet
+          </Text>
+          <Text weight={"500"} size={"15px"}>
+            Be the first to share what you think!
           </Text>
         </div>
       ) : (

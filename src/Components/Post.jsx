@@ -448,9 +448,7 @@ export const Post = ({ post, setPosts, comments }) => {
                   }}
                   loading="lazy"
                   className={classes.img}
-                  src={
-                    "https://res.cloudinary.com/dwzjfylgh/image/upload/v1676488035/f4ikjtsy3s6rhk9yda6z.jpg"
-                  }
+                  src={post?.image}
                   alt=""
                 />
               ) : (

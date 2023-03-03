@@ -90,24 +90,30 @@ function App() {
     }
   }, [networkStatus.online]);
 
-  useLayoutEffect(() => {
-    if (!localStorage.getItem("darkmode")) {
-      localStorage.setItem("darkmode", "true");
-    }
-    if (
-      window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches
-    ) {
-      localStorage.setItem("darkmode", "true");
-    }
-    if (localStorage.getItem("darkmode") === "true") {
-      setdarkmode(true);
-
-      document.body.style = "background: #101113;";
+  useEffect(() => {
+    if (localStorage.getItem("darkmode") === null) {
+      if (
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+      ) {
+        localStorage.setItem("darkmode", "true");
+        setdarkmode(true);
+        document.body.style = "background: #101113;";
+      } else {
+        localStorage.setItem("darkmode", "false");
+        setdarkmode(false);
+        document.body.style = "background: #f0f2f5;";
+      }
     } else {
-      setdarkmode(false);
+      if (localStorage.getItem("darkmode") === "true") {
+        setdarkmode(true);
 
-      document.body.style = "background: #f0f2f5;";
+        document.body.style = "background: #101113;";
+      } else {
+        setdarkmode(false);
+
+        document.body.style = "background: #f0f2f5;";
+      }
     }
   }, []);
   useEffect(() => {

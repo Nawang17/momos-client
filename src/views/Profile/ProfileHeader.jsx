@@ -50,7 +50,7 @@ const useStyles = createStyles(() => ({
 export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
   const { userprofile } = useParams();
 
-  const { UserInfo, setfollowingdata, followingdata, darkmode } =
+  const { UserInfo, setfollowingdata, followingdata, darkmode, onlineusers } =
     useContext(AuthContext);
   const navigate = useNavigate();
   const { classes } = useStyles();
@@ -262,14 +262,13 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
               }}
             >
               <Indicator
-                disabled={rankinfo.rank !== 1 ? true : false}
-                color={"black"}
+                disabled={!onlineusers.includes(profileInfo?.id)}
+                color={"green"}
                 withBorder
+                inline
                 position="bottom-end"
-                label={<CrownSimple color="gold" weight="fill" />}
                 offset={10}
-                size={22}
-                radius={"xl"}
+                size={13}
               >
                 <Avatar
                   style={{

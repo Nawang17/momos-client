@@ -206,30 +206,65 @@ export const Leaderboard = () => {
                     onClick={() => {
                       navigate(`/${acc?.username}`);
                     }}
-                    description={`${
-                      acc.totalLikes + acc.totalposts + acc.totalFollowers
-                    } 
+                    label={
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "0.5rem",
+                        }}
+                      >
+                        <img
+                          src={acc?.avatar}
+                          style={{
+                            width: "45px",
+                            height: "45px",
+                            borderRadius: "50%",
+                          }}
+                          alt=""
+                        />
+                        <div>{acc?.username}</div>
+                      </div>
+                    }
+                    icon={
+                      <Badge
+                        variant="filled"
+                        color={
+                          darkmode
+                            ? index === 0
+                              ? "yellow"
+                              : index === 1
+                              ? "indigo"
+                              : index === 2
+                              ? "teal"
+                              : "gray"
+                            : index === 0
+                            ? "orange"
+                            : index === 1
+                            ? "indigo"
+                            : index === 2
+                            ? "teal"
+                            : "gray"
+                        }
+                      >
+                        {index + 1}
+                      </Badge>
+                    }
+                    rightSection={
+                      <div
+                        style={{
+                          fontSize: "0.8rem",
+                        }}
+                      >
+                        {`${
+                          acc.totalLikes + acc.totalposts + acc.totalFollowers
+                        } 
                        ${
                          acc.totalLikes + acc.totalposts !== 1
                            ? " points"
                            : " point"
                        }`}
-                    label={acc?.username}
-                    icon={
-                      <img
-                        src={acc?.avatar}
-                        style={{
-                          width: "45px",
-                          height: "45px",
-                          borderRadius: "50%",
-                        }}
-                        alt=""
-                      />
-                    }
-                    rightSection={
-                      <Badge variant="filled" color={"teal"}>
-                        {index + 1}
-                      </Badge>
+                      </div>
                     }
                   />
                 ))}

@@ -8,17 +8,9 @@ import {
   Text,
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
-import {
-  CaretRight,
-  CircleWavyCheck,
-  Crown,
-  Info,
-  Question,
-} from "phosphor-react";
-import React, { useContext, useState } from "react";
-import { useEffect } from "react";
+import { CaretRight, CircleWavyCheck, Crown, Info } from "phosphor-react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { leaderboardinfo } from "../api/GET";
 import { AuthContext } from "../context/Auth";
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -90,11 +82,12 @@ const Leaderboardhorizontal = () => {
               <Text color={"#1DA1F2"} size={"sm"} weight={500}>
                 How to earn points?
               </Text>
-              <Text size={"xs"}>+1 point for every new post you create</Text>
-              <Text size={"xs"}>+1 point for every new follower</Text>
               <Text size={"xs"}>+1 point for each like on your posts</Text>
+              <Text size={"xs"}>
+                +1 point for each like on your comments and replies
+              </Text>
               <Text size={"xs"} color="red">
-                *Self post likes are not counted
+                *Self likes are not counted
               </Text>
             </Popover.Dropdown>
           </Popover>
@@ -220,7 +213,9 @@ const Leaderboardhorizontal = () => {
                     )}
                   </div>
                   <Text size={"12px"} color={"dimmed"}>
-                    {val.totalLikes + val.totalposts + val.totalFollowers}
+                    {val.totalLikes +
+                      val.totalNestedCommentLikes +
+                      val.totalCommentLikes}
                     pts
                   </Text>
                 </div>

@@ -18,8 +18,7 @@ import { follow } from "../api/POST";
 import { AuthContext } from "../context/Auth";
 
 export function PostMenu({ postinfo, setPosts }) {
-  const { UserInfo, followingdata, setfollowingdata, setUserlevelinfo } =
-    useContext(AuthContext);
+  const { UserInfo, followingdata, setfollowingdata } = useContext(AuthContext);
   const [opened, setOpened] = useState(false);
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -39,10 +38,6 @@ export function PostMenu({ postinfo, setPosts }) {
         });
         if (pathname === `/post/${postinfo?.id}`) {
           navigate("/");
-        } else {
-          setUserlevelinfo((prev) => {
-            return { ...prev, totalposts: prev.totalposts - 1 };
-          });
         }
       })
       .catch((err) => {

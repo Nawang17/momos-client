@@ -70,9 +70,9 @@ export const Sidebar = () => {
   const [loading, setLoading] = useState(true);
   const getLevel = () => {
     const points =
-      userlevelinfo?.totalFollowers +
+      userlevelinfo?.totalCommentLikes +
       userlevelinfo?.totalLikes +
-      userlevelinfo?.totalposts;
+      userlevelinfo?.totalNestedCommentLikes;
     let level = Math.floor(points / 10);
     let progress = points % 10;
     return { level, progress };
@@ -307,13 +307,13 @@ export const Sidebar = () => {
                   <Text color={"#1DA1F2"} size={"sm"} weight={500}>
                     How to earn points?
                   </Text>
-                  <Text size={"xs"}>
-                    +1 point for every new post you create
-                  </Text>
-                  <Text size={"xs"}>+1 point for every new follower</Text>
+
                   <Text size={"xs"}>+1 point for each like on your posts</Text>
+                  <Text size={"xs"}>
+                    +1 point for each like on your comments and replies
+                  </Text>
                   <Text size={"xs"} color="red">
-                    *Self post likes are not counted
+                    *Self likes are not counted
                   </Text>
                 </Popover.Dropdown>
               </Popover>
@@ -395,11 +395,9 @@ export const Sidebar = () => {
                                 ))}
                             </div>
                             {val.totalLikes +
-                              val.totalposts +
-                              val.totalFollowers}
-                            {val.totalLikes + val.totalposts !== 1
-                              ? " points"
-                              : " point"}
+                              val.totalNestedCommentLikes +
+                              val.totalCommentLikes}{" "}
+                            points
                           </Text>
                         </div>
                       </div>
@@ -484,13 +482,13 @@ export const Sidebar = () => {
                   <Text color={"#1DA1F2"} size={"sm"} weight={500}>
                     How to earn points?
                   </Text>
-                  <Text size={"xs"}>
-                    +1 point for every new post you create
-                  </Text>
-                  <Text size={"xs"}>+1 point for every new follower</Text>
+
                   <Text size={"xs"}>+1 point for each like on your posts</Text>
+                  <Text size={"xs"}>
+                    +1 point for each like on your comments and replies
+                  </Text>
                   <Text size={"xs"} color="red">
-                    *Self post likes are not counted
+                    *Self likes are not counted
                   </Text>
                 </Popover.Dropdown>
               </Popover>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
 import CreatePostModal from "./CreatePostModal";
-const CreatePost = ({ setHomePosts, UserInfo, darkmode }) => {
+const CreatePost = ({ UserInfo, darkmode }) => {
   const [opened, setOpened] = useState(false);
   const navigate = useNavigate();
   return (

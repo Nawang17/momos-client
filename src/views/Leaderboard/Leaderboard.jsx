@@ -158,11 +158,12 @@ export const Leaderboard = () => {
               <Text color={"#1DA1F2"} size={"sm"} weight={500}>
                 How to earn points?
               </Text>
-              <Text size={"xs"}>+1 point for every new post you create</Text>
-              <Text size={"xs"}>+1 point for every new follower</Text>
               <Text size={"xs"}>+1 point for each like on your posts</Text>
+              <Text size={"xs"}>
+                +1 point for each like on your comments and replies
+              </Text>
               <Text size={"xs"} color="red">
-                *Self post likes are not counted
+                *Self likes are not counted
               </Text>
             </Popover.Dropdown>
           </Popover>
@@ -257,13 +258,12 @@ export const Leaderboard = () => {
                         }}
                       >
                         {`${
-                          acc.totalLikes + acc.totalposts + acc.totalFollowers
-                        } 
-                       ${
-                         acc.totalLikes + acc.totalposts !== 1
-                           ? " points"
-                           : " point"
-                       }`}
+                          acc.totalLikes +
+                          acc.totalNestedCommentLikes +
+                          acc.totalCommentLikes
+                        }
+                      points
+                      `}
                       </div>
                     }
                   />

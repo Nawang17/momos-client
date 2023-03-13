@@ -75,20 +75,6 @@ function App() {
       socket.off("disconnect");
     };
   }, []);
-  useEffect(() => {
-    socket.on("connect", () => {
-      setIsConnected(true);
-    });
-    if (networkStatus.online) {
-      socket.emit("onlinestatus", {
-        token: localStorage.getItem("token"),
-      });
-    } else {
-      socket.emit("removeOnlinestatus", {
-        token: localStorage.getItem("token"),
-      });
-    }
-  }, [networkStatus.online]);
 
   useEffect(() => {
     if (localStorage.getItem("darkmode") === null) {

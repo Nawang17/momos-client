@@ -2,12 +2,12 @@
 
 Welcome to the Momos client-side repository! Momos is a social network webapp i created to improve my full stack development skills. This repository contains the code for the client side of the webapp, which is built using React and mantine. You can see a live demo of the webapp at https://momosz.com/
 
-## Technologies
+## 👨‍💻 Technologies
 
 - React
 - Mantine (UI library)
 
-## Features
+## ⭐ Features
 
 - Create posts with text and images
 - Like and comment on posts

@@ -25,7 +25,7 @@ Welcome to the Momos client-side repository! Momos is a social network webapp i 
 - Leaderboard system based on total points, where users can compete to reach the top
 - Earn points by creating new posts, receiving likes, and gaining new followers
 
-## Getting Started
+## 🔗 Getting Started
 
 To get started with the development of this project, you will need to have Node.js and either npm or yarn installed on your machine.
 

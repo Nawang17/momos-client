@@ -6,12 +6,6 @@ export const LoginReq = async (username, password) => {
     password,
   });
 };
-export const GLoginReq = async (username, email) => {
-  return await api.post("/auth/login/glogin", {
-    username,
-    email,
-  });
-};
 
 export const LoginStatus = async () => {
   return await api.get("/userinfo", {
@@ -26,8 +20,8 @@ export const RegisterReq = async (username, password) => {
     password,
   });
 };
-export const GRegisterReq = async (username, email, avatar) => {
-  return await api.post("/auth/register/gregister", {
+export const googleauth = async (username, email, avatar) => {
+  return await api.post("/auth/google", {
     username,
     email,
     avatar,

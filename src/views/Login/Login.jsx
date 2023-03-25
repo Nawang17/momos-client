@@ -10,7 +10,7 @@ import {
 } from "@mantine/core";
 import { Link } from "react-router-dom";
 import { useState, useContext } from "react";
-import { GLoginReq, LoginReq, LoginStatus } from "../../api/AUTH";
+import { googleauth, LoginReq, LoginStatus } from "../../api/AUTH";
 import { showNotification } from "@mantine/notifications";
 import { AuthContext } from "../../context/Auth";
 import { useNavigate } from "react-router-dom";
@@ -18,7 +18,8 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 import GoogleLogin from "@leecheuk/react-google-login";
-import { ShieldCheck, WarningCircle } from "phosphor-react";
+import { ShieldCheck, User, WarningCircle } from "phosphor-react";
+import confetti from "canvas-confetti";
 
 export function Login({ socket }) {
   const { setUserInfo, UserInfo, setfollowingdata, darkmode } =
@@ -100,7 +101,11 @@ export function Login({ socket }) {
   };
   const googleSuccess = (resp) => {
     setgoogleloading(true);
-    GLoginReq(resp.profileObj.name, resp.profileObj.email)
+    googleauth(
+      resp.profileObj.name,
+      resp.profileObj.email,
+      resp.profileObj.imageUrl
+    )
       .then(async (res) => {
         setUserInfo(res.data.user);
         localStorage.setItem("token", res.data.token);
@@ -108,15 +113,30 @@ export function Login({ socket }) {
           token: res.data.token,
         });
         navigate("/");
-        showNotification({
-          icon: <ShieldCheck size={18} />,
-          title: "Login Successful",
-          message: `Welcome back ${res.data.user.username}`,
-          autoClose: 3000,
-        });
-        await LoginStatus().then((resp) => {
-          setfollowingdata(resp.data.userfollowingarr);
-        });
+        if (res.data.type === "login") {
+          showNotification({
+            icon: <ShieldCheck size={18} />,
+            title: "Login Successful",
+            message: `Welcome back ${res.data.user.username}`,
+            autoClose: 3000,
+          });
+          await LoginStatus().then((resp) => {
+            setfollowingdata(resp.data.userfollowingarr);
+          });
+        } else if (res.data.type === "register") {
+          confetti({
+            particleCount: 300,
+            spread: 70,
+            origin: { y: 0.6 },
+          });
+
+          showNotification({
+            icon: <User size={18} />,
+            title: "Register Successful",
+            message: `Welcome to momos ${res.data.user.username} `,
+            autoClose: 3000,
+          });
+        }
       })
       .catch((err) => {
         if (err.response.status === 0) {

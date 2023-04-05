@@ -8,6 +8,7 @@ import {
   Skeleton,
   Avatar,
   Indicator,
+  BackgroundImage,
 } from "@mantine/core";
 import {
   ArrowLeft,
@@ -31,7 +32,7 @@ import reactStringReplace from "react-string-replace";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
-    padding: "0rem 1.5rem 0.5rem 1rem  ",
+    padding: "0rem 1.5rem 0.5rem 1rem",
     gap: "0.5rem",
     display: "flex",
     flexDirection: "column",
@@ -223,17 +224,184 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
   };
   return (
     <>
-      <div
-        style={{
-          backgroundColor: darkmode ? "#1A1B1E" : "white",
-          color: darkmode ? "white" : "black",
-          padding: "1rem 0rem 0rem 1rem",
-        }}
-      >
-        <ActionIcon onClick={() => navigate(-1)}>
-          <ArrowLeft size="20px" />
-        </ActionIcon>
-      </div>
+      {!loading && !profileloading ? (
+        <>
+          <div
+            style={{
+              paddingBottom: "0.5rem",
+              backgroundColor: darkmode ? "#1A1B1E" : "white",
+            }}
+          >
+            <BackgroundImage
+              src={profileInfo?.profilebanner?.imageurl}
+              radius="xs"
+            >
+              <>
+                <div
+                  style={{
+                    padding: "1rem 0rem 0rem 1rem",
+                  }}
+                >
+                  <ActionIcon
+                    radius="lg"
+                    color="dark"
+                    variant="light"
+                    onClick={() => navigate(-1)}
+                  >
+                    <ArrowLeft size="20px" />
+                  </ActionIcon>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "1rem",
+
+                    height: "10rem",
+                  }}
+                >
+                  <Indicator
+                    style={{
+                      padding: "1rem 0rem 0rem 0.5rem",
+                      marginBottom: "-8rem",
+                    }}
+                    disabled={!onlineusers.includes(profileInfo?.id)}
+                    color={"green"}
+                    withBorder
+                    inline
+                    position="bottom-end"
+                    offset={18}
+                    size={16}
+                  >
+                    <Avatar
+                      style={{
+                        width: "100px",
+                        height: "100px",
+                        borderRadius: "50%",
+                        border: !darkmode
+                          ? "5px solid white"
+                          : "5px solid #1A1B1E",
+                      }}
+                      size="lg"
+                      src={profileInfo?.avatar}
+                    />
+                  </Indicator>
+                  {/* profile info */}
+                </div>
+              </>
+            </BackgroundImage>
+          </div>
+          <div
+            style={{
+              backgroundColor: darkmode ? "#1A1B1E" : "white",
+              color: darkmode ? "white" : "black",
+              padding: "2rem 1.5rem 0rem 1rem",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                width: "auto",
+                alignItems: "center",
+                gap: "0.3rem",
+              }}
+            >
+              <Text weight={500} size={"lg"}>
+                {" "}
+                {userprofile}
+              </Text>
+              <div>
+                <Text color={"#71767b"} weight={500} size={"md"}>
+                  #{rankinfo.rank}
+                </Text>
+              </div>
+            </div>
+          </div>
+        </>
+      ) : (
+        <>
+          <div
+            style={{
+              paddingBottom: "0.5rem",
+              backgroundColor: darkmode ? "#1A1B1E" : "white",
+            }}
+          >
+            <BackgroundImage
+              src={
+                darkmode
+                  ? `https://ui-avatars.com/api/?background=373A40&color=fff&name=&size=1920`
+                  : `https://ui-avatars.com/api/?background=dee2e6&color=fff&name=&size=1920`
+              }
+              radius="xs"
+            >
+              <>
+                <div
+                  style={{
+                    padding: "1rem 0rem 0rem 1rem",
+                  }}
+                >
+                  <ActionIcon
+                    radius="lg"
+                    color="dark"
+                    variant="light"
+                    onClick={() => navigate(-1)}
+                  >
+                    <ArrowLeft size="20px" />
+                  </ActionIcon>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "1rem",
+
+                    height: "10rem",
+                  }}
+                >
+                  <Indicator
+                    style={{
+                      padding: "1rem 0rem 0rem 0.5rem",
+                      marginBottom: "-8rem",
+                    }}
+                    disabled={true}
+                    color={"green"}
+                    withBorder
+                    inline
+                    position="bottom-end"
+                    offset={18}
+                    size={16}
+                  >
+                    <Skeleton height={100} circle />
+                  </Indicator>
+                  {/* profile info */}
+                </div>
+              </>
+            </BackgroundImage>
+          </div>
+          <div
+            style={{
+              backgroundColor: darkmode ? "#1A1B1E" : "white",
+              color: darkmode ? "white" : "black",
+              padding: "2rem 1.5rem 0rem 1rem",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                width: "auto",
+                alignItems: "center",
+                gap: "0.3rem",
+              }}
+            >
+              <Text weight={500} size={"lg"}>
+                {" "}
+                {userprofile}
+              </Text>
+            </div>
+          </div>
+        </>
+      )}
+
       {!loading && !profileloading ? (
         <div
           style={{
@@ -253,63 +421,74 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
             }}
           >
             {/* profile avatar */}
-            <div
+            {/* <BackgroundImage
               style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "1rem",
-                paddingBottom: "0.7rem",
+                marginBottom: "3rem",
               }}
+              src="https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80"
+              radius="xs"
             >
-              <Indicator
-                disabled={!onlineusers.includes(profileInfo?.id)}
-                color={"green"}
-                withBorder
-                inline
-                position="bottom-end"
-                offset={10}
-                size={13}
-              >
-                <Avatar
-                  style={{
-                    width: "70px",
-                    height: "70px",
-                    borderRadius: "50%",
-                  }}
-                  size="lg"
-                  src={profileInfo?.avatar}
-                />
-              </Indicator>
-              {/* profile info */}
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  width: "100%",
-                  gap: "0.5rem",
-                }}
-              >
+              <>
+                {" "}
                 <div
                   style={{
                     display: "flex",
-                    flexDirection: "column",
-                    width: "auto",
+                    alignItems: "center",
+                    gap: "1rem",
+                    marginBottom: "-50px",
+                    height: "8rem",
                   }}
                 >
-                  <Text weight={500} size={"lg"}>
-                    {" "}
-                    {userprofile}
-                  </Text>
-                  <div>
-                    <Text color={"#71767b"} weight={500} size={"sm"}>
-                      {" "}
-                      Rank #{rankinfo.rank}
-                    </Text>
-                    {/* <Badge>Rank #{rankinfo.rank}</Badge> */}
+                  <Indicator
+                    disabled={!onlineusers.includes(profileInfo?.id)}
+                    color={"green"}
+                    withBorder
+                    inline
+                    position="bottom-end"
+                    offset={10}
+                    size={13}
+                  >
+                    <Avatar
+                      style={{
+                        width: "70px",
+                        height: "70px",
+                        borderRadius: "50%",
+                      }}
+                      size="lg"
+                      src={profileInfo?.avatar}
+                    />
+                  </Indicator>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      width: "100%",
+                      gap: "0.5rem",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        width: "auto",
+                      }}
+                    >
+                      <Text weight={500} size={"lg"}>
+                        {" "}
+                        {userprofile}
+                      </Text>
+                      <div>
+                        <Text color={"#71767b"} weight={500} size={"sm"}>
+                          {" "}
+                          Rank #{rankinfo.rank}
+                        </Text>
+                       
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              </>
+            </BackgroundImage> */}
             <div
               style={{
                 display: "flex",
@@ -505,42 +684,6 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
               fontSize: "15px",
             }}
           >
-            {/* profile avatar */}
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "1rem",
-                paddingBottom: "0.7rem",
-              }}
-            >
-              <div>
-                <Skeleton height={70} circle />
-              </div>
-              {/* profile info */}
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  width: "100%",
-                  gap: "0.5rem",
-                }}
-              >
-                <div
-                  style={{
-                    display: "flex",
-                    gap: "0.3rem",
-                    alignItems: "center",
-                  }}
-                >
-                  <Text weight={500} size={"lg"}>
-                    {" "}
-                    {userprofile}
-                  </Text>
-                </div>
-              </div>
-            </div>
-
             {/* description */}
             <Skeleton height={5} width={"60%"} mb={10} />
             <Skeleton height={5} width={"50%"} mb={10} />

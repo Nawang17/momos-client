@@ -186,77 +186,103 @@ export const Editprofile = () => {
         {loading ? (
           <div
             style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "1rem",
               backgroundColor: darkmode ? "#1A1B1E" : "white",
               color: darkmode ? "white" : "black",
-              padding: "3rem",
+              // padding: "1rem",
             }}
           >
-            <Text weight={"500"} size={"md"} color={"red"}>
-              {error}
-            </Text>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                gap: "1rem",
-              }}
+            <BackgroundImage
+              src={
+                darkmode
+                  ? `https://ui-avatars.com/api/?background=373A40&color=fff&name=&size=1920`
+                  : `https://ui-avatars.com/api/?background=dee2e6&color=fff&name=&size=1920`
+              }
+              radius="xs"
             >
-              <Skeleton height={60} circle />
-              <div>
+              {" "}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  padding: "3.2rem 0.5rem 0 0",
+                }}
+              >
+                {profileinfo.username !== "Demo" && (
+                  <span className="upload-btn-wrapper">
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    ></div>
+                  </span>
+                )}
+              </div>
+              <>
                 <div
                   style={{
                     display: "flex",
                     alignItems: "center",
-                    gap: "0.2rem",
+                    gap: "1rem",
+
+                    height: "10rem",
                   }}
                 >
-                  <Text>{username}</Text>
-                  {profileinfo.verified && (
-                    <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
-                  )}
+                  <Indicator
+                    children={<div>hello</div>}
+                    style={{
+                      padding: "1rem 0rem 0rem 0.5rem",
+                      marginBottom: "-8rem",
+                    }}
+                    disabled={true}
+                    color={"green"}
+                    withBorder
+                    inline
+                    position="bottom-end"
+                    offset={18}
+                    size={16}
+                  >
+                    <Skeleton height={100} circle />
+                  </Indicator>
                 </div>
-              </div>
-            </div>{" "}
-            <div>
-              <Textarea
-                value={description}
-                onChange={(e) => {
-                  seterror("");
-                  setDescription(e.target.value);
-                  setbtndisabled(false);
-                }}
-                minRows={3}
-                maxRows={4}
-                label="Bio"
-                maxLength={160}
-              />
-              <Text style={{ paddingTop: "5px" }} variant="dimmed" size={"xs"}>
-                {description?.length} / 160
-              </Text>
-            </div>
+              </>
+            </BackgroundImage>
+
             <div
               style={{
+                padding: "1rem",
                 display: "flex",
+                flexDirection: "column",
                 gap: "1rem",
+                paddingTop: "4rem",
               }}
             >
-              <Button onClick={handleSave} disabled={btndisabled} radius="sm">
-                Save Changes
-              </Button>
-              <Button
-                onClick={() => {
-                  handleUndo();
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "0.7rem",
+                  fontSize: "15px",
                 }}
-                disabled={btndisabled}
-                radius="sm"
-                color={"red"}
               >
-                Undo all Changes
-              </Button>
+                {/* description */}
+                <Skeleton height={35} width={"100%"} mb={20} />
+
+                <Skeleton height={100} width={"100%"} mb={10} />
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  gap: "1rem",
+                  fontSize: "15px",
+                }}
+              >
+                {/* description */}
+                <Skeleton height={35} mb={20} width={"150px"} />
+
+                <Skeleton height={35} mb={10} width={"150px"} />
+              </div>
             </div>
           </div>
         ) : (

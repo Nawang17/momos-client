@@ -421,74 +421,7 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
             }}
           >
             {/* profile avatar */}
-            {/* <BackgroundImage
-              style={{
-                marginBottom: "3rem",
-              }}
-              src="https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80"
-              radius="xs"
-            >
-              <>
-                {" "}
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "1rem",
-                    marginBottom: "-50px",
-                    height: "8rem",
-                  }}
-                >
-                  <Indicator
-                    disabled={!onlineusers.includes(profileInfo?.id)}
-                    color={"green"}
-                    withBorder
-                    inline
-                    position="bottom-end"
-                    offset={10}
-                    size={13}
-                  >
-                    <Avatar
-                      style={{
-                        width: "70px",
-                        height: "70px",
-                        borderRadius: "50%",
-                      }}
-                      size="lg"
-                      src={profileInfo?.avatar}
-                    />
-                  </Indicator>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      width: "100%",
-                      gap: "0.5rem",
-                    }}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        width: "auto",
-                      }}
-                    >
-                      <Text weight={500} size={"lg"}>
-                        {" "}
-                        {userprofile}
-                      </Text>
-                      <div>
-                        <Text color={"#71767b"} weight={500} size={"sm"}>
-                          {" "}
-                          Rank #{rankinfo.rank}
-                        </Text>
-                       
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </>
-            </BackgroundImage> */}
+
             <div
               style={{
                 display: "flex",

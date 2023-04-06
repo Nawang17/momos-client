@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import {
   ActionIcon,
+  Avatar,
+  BackgroundImage,
   Button,
   Container,
   createStyles,
+  Indicator,
   Input,
   Skeleton,
   Text,
@@ -14,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { showNotification } from "@mantine/notifications";
 import {
   ArrowLeft,
+  Camera,
   CircleWavyCheck,
   Pencil,
   WarningCircle,
@@ -48,8 +52,9 @@ export const Editprofile = () => {
   const [username, setUsername] = useState("");
   const [description, setDescription] = useState("");
   const navigate = useNavigate();
+  const [banner, setbanner] = useState("");
+  const [newbanner, setnewbanner] = useState("");
   const [btndisabled, setbtndisabled] = useState(true);
-  const [flieInputState, setFileInputState] = useState("");
   const [avatar, setavatar] = useState("");
   const [profileinfo, setprofileinfo] = useState({});
   const [newavatar, setnewavatar] = useState("");
@@ -60,6 +65,7 @@ export const Editprofile = () => {
     seterror("");
     setbtndisabled(false);
     const file = e.target.files[0];
+
     previewFile(file);
   };
   const previewFile = (file) => {
@@ -70,9 +76,23 @@ export const Editprofile = () => {
       setnewavatar(reader.result);
     };
   };
+  const handlebannerInputChange = (e) => {
+    seterror("");
+    setbtndisabled(false);
+    const file = e.target.files[0];
+    bannerpreviewFile(file);
+  };
+  const bannerpreviewFile = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setbanner(reader.result);
+      setnewbanner(reader.result);
+    };
+  };
   const handleSave = () => {
     setbtndisabled(true);
-    updateprofileinfo(username, newavatar, description)
+    updateprofileinfo(username, newavatar, description, newbanner)
       .then((res) => {
         setUserInfo(res.data.newUserInfo);
         showNotification({
@@ -85,8 +105,20 @@ export const Editprofile = () => {
       .catch((err) => {
         setbtndisabled(false);
         if (err.response.status === 0) {
+          showNotification({
+            color: "red",
+            title: "Error",
+            message: "Internal Server Error",
+            autoClose: 4000,
+          });
           seterror("Internal Server Error");
         } else {
+          showNotification({
+            color: "red",
+            title: "Error",
+            message: err.response.data,
+            autoClose: 4000,
+          });
           seterror(err.response.data);
         }
       });
@@ -95,8 +127,10 @@ export const Editprofile = () => {
     setUsername(profileinfo.username);
     setDescription(profileinfo.description);
     setavatar(profileinfo.avatar);
+    setbanner(profileinfo.profilebanner.imageurl);
     setbtndisabled(true);
     setnewavatar("");
+    setnewbanner("");
   };
   useEffect(() => {
     setloading(true);
@@ -109,6 +143,7 @@ export const Editprofile = () => {
         setDescription(res.data.userInfo.description);
         setavatar(res.data.userInfo.avatar);
         setprofileinfo(res.data.userInfo);
+        setbanner(res.data.userInfo.profilebanner.imageurl);
         setloading(false);
       })
       .catch((err) => {
@@ -137,7 +172,7 @@ export const Editprofile = () => {
           style={{
             backgroundColor: darkmode ? "#1A1B1E" : "white",
             color: darkmode ? "white" : "black",
-            padding: "1rem 0rem 0rem 1rem",
+            padding: "1rem 2rem 1rem 1rem",
             display: "flex",
             justifyContent: "space-between",
           }}
@@ -227,58 +262,20 @@ export const Editprofile = () => {
         ) : (
           <div
             style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "1rem",
               backgroundColor: darkmode ? "#1A1B1E" : "white",
               color: darkmode ? "white" : "black",
-              padding: "3rem",
+              // padding: "1rem",
             }}
           >
-            <Text weight={"500"} size={"md"} color={"red"}>
-              {error}
-            </Text>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                gap: "1rem",
-              }}
-            >
-              <img
+            <BackgroundImage src={banner} radius="xs">
+              {" "}
+              <div
                 style={{
-                  width: "60px",
-                  height: "60px",
-                  borderRadius: "50%",
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  padding: "0.5rem 0.5rem 0 0",
                 }}
-                src={avatar}
-                alt=""
-              />
-              <div>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.2rem",
-                  }}
-                >
-                  <Text>{username}</Text>
-                  {profileinfo.verified &&
-                    (profileinfo?.username !== "katoph" ? (
-                      <CircleWavyCheck
-                        size={17}
-                        color="#0ba6da"
-                        weight="fill"
-                      />
-                    ) : (
-                      <CircleWavyCheck
-                        size={17}
-                        color="#0ba6da"
-                        weight="fill"
-                      />
-                    ))}
-                </div>
+              >
                 {profileinfo.username !== "Demo" && (
                   <span className="upload-btn-wrapper">
                     <div
@@ -287,72 +284,163 @@ export const Editprofile = () => {
                         alignItems: "center",
                       }}
                     >
-                      <Text
-                        color={"blue"}
-                        style={{ paddingTop: "5px", cursor: "pointer" }}
+                      <ActionIcon
+                        radius={"xl"}
+                        color="dark"
+                        size={"xl"}
+                        variant="light"
                       >
-                        Change profile photo
-                      </Text>
+                        <Camera color="white" size="1.5rem" />
+                      </ActionIcon>
                     </div>
                     <input
-                      value={flieInputState}
                       accept="image/*"
                       type="file"
-                      onChange={handleflieInputChange}
+                      onChange={handlebannerInputChange}
                     />
                   </span>
                 )}
               </div>
-            </div>{" "}
-            {UserInfo?.username !== "Demo" && (
-              <Input.Wrapper label="Username">
-                <Input
-                  value={username}
-                  onChange={(e) => {
-                    seterror("");
-                    setUsername(e.target.value);
-                    setbtndisabled(false);
+              <>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "1rem",
+
+                    height: "10rem",
                   }}
-                />
-              </Input.Wrapper>
-            )}
-            <div>
-              <Textarea
-                value={description}
-                onChange={(e) => {
-                  seterror("");
-                  setDescription(e.target.value);
-                  setbtndisabled(false);
-                }}
-                minRows={3}
-                maxRows={4}
-                label="Bio"
-                maxLength={160}
-              />
-              <Text style={{ paddingTop: "5px" }} variant="dimmed" size={"xs"}>
-                {description?.length} / 160
-              </Text>
-            </div>
+                >
+                  <Indicator
+                    children={<div>hello</div>}
+                    style={{
+                      padding: "1rem 0rem 0rem 0.5rem",
+                      marginBottom: "-8rem",
+                    }}
+                    disabled={true}
+                    color={"green"}
+                    withBorder
+                    inline
+                    position="bottom-end"
+                    offset={18}
+                    size={16}
+                  >
+                    <Avatar
+                      style={{
+                        width: "100px",
+                        height: "100px",
+                        borderRadius: "50%",
+                        border: !darkmode
+                          ? "5px solid white"
+                          : "5px solid #1A1B1E",
+                      }}
+                      size="lg"
+                      src={avatar}
+                    />
+                  </Indicator>
+                </div>
+              </>
+            </BackgroundImage>
             <div
               style={{
-                display: "flex",
-                gap: "1rem",
-                flexWrap: "wrap",
+                padding: "0.4rem 0 0 4.5rem",
               }}
             >
-              <Button onClick={handleSave} disabled={btndisabled} radius="sm">
-                Save Changes
-              </Button>
-              <Button
-                onClick={() => {
-                  handleUndo();
+              {" "}
+              {profileinfo.username !== "Demo" && (
+                <span className="upload-btn-wrapper">
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <ActionIcon
+                      style={{
+                        border: !darkmode
+                          ? "4px solid white"
+                          : "4px solid #1A1B1E",
+                      }}
+                      size="lg"
+                      radius="xl"
+                      variant="filled"
+                      color="blue"
+                    >
+                      <Camera size={16} />
+                    </ActionIcon>
+                  </div>
+                  <input
+                    accept="image/*"
+                    type="file"
+                    onChange={handleflieInputChange}
+                  />
+                </span>
+              )}
+            </div>
+
+            <div
+              style={{
+                padding: "1rem",
+                display: "flex",
+                flexDirection: "column",
+                gap: "1rem",
+                paddingTop: "1rem",
+              }}
+            >
+              {UserInfo?.username !== "Demo" && (
+                <Input.Wrapper label="Username">
+                  <Input
+                    value={username}
+                    onChange={(e) => {
+                      seterror("");
+                      setUsername(e.target.value);
+                      setbtndisabled(false);
+                    }}
+                  />
+                </Input.Wrapper>
+              )}
+              <div>
+                <Textarea
+                  value={description}
+                  onChange={(e) => {
+                    seterror("");
+                    setDescription(e.target.value);
+                    setbtndisabled(false);
+                  }}
+                  minRows={3}
+                  maxRows={4}
+                  label="Bio"
+                  maxLength={160}
+                />
+                <Text
+                  style={{ paddingTop: "5px" }}
+                  variant="dimmed"
+                  size={"xs"}
+                >
+                  {description?.length} / 160
+                </Text>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  gap: "1rem",
+                  flexWrap: "wrap",
                 }}
-                disabled={btndisabled}
-                radius="sm"
-                color={"red"}
               >
-                Undo all Changes
-              </Button>
+                <Button onClick={handleSave} disabled={btndisabled} radius="sm">
+                  Save Changes
+                </Button>
+                <Button
+                  onClick={() => {
+                    handleUndo();
+                  }}
+                  disabled={btndisabled}
+                  radius="sm"
+                  color={"red"}
+                >
+                  Undo all Changes
+                </Button>
+              </div>
             </div>
           </div>
         )}

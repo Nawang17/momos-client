@@ -19,11 +19,12 @@ Welcome to the Momos client-side repository! Momos is a social network webapp i 
 - Sort posts and comments by date or popularity
 - View user online status
 - Follow other users
-- Customize profile with profile picture and description
+- Personalize your profile with profile picture, banner and description
 - Receive notifications for likes, comments, and new followers
 - Authenticate using Google or normal login with username and password
 - Leaderboard system based on total points, where users can compete to reach the top
 - Earn points by creating new posts, receiving likes, and gaining new followers
+- Trending topics based on popular hashtags
 
 ## 🔗 Getting Started
 

@@ -410,21 +410,21 @@ export const Editprofile = () => {
                 display: "flex",
                 flexDirection: "column",
                 gap: "1rem",
-                paddingTop: "1rem",
+                paddingTop: UserInfo?.username === "Demo" ? "3rem" : "1rem",
               }}
             >
-              {UserInfo?.username !== "Demo" && (
-                <Input.Wrapper label="Username">
-                  <Input
-                    value={username}
-                    onChange={(e) => {
-                      seterror("");
-                      setUsername(e.target.value);
-                      setbtndisabled(false);
-                    }}
-                  />
-                </Input.Wrapper>
-              )}
+              <Input.Wrapper label="Username">
+                <Input
+                  disabled={UserInfo?.username === "Demo"}
+                  value={username}
+                  onChange={(e) => {
+                    seterror("");
+                    setUsername(e.target.value);
+                    setbtndisabled(false);
+                  }}
+                />
+              </Input.Wrapper>
+
               <div>
                 <Textarea
                   value={description}

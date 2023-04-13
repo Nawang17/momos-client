@@ -841,54 +841,6 @@ export const Post = ({ post, setPosts, comments }) => {
               padding: "0rem 1rem ",
             }}
           >
-            {/* <HoverCard position="top" width={280} shadow="md">
-              <HoverCard.Target>
-                <Button
-                  onClick={() => {
-                    handleLike();
-                  }}
-                  color={
-                    !post?.likes.find((like) => {
-                      return like?.user?.username === UserInfo?.username;
-                    })
-                      ? "gray"
-                      : "red"
-                  }
-                  size="xs"
-                  leftIcon={
-                    <Heart
-                      weight={
-                        !post?.likes.find((like) => {
-                          return like?.user?.username === UserInfo?.username;
-                        })
-                          ? "light"
-                          : "fill"
-                      }
-                      color={
-                        !post?.likes.find((like) => {
-                          return like?.user?.username === UserInfo?.username;
-                        })
-                          ? darkmode
-                            ? "#e9ecef"
-                            : "#868e96"
-                          : "red"
-                      }
-                      size={18}
-                    />
-                  }
-                  variant="subtle"
-                >
-                  Like
-                </Button>
-              </HoverCard.Target>
-              <HoverCard.Dropdown>
-                <Text size="sm">
-                  Hover card is revealed when user hovers over target element,
-                  it will be hidden once mouse is not over both target and
-                  dropdown elements
-                </Text>
-              </HoverCard.Dropdown>
-            </HoverCard> */}
             <Button
               onClick={() => {
                 handleLike();

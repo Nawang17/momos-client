@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Button, Progress, Radio, Text } from "@mantine/core";
+import { Button, Modal, Progress, Text } from "@mantine/core";
 import { AuthContext } from "../context/Auth";
 import { useNavigate } from "react-router-dom";
 import reactStringReplace from "react-string-replace";
@@ -7,7 +7,12 @@ import { formatDistanceToNowStrict } from "date-fns";
 import locale from "date-fns/locale/en-US";
 import { pollvote } from "../api/POST";
 import { showNotification } from "@mantine/notifications";
-import { CheckCircle, Lock, WarningCircle } from "phosphor-react";
+import {
+  CheckCircle,
+  CircleWavyCheck,
+  Lock,
+  WarningCircle,
+} from "phosphor-react";
 
 const PostPolls = ({ post }) => {
   const [poll, setpoll] = useState(post);
@@ -51,6 +56,7 @@ const PostPolls = ({ post }) => {
     return result;
   }
   const { UserInfo, darkmode } = useContext(AuthContext);
+  const [votemodal, setvotemodal] = useState(false);
   const navigate = useNavigate();
   const postvalue = (text) => {
     let replacedText;
@@ -167,193 +173,267 @@ const PostPolls = ({ post }) => {
         });
     }
   };
+
   return (
-    <div
-      style={{
-        padding: "0.5rem 1rem",
-        margin: "0.2rem 1rem",
+    <>
+      <div
+        style={{
+          padding: "0.5rem 1rem",
+          margin: "0.2rem 1rem",
 
-        border: darkmode ? "1px solid #3f4448" : "1px solid #e6ecf0",
-        borderRadius: "0.5rem",
-      }}
-    >
-      {post.text && (
-        <div
-          style={{
-            cursor: "pointer",
+          border: darkmode ? "1px solid #3f4448" : "1px solid #e6ecf0",
+          borderRadius: "0.5rem",
+        }}
+      >
+        {post.text && (
+          <div
+            style={{
+              cursor: "pointer",
 
-            wordBreak: "break-word",
-            whiteSpace: "pre-wrap",
-            paddingTop: "0.5rem",
-          }}
-        >
-          <Text weight={600} size="15px">
-            {postvalue(post?.text)}
-          </Text>
-        </div>
-      )}
+              wordBreak: "break-word",
+              whiteSpace: "pre-wrap",
+              paddingTop: "0.5rem",
+            }}
+          >
+            <Text weight={600} size="15px">
+              {postvalue(post?.text)}
+            </Text>
+          </div>
+        )}
 
-      {hasDatePassed(poll?.poll?.duration) ||
-      poll?.user?.username === UserInfo?.username ||
-      poll?.poll?.pollchoices?.find((val) => {
-        return val?.pollvotes?.find((vals) => {
-          return vals?.user?.username === UserInfo?.username;
-        });
-      }) ? (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "1rem",
-            marginTop: "0.5rem",
-          }}
-        >
-          {poll?.poll?.pollchoices
-            ?.sort((a, b) => a.id - b.id)
-            .map((val) => {
-              return (
-                <div
-                  key={val.id}
-                  style={{
-                    display: "flex",
-                    gap: "0.8rem",
-                    fontSize: "14px",
-                  }}
-                >
+        {hasDatePassed(poll?.poll?.duration) ||
+        poll?.user?.username === UserInfo?.username ||
+        poll?.poll?.pollchoices?.find((val) => {
+          return val?.pollvotes?.find((vals) => {
+            return vals?.user?.username === UserInfo?.username;
+          });
+        }) ? (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "1rem",
+              marginTop: "0.5rem",
+            }}
+          >
+            {poll?.poll?.pollchoices
+              ?.sort((a, b) => a.id - b.id)
+              .map((val) => {
+                return (
                   <div
+                    key={val.id}
                     style={{
                       display: "flex",
-                      flexDirection: "column",
-                      gap: "0.5rem",
-                      width: "100%",
+                      gap: "0.8rem",
+                      fontSize: "14px",
                     }}
                   >
-                    {/* put a check mark here if the user has voted for this option */}
                     <div
                       style={{
                         display: "flex",
-                        alignItems: "center",
-                        gap: "0.2rem",
+                        flexDirection: "column",
+                        gap: "0.5rem",
+                        width: "100%",
                       }}
                     >
-                      <Text>{val?.choice}</Text>
+                      {/* put a check mark here if the user has voted for this option */}
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "0.2rem",
+                        }}
+                      >
+                        <Text>{val?.choice}</Text>
 
-                      {val?.pollvotes?.find((val) => {
-                        return val?.user?.username === UserInfo?.username;
-                      }) && <CheckCircle size={16} />}
-                    </div>
-                    <Progress
-                      label={
-                        val?.pollvotes?.length === 0
-                          ? 0
-                          : Math.floor(
-                              (val?.pollvotes?.length /
-                                poll?.poll?.pollchoices
-                                  .map((val) => {
-                                    return val?.pollvotes?.length;
-                                  })
-                                  .reduce((a, b) => a + b)) *
-                                100
-                            ) + "%"
-                      }
-                      color={
-                        val?.pollvotes?.length ===
-                        poll?.poll?.pollchoices
+                        {val?.pollvotes?.find((val) => {
+                          return val?.user?.username === UserInfo?.username;
+                        }) && <CheckCircle size={16} />}
+                      </div>
+                      <Progress
+                        label={
+                          val?.pollvotes?.length === 0
+                            ? 0
+                            : Math.floor(
+                                (val?.pollvotes?.length /
+                                  poll?.poll?.pollchoices
+                                    .map((val) => {
+                                      return val?.pollvotes?.length;
+                                    })
+                                    .reduce((a, b) => a + b)) *
+                                  100
+                              ) + "%"
+                        }
+                        color={
+                          val?.pollvotes?.length ===
+                          poll?.poll?.pollchoices
 
-                          .map((val) => {
-                            return val?.pollvotes?.length;
-                          })
-                          .reduce((a, b) => {
-                            return Math.max(a, b);
-                          })
-                          ? "green"
-                          : "blue"
-                      }
-                      value={
-                        val?.pollvotes?.length === 0
-                          ? 0
-                          : Math.floor(
-                              (val?.pollvotes?.length /
-                                poll?.poll?.pollchoices
-                                  .map((val) => {
-                                    return val?.pollvotes?.length;
-                                  })
-                                  .reduce((a, b) => a + b)) *
-                                100
-                            )
-                      }
-                      size="xl"
-                    />
-                  </div>{" "}
-                </div>
-              );
-            })}
-        </div>
-      ) : (
+                            .map((val) => {
+                              return val?.pollvotes?.length;
+                            })
+                            .reduce((a, b) => {
+                              return Math.max(a, b);
+                            })
+                            ? "green"
+                            : "blue"
+                        }
+                        value={
+                          val?.pollvotes?.length === 0
+                            ? 0
+                            : Math.floor(
+                                (val?.pollvotes?.length /
+                                  poll?.poll?.pollchoices
+                                    .map((val) => {
+                                      return val?.pollvotes?.length;
+                                    })
+                                    .reduce((a, b) => a + b)) *
+                                  100
+                              )
+                        }
+                        size="xl"
+                      />
+                    </div>{" "}
+                  </div>
+                );
+              })}
+          </div>
+        ) : (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.8rem",
+              marginTop: "0.5rem",
+            }}
+          >
+            {poll?.poll?.pollchoices
+              ?.sort((a, b) => a.id - b.id)
+              .map((val) => {
+                return (
+                  <Button
+                    onClick={() => handlePollvote(val)}
+                    radius={20}
+                    key={val.id}
+                    variant="outline"
+                  >
+                    {val?.choice}
+                  </Button>
+                );
+              })}
+          </div>
+        )}
         <div
           style={{
             display: "flex",
-            flexDirection: "column",
-            gap: "0.8rem",
+            justifyContent: "space-between",
+            alignItems: "center",
             marginTop: "0.5rem",
           }}
         >
-          {poll?.poll?.pollchoices
-            ?.sort((a, b) => a.id - b.id)
-            .map((val) => {
-              return (
-                <Button
-                  onClick={() => handlePollvote(val)}
-                  radius={20}
-                  key={val.id}
-                  variant="outline"
-                >
-                  {val?.choice}
-                </Button>
-              );
-            })}
-        </div>
-      )}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginTop: "0.5rem",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            gap: "0.4rem",
-            fontSize: "14px",
-          }}
-        >
-          <Text color="dimmed">
-            {poll?.poll?.pollchoices?.reduce((acc, val) => {
-              return acc + val?.pollvotes?.length;
-            }, 0)}{" "}
-            votes
-          </Text>
-          &#183;
-          <Text color="dimmed">
-            {new Date() > new Date(post?.poll?.duration) ? (
-              <Text color="dimmed"> Poll closed </Text>
-            ) : (
-              <Text>
-                {formatDistanceToNowStrict(new Date(post?.poll?.duration), {
-                  locale: {
-                    ...locale,
-                    formatDistance,
-                  },
-                })}{" "}
-                left{" "}
-              </Text>
-            )}
-          </Text>
+          <div
+            style={{
+              display: "flex",
+              gap: "0.4rem",
+              fontSize: "14px",
+            }}
+          >
+            <Text
+              onClick={() => {
+                if (
+                  poll?.poll?.pollchoices?.reduce((acc, val) => {
+                    return acc + val?.pollvotes?.length;
+                  }, 0) > 0
+                ) {
+                  setvotemodal(true);
+                }
+              }}
+              style={{
+                cursor: "pointer",
+              }}
+              color="dimmed"
+            >
+              {poll?.poll?.pollchoices?.reduce((acc, val) => {
+                return acc + val?.pollvotes?.length;
+              }, 0)}{" "}
+              {poll?.poll?.pollchoices?.reduce((acc, val) => {
+                return acc + val?.pollvotes?.length;
+              }, 0) > 1
+                ? "Votes"
+                : "Vote"}
+            </Text>
+            <Text color="dimmed"> &#183; </Text>
+            <Text color="dimmed">
+              {new Date() > new Date(post?.poll?.duration) ? (
+                <Text color="dimmed"> Poll closed </Text>
+              ) : (
+                <Text>
+                  {formatDistanceToNowStrict(new Date(post?.poll?.duration), {
+                    locale: {
+                      ...locale,
+                      formatDistance,
+                    },
+                  })}{" "}
+                  left{" "}
+                </Text>
+              )}
+            </Text>
+          </div>
         </div>
       </div>
-    </div>
+      <Modal
+        zIndex={1000}
+        title={`Poll Votes (${poll?.poll?.pollchoices?.reduce((acc, val) => {
+          return acc + val?.pollvotes?.length;
+        }, 0)})`}
+        overflow="inside"
+        opened={votemodal}
+        onClose={() => {
+          setvotemodal(false);
+        }}
+      >
+        {poll?.poll?.pollchoices?.map((val) => {
+          return val?.pollvotes?.map((vals) => {
+            return (
+              <div
+                key={vals?.user?.username}
+                onClick={() => {
+                  navigate(`/${vals?.user?.username}`);
+                }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.5rem",
+                  padding: "0.5rem 0.5rem 0.5rem 0",
+                  cursor: "pointer",
+                }}
+              >
+                <img
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "50%",
+                  }}
+                  src={vals?.user?.avatar}
+                  alt=""
+                />
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.3rem",
+                  }}
+                >
+                  <Text weight={500}> {vals?.user?.username}</Text>
+                  {vals?.user?.verified && (
+                    <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
+                  )}
+                </div>
+              </div>
+            );
+          });
+        })}
+      </Modal>
+    </>
   );
 };
 

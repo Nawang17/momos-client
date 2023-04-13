@@ -338,6 +338,7 @@ const PostPolls = ({ post }) => {
             }}
           >
             <Text
+              className="hoveru"
               onClick={() => {
                 if (
                   poll?.poll?.pollchoices?.reduce((acc, val) => {

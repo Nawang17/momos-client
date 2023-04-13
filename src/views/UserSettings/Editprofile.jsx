@@ -124,10 +124,10 @@ export const Editprofile = () => {
       });
   };
   const handleUndo = () => {
-    setUsername(profileinfo.username);
-    setDescription(profileinfo.description);
+    setUsername(profileinfo?.username);
+    setDescription(profileinfo?.description);
     setavatar(profileinfo.avatar);
-    setbanner(profileinfo.profilebanner.imageurl);
+    setbanner(profileinfo?.profilebanner?.imageurl);
     setbtndisabled(true);
     setnewavatar("");
     setnewbanner("");
@@ -139,11 +139,11 @@ export const Editprofile = () => {
     }
     editprofileinfo()
       .then((res) => {
-        setUsername(res.data.userInfo.username);
-        setDescription(res.data.userInfo.description);
-        setavatar(res.data.userInfo.avatar);
-        setprofileinfo(res.data.userInfo);
-        setbanner(res.data.userInfo.profilebanner.imageurl);
+        setUsername(res.data.userInfo?.username);
+        setDescription(res.data.userInfo?.description);
+        setavatar(res.data.userInfo?.avatar);
+        setprofileinfo(res.data?.userInfo);
+        setbanner(res.data.userInfo?.profilebanner?.imageurl);
         setloading(false);
       })
       .catch((err) => {
@@ -293,7 +293,16 @@ export const Editprofile = () => {
               // padding: "1rem",
             }}
           >
-            <BackgroundImage src={banner} radius="xs">
+            <BackgroundImage
+              src={
+                banner
+                  ? banner
+                  : darkmode
+                  ? `https://ui-avatars.com/api/?background=373A40&color=fff&name=&size=1920`
+                  : `https://ui-avatars.com/api/?background=dee2e6&color=fff&name=&size=1920`
+              }
+              radius="xs"
+            >
               {" "}
               <div
                 style={{

@@ -233,7 +233,13 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
             }}
           >
             <BackgroundImage
-              src={profileInfo?.profilebanner?.imageurl}
+              src={
+                profileInfo?.profilebanner?.imageurl
+                  ? profileInfo?.profilebanner?.imageurl
+                  : darkmode
+                  ? `https://ui-avatars.com/api/?background=373A40&color=fff&name=&size=1920`
+                  : `https://ui-avatars.com/api/?background=dee2e6&color=fff&name=&size=1920`
+              }
               radius="xs"
             >
               <>

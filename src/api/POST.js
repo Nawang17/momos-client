@@ -112,3 +112,51 @@ export const sendmessage = async (chatroomid, message) => {
     }
   );
 };
+export const AddNewPostpoll = async (
+  choice1,
+  choice2,
+  choice3,
+  choice4,
+  pollquestion,
+
+  polldays,
+  pollhours,
+  pollminutes
+) => {
+  return await api.post(
+    "/newpost/addpoll",
+
+    {
+      choice1,
+      choice2,
+      choice3,
+      choice4,
+      question: pollquestion,
+
+      durationday: polldays,
+      durationhour: pollhours,
+      durationminute: pollminutes,
+    },
+
+    {
+      headers: {
+        Authorization: `${localStorage.getItem("token")}`,
+      },
+    }
+  );
+};
+export const pollvote = async ({ pollid, pollchoiceid, postid }) => {
+  return await api.post(
+    "/pollvote",
+    {
+      pollid,
+      pollchoiceid,
+      postid,
+    },
+    {
+      headers: {
+        Authorization: `${localStorage.getItem("token")}`,
+      },
+    }
+  );
+};

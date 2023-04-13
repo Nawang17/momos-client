@@ -29,6 +29,7 @@ import locale from "date-fns/locale/en-US";
 import { useState } from "react";
 import reactStringReplace from "react-string-replace";
 import CreatePostModal from "./CreatePostModal";
+import PostPolls from "./PostPolls";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -414,7 +415,7 @@ export const Post = ({ post, setPosts, comments }) => {
               <PostMenu postinfo={post} setPosts={setPosts} />
             </div>
           </div>
-          {post.text && (
+          {post.text && !post?.poll && (
             <div
               style={{
                 cursor: "pointer",
@@ -459,6 +460,8 @@ export const Post = ({ post, setPosts, comments }) => {
               )}
             </div>
           )}
+
+          {post?.poll && <PostPolls post={post} />}
 
           {post.hasquote && post.post && (
             <div

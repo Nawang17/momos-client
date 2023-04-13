@@ -208,84 +208,86 @@ const PostPolls = ({ post }) => {
             marginTop: "0.5rem",
           }}
         >
-          {poll?.poll?.pollchoices.map((val) => {
-            return (
-              <div
-                key={val.id}
-                style={{
-                  display: "flex",
-                  gap: "0.8rem",
-                  fontSize: "14px",
-                }}
-              >
+          {poll?.poll?.pollchoices
+            ?.sort((a, b) => a.id - b.id)
+            .map((val) => {
+              return (
                 <div
+                  key={val.id}
                   style={{
                     display: "flex",
-                    flexDirection: "column",
-                    gap: "0.5rem",
-                    width: "100%",
+                    gap: "0.8rem",
+                    fontSize: "14px",
                   }}
                 >
-                  {/* put a check mark here if the user has voted for this option */}
                   <div
                     style={{
                       display: "flex",
-                      alignItems: "center",
-                      gap: "0.2rem",
+                      flexDirection: "column",
+                      gap: "0.5rem",
+                      width: "100%",
                     }}
                   >
-                    <Text>{val?.choice}</Text>
+                    {/* put a check mark here if the user has voted for this option */}
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.2rem",
+                      }}
+                    >
+                      <Text>{val?.choice}</Text>
 
-                    {val?.pollvotes?.find((val) => {
-                      return val?.user?.username === UserInfo?.username;
-                    }) && <CheckCircle size={16} />}
-                  </div>
-                  <Progress
-                    label={
-                      val?.pollvotes?.length === 0
-                        ? 0
-                        : Math.floor(
-                            (val?.pollvotes?.length /
-                              poll?.poll?.pollchoices
-                                .map((val) => {
-                                  return val?.pollvotes?.length;
-                                })
-                                .reduce((a, b) => a + b)) *
-                              100
-                          ) + "%"
-                    }
-                    color={
-                      val?.pollvotes?.length ===
-                      poll?.poll?.pollchoices
+                      {val?.pollvotes?.find((val) => {
+                        return val?.user?.username === UserInfo?.username;
+                      }) && <CheckCircle size={16} />}
+                    </div>
+                    <Progress
+                      label={
+                        val?.pollvotes?.length === 0
+                          ? 0
+                          : Math.floor(
+                              (val?.pollvotes?.length /
+                                poll?.poll?.pollchoices
+                                  .map((val) => {
+                                    return val?.pollvotes?.length;
+                                  })
+                                  .reduce((a, b) => a + b)) *
+                                100
+                            ) + "%"
+                      }
+                      color={
+                        val?.pollvotes?.length ===
+                        poll?.poll?.pollchoices
 
-                        .map((val) => {
-                          return val?.pollvotes?.length;
-                        })
-                        .reduce((a, b) => {
-                          return Math.max(a, b);
-                        })
-                        ? "green"
-                        : "blue"
-                    }
-                    value={
-                      val?.pollvotes?.length === 0
-                        ? 0
-                        : Math.floor(
-                            (val?.pollvotes?.length /
-                              poll?.poll?.pollchoices
-                                .map((val) => {
-                                  return val?.pollvotes?.length;
-                                })
-                                .reduce((a, b) => a + b)) *
-                              100
-                          )
-                    }
-                    size="xl"
-                  />
-                </div>{" "}
-              </div>
-            );
-          })}
+                          .map((val) => {
+                            return val?.pollvotes?.length;
+                          })
+                          .reduce((a, b) => {
+                            return Math.max(a, b);
+                          })
+                          ? "green"
+                          : "blue"
+                      }
+                      value={
+                        val?.pollvotes?.length === 0
+                          ? 0
+                          : Math.floor(
+                              (val?.pollvotes?.length /
+                                poll?.poll?.pollchoices
+                                  .map((val) => {
+                                    return val?.pollvotes?.length;
+                                  })
+                                  .reduce((a, b) => a + b)) *
+                                100
+                            )
+                      }
+                      size="xl"
+                    />
+                  </div>{" "}
+                </div>
+              );
+            })}
         </div>
       ) : (
         <div
@@ -296,18 +298,20 @@ const PostPolls = ({ post }) => {
             marginTop: "0.5rem",
           }}
         >
-          {poll?.poll?.pollchoices.map((val) => {
-            return (
-              <Button
-                onClick={() => handlePollvote(val)}
-                radius={20}
-                key={val.id}
-                variant="outline"
-              >
-                {val?.choice}
-              </Button>
-            );
-          })}
+          {poll?.poll?.pollchoices
+            ?.sort((a, b) => a.id - b.id)
+            .map((val) => {
+              return (
+                <Button
+                  onClick={() => handlePollvote(val)}
+                  radius={20}
+                  key={val.id}
+                  variant="outline"
+                >
+                  {val?.choice}
+                </Button>
+              );
+            })}
         </div>
       )}
       <div

@@ -479,7 +479,28 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                   >
                     Following
                   </Button>
-                  <Button size="xs" variant="default" color={"gray"} fullWidth>
+                  <Button
+                    onClick={async () => {
+                      if (!UserInfo) {
+                        showNotification({
+                          icon: <Lock size={18} />,
+                          title: "Login required",
+                          autoClose: 3000,
+                          color: "red",
+                        });
+                      } else {
+                        await getchat(profileInfo?.id)
+                          .then((res) => {
+                            navigate(`/chat/${res.data.chatroomid}`);
+                          })
+                          .catch(() => {});
+                      }
+                    }}
+                    size="xs"
+                    variant="default"
+                    color={"gray"}
+                    fullWidth
+                  >
                     Message
                   </Button>
                 </>

@@ -25,8 +25,7 @@ import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import locale from "date-fns/locale/en-US";
 import { AuthContext } from "../context/Auth";
 import { useNavigate } from "react-router-dom";
-import ReactGiphySearchbox from "react-giphy-searchbox";
-
+import GifPicker from "gif-picker-react";
 export default function CreatePostModal({
   opened,
   setOpened,
@@ -245,6 +244,7 @@ export default function CreatePostModal({
           }}
           size={20}
         />
+
         {error && (
           <div style={{ padding: "1rem 0rem 0rem 1rem" }}>
             <Text size={"sm"} color={"red"}>
@@ -877,20 +877,15 @@ export default function CreatePostModal({
         {gifstatus && (
           <div
             style={{
-              padding: "0.5rem 3rem",
+              padding: "0.5rem 3.8rem",
             }}
           >
-            <ReactGiphySearchbox
-              masonryConfig={[
-                { columns: 2, imageWidth: 110, gutter: 5 },
-                { mq: "700px", columns: 3, imageWidth: 120, gutter: 5 },
-              ]}
-              apiKey="WViM38OZYgV6NOtcUone9AiPcRZDAU6J"
-              onSelect={(item) => {
-                console.log(item.images.original.url);
+            <GifPicker
+              onGifClick={(item) => {
                 setgifstatus(true);
-                setgifpreview(item.images.original.url);
+                setgifpreview(item.url);
               }}
+              tenorApiKey={"AIzaSyBlyNG4hMFWeZGLPEKHjoORgf9LeyUp4qI"}
             />
           </div>
         )}

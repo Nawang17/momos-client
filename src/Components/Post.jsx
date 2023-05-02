@@ -460,6 +460,23 @@ export const Post = ({ post, setPosts, comments }) => {
               )}
             </div>
           )}
+          {post?.gif && (
+            <>
+              <img
+                style={{
+                  paddingTop: "0.5rem",
+                }}
+                onClick={() => {
+                  setviewimg(post?.gif);
+                  setOpened(true);
+                }}
+                loading="lazy"
+                className={classes.img}
+                src={post?.gif}
+                alt=""
+              />
+            </>
+          )}
 
           {post?.poll && <PostPolls post={post} />}
 
@@ -481,7 +498,8 @@ export const Post = ({ post, setPosts, comments }) => {
                   border: darkmode ? "1px solid #2f3136" : "1px solid #e6ecf0",
                   display: "flex",
                   flexDirection: "column",
-                  paddingBottom: !post?.post.image ? "0.7rem" : "0",
+                  paddingBottom:
+                    !post?.post.image && !post?.post.gif ? "0.7rem" : "0",
                   gap: "0.5rem",
                   borderRadius: "0.5rem",
                 }}
@@ -596,6 +614,20 @@ export const Post = ({ post, setPosts, comments }) => {
                         Your browser does not support the video tag.
                       </video>
                     )}
+                  </>
+                )}
+                {post?.post?.gif && (
+                  <>
+                    <img
+                      style={{
+                        width: "100%",
+                        height: "auto",
+                        borderRadius: "0 0 0.5rem 0.5rem",
+                      }}
+                      loading="lazy"
+                      src={post?.post.gif}
+                      alt=""
+                    />
                   </>
                 )}
               </div>

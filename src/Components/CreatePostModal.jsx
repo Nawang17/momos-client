@@ -13,6 +13,7 @@ import {
   Alarm,
   ChartBarHorizontal,
   CircleWavyCheck,
+  Gif,
   ImageSquare,
   Lightning,
   X,
@@ -24,6 +25,8 @@ import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import locale from "date-fns/locale/en-US";
 import { AuthContext } from "../context/Auth";
 import { useNavigate } from "react-router-dom";
+import ReactGiphySearchbox from "react-giphy-searchbox";
+
 export default function CreatePostModal({
   opened,
   setOpened,
@@ -81,6 +84,8 @@ export default function CreatePostModal({
   const [pollhours, setpollhours] = useState("0");
   const [pollminutes, setpollminutes] = useState("0");
   const [pollquestion, setpollquestion] = useState("");
+  const [gifstatus, setgifstatus] = useState(false);
+  const [gifpreview, setgifpreview] = useState("");
   const imgsizelimit = 9437184; //9mb
   const videosizelimit = 52428800; //50 mb
 
@@ -155,6 +160,8 @@ export default function CreatePostModal({
     setmedia(null);
     resetpoll();
     setpollquestion("");
+    setgifstatus(false);
+    setgifpreview("");
   };
 
   const handleSubmit = async (e) => {
@@ -197,6 +204,7 @@ export default function CreatePostModal({
       formData.append("media", media);
       formData.append("text", text);
       formData.append("quoteid", quotepostinfo?.id ? quotepostinfo?.id : "");
+      formData.append("gif", gifpreview);
 
       await AddNewPost(formData)
         .then((res) => {
@@ -232,7 +240,9 @@ export default function CreatePostModal({
       >
         <X
           onClick={() => closemodal()}
-          style={{ padding: "1rem 0rem 0rem 1rem" }}
+          style={{
+            padding: "1rem 0rem 0rem 1rem",
+          }}
           size={20}
         />
         {error && (
@@ -307,6 +317,7 @@ export default function CreatePostModal({
                         position: "absolute",
                         left: "5px",
                         top: "14px",
+                        cursor: "pointer",
                       }}
                     >
                       <XCircle size={25} />
@@ -350,6 +361,42 @@ export default function CreatePostModal({
                   )}
                 </div>
               )}
+              {/* gif preview */}
+              {gifstatus && (
+                <div
+                  style={{
+                    paddingTop: "10px",
+                    paddingBottom: "10px",
+
+                    position: "relative",
+                    display: "inline-block",
+                  }}
+                >
+                  {gifpreview && (
+                    <span
+                      onClick={() => {
+                        setgifpreview("");
+                      }}
+                      style={{
+                        cursor: "pointer",
+                        position: "absolute",
+                        left: "5px",
+                        top: "14px",
+                      }}
+                    >
+                      <XCircle size={25} />
+                    </span>
+                  )}
+
+                  {gifpreview && (
+                    <img
+                      style={{ width: "100%", height: "auto" }}
+                      src={gifpreview}
+                      alt=""
+                    />
+                  )}
+                </div>
+              )}
               {quotepostinfo && (
                 <div
                   style={{
@@ -358,7 +405,11 @@ export default function CreatePostModal({
 
                     display: "flex",
                     flexDirection: "column",
-                    paddingBottom: !quotepostinfo.image ? "0.7rem" : "0",
+
+                    paddingBottom:
+                      !quotepostinfo.image && !quotepostinfo.gif
+                        ? "0.7rem"
+                        : "0",
                     gap: "0.5rem",
                     borderRadius: "0.5rem",
 
@@ -464,6 +515,20 @@ export default function CreatePostModal({
                           Your browser does not support the video tag.
                         </video>
                       )}
+                    </>
+                  )}
+                  {quotepostinfo?.gif && (
+                    <>
+                      <img
+                        style={{
+                          width: "100%",
+                          height: "auto",
+                          borderRadius: "0 0 0.5rem 0.5rem",
+                        }}
+                        loading="lazy"
+                        src={quotepostinfo?.gif}
+                        alt=""
+                      />
                     </>
                   )}
                 </div>
@@ -696,7 +761,7 @@ export default function CreatePostModal({
                     gap: "10px",
                   }}
                 >
-                  {poll ? (
+                  {poll || gifstatus ? (
                     <ImageSquare size={23} color={"gray"} />
                   ) : (
                     <div className="upload-btn-wrapper">
@@ -721,7 +786,12 @@ export default function CreatePostModal({
 
                   <ChartBarHorizontal
                     onClick={() => {
-                      if (!poll && !quotepostinfo && !previewSource) {
+                      if (
+                        !poll &&
+                        !quotepostinfo &&
+                        !previewSource &&
+                        !gifstatus
+                      ) {
                         setpoll(true);
                         setpollquestion(text);
                       }
@@ -731,7 +801,34 @@ export default function CreatePostModal({
                     }}
                     size={23}
                     color={
-                      !poll && !quotepostinfo && !previewSource
+                      !poll && !quotepostinfo && !previewSource && !gifstatus
+                        ? "#0d61e7"
+                        : "gray"
+                    }
+                  />
+                  <Gif
+                    onClick={() => {
+                      if (
+                        !poll &&
+                        !quotepostinfo &&
+                        !previewSource &&
+                        !gifstatus
+                      ) {
+                        setgifstatus(true);
+                        setgifpreview("");
+                      }
+                      if (gifstatus) {
+                        setgifstatus(false);
+                        setgifpreview("");
+                      }
+                    }}
+                    weight="fill"
+                    style={{
+                      cursor: "pointer",
+                    }}
+                    size={23}
+                    color={
+                      !poll && !quotepostinfo && !previewSource && !gifstatus
                         ? "#0d61e7"
                         : "gray"
                     }
@@ -749,7 +846,10 @@ export default function CreatePostModal({
                   {!loading ? (
                     <Button
                       disabled={
-                        text.length === 0 && previewSource === "" && validpoll()
+                        gifpreview === "" &&
+                        text.length === 0 &&
+                        previewSource === "" &&
+                        validpoll()
                           ? true
                           : false
                       }
@@ -774,6 +874,26 @@ export default function CreatePostModal({
             </div>
           </div>
         </form>
+        {gifstatus && (
+          <div
+            style={{
+              padding: "0.5rem 3rem",
+            }}
+          >
+            <ReactGiphySearchbox
+              masonryConfig={[
+                { columns: 2, imageWidth: 110, gutter: 5 },
+                { mq: "700px", columns: 3, imageWidth: 120, gutter: 5 },
+              ]}
+              apiKey="WViM38OZYgV6NOtcUone9AiPcRZDAU6J"
+              onSelect={(item) => {
+                console.log(item.images.original.url);
+                setgifstatus(true);
+                setgifpreview(item.images.original.url);
+              }}
+            />
+          </div>
+        )}
       </Modal>
 
       <Group position="center"></Group>

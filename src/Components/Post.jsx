@@ -848,13 +848,13 @@ export const Post = ({ post, setPosts, comments }) => {
                   cursor: "pointer",
                 }}
                 onClick={() => {
-                  if (post.postquotes.length > 0) {
+                  if (post?.postquotesCount > 0) {
                     navigate(`/reposts/${post.id}`);
                   }
                 }}
               >
                 {" "}
-                {post.postquotes.length} reposts
+                {post?.postquotesCount} reposts
               </Text>
             </div>
           </div>

@@ -22,6 +22,7 @@ export function NestedCommentMenu({
   commentId,
   replyingtoId,
   userid,
+  profilefeed,
 }) {
   const { UserInfo, followingdata, setfollowingdata } = useContext(AuthContext);
   const [opened, setOpened] = useState(false);
@@ -30,19 +31,25 @@ export function NestedCommentMenu({
     setOpened(false);
     deleteNestedComment({ commentid: commentId })
       .then(() => {
-        setComments((prev) => {
-          return prev.map((comment) => {
-            if (comment.id === replyingtoId) {
-              return {
-                ...comment,
-                nestedcomments: comment.nestedcomments.filter(
-                  (nestedcomment) => nestedcomment.id !== commentId
-                ),
-              };
-            }
-            return comment;
+        if (profilefeed) {
+          setComments((prev) => {
+            return prev.filter((comment) => comment.id !== commentId);
           });
-        });
+        } else {
+          setComments((prev) => {
+            return prev.map((comment) => {
+              if (comment.id === replyingtoId) {
+                return {
+                  ...comment,
+                  nestedcomments: comment.nestedcomments.filter(
+                    (nestedcomment) => nestedcomment.id !== commentId
+                  ),
+                };
+              }
+              return comment;
+            });
+          });
+        }
 
         showNotification({
           icon: <Trash size={18} />,

@@ -4,7 +4,7 @@ import { Container, createStyles, Loader, Tabs, Text } from "@mantine/core";
 import { PostFeed } from "../../Components/PostFeed";
 import { Sidebar } from "../../Components/Sidebar";
 import { ProfileHeader } from "./ProfileHeader";
-import { Heart, Note, WarningCircle } from "phosphor-react";
+import { ChatTeardrop, Heart, Note, WarningCircle } from "phosphor-react";
 import { useLocation, useParams } from "react-router-dom";
 import {
   getmorelikedposts,
@@ -14,6 +14,7 @@ import {
 import { showNotification } from "@mantine/notifications";
 import { AuthContext } from "../../context/Auth";
 import InfiniteScroll from "react-infinite-scroll-component";
+import RepliesFeed from "../../Components/RepliesFeed";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -50,12 +51,14 @@ export const Profile = () => {
   const [likedpostCount, setlikedpostCount] = useState(0);
   const [likedpage, setlikedpage] = useState(0);
   const [rankinfo, setrankinfo] = useState([]);
+  const [replies, setreplies] = useState([]);
   useEffect(() => {
     setloading(true);
     profileinfo({ username: userprofile })
       .then((res) => {
         setposts(res.data.userPosts);
         setprofileInfo(res.data.userInfo);
+        setreplies(res.data.replies);
         setuserlikedposts(res.data.likedposts);
         setpostCount(res.data.userPoststotalCount);
         setlikedpostCount(res.data.likedpoststotalCount);
@@ -128,6 +131,9 @@ export const Profile = () => {
             <Tabs.Tab value="posts" icon={<Note size={14} />}>
               Posts
             </Tabs.Tab>
+            <Tabs.Tab value="replies" icon={<ChatTeardrop size={14} />}>
+              Replies
+            </Tabs.Tab>
             <Tabs.Tab value="likedposts" icon={<Heart size={14} />}>
               Likes
             </Tabs.Tab>
@@ -172,6 +178,33 @@ export const Profile = () => {
               >
                 <PostFeed posts={posts} loading={loading} setPosts={setposts} />
               </InfiniteScroll>
+            )}
+          </Tabs.Panel>
+          <Tabs.Panel value="replies" pt="xs">
+            {replies.length === 0 && !loading ? (
+              <div
+                style={{
+                  padding: "1rem",
+                }}
+              >
+                <Text
+                  color={darkmode ? "white" : "dark"}
+                  weight="bold"
+                  size="xl"
+                  align="center"
+                >
+                  @{profileInfo?.username} hasn't replied to anything yet
+                </Text>
+                <Text align="center" size={"sm"} color={"dimmed"}>
+                  When they do, you'll see them here.
+                </Text>
+              </div>
+            ) : (
+              <RepliesFeed
+                replies={replies}
+                loading={loading}
+                setreplies={setreplies}
+              />
             )}
           </Tabs.Panel>
 

@@ -4,16 +4,18 @@ import { Lightning, Lock, PaperPlane, WarningCircle } from "phosphor-react";
 import { AuthContext } from "../../context/Auth";
 import { addComment } from "../../api/POST";
 import { showNotification } from "@mantine/notifications";
+import NestedReplyModal from "../../Components/NestedReplyModal";
 
 const Reply = ({
   singlePostData,
   setComments,
   sortcommentby,
   setsortcommentby,
+  postUser,
 }) => {
   const [reply, setReply] = useState("");
   const { UserInfo, darkmode } = useContext(AuthContext);
-
+  const [opened, setOpened] = useState(false);
   const handlereply = () => {
     if (!UserInfo) {
       showNotification({
@@ -135,23 +137,35 @@ const Reply = ({
           alt=""
         />
         <Input
-          value={reply}
-          onChange={(e) => setReply(e.target.value)}
-          style={{ width: "100%" }}
-          placeholder="Add a comment..."
-          rightSection={
-            reply && (
-              <PaperPlane
-                onClick={() => handlereply()}
-                weight="bold"
-                color="#1DA1F2"
-                size={22}
-                style={{ display: "block", cursor: "pointer" }}
-              />
-            )
-          }
-        />
+          component="div"
+          onClick={() => {
+            if (!UserInfo) {
+              showNotification({
+                color: "red",
+                icon: <Lock size={18} />,
+                title: "Login required",
+                autoClose: 3000,
+              });
+            } else {
+              setOpened(true);
+            }
+          }}
+          style={{
+            width: "100%",
+
+            cursor: "pointer ",
+          }}
+        >
+          Add a comment...
+        </Input>
       </div>
+      <NestedReplyModal
+        setOpened={setOpened}
+        opened={opened}
+        UserInfo={UserInfo}
+        setComments={setComments}
+        postUser={postUser}
+      />
     </div>
   );
 };

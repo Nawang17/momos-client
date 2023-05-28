@@ -27,12 +27,13 @@ export const likePost = async ({ postId }) => {
     }
   );
 };
-export const addComment = async ({ text, postid }) => {
+export const addComment = async ({ text, postid, gif }) => {
   return await api.post(
     "/newcomment",
     {
       postId: postid,
       text: text,
+      gif,
     },
     {
       headers: {
@@ -41,7 +42,7 @@ export const addComment = async ({ text, postid }) => {
     }
   );
 };
-export const addnestedComment = async ({ replyinfo, text }) => {
+export const addnestedComment = async ({ replyinfo, text, gif }) => {
   return await api.post(
     "/newnestedcomment",
     {
@@ -49,6 +50,7 @@ export const addnestedComment = async ({ replyinfo, text }) => {
       replytouserId: replyinfo.replyingtouserid,
       commentId: replyinfo.commentId,
       text,
+      gif,
     },
     {
       headers: {

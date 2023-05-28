@@ -31,7 +31,6 @@ export const SinglePostFeed = ({
   const { classes } = useStyles();
   const [sortcommentby, setsortcommentby] = useState("Top");
   const { darkmode } = useContext(AuthContext);
-
   return (
     <div className={classes.wrapper}>
       <div
@@ -69,6 +68,7 @@ export const SinglePostFeed = ({
         comments={comments}
         sortcommentby={sortcommentby}
         setsortcommentby={setsortcommentby}
+        postUser={singlePostData?.user?.username}
       />
       {comments.length === 0 && !loading ? (
         <div

@@ -547,6 +547,23 @@ export const Comments = ({
                     </Text>
                     <Text size="15px">{postvalue(comment?.text)}</Text>
                   </div>
+                  {comment?.gif && (
+                    <div
+                      style={{
+                        padding: "0.3rem 0",
+                      }}
+                    >
+                      <img
+                        loading="lazy"
+                        style={{
+                          width: "100%",
+                          borderRadius: "0.5rem",
+                        }}
+                        src={comment?.gif}
+                        alt=""
+                      />
+                    </div>
+                  )}
                   <div style={{ display: "flex", gap: "0.8rem" }}>
                     <div
                       style={{
@@ -757,8 +774,28 @@ export const Comments = ({
                             @{data?.repliedtouser.username}
                           </span>
                         </Text>
-                        <Text size="15px">{postvalue(data?.text)}</Text>
+                        {data?.text && (
+                          <Text size="15px">{postvalue(data?.text)}</Text>
+                        )}
                       </div>
+                      {data?.gif && (
+                        <div
+                          style={{
+                            padding: "0.3rem 0",
+                          }}
+                        >
+                          <img
+                            loading="lazy"
+                            style={{
+                              width: "100%",
+                              borderRadius: "0.5rem",
+                            }}
+                            src={data?.gif}
+                            alt=""
+                          />
+                        </div>
+                      )}
+
                       <div style={{ display: "flex", gap: "0.8rem" }}>
                         <div
                           style={{

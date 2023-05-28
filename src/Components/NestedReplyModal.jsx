@@ -1,66 +1,94 @@
 import { useContext, useState } from "react";
-import { Modal, Textarea, Group, Divider, Button, Text } from "@mantine/core";
-import { Lightning, X } from "phosphor-react";
-import { addnestedComment } from "../api/POST";
+import { Modal, Textarea, Divider, Button, Text } from "@mantine/core";
+import { Gif, Lightning, X, XCircle } from "phosphor-react";
+import { addComment, addnestedComment } from "../api/POST";
 import { showNotification } from "@mantine/notifications";
 import { AuthContext } from "../context/Auth";
+import GifPicker from "gif-picker-react";
+import { useParams } from "react-router-dom";
+
 export default function NestedReplyModal({
   opened,
   setOpened,
   replypost,
   UserInfo,
-  setReplyPost,
   setComments,
+  postUser,
 }) {
   const [error, setError] = useState("");
   const [text, settext] = useState("");
   const [loading, setloading] = useState(false);
   const { darkmode } = useContext(AuthContext);
+  const [gifstatus, setgifstatus] = useState(false);
+  const [gifpreview, setgifpreview] = useState("");
+  const { postid } = useParams();
   const closemodal = () => {
     setOpened(false);
     settext("");
     setloading(false);
     setError("");
-    setReplyPost(null);
+    setgifstatus(false);
+    setgifpreview("");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = () => {
     setloading(true);
     setError("");
-    e.preventDefault();
-    addnestedComment({ replyinfo: replypost, text })
-      .then((res) => {
-        closemodal();
-        // setHomePosts((prev) => [res.data.newpost, ...prev]);
-        setComments((prev) => {
-          return prev.map((comment) => {
-            if (comment.id === replypost.commentId) {
-              return {
-                ...comment,
-                nestedcomments: [
-                  ...comment.nestedcomments,
-                  res.data.nestedcomment,
-                ],
-              };
-            }
-            return comment;
+    if (postUser) {
+      addComment({ text: text, postid: postid, gif: gifpreview })
+        .then((res) => {
+          closemodal();
+          setComments((prev) => [...prev, res.data.comment]);
+          showNotification({
+            icon: <Lightning size={18} />,
+            title: "Reply added",
+            autoClose: 3000,
+            color: "green",
           });
+        })
+        .catch((err) => {
+          if (err.response.status === 0) {
+            setError("Internal Server Error");
+          } else {
+            setError(err.response.data);
+          }
+          setloading(false);
         });
-        showNotification({
-          icon: <Lightning size={18} />,
-          color: "green",
-          title: "Reply added",
-          autoClose: 3000,
+    } else {
+      addnestedComment({ replyinfo: replypost, text, gif: gifpreview })
+        .then((res) => {
+          closemodal();
+
+          setComments((prev) => {
+            return prev.map((comment) => {
+              if (comment.id === replypost.commentId) {
+                return {
+                  ...comment,
+                  nestedcomments: [
+                    ...comment.nestedcomments,
+                    res.data.nestedcomment,
+                  ],
+                };
+              }
+              return comment;
+            });
+          });
+          showNotification({
+            icon: <Lightning size={18} />,
+            color: "green",
+            title: "Reply added",
+            autoClose: 3000,
+          });
+        })
+        .catch((err) => {
+          if (err.response.status === 0) {
+            setError("Internal Server Error");
+          } else {
+            setError(err.response.data);
+          }
+          setloading(false);
         });
-      })
-      .catch((err) => {
-        if (err.response.status === 0) {
-          setError("Internal Server Error");
-        } else {
-          setError(err.response.data);
-        }
-        setloading(false);
-      });
+    }
   };
   return (
     <>
@@ -100,7 +128,7 @@ export default function NestedReplyModal({
                     fontWeight: "500",
                   }}
                 >
-                  {replypost?.replyingto}
+                  {postUser ? postUser : replypost?.replyingto}
                 </span>
               </div>
               {error && (
@@ -115,7 +143,7 @@ export default function NestedReplyModal({
           </div>
         </div>
 
-        <form onSubmit={handleSubmit}>
+        <div>
           <div
             style={{
               padding: "1rem",
@@ -144,14 +172,47 @@ export default function NestedReplyModal({
                 minRows={2}
                 maxRows={14}
               />
+              {/* gif preview */}
+              {gifpreview && (
+                <div
+                  style={{
+                    paddingTop: "10px",
+                    paddingBottom: "10px",
 
+                    position: "relative",
+                    display: "inline-block",
+                  }}
+                >
+                  {gifpreview && (
+                    <span
+                      onClick={() => {
+                        setgifpreview("");
+                      }}
+                      style={{
+                        cursor: "pointer",
+                        position: "absolute",
+                        left: "5px",
+                        top: "14px",
+                      }}
+                    >
+                      <XCircle size={25} />
+                    </span>
+                  )}
+
+                  {gifpreview && (
+                    <img
+                      style={{ width: "100%", height: "auto" }}
+                      src={gifpreview}
+                      alt=""
+                    />
+                  )}
+                </div>
+              )}
               {/* image preview */}
-
               <Divider
                 my="xs"
                 color={darkmode ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)"}
               />
-
               <div
                 style={{
                   display: "flex",
@@ -160,24 +221,21 @@ export default function NestedReplyModal({
                 }}
               >
                 <div>
-                  <span className="upload-btn-wrapper">
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "5px",
-                      }}
-                    >
-                      <div style={{ fontSize: "12px" }}>
-                        {text.length} / 255
-                      </div>
-                    </div>
-                  </span>
+                  <Gif
+                    onClick={() => setgifstatus(!gifstatus)}
+                    weight="fill"
+                    style={{
+                      cursor: "pointer",
+                    }}
+                    size={23}
+                    color={"#0d61e7"}
+                  />
                 </div>
 
                 <div
                   style={{ display: "flex", gap: "10px", alignItems: "center" }}
                 >
+                  <div style={{ fontSize: "12px" }}>{text.length} / 255</div>
                   <Divider
                     orientation="vertical"
                     color={
@@ -186,22 +244,36 @@ export default function NestedReplyModal({
                   />
 
                   <Button
-                    disabled={text.length === 0}
+                    onClick={() => {
+                      handleSubmit();
+                    }}
+                    disabled={text.length === 0 && !gifpreview}
                     loading={loading}
-                    type="submit"
                     radius={"xl"}
                     size="xs"
                   >
                     Reply
                   </Button>
                 </div>
-              </div>
+              </div>{" "}
             </div>
           </div>
-        </form>
+        </div>
+        {gifstatus && (
+          <div
+            style={{
+              padding: "0.5rem 3.8rem",
+            }}
+          >
+            <GifPicker
+              onGifClick={(item) => {
+                setgifpreview(item.url);
+              }}
+              tenorApiKey={"AIzaSyBlyNG4hMFWeZGLPEKHjoORgf9LeyUp4qI"}
+            />
+          </div>
+        )}
       </Modal>
-
-      <Group position="center"></Group>
     </>
   );
 }

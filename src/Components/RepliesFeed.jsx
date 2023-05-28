@@ -276,20 +276,23 @@ const RepliesFeed = ({ replies, loading, setreplies }) => {
                           <Text size="15px">{reply?.text}</Text>
                         </div>
                       )}
-
-                      {/* <img
-                        style={{
-                          width: "100%",
-                          height: "auto",
-                          borderRadius: "0.2rem",
-                          marginTop: "0.5rem",
-                        }}
-                        loading="lazy"
-                        src={
-                          "https://media.tenor.com/iD9gVoRP6WUAAAAC/miss.gif"
-                        }
-                        alt=""
-                      /> */}
+                      {reply?.gif && (
+                        <div
+                          style={{
+                            padding: "0.3rem 0 0 0",
+                          }}
+                        >
+                          <img
+                            loading="lazy"
+                            style={{
+                              width: "100%",
+                              borderRadius: "0.5rem",
+                            }}
+                            src={reply?.gif}
+                            alt=""
+                          />
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>

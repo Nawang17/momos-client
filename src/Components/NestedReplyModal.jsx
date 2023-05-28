@@ -268,6 +268,7 @@ export default function NestedReplyModal({
             <GifPicker
               onGifClick={(item) => {
                 setgifpreview(item.url);
+                setgifstatus(false);
               }}
               tenorApiKey={"AIzaSyBlyNG4hMFWeZGLPEKHjoORgf9LeyUp4qI"}
             />

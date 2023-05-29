@@ -257,11 +257,7 @@ export const Leaderboard = () => {
                           fontSize: "0.8rem",
                         }}
                       >
-                        {`${
-                          acc.totalLikes +
-                          acc.totalNestedCommentLikes +
-                          acc.totalCommentLikes
-                        }
+                        {`${acc.totalpoints}
                       points
                       `}
                       </div>

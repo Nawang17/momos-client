@@ -213,9 +213,7 @@ const Leaderboardhorizontal = () => {
                     )}
                   </div>
                   <Text size={"12px"} color={"dimmed"}>
-                    {val.totalLikes +
-                      val.totalNestedCommentLikes +
-                      val.totalCommentLikes}
+                    {val.totalpoints}
                     pts
                   </Text>
                 </div>

@@ -69,10 +69,7 @@ export const Sidebar = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const getLevel = () => {
-    const points =
-      userlevelinfo?.totalCommentLikes +
-      userlevelinfo?.totalLikes +
-      userlevelinfo?.totalNestedCommentLikes;
+    const points = userlevelinfo?.totalpoints;
     let level = Math.floor(points / 10);
     let progress = points % 10;
     return { level, progress };
@@ -394,10 +391,7 @@ export const Sidebar = () => {
                                   />
                                 ))}
                             </div>
-                            {val.totalLikes +
-                              val.totalNestedCommentLikes +
-                              val.totalCommentLikes}{" "}
-                            points
+                            {val.totalpoints} points
                           </Text>
                         </div>
                       </div>

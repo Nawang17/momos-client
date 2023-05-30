@@ -17,7 +17,6 @@ import {
   Lock,
   UserPlus,
   UserMinus,
-  CrownSimple,
   CalendarBlank,
   UsersThree,
 } from "phosphor-react";
@@ -29,6 +28,7 @@ import { getchat, profilefollowdata } from "../../api/GET";
 import { useParams } from "react-router-dom";
 import { showNotification } from "@mantine/notifications";
 import reactStringReplace from "react-string-replace";
+import Topuserbadge from "../../helper/Topuserbadge";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -51,8 +51,14 @@ const useStyles = createStyles(() => ({
 export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
   const { userprofile } = useParams();
 
-  const { UserInfo, setfollowingdata, followingdata, darkmode, onlineusers } =
-    useContext(AuthContext);
+  const {
+    UserInfo,
+    setfollowingdata,
+    followingdata,
+    darkmode,
+    onlineusers,
+    topUser,
+  } = useContext(AuthContext);
   const navigate = useNavigate();
   const { classes } = useStyles();
   const [followers, setfollowers] = useState([]);
@@ -316,6 +322,7 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                 {" "}
                 {userprofile}
               </Text>
+              {topUser === userprofile && <Topuserbadge />}
               <div>
                 <Text color={"#71767b"} weight={500} size={"md"}>
                   #{rankinfo.rank}
@@ -697,6 +704,7 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                     >
                       {" "}
                       <Text weight="500">{item.following.username}</Text>
+                      {topUser === item.following.username && <Topuserbadge />}
                       {item.following.verified &&
                         (item.following.id !== 5 ? (
                           <CircleWavyCheck
@@ -753,6 +761,7 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                     >
                       {" "}
                       <Text weight="500">{item.follower.username}</Text>
+                      {topUser === item.follower.username && <Topuserbadge />}
                       {item.follower.verified &&
                         (item.follower.id !== 5 ? (
                           <CircleWavyCheck

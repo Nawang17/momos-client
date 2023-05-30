@@ -13,6 +13,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { follow } from "../api/POST";
 import { AuthContext } from "../context/Auth";
+import Topuserbadge from "../helper/Topuserbadge";
 
 const Hsuggestedacc = () => {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ const Hsuggestedacc = () => {
     followingdata,
     setfollowingdata,
     darkmode,
+    topUser,
   } = useContext(AuthContext);
   const [followeduser, setfolloweduser] = useState([]);
   const [btndisabled, setbtndisabled] = useState("");
@@ -138,6 +140,7 @@ const Hsuggestedacc = () => {
                 {" "}
                 {value.username}
               </Text>
+              {topUser === value.username && <Topuserbadge />}
               {value.verified && (
                 <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
               )}

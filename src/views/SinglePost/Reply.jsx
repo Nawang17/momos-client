@@ -1,8 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Button, Input, Text } from "@mantine/core";
-import { Lightning, Lock, PaperPlane, WarningCircle } from "phosphor-react";
+import { Lock } from "phosphor-react";
 import { AuthContext } from "../../context/Auth";
-import { addComment } from "../../api/POST";
 import { showNotification } from "@mantine/notifications";
 import NestedReplyModal from "../../Components/NestedReplyModal";
 
@@ -13,50 +12,8 @@ const Reply = ({
   setsortcommentby,
   postUser,
 }) => {
-  const [reply, setReply] = useState("");
   const { UserInfo, darkmode } = useContext(AuthContext);
   const [opened, setOpened] = useState(false);
-  const handlereply = () => {
-    if (!UserInfo) {
-      showNotification({
-        icon: <Lock size={18} />,
-        color: "red",
-        title: "Login required",
-        autoClose: 3000,
-      });
-      setReply("");
-      return;
-    } else {
-      setReply("");
-      addComment({ text: reply, postid: singlePostData?.id })
-        .then((res) => {
-          setComments((prev) => [...prev, res.data.comment]);
-          showNotification({
-            icon: <Lightning size={18} />,
-            title: "Reply added",
-            autoClose: 3000,
-            color: "green",
-          });
-        })
-        .catch((err) => {
-          if (err.response.status === 0) {
-            showNotification({
-              icon: <WarningCircle size={18} />,
-              color: "red",
-              title: "Internal Server Error",
-              autoClose: 4000,
-            });
-          } else {
-            showNotification({
-              icon: <WarningCircle size={18} />,
-              color: "red",
-              title: err.response.data,
-              autoClose: 4000,
-            });
-          }
-        });
-    }
-  };
 
   return (
     <div

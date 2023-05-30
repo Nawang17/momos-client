@@ -32,11 +32,6 @@ export const Search = () => {
   return (
     <Container px={0} className={classes.wrapper}>
       <div className={classes.leftWrapper}>
-        {/* <div style={{ background: "white", padding: "1rem 0rem 0rem 1rem" }}>
-          <ActionIcon onClick={() => navigate(-1)}>
-            <ArrowLeft size="20px" />
-          </ActionIcon>
-        </div> */}
         <UserSearch />
       </div>
       <Sidebar />

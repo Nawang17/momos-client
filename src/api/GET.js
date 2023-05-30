@@ -110,3 +110,6 @@ export const getchatmessages = async (roomid, page) => {
 export const gettrending = async () => {
   return await api.get(`/search/trending`);
 };
+export const getTopuser = async () => {
+  return await api.get(`/suggestedusers/topuser`);
+};

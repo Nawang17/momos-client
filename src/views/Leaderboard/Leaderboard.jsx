@@ -20,6 +20,7 @@ import { AuthContext } from "../../context/Auth";
 
 import InfiniteScroll from "react-infinite-scroll-component";
 import { showNotification } from "@mantine/notifications";
+import Topuserbadge from "../../helper/Topuserbadge";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -44,7 +45,7 @@ const useStyles = createStyles(() => ({
 export const Leaderboard = () => {
   const { classes } = useStyles();
   const navigate = useNavigate();
-  const { darkmode } = useContext(AuthContext);
+  const { darkmode, topUser } = useContext(AuthContext);
 
   const [leaderboard, setLeaderboard] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -225,6 +226,7 @@ export const Leaderboard = () => {
                           alt=""
                         />
                         <div>{acc?.username}</div>
+                        {topUser === acc?.username && <Topuserbadge />}
                       </div>
                     }
                     icon={

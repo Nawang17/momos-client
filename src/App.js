@@ -15,7 +15,12 @@ import {
   NotificationsProvider,
   showNotification,
 } from "@mantine/notifications";
-import { leaderboardinfo, suggestedusersreq, userlevel } from "./api/GET";
+import {
+  getTopuser,
+  leaderboardinfo,
+  suggestedusersreq,
+  userlevel,
+} from "./api/GET";
 import { Editprofile } from "./views/UserSettings/Editprofile";
 import { Search } from "./views/Search/Search";
 import { SuggestedAccs } from "./views/SuggestedAccounts/SuggestedAccs";
@@ -48,6 +53,7 @@ function App() {
   const [leaderboard, setLeaderboard] = useState([]);
   const [leaderboardloading, setLeaderboardloading] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [topUser, settopUser] = useState("");
   const [userlevelinfo, setUserlevelinfo] = useState(null);
   const [onlineusers, setonlineusers] = useState([]);
   const [onlinelist, setonlinelist] = useState([]);
@@ -103,6 +109,12 @@ function App() {
         document.body.style = "background: #f0f2f5;";
       }
     }
+    const gettopuserr = async () => {
+      await getTopuser().then((res) => {
+        settopUser(res.data.topuser);
+      });
+    };
+    gettopuserr();
   }, []);
   useEffect(() => {
     setLoading(true);
@@ -394,6 +406,7 @@ function App() {
               setUserlevelinfo,
               onlineusers,
               onlinelist,
+              topUser,
             }}
           >
             <RouterProvider router={router} />

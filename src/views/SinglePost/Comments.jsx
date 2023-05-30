@@ -25,6 +25,7 @@ import { showNotification } from "@mantine/notifications";
 import { NestedCommentMenu } from "../../Components/NestedCommentMenu";
 import reactStringReplace from "react-string-replace";
 import { likecomment, nestedlikecomment } from "../../api/POST";
+import Topuserbadge from "../../helper/Topuserbadge";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -115,7 +116,7 @@ export const Comments = ({
     return result;
   }
   const [opened, setOpened] = useState(false);
-  const { UserInfo, darkmode, onlineusers } = useContext(AuthContext);
+  const { UserInfo, darkmode, onlineusers, topUser } = useContext(AuthContext);
   const [replypost, setReplyPost] = useState(null);
   const postvalue = (text) => {
     let replacedText;
@@ -465,6 +466,7 @@ export const Comments = ({
                       >
                         {comment.user.username}
                       </Text>
+                      {topUser === comment.user.username && <Topuserbadge />}
                       {comment?.user.verified &&
                         (comment?.user.id !== 5 ? (
                           <CircleWavyCheck
@@ -691,6 +693,7 @@ export const Comments = ({
                             >
                               {data?.user.username}
                             </Text>
+                            {topUser === data.user.username && <Topuserbadge />}
                             {data?.user.verified &&
                               (data?.user.id !== 5 ? (
                                 <CircleWavyCheck

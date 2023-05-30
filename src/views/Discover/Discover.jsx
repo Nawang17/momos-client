@@ -14,6 +14,7 @@ import { gettrending } from "../../api/GET";
 
 import { Sidebar } from "../../Components/Sidebar";
 import { AuthContext } from "../../context/Auth";
+import Topuserbadge from "../../helper/Topuserbadge";
 const useStyles = createStyles(() => ({
   wrapper: {
     display: "flex",
@@ -36,7 +37,7 @@ const useStyles = createStyles(() => ({
 
 export const Discover = () => {
   const { classes } = useStyles();
-  const { darkmode, suggestedUsers, followingdata, UserInfo } =
+  const { darkmode, suggestedUsers, followingdata, UserInfo, topUser } =
     useContext(AuthContext);
   const [loading, setloading] = useState(true);
   const navigate = useNavigate();
@@ -173,7 +174,18 @@ export const Discover = () => {
                       navigate(`/${user?.username}`);
                     }}
                     key={user.username}
-                    label={user?.username}
+                    label={
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "0.2rem",
+                        }}
+                      >
+                        <Text>{user?.username}</Text>
+                        {topUser === user?.username && <Topuserbadge />}
+                      </div>
+                    }
                     description={user?.description}
                     icon={
                       <img

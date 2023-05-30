@@ -7,6 +7,7 @@ import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import locale from "date-fns/locale/en-US";
 import { CommentMenu } from "./CommentMenu";
 import { NestedCommentMenu } from "./NestedCommentMenu";
+import Topuserbadge from "../helper/Topuserbadge";
 const useStyles = createStyles(() => ({
   wrapper: {
     padding: "1rem 0rem 1rem 0rem",
@@ -100,7 +101,7 @@ const RepliesFeed = ({ replies, loading, setreplies }) => {
     return result;
   }
   const { classes } = useStyles();
-  const { darkmode, onlineusers } = useContext(AuthContext);
+  const { darkmode, onlineusers, topUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   return (
@@ -187,7 +188,7 @@ const RepliesFeed = ({ replies, loading, setreplies }) => {
                           style={{
                             display: "flex",
                             alignItems: "center",
-                            gap: "0.3rem",
+                            gap: "0.2rem",
                           }}
                         >
                           {" "}
@@ -198,6 +199,9 @@ const RepliesFeed = ({ replies, loading, setreplies }) => {
                           >
                             {reply?.user?.username}
                           </Text>
+                          {topUser === reply?.user?.username && (
+                            <Topuserbadge />
+                          )}
                           <Text
                             color="dimmed"
                             style={{ cursor: "pointer" }}

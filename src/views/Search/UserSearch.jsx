@@ -18,6 +18,7 @@ import { searchposts, searchusers } from "../../api/GET";
 import { follow } from "../../api/POST";
 import { PostFeed } from "../../Components/PostFeed";
 import { AuthContext } from "../../context/Auth";
+import Topuserbadge from "../../helper/Topuserbadge";
 
 const UserSearch = () => {
   const navigate = useNavigate();
@@ -32,6 +33,7 @@ const UserSearch = () => {
     followingdata,
     setfollowingdata,
     darkmode,
+    topUser,
   } = useContext(AuthContext);
   const [btndisabled, setbtndisabled] = useState("");
   const [Top, setTop] = useState([]);
@@ -276,6 +278,7 @@ const UserSearch = () => {
                         <Text size={"16px"} weight={"500"}>
                           {val.username}
                         </Text>
+                        {topUser === val.username && <Topuserbadge />}
                         {val.verified && (
                           <CircleWavyCheck
                             size={17}

@@ -22,6 +22,7 @@ import { AuthContext } from "../../context/Auth";
 import { showNotification } from "@mantine/notifications";
 import { follow } from "../../api/POST";
 import * as DOMPurify from "dompurify";
+import Topuserbadge from "../../helper/Topuserbadge";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -56,6 +57,7 @@ export const SuggestedAccs = () => {
     followingdata,
     setfollowingdata,
     darkmode,
+    topUser,
   } = useContext(AuthContext);
   const [btndisabled, setbtndisabled] = useState("");
 
@@ -223,6 +225,8 @@ export const SuggestedAccs = () => {
                       <Text size={"16px"} weight={"500"}>
                         {acc.username}
                       </Text>
+
+                      {topUser === acc.username && <Topuserbadge />}
                       {acc.verified && (
                         <CircleWavyCheck
                           size={17}

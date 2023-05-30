@@ -5,12 +5,14 @@ import {
   Divider,
   Indicator,
   Modal,
+  Popover,
   Text,
 } from "@mantine/core";
 import {
   ArrowsClockwise,
   ChatCircle,
   CircleWavyCheck,
+  Crown,
   Heart,
   Link,
   Lock,
@@ -30,6 +32,7 @@ import { useState } from "react";
 import reactStringReplace from "react-string-replace";
 import CreatePostModal from "./CreatePostModal";
 import PostPolls from "./PostPolls";
+import Topuserbadge from "../helper/Topuserbadge";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -97,7 +100,7 @@ export const Post = ({ post, setPosts, comments }) => {
   const navigate = useNavigate();
   const [opened, setOpened] = useState(false);
   const [viewimg, setviewimg] = useState("");
-  const { UserInfo, darkmode, onlineusers } = useContext(AuthContext);
+  const { UserInfo, darkmode, onlineusers, topUser } = useContext(AuthContext);
   const [likemodal, setlikemodal] = useState(false);
   const [openConfirm, setOpenConfirm] = useState(false);
   const matches = useMediaQuery("(min-width: 530px)");
@@ -373,7 +376,6 @@ export const Post = ({ post, setPosts, comments }) => {
                       gap: "0.2rem",
                     }}
                   >
-                    {" "}
                     <Text
                       style={{ cursor: "pointer" }}
                       onClick={() => {
@@ -384,6 +386,29 @@ export const Post = ({ post, setPosts, comments }) => {
                     >
                       {post.user.username}
                     </Text>
+                    {topUser === post.user.username && (
+                      <Popover
+                        width={200}
+                        position="right"
+                        withArrow
+                        shadow="md"
+                      >
+                        <Popover.Target>
+                          <Crown
+                            style={{
+                              cursor: "pointer",
+                            }}
+                            size={16}
+                            color="#f7ce00"
+                            weight="fill"
+                          />
+                        </Popover.Target>
+                        <Popover.Dropdown>
+                          <Text size="sm">Top user of the month badge</Text>
+                        </Popover.Dropdown>
+                      </Popover>
+                    )}
+
                     {post?.user?.verified &&
                       (post?.user?.id !== 5 ? (
                         <CircleWavyCheck
@@ -544,6 +569,28 @@ export const Post = ({ post, setPosts, comments }) => {
                       {" "}
                       {post?.post.user?.username}
                     </Text>
+                    {topUser === post.user.username && (
+                      <Popover
+                        width={200}
+                        position="right"
+                        withArrow
+                        shadow="md"
+                      >
+                        <Popover.Target>
+                          <Crown
+                            style={{
+                              cursor: "pointer",
+                            }}
+                            size={16}
+                            color="#f7ce00"
+                            weight="fill"
+                          />
+                        </Popover.Target>
+                        <Popover.Dropdown>
+                          <Text size="sm">Top user of the month badge</Text>
+                        </Popover.Dropdown>
+                      </Popover>
+                    )}
                     {post?.post.user.verified &&
                       (post?.post.user.id !== 5 ? (
                         <CircleWavyCheck
@@ -1013,6 +1060,7 @@ export const Post = ({ post, setPosts, comments }) => {
                   }}
                 >
                   <Text weight={500}> {likeuser?.user?.username}</Text>
+                  {topUser === likeuser?.user?.username && <Topuserbadge />}
                   {likeuser?.user?.verified && (
                     <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
                   )}

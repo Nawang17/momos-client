@@ -148,12 +148,14 @@ export const About = () => {
           >
             Client:{" "}
             <a
+              target="_blank"
               style={{
                 color: darkmode ? "#4dabf7" : "#1c7ed6",
               }}
-              href="https://github.com/Nawang17/client-momo"
+              href="https://github.com/Nawang17/momos-client"
+              rel="noreferrer"
             >
-              https://github.com/Nawang17/client-momo
+              https://github.com/Nawang17/momos-client
             </a>{" "}
           </Text>
           <Text
@@ -162,14 +164,15 @@ export const About = () => {
           >
             Server:{" "}
             <a
+              target="_blank"
               style={{
                 color: darkmode ? "#4dabf7" : "#1c7ed6",
               }}
-              href="https://github.com/Nawang17/momos-backend"
+              href="https://github.com/Nawang17/momos-server"
+              rel="noreferrer"
             >
-              https://github.com/Nawang17/momos-backend
-            </a>{" "}
-            (Private until project is complete)
+              https://github.com/Nawang17/momos-server
+            </a>
           </Text>
           <Text
             color={darkmode ? "#a6a7ab" : "#343a40"}

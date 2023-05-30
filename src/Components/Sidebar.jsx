@@ -14,8 +14,9 @@ import {
 import { useContext } from "react";
 import { AuthContext } from "../context/Auth";
 import { useNavigate } from "react-router-dom";
-import { CircleWavyCheck, Info } from "phosphor-react";
+import { CircleWavyCheck, Crown, Info } from "phosphor-react";
 import { leaderboardinfo, userlevel } from "../api/GET";
+import Topuserbadge from "../helper/Topuserbadge";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -65,6 +66,7 @@ export const Sidebar = () => {
     userlevelinfo,
     setUserlevelinfo,
     onlinelist,
+    topUser,
   } = useContext(AuthContext);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
@@ -180,6 +182,28 @@ export const Sidebar = () => {
                     >
                       {userlevelinfo?.username}
                     </Text>
+                    {topUser === userlevelinfo?.username && (
+                      <Popover
+                        width={200}
+                        position="right"
+                        withArrow
+                        shadow="md"
+                      >
+                        <Popover.Target>
+                          <Crown
+                            style={{
+                              cursor: "pointer",
+                            }}
+                            size={16}
+                            color="#f7ce00"
+                            weight="fill"
+                          />
+                        </Popover.Target>
+                        <Popover.Dropdown>
+                          <Text size="sm">Top user of the month badge</Text>
+                        </Popover.Dropdown>
+                      </Popover>
+                    )}
                     <Popover
                       zIndex={1000}
                       width={220}
@@ -298,7 +322,7 @@ export const Sidebar = () => {
                 <Popover.Dropdown>
                   <Text size={"xs"}>
                     The leaderboard ranking is based on the total number of
-                    points earned by the user.
+                    points earned by the user. (Leaderboard reset every month )
                   </Text>
                   <Divider my="xs" />
                   <Text color={"#1DA1F2"} size={"sm"} weight={500}>
@@ -375,6 +399,7 @@ export const Sidebar = () => {
                               >
                                 {val.username}
                               </Text>
+                              {topUser === val?.username && <Topuserbadge />}
 
                               {val.verified &&
                                 (val?.id !== 5 ? (
@@ -564,7 +589,18 @@ export const Sidebar = () => {
                       navigate(`/${val.username}`);
                     }}
                     key={val.username}
-                    label={val.username}
+                    label={
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "0.2rem",
+                        }}
+                      >
+                        <Text>{val.username}</Text>
+                        {topUser === val.username && <Topuserbadge />}
+                      </div>
+                    }
                     description={val.description}
                     icon={
                       <Indicator

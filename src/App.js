@@ -30,11 +30,13 @@ import { Reposts } from "./views/Reposts/Reposts";
 import { io } from "socket.io-client";
 import { Chatrooms } from "./views/Chat/Chatrooms";
 import { Discover } from "./views/Discover/Discover";
-import { useNetwork } from "@mantine/hooks";
+import ReactGA from "react-ga4";
+
+ReactGA.initialize("G-YJSVSC17CL");
+
 const socket = io(process.env.REACT_APP_SERVER_URL);
 
 function App() {
-  const networkStatus = useNetwork();
   const [isConnected, setIsConnected] = useState(socket.connected);
 
   const [darkmode, setdarkmode] = useState(true);
@@ -75,7 +77,7 @@ function App() {
       socket.off("disconnect");
     };
   }, []);
- 
+
   useEffect(() => {
     if (localStorage.getItem("darkmode") === null) {
       if (

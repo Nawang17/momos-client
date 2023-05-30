@@ -5,14 +5,12 @@ import {
   Divider,
   Indicator,
   Modal,
-  Popover,
   Text,
 } from "@mantine/core";
 import {
   ArrowsClockwise,
   ChatCircle,
   CircleWavyCheck,
-  Crown,
   Heart,
   Link,
   Lock,
@@ -386,28 +384,7 @@ export const Post = ({ post, setPosts, comments }) => {
                     >
                       {post.user.username}
                     </Text>
-                    {topUser === post.user.username && (
-                      <Popover
-                        width={200}
-                        position="right"
-                        withArrow
-                        shadow="md"
-                      >
-                        <Popover.Target>
-                          <Crown
-                            style={{
-                              cursor: "pointer",
-                            }}
-                            size={16}
-                            color="#f7ce00"
-                            weight="fill"
-                          />
-                        </Popover.Target>
-                        <Popover.Dropdown>
-                          <Text size="sm">Top user of the month badge</Text>
-                        </Popover.Dropdown>
-                      </Popover>
-                    )}
+                    {topUser === post.user.username && <Topuserbadge />}
 
                     {post?.user?.verified &&
                       (post?.user?.id !== 5 ? (
@@ -569,28 +546,7 @@ export const Post = ({ post, setPosts, comments }) => {
                       {" "}
                       {post?.post.user?.username}
                     </Text>
-                    {topUser === post.user.username && (
-                      <Popover
-                        width={200}
-                        position="right"
-                        withArrow
-                        shadow="md"
-                      >
-                        <Popover.Target>
-                          <Crown
-                            style={{
-                              cursor: "pointer",
-                            }}
-                            size={16}
-                            color="#f7ce00"
-                            weight="fill"
-                          />
-                        </Popover.Target>
-                        <Popover.Dropdown>
-                          <Text size="sm">Top user of the month badge</Text>
-                        </Popover.Dropdown>
-                      </Popover>
-                    )}
+                    {topUser === post.user.username && <Topuserbadge />}
                     {post?.post.user.verified &&
                       (post?.post.user.id !== 5 ? (
                         <CircleWavyCheck

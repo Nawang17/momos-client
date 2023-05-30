@@ -14,7 +14,7 @@ import {
 import { useContext } from "react";
 import { AuthContext } from "../context/Auth";
 import { useNavigate } from "react-router-dom";
-import { CircleWavyCheck, Crown, Info } from "phosphor-react";
+import { CircleWavyCheck, Info } from "phosphor-react";
 import { leaderboardinfo, userlevel } from "../api/GET";
 import Topuserbadge from "../helper/Topuserbadge";
 
@@ -182,28 +182,7 @@ export const Sidebar = () => {
                     >
                       {userlevelinfo?.username}
                     </Text>
-                    {topUser === userlevelinfo?.username && (
-                      <Popover
-                        width={200}
-                        position="right"
-                        withArrow
-                        shadow="md"
-                      >
-                        <Popover.Target>
-                          <Crown
-                            style={{
-                              cursor: "pointer",
-                            }}
-                            size={16}
-                            color="#f7ce00"
-                            weight="fill"
-                          />
-                        </Popover.Target>
-                        <Popover.Dropdown>
-                          <Text size="sm">Top user of the month badge</Text>
-                        </Popover.Dropdown>
-                      </Popover>
-                    )}
+                    {topUser === userlevelinfo?.username && <Topuserbadge />}
                     <Popover
                       zIndex={1000}
                       width={220}

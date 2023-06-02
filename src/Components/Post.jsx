@@ -1005,7 +1005,7 @@ export const Post = ({ post, setPosts, comments }) => {
                             style={{
                               borderRadius: "50%",
                             }}
-                            src="https://ui-avatars.com/api/?background=106cad&color=fff&name=d&size=128"
+                            src={com?.user?.avatar}
                             alt=""
                           />
                           <div

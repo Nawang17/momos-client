@@ -407,6 +407,7 @@ function App() {
               onlineusers,
               onlinelist,
               topUser,
+              socket,
             }}
           >
             <RouterProvider router={router} />

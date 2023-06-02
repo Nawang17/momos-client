@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { createStyles, ScrollArea, Skeleton, Text } from "@mantine/core";
 import { Post } from "./Post";
 import Hsuggestedacc from "./Hsuggestedacc";
@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useMediaQuery } from "@mantine/hooks";
 import { AuthContext } from "../context/Auth";
 import { SmileySad } from "phosphor-react";
+
 const useStyles = createStyles(() => ({
   wrapper: {
     width: "100%",
@@ -27,8 +28,13 @@ export const PostFeed = ({ setPosts, posts, loading }) => {
   const { pathname } = useLocation();
   const screenwidth = useMediaQuery("(min-width: 440px)");
   const navigate = useNavigate();
-  const { darkmode, suggestedUsers } = useContext(AuthContext);
+  const { darkmode, suggestedUsers, socket } = useContext(AuthContext);
   let map = {};
+  useEffect(() => {
+    socket.on("post-deleted", (data) => {
+      setPosts((prev) => prev.filter((post) => post.id !== Number(data)));
+    });
+  }, []);
 
   return (
     <div className={classes.wrapper}>

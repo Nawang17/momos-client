@@ -20,7 +20,7 @@ import {
 import { useMediaQuery } from "@mantine/hooks";
 import { PostMenu } from "./PostMenu";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../context/Auth";
 import { likePost } from "../api/POST";
 import { showNotification } from "@mantine/notifications";
@@ -98,7 +98,8 @@ export const Post = ({ post, setPosts, comments }) => {
   const navigate = useNavigate();
   const [opened, setOpened] = useState(false);
   const [viewimg, setviewimg] = useState("");
-  const { UserInfo, darkmode, onlineusers, topUser } = useContext(AuthContext);
+  const { UserInfo, darkmode, onlineusers, topUser, socket } =
+    useContext(AuthContext);
   const [likemodal, setlikemodal] = useState(false);
   const [openConfirm, setOpenConfirm] = useState(false);
   const matches = useMediaQuery("(min-width: 530px)");
@@ -313,6 +314,13 @@ export const Post = ({ post, setPosts, comments }) => {
 
     return replacedText;
   };
+  useEffect(() => {
+    socket.on("post-deleted", (data) => {
+      if (pathname === `/post/${Number(data)}`) {
+        navigate("/");
+      }
+    });
+  }, []);
 
   return (
     <>

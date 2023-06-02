@@ -35,12 +35,6 @@ const useStyles = createStyles((theme) => ({
     height: "100%",
   },
 
-  //   links: {
-  //     [theme.fn.smallerThan("xs")]: {
-  //       display: "none",
-  //     },
-  //   },
-
   link: {
     display: "block",
     lineHeight: 1,
@@ -110,7 +104,7 @@ export function Navbar({ socket }) {
             left: "0px",
             right: "0px",
             zIndex: 999,
-            width: "300px",
+            width: "350px",
             margin: "auto",
           }}
           withCloseButton

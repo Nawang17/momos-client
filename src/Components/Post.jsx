@@ -544,7 +544,7 @@ export const Post = ({ post, setPosts, comments }) => {
                       {" "}
                       {post?.post.user?.username}
                     </Text>
-                    {topUser === post.user.username && <Topuserbadge />}
+                    {topUser === post?.post.user?.username && <Topuserbadge />}
                     {post?.post.user.verified &&
                       (post?.post.user.id !== 5 ? (
                         <CircleWavyCheck

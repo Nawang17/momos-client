@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   createStyles,
   Header,
@@ -6,6 +6,7 @@ import {
   Group,
   Text,
   ActionIcon,
+  Alert,
 } from "@mantine/core";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
@@ -78,7 +79,16 @@ export function Navbar({ socket }) {
   const { classes, cx } = useStyles();
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const [noti, setnoti] = useState(null);
+  useEffect(() => {
+    socket.on("newnotification", (data) => {
+      setnoti(data);
 
+      setTimeout(() => {
+        setnoti(null);
+      }, 4000);
+    });
+  }, []);
   return (
     <Header
       style={{
@@ -88,6 +98,57 @@ export function Navbar({ socket }) {
       mb={0}
       className={classes.root}
     >
+      {noti && (
+        <Alert
+          onClose={() => {
+            setnoti(null);
+          }}
+          style={{
+            cursor: "pointer",
+            position: "fixed",
+            top: "30px",
+            left: "0px",
+            right: "0px",
+            zIndex: 999,
+            width: "300px",
+            margin: "auto",
+          }}
+          withCloseButton
+          color={darkmode ? "gray" : "dark"}
+          variant="filled"
+        >
+          <div
+            onClick={() => {
+              navigate(
+                noti?.postId ? `/post/${noti?.postId}` : `/${noti?.username}`
+              );
+            }}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+            }}
+          >
+            <img
+              style={{
+                width: "30px",
+                height: "30px",
+                borderRadius: "50%",
+              }}
+              src={noti?.avatar}
+              alt=""
+            />
+
+            <Text size={"15px"}>
+              <Text component="span" weight={500}>
+                {noti?.username}
+              </Text>{" "}
+              {noti?.type}
+            </Text>
+          </div>
+        </Alert>
+      )}
+
       <Container className={classes.header}>
         <div
           style={{ textDecoration: "none", cursor: "pointer", color: "black" }}

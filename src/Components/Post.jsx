@@ -479,9 +479,7 @@ export const Post = ({ post, setPosts, comments }) => {
               />
             </>
           )}
-
           {post?.poll && <PostPolls post={post} />}
-
           {post.hasquote && post.post && (
             <div
               style={{
@@ -963,6 +961,151 @@ export const Post = ({ post, setPosts, comments }) => {
               </Button>
             )}
           </div>
+          {pathname === "/" && post?.comments.length > 1 && (
+            <>
+              <div
+                onClick={() => {
+                  navigate(`/post/${post.id}`);
+                }}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  cursor: "pointer",
+                  gap: "0.5rem",
+                  paddingTop: "0.5rem",
+                }}
+              >
+                {post?.comments
+                  .sort((a, b) => {
+                    return b?.commentlikes.length - a?.commentlikes.length;
+                  })
+                  .slice(0, post?.comments.length === 2 ? 1 : 2)
+                  .map((com) => {
+                    return (
+                      <div
+                        key={com.id}
+                        style={{
+                          padding: "0 1.2rem",
+                        }}
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                            gap: "0.5rem",
+                          }}
+                        >
+                          {/* left */}
+                          <img
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              navigate(`/${com?.user?.username}`);
+                            }}
+                            width={32}
+                            height={32}
+                            style={{
+                              borderRadius: "50%",
+                            }}
+                            src="https://ui-avatars.com/api/?background=106cad&color=fff&name=d&size=128"
+                            alt=""
+                          />
+                          <div
+                            style={{
+                              width: "100%",
+                            }}
+                          >
+                            <div
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "0.2rem",
+                              }}
+                            >
+                              <Text
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  navigate(`/${com?.user?.username}`);
+                                }}
+                                size={"14px"}
+                                weight={500}
+                              >
+                                {com?.user?.username}
+                              </Text>
+                              {topUser === com?.user?.username && (
+                                <Topuserbadge />
+                              )}
+                              <Text color="dimmed">·</Text>
+                              <Text size={"13px"} color="dimmed">
+                                {formatDistanceToNowStrict(
+                                  new Date(com?.createdAt),
+                                  {
+                                    locale: {
+                                      ...locale,
+                                      formatDistance,
+                                    },
+                                  }
+                                )}
+                              </Text>
+                            </div>
+                            {com.text && (
+                              <div
+                                style={{
+                                  cursor: "pointer",
+                                  paddingTop: "0",
+                                }}
+                                className={classes.body}
+                              >
+                                <Text size="14px">{postvalue(com?.text)}</Text>
+                              </div>
+                            )}
+                            {com.gif && (
+                              <div
+                                style={{
+                                  cursor: "pointer",
+                                  paddingTop: "0.3rem",
+                                }}
+                              >
+                                <img
+                                  style={{
+                                    width: "100%",
+                                    height: "auto",
+                                    borderRadius: "0.5rem",
+                                  }}
+                                  loading="lazy"
+                                  src={com.gif}
+                                  alt=""
+                                />
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+              </div>
+
+              <Text
+                onClick={() => {
+                  navigate(`/post/${post.id}`);
+                }}
+                color="dimmed"
+                size={"14px"}
+                style={{
+                  padding: "0.1rem 0.1rem 0.5rem 3.7rem",
+                  cursor: "pointer",
+                }}
+              >
+                See all{" "}
+                {comments
+                  ? `${comments?.reduce((acc, curr) => {
+                      return acc + curr.nestedcomments?.length;
+                    }, comments.length)}`
+                  : `${post.comments?.reduce((acc, curr) => {
+                      return acc + curr.nestedcomments?.length;
+                    }, post.comments.length)}`}{" "}
+                comments
+              </Text>
+            </>
+          )}
         </div>
       </div>
       <CreatePostModal

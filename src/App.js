@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState, useEffect, useLayoutEffect } from "react";
+import { useState, useEffect } from "react";
 import { Navbar } from "./Components/Navbar";
 import { Home } from "./views/Home/Home";
 import { Login } from "./views/Login/Login";
@@ -28,7 +28,7 @@ import { Affix, Button, MantineProvider, Transition } from "@mantine/core";
 import { ArrowUp, HandWaving } from "phosphor-react";
 import { Leaderboard } from "./views/Leaderboard/Leaderboard";
 import ScrollToTop from "./helper/ScrollToTop";
-import { useWindowScroll } from "@mantine/hooks";
+import { useWindowScroll, useIdle } from "@mantine/hooks";
 import { About } from "./Components/About";
 import { Chat } from "./views/Chat/Chat";
 import { Reposts } from "./views/Reposts/Reposts";
@@ -42,6 +42,7 @@ ReactGA.initialize("G-YJSVSC17CL");
 const socket = io(process.env.REACT_APP_SERVER_URL);
 
 function App() {
+  const idle = useIdle(10000); // 10 seconds of inactivity to be considered idle
   const [isConnected, setIsConnected] = useState(socket.connected);
 
   const [darkmode, setdarkmode] = useState(true);
@@ -83,6 +84,20 @@ function App() {
       socket.off("disconnect");
     };
   }, []);
+  useEffect(() => {
+    socket.on("connect", () => {
+      setIsConnected(true);
+    });
+    if (!idle) {
+      socket.emit("onlinestatus", {
+        token: localStorage.getItem("token"),
+      });
+    } else {
+      socket.emit("removeOnlinestatus", {
+        token: localStorage.getItem("token"),
+      });
+    }
+  }, [idle]);
 
   useEffect(() => {
     if (localStorage.getItem("darkmode") === null) {

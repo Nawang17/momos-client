@@ -509,7 +509,6 @@ export const Comments = ({
                           </Popover.Dropdown>
                         </Popover>
                       )}
-
                       <Text color="dimmed">·</Text>
                       <Text color="dimmed" size="13px">
                         {formatDistanceToNowStrict(
@@ -522,11 +521,17 @@ export const Comments = ({
                           }
                         )}
                       </Text>
+                      {comment.createdAt !== comment.updatedAt && (
+                        <Text color="dimmed" size="13px">
+                          (edited)
+                        </Text>
+                      )}
                     </div>
                     <div className={classes.hRight}>
                       <CommentMenu
-                        postinfo={comment}
+                        commentinfo={comment}
                         setComments={setComments}
+                        replyingto={postuser}
                       />
                     </div>
                   </div>

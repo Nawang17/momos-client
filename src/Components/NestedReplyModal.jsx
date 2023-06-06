@@ -1,11 +1,12 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Modal, Textarea, Divider, Button, Text } from "@mantine/core";
-import { Gif, Lightning, X, XCircle } from "phosphor-react";
+import { Gif, Lightning, Pencil, X, XCircle } from "phosphor-react";
 import { addComment, addnestedComment } from "../api/POST";
 import { showNotification } from "@mantine/notifications";
 import { AuthContext } from "../context/Auth";
 import GifPicker from "gif-picker-react";
 import { useParams } from "react-router-dom";
+import { updatecomment } from "../api/UPDATE";
 
 export default function NestedReplyModal({
   opened,
@@ -14,6 +15,8 @@ export default function NestedReplyModal({
   UserInfo,
   setComments,
   postUser,
+  editcommentinfo,
+  editreplyingto,
 }) {
   const [error, setError] = useState("");
   const [text, settext] = useState("");
@@ -22,6 +25,12 @@ export default function NestedReplyModal({
   const [gifstatus, setgifstatus] = useState(false);
   const [gifpreview, setgifpreview] = useState("");
   const { postid } = useParams();
+  useEffect(() => {
+    if (editcommentinfo) {
+      settext(editcommentinfo.text);
+      setgifpreview(editcommentinfo.gif);
+    }
+  }, [opened]);
   const closemodal = () => {
     setOpened(false);
     settext("");
@@ -44,6 +53,40 @@ export default function NestedReplyModal({
             title: "Reply added",
             autoClose: 3000,
             color: "green",
+          });
+        })
+        .catch((err) => {
+          if (err.response.status === 0) {
+            setError("Internal Server Error");
+          } else {
+            setError(err.response.data);
+          }
+          setloading(false);
+        });
+    } else if (editcommentinfo) {
+      updatecomment({
+        text: text,
+        postId: postid,
+        gif: gifpreview,
+        commentid: editcommentinfo.id,
+      })
+        .then((res) => {
+          closemodal();
+          //replace the  comment with the updated comment
+          setComments((prev) => {
+            return prev.map((comment) => {
+              if (comment.id === editcommentinfo.id) {
+                return res.data.updatedcomment;
+              }
+              return comment;
+            });
+          });
+
+          showNotification({
+            icon: <Pencil size={18} />,
+            color: "green",
+            title: "Comment updated successfully",
+            autoClose: 3000,
           });
         })
         .catch((err) => {
@@ -129,6 +172,7 @@ export default function NestedReplyModal({
                   }}
                 >
                   {postUser ? postUser : replypost?.replyingto}
+                  {editcommentinfo && editreplyingto}
                 </span>
               </div>
               {error && (
@@ -165,6 +209,7 @@ export default function NestedReplyModal({
             >
               <Textarea
                 onChange={(e) => settext(e.target.value)}
+                value={text}
                 maxLength={255}
                 variant="unstyled"
                 placeholder="Write your reply"
@@ -242,18 +287,34 @@ export default function NestedReplyModal({
                       darkmode ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)"
                     }
                   />
-
-                  <Button
-                    onClick={() => {
-                      handleSubmit();
-                    }}
-                    disabled={text.length === 0 && !gifpreview}
-                    loading={loading}
-                    radius={"xl"}
-                    size="xs"
-                  >
-                    Reply
-                  </Button>
+                  {editcommentinfo ? (
+                    <Button
+                      onClick={() => {
+                        handleSubmit();
+                      }}
+                      disabled={
+                        text === editcommentinfo.text &&
+                        editcommentinfo.gif === gifpreview
+                      }
+                      loading={loading}
+                      radius={"xl"}
+                      size="xs"
+                    >
+                      Save Changes
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={() => {
+                        handleSubmit();
+                      }}
+                      disabled={text.length === 0 && !gifpreview}
+                      loading={loading}
+                      radius={"xl"}
+                      size="xs"
+                    >
+                      Reply
+                    </Button>
+                  )}
                 </div>
               </div>{" "}
             </div>

@@ -22,3 +22,20 @@ export const updateprofileinfo = async (
     }
   );
 };
+export const updatecomment = async ({ postId, text, gif, commentid }) => {
+  return await api.put(
+    "/editcomment",
+    {
+      text,
+      postId,
+      gif,
+      commentid,
+    },
+
+    {
+      headers: {
+        Authorization: `${localStorage.getItem("token")}`,
+      },
+    }
+  );
+};

@@ -6,6 +6,7 @@ import {
   DotsThree,
   Export,
   Lock,
+  Pencil,
   Trash,
   UserMinus,
   UserPlus,
@@ -16,16 +17,17 @@ import { useContext, useState } from "react";
 import { deleteComment } from "../api/DELETE";
 import { follow } from "../api/POST";
 import { AuthContext } from "../context/Auth";
-export function CommentMenu({ postinfo, setComments }) {
+import NestedReplyModal from "./NestedReplyModal";
+export function CommentMenu({ commentinfo, setComments, replyingto }) {
   const { UserInfo, followingdata, setfollowingdata } = useContext(AuthContext);
   const [opened, setOpened] = useState(false);
-
+  const [editopen, seteditopen] = useState(false);
   const handlePostDelete = () => {
     setOpened(false);
-    deleteComment({ commentid: postinfo?.id })
+    deleteComment({ commentid: commentinfo?.id })
       .then(() => {
         setComments((prev) => {
-          return prev.filter((comment) => comment.id !== postinfo.id);
+          return prev.filter((comment) => comment.id !== commentinfo.id);
         });
         showNotification({
           icon: <Trash size={18} />,
@@ -61,7 +63,7 @@ export function CommentMenu({ postinfo, setComments }) {
         color: "red",
       });
     } else {
-      follow({ followingid: postinfo?.user.id })
+      follow({ followingid: commentinfo?.user.id })
         .then((res) => {
           if (res.data.followed) {
             setfollowingdata((prev) => [
@@ -70,18 +72,18 @@ export function CommentMenu({ postinfo, setComments }) {
             ]);
             showNotification({
               icon: <UserPlus size={18} />,
-              message: `You are now following ${postinfo?.user.username}`,
+              message: `You are now following ${commentinfo?.user.username}`,
               autoClose: 3000,
             });
           } else {
             showNotification({
               icon: <UserMinus size={18} />,
-              message: `You are no longer following ${postinfo?.user.username}`,
+              message: `You are no longer following ${commentinfo?.user.username}`,
               autoClose: 3000,
             });
 
             setfollowingdata((prev) => {
-              return prev.filter((item) => item !== postinfo?.user.username);
+              return prev.filter((item) => item !== commentinfo?.user.username);
             });
           }
         })
@@ -116,28 +118,26 @@ export function CommentMenu({ postinfo, setComments }) {
         </Menu.Target>
 
         <Menu.Dropdown>
-          {(UserInfo?.username === postinfo?.user.username ||
-            UserInfo?.username === "katoph") && (
+          {" "}
+          {UserInfo?.username === commentinfo?.user.username && (
             <Menu.Item
               onClick={() => {
-                setOpened(true);
+                seteditopen(true);
               }}
-              color="red"
-              icon={<Trash color="red" size={14} />}
+              icon={<Pencil size={14} />}
             >
-              Delete
+              Edit
             </Menu.Item>
           )}
-
-          {UserInfo?.username !== postinfo?.user.username &&
-            (followingdata?.includes(postinfo?.user.username) ? (
+          {UserInfo?.username !== commentinfo?.user.username &&
+            (followingdata?.includes(commentinfo?.user.username) ? (
               <Menu.Item
                 onClick={() => {
                   handleFollow();
                 }}
                 icon={<UserMinus size={14} />}
               >
-                Unfollow {postinfo?.user.username}
+                Unfollow {commentinfo?.user.username}
               </Menu.Item>
             ) : (
               <Menu.Item
@@ -146,7 +146,7 @@ export function CommentMenu({ postinfo, setComments }) {
                 }}
                 icon={<UserPlus size={14} />}
               >
-                Follow {postinfo?.user.username}
+                Follow {commentinfo?.user.username}
               </Menu.Item>
             ))}
           <Menu.Item
@@ -161,7 +161,7 @@ export function CommentMenu({ postinfo, setComments }) {
             }}
             icon={<CopySimple size={14} />}
           >
-            Copy link to reply
+            Copy link to comment
           </Menu.Item>
           <Menu.Item
             onClick={() => {
@@ -174,8 +174,20 @@ export function CommentMenu({ postinfo, setComments }) {
             }}
             icon={<Export size={14} />}
           >
-            Share reply via...
+            Share comment via...
           </Menu.Item>
+          {(UserInfo?.username === commentinfo?.user.username ||
+            UserInfo?.username === "katoph") && (
+            <Menu.Item
+              onClick={() => {
+                setOpened(true);
+              }}
+              color="red"
+              icon={<Trash color="red" size={14} />}
+            >
+              Delete
+            </Menu.Item>
+          )}
         </Menu.Dropdown>
       </Menu>
       <Modal
@@ -214,6 +226,14 @@ export function CommentMenu({ postinfo, setComments }) {
           </div>
         </div>
       </Modal>
+      <NestedReplyModal
+        setOpened={seteditopen}
+        opened={editopen}
+        UserInfo={UserInfo}
+        setComments={setComments}
+        editcommentinfo={commentinfo}
+        editreplyingto={replyingto}
+      />
     </>
   );
 }

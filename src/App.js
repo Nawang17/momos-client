@@ -42,7 +42,7 @@ ReactGA.initialize("G-YJSVSC17CL");
 const socket = io(process.env.REACT_APP_SERVER_URL);
 
 function App() {
-  const idle = useIdle(10000); // 10 seconds of inactivity to be considered idle
+  const idle = useIdle(20000); // 20 seconds of inactivity to be considered idle
   const [isConnected, setIsConnected] = useState(socket.connected);
 
   const [darkmode, setdarkmode] = useState(true);

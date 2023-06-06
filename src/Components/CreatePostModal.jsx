@@ -283,7 +283,7 @@ export default function CreatePostModal({
                     settext(e.target.value);
                   }
                 }}
-                maxLength={255}
+                maxLength={poll ? 255 : 500}
                 variant="unstyled"
                 placeholder={
                   !poll
@@ -840,7 +840,8 @@ export default function CreatePostModal({
                 >
                   <div style={{ fontSize: "12px" }}>
                     {" "}
-                    {!poll ? text.length : pollquestion.length} / 255
+                    {!poll ? text.length : pollquestion.length} /{" "}
+                    {poll ? "255" : "500"}
                   </div>
                   <Divider orientation="vertical" />
                   {!loading ? (

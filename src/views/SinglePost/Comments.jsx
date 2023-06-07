@@ -753,6 +753,11 @@ export const Comments = ({
                                 }
                               )}
                             </Text>
+                            {data?.createdAt !== data?.updatedAt && (
+                              <Text color="dimmed" size="13px">
+                                (edited)
+                              </Text>
+                            )}
                           </div>
                         </div>
                         <div className={classes.hRight}>
@@ -762,6 +767,7 @@ export const Comments = ({
                             commentId={data?.id}
                             replyingtoId={data.commentId}
                             userid={data.userId}
+                            nestedcommentinfo={data}
                           />
                         </div>
                       </div>

@@ -6,7 +6,7 @@ import { showNotification } from "@mantine/notifications";
 import { AuthContext } from "../context/Auth";
 import GifPicker from "gif-picker-react";
 import { useParams } from "react-router-dom";
-import { updatecomment } from "../api/UPDATE";
+import { updatecomment, updatenestedcomment } from "../api/UPDATE";
 
 export default function NestedReplyModal({
   opened,
@@ -17,6 +17,7 @@ export default function NestedReplyModal({
   postUser,
   editcommentinfo,
   editreplyingto,
+  editnestedcommentinfo,
 }) {
   const [error, setError] = useState("");
   const [text, settext] = useState("");
@@ -29,6 +30,9 @@ export default function NestedReplyModal({
     if (editcommentinfo) {
       settext(editcommentinfo.text);
       setgifpreview(editcommentinfo.gif);
+    } else if (editnestedcommentinfo) {
+      settext(editnestedcommentinfo.text);
+      setgifpreview(editnestedcommentinfo.gif);
     }
   }, [opened]);
   const closemodal = () => {
@@ -86,6 +90,48 @@ export default function NestedReplyModal({
             icon: <Pencil size={18} />,
             color: "green",
             title: "Comment updated successfully",
+            autoClose: 3000,
+          });
+        })
+        .catch((err) => {
+          if (err.response.status === 0) {
+            setError("Internal Server Error");
+          } else {
+            setError(err.response.data);
+          }
+          setloading(false);
+        });
+    } else if (editnestedcommentinfo) {
+      updatenestedcomment({
+        editnestedcommentinfo: editnestedcommentinfo,
+        text,
+        gif: gifpreview,
+      })
+        .then((res) => {
+          closemodal();
+          //replace the  nested comment with the updated reply
+
+          setComments((prev) => {
+            return prev.map((comment) => {
+              if (comment.id === editnestedcommentinfo.commentId) {
+                return {
+                  ...comment,
+                  nestedcomments: comment.nestedcomments.map((reply) => {
+                    if (reply.id === editnestedcommentinfo.id) {
+                      return res.data.updatedreply;
+                    }
+                    return reply;
+                  }),
+                };
+              }
+              return comment;
+            });
+          });
+
+          showNotification({
+            icon: <Pencil size={18} />,
+            color: "green",
+            title: "reply updated successfully",
             autoClose: 3000,
           });
         })
@@ -173,6 +219,8 @@ export default function NestedReplyModal({
                 >
                   {postUser ? postUser : replypost?.replyingto}
                   {editcommentinfo && editreplyingto}
+                  {editnestedcommentinfo &&
+                    editnestedcommentinfo?.repliedtouser?.username}
                 </span>
               </div>
               {error && (
@@ -280,14 +328,30 @@ export default function NestedReplyModal({
                 <div
                   style={{ display: "flex", gap: "10px", alignItems: "center" }}
                 >
-                  <div style={{ fontSize: "12px" }}>{text.length} / 255</div>
+                  <div style={{ fontSize: "12px" }}>{text?.length} / 255</div>
                   <Divider
                     orientation="vertical"
                     color={
                       darkmode ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)"
                     }
                   />
-                  {editcommentinfo ? (
+                  {editnestedcommentinfo && (
+                    <Button
+                      onClick={() => {
+                        handleSubmit();
+                      }}
+                      disabled={
+                        text === editnestedcommentinfo.text &&
+                        editnestedcommentinfo.gif === gifpreview
+                      }
+                      loading={loading}
+                      radius={"xl"}
+                      size="xs"
+                    >
+                      Save changes
+                    </Button>
+                  )}
+                  {editcommentinfo && (
                     <Button
                       onClick={() => {
                         handleSubmit();
@@ -302,12 +366,13 @@ export default function NestedReplyModal({
                     >
                       Save Changes
                     </Button>
-                  ) : (
+                  )}
+                  {!editcommentinfo && !editnestedcommentinfo && (
                     <Button
                       onClick={() => {
                         handleSubmit();
                       }}
-                      disabled={text.length === 0 && !gifpreview}
+                      disabled={text?.length === 0 && !gifpreview}
                       loading={loading}
                       radius={"xl"}
                       size="xs"

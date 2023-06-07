@@ -39,3 +39,26 @@ export const updatecomment = async ({ postId, text, gif, commentid }) => {
     }
   );
 };
+export const updatenestedcomment = async ({
+  editnestedcommentinfo,
+  text,
+  gif,
+}) => {
+  return await api.put(
+    "/editnestedcomment",
+    {
+      postId: editnestedcommentinfo.postId,
+      replytouserId: editnestedcommentinfo.repliedtouserId,
+      commentId: editnestedcommentinfo.commentId,
+      nestedcommentId: editnestedcommentinfo.id,
+      text,
+      gif,
+    },
+
+    {
+      headers: {
+        Authorization: `${localStorage.getItem("token")}`,
+      },
+    }
+  );
+};

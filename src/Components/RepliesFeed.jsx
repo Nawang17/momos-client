@@ -221,13 +221,18 @@ const RepliesFeed = ({ replies, loading, setreplies }) => {
                               }
                             )}
                           </Text>
+                          {reply?.createdAt !== reply?.updatedAt && (
+                            <Text color="dimmed" size="12px">
+                              (edited)
+                            </Text>
+                          )}
                         </div>
                         <div
                           onClick={(e) => {
                             e.stopPropagation();
                           }}
                         >
-                          {!reply?.repliedtouser ? (
+                          {/* {!reply?.repliedtouser ? (
                             <CommentMenu
                               postinfo={reply}
                               setComments={setreplies}
@@ -241,7 +246,7 @@ const RepliesFeed = ({ replies, loading, setreplies }) => {
                               userid={reply.userId}
                               profilefeed={true}
                             />
-                          )}
+                          )} */}
                         </div>
                       </div>
                       <Text color="dimmed" size={"15px"}>

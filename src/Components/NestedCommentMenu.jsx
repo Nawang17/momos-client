@@ -6,6 +6,7 @@ import {
   DotsThree,
   Export,
   Lock,
+  Pencil,
   Trash,
   UserMinus,
   UserPlus,
@@ -16,6 +17,7 @@ import { useContext, useState } from "react";
 import { deleteNestedComment } from "../api/DELETE";
 import { follow } from "../api/POST";
 import { AuthContext } from "../context/Auth";
+import NestedReplyModal from "./NestedReplyModal";
 export function NestedCommentMenu({
   commentuser,
   setComments,
@@ -23,10 +25,11 @@ export function NestedCommentMenu({
   replyingtoId,
   userid,
   profilefeed,
+  nestedcommentinfo,
 }) {
   const { UserInfo, followingdata, setfollowingdata } = useContext(AuthContext);
   const [opened, setOpened] = useState(false);
-
+  const [editopen, seteditopen] = useState(false);
   const handlePostDelete = () => {
     setOpened(false);
     deleteNestedComment({ commentid: commentId })
@@ -140,16 +143,14 @@ export function NestedCommentMenu({
         </Menu.Target>
 
         <Menu.Dropdown>
-          {(UserInfo?.username === commentuser ||
-            UserInfo?.username === "katoph") && (
+          {UserInfo?.username === nestedcommentinfo?.user?.username && (
             <Menu.Item
               onClick={() => {
-                setOpened(true);
+                seteditopen(true);
               }}
-              color="red"
-              icon={<Trash color="red" size={14} />}
+              icon={<Pencil size={14} />}
             >
-              Delete
+              Edit
             </Menu.Item>
           )}
 
@@ -200,6 +201,18 @@ export function NestedCommentMenu({
           >
             Share reply via...
           </Menu.Item>
+          {(UserInfo?.username === commentuser ||
+            UserInfo?.username === "katoph") && (
+            <Menu.Item
+              onClick={() => {
+                setOpened(true);
+              }}
+              color="red"
+              icon={<Trash color="red" size={14} />}
+            >
+              Delete
+            </Menu.Item>
+          )}
         </Menu.Dropdown>
       </Menu>
       <Modal
@@ -238,6 +251,13 @@ export function NestedCommentMenu({
           </div>
         </div>
       </Modal>
+      <NestedReplyModal
+        setOpened={seteditopen}
+        opened={editopen}
+        UserInfo={UserInfo}
+        setComments={setComments}
+        editnestedcommentinfo={nestedcommentinfo}
+      />
     </>
   );
 }

@@ -36,13 +36,14 @@ import { io } from "socket.io-client";
 import { Chatrooms } from "./views/Chat/Chatrooms";
 import { Discover } from "./views/Discover/Discover";
 import ReactGA from "react-ga4";
+import { SettingsPage } from "./views/settingspage/settingsPage";
 
 ReactGA.initialize("G-YJSVSC17CL");
 
 const socket = io(process.env.REACT_APP_SERVER_URL);
 
 function App() {
-  const idle = useIdle(20000); // 20 seconds of inactivity to be considered idle
+  const idle = useIdle(120000); //in miliseconds; // 2 minutes of inactivity to be considered idle
   const [isConnected, setIsConnected] = useState(socket.connected);
 
   const [darkmode, setdarkmode] = useState(true);
@@ -58,6 +59,7 @@ function App() {
   const [userlevelinfo, setUserlevelinfo] = useState(null);
   const [onlineusers, setonlineusers] = useState([]);
   const [onlinelist, setonlinelist] = useState([]);
+
   useEffect(() => {
     socket.on("connect", () => {
       setIsConnected(true);
@@ -377,6 +379,18 @@ function App() {
           <ScrollToTop />
 
           <Chatrooms />
+        </>
+      ),
+    },
+    {
+      path: "/settings",
+      element: (
+        <>
+          <Navbar socket={socket} />
+
+          <ScrollToTop />
+
+          <SettingsPage />
         </>
       ),
     },

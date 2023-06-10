@@ -969,151 +969,170 @@ export const Post = ({ post, setPosts, comments }) => {
               </Button>
             )}
           </div>
-          {pathname === "/" && post?.comments.length > 1 && (
-            <>
-              <div
-                onClick={() => {
-                  navigate(`/post/${post.id}`);
-                }}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  cursor: "pointer",
-                  gap: "0.5rem",
-                  paddingTop: "0.5rem",
-                }}
-              >
-                {post?.comments
-                  .sort((a, b) => {
-                    return b?.commentlikes.length - a?.commentlikes.length;
-                  })
-                  .slice(0, post?.comments.length === 2 ? 1 : 2)
-                  .map((com) => {
-                    return (
-                      <div
-                        key={com.id}
-                        style={{
-                          padding: "0 1.2rem",
-                        }}
-                      >
+          {pathname === "/" &&
+            post?.comments.filter((val) => {
+              return val?.text !== null && val?.gif === null;
+            }).length > 1 && (
+              <>
+                <div
+                  onClick={() => {
+                    navigate(`/post/${post.id}`);
+                  }}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    cursor: "pointer",
+                    gap: "1rem",
+                    paddingTop: "0.7rem",
+                  }}
+                >
+                  {post?.comments
+                    .filter((val) => {
+                      return val?.text !== null && val?.gif === null;
+                    })
+                    .sort((a, b) => {
+                      return b?.commentlikes.length - a?.commentlikes.length;
+                    })
+                    .slice(0, post?.comments.length === 2 ? 1 : 2)
+                    .map((com) => {
+                      if (com?.text === null && com?.gif) {
+                        return null;
+                      }
+                      return (
                         <div
+                          key={com.id}
                           style={{
-                            display: "flex",
-                            gap: "0.5rem",
+                            padding: "0 1rem",
                           }}
                         >
-                          {/* left */}
-                          <img
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              navigate(`/${com?.user?.username}`);
-                            }}
-                            width={32}
-                            height={32}
-                            style={{
-                              borderRadius: "50%",
-                            }}
-                            src={com?.user?.avatar}
-                            alt=""
-                          />
                           <div
                             style={{
-                              width: "100%",
+                              display: "flex",
+                              gap: "0.5rem",
                             }}
                           >
+                            {/* left */}
+                            <div>
+                              <Indicator
+                                disabled={!onlineusers.includes(com?.user?.id)}
+                                style={{
+                                  cursor: "pointer",
+                                }}
+                                withBorder
+                                inline
+                                color="green"
+                                size={9}
+                                offset={7}
+                                position="bottom-end"
+                              >
+                                <Avatar
+                                  onClick={() => {
+                                    navigate(`/${com?.user?.username}`);
+                                  }}
+                                  size="40px"
+                                  radius={"xl"}
+                                  src={com?.user?.avatar}
+                                  alt=""
+                                  loading="lazy"
+                                />
+                              </Indicator>
+                            </div>
                             <div
                               style={{
-                                display: "flex",
-                                alignItems: "center",
-                                gap: "0.2rem",
+                                width: "100%",
                               }}
                             >
-                              <Text
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  navigate(`/${com?.user?.username}`);
-                                }}
-                                size={"14px"}
-                                weight={500}
-                              >
-                                {com?.user?.username}
-                              </Text>
-                              {topUser === com?.user?.username && (
-                                <Topuserbadge />
-                              )}
-                              <Text color="dimmed">·</Text>
-                              <Text size={"13px"} color="dimmed">
-                                {formatDistanceToNowStrict(
-                                  new Date(com?.createdAt),
-                                  {
-                                    locale: {
-                                      ...locale,
-                                      formatDistance,
-                                    },
-                                  }
-                                )}
-                              </Text>
-                            </div>
-                            {com.text && (
                               <div
                                 style={{
-                                  cursor: "pointer",
-                                  paddingTop: "0",
-                                }}
-                                className={classes.body}
-                              >
-                                <Text size="14px">{postvalue(com?.text)}</Text>
-                              </div>
-                            )}
-                            {com.gif && (
-                              <div
-                                style={{
-                                  cursor: "pointer",
-                                  paddingTop: "0.3rem",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  gap: "0.2rem",
                                 }}
                               >
-                                <img
-                                  style={{
-                                    width: "100%",
-                                    height: "auto",
-                                    borderRadius: "0.5rem",
+                                <Text
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    navigate(`/${com?.user?.username}`);
                                   }}
-                                  loading="lazy"
-                                  src={com.gif}
-                                  alt=""
-                                />
+                                  size={"15px"}
+                                  weight={500}
+                                >
+                                  {com?.user?.username}
+                                </Text>
+
+                                {com?.user?.verified &&
+                                  (com?.user?.id !== 5 ? (
+                                    <CircleWavyCheck
+                                      size={16}
+                                      color="#0ba6da"
+                                      weight="fill"
+                                    />
+                                  ) : (
+                                    <CircleWavyCheck
+                                      size={16}
+                                      color="#0ba6da"
+                                      weight="fill"
+                                    />
+                                  ))}
+                                {topUser === com?.user?.username && (
+                                  <Topuserbadge />
+                                )}
+                                <Text color="dimmed">·</Text>
+                                <Text size={"12px"} color="dimmed">
+                                  {formatDistanceToNowStrict(
+                                    new Date(com?.createdAt),
+                                    {
+                                      locale: {
+                                        ...locale,
+                                        formatDistance,
+                                      },
+                                    }
+                                  )}
+                                </Text>
                               </div>
-                            )}
+                              {com.text && (
+                                <div
+                                  style={{
+                                    cursor: "pointer",
+                                    paddingTop: "0",
+                                  }}
+                                  className={classes.body}
+                                >
+                                  <Text size="15px">
+                                    {postvalue(com?.text)}
+                                  </Text>
+                                </div>
+                              )}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    );
-                  })}
-              </div>
+                      );
+                    })}
+                </div>
 
-              <Text
-                onClick={() => {
-                  navigate(`/post/${post.id}`);
-                }}
-                color="dimmed"
-                size={"14px"}
-                style={{
-                  padding: "0.1rem 0.1rem 0.5rem 3.7rem",
-                  cursor: "pointer",
-                }}
-              >
-                See all{" "}
-                {comments
-                  ? `${comments?.reduce((acc, curr) => {
-                      return acc + curr.nestedcomments?.length;
-                    }, comments.length)}`
-                  : `${post.comments?.reduce((acc, curr) => {
-                      return acc + curr.nestedcomments?.length;
-                    }, post.comments.length)}`}{" "}
-                comments
-              </Text>
-            </>
-          )}
+                <Text
+                  onClick={() => {
+                    navigate(`/post/${post.id}`);
+                  }}
+                  color="dimmed"
+                  size={"14px"}
+                  style={{
+                    padding: "0.1rem 0.1rem 0.5rem 4rem",
+                    cursor: "pointer",
+                  }}
+                >
+                  See all{" "}
+                  {comments
+                    ? `${comments?.reduce((acc, curr) => {
+                        return acc + curr.nestedcomments?.length;
+                      }, comments.length)}`
+                    : `${post.comments?.reduce((acc, curr) => {
+                        return acc + curr.nestedcomments?.length;
+                      }, post.comments.length)}`}{" "}
+                  comments
+                </Text>
+              </>
+            )}
         </div>
       </div>
       <CreatePostModal

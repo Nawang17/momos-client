@@ -63,7 +63,7 @@ export function ProfileMenu({ socket }) {
                 <UserCircle color={darkmode ? "white" : "black"} size={20} />
               }
             >
-              Profile
+              View profile
             </Menu.Item>
 
             <Menu.Divider />

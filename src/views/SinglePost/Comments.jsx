@@ -3,12 +3,14 @@ import {
   Avatar,
   Badge,
   createStyles,
+  Flex,
   Indicator,
   Popover,
   Text,
   Tooltip,
 } from "@mantine/core";
 import {
+  CaretRight,
   ChatCircle,
   CircleWavyCheck,
   Heart,
@@ -536,22 +538,6 @@ export const Comments = ({
                     </div>
                   </div>
                   <div className={classes.body}>
-                    <Text color={"dimmed"} size="15px">
-                      Replying to{" "}
-                      <span
-                        onClick={() => {
-                          navigate(`/${postuser}`);
-                        }}
-                        style={{
-                          cursor: "pointer",
-                          fontSize: "15px",
-                          fontWeight: 500,
-                          color: "rgb(29, 161, 242)",
-                        }}
-                      >
-                        @{postuser}
-                      </span>
-                    </Text>
                     <Text size="15px">{postvalue(comment?.text)}</Text>
                   </div>
                   {comment?.gif && (
@@ -758,6 +744,26 @@ export const Comments = ({
                                 (edited)
                               </Text>
                             )}
+                            <Flex align={"center"}>
+                              <CaretRight
+                                size={14}
+                                weight="fill"
+                                color="gray"
+                              />
+                              <Text
+                                onClick={() => {
+                                  navigate(`/${data?.repliedtouser.username}`);
+                                }}
+                                style={{
+                                  cursor: "pointer",
+                                }}
+                                color="dimmed"
+                                size="13px"
+                                weight={500}
+                              >
+                                {data?.repliedtouser.username}
+                              </Text>
+                            </Flex>
                           </div>
                         </div>
                         <div className={classes.hRight}>
@@ -772,22 +778,6 @@ export const Comments = ({
                         </div>
                       </div>
                       <div className={classes.body}>
-                        <Text color={"dimmed"} size="15px">
-                          Replying to{" "}
-                          <span
-                            onClick={() => {
-                              navigate(`/${data?.repliedtouser.username}`);
-                            }}
-                            style={{
-                              cursor: "pointer",
-                              fontSize: "15px",
-                              fontWeight: 500,
-                              color: "rgb(29, 161, 242)",
-                            }}
-                          >
-                            @{data?.repliedtouser.username}
-                          </span>
-                        </Text>
                         {data?.text && (
                           <Text size="15px">{postvalue(data?.text)}</Text>
                         )}

@@ -69,7 +69,7 @@ export default function NestedReplyModal({
         });
     } else if (editcommentinfo) {
       updatecomment({
-        text: text,
+        text: text ? text : "",
         postId: postid,
         gif: gifpreview,
         commentid: editcommentinfo.id,
@@ -104,7 +104,8 @@ export default function NestedReplyModal({
     } else if (editnestedcommentinfo) {
       updatenestedcomment({
         editnestedcommentinfo: editnestedcommentinfo,
-        text,
+        text: text ? text : "",
+
         gif: gifpreview,
       })
         .then((res) => {

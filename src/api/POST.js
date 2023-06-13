@@ -162,3 +162,16 @@ export const pollvote = async ({ pollid, pollchoiceid, postid }) => {
     }
   );
 };
+export const bookmarkPost = async ({ postId }) => {
+  return await api.post(
+    "/bookmarkpost",
+    {
+      postId,
+    },
+    {
+      headers: {
+        Authorization: `${localStorage.getItem("token")}`,
+      },
+    }
+  );
+};

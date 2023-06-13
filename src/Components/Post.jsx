@@ -9,12 +9,12 @@ import {
 } from "@mantine/core";
 import {
   ArrowsClockwise,
+  BookmarkSimple,
   ChatCircle,
   CircleWavyCheck,
   Heart,
   Link,
   Lock,
-  Share,
   WarningCircle,
 } from "phosphor-react";
 import { useMediaQuery } from "@mantine/hooks";
@@ -22,7 +22,7 @@ import { PostMenu } from "./PostMenu";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../context/Auth";
-import { likePost } from "../api/POST";
+import { bookmarkPost, likePost } from "../api/POST";
 import { showNotification } from "@mantine/notifications";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import locale from "date-fns/locale/en-US";
@@ -98,8 +98,15 @@ export const Post = ({ post, setPosts, comments }) => {
   const navigate = useNavigate();
   const [opened, setOpened] = useState(false);
   const [viewimg, setviewimg] = useState("");
-  const { UserInfo, darkmode, onlineusers, topUser, socket } =
-    useContext(AuthContext);
+  const {
+    UserInfo,
+    darkmode,
+    onlineusers,
+    topUser,
+    socket,
+    bookmarkIds,
+    setbookmarkIds,
+  } = useContext(AuthContext);
   const [likemodal, setlikemodal] = useState(false);
   const [openConfirm, setOpenConfirm] = useState(false);
   const matches = useMediaQuery("(min-width: 530px)");
@@ -321,7 +328,42 @@ export const Post = ({ post, setPosts, comments }) => {
       }
     });
   }, []);
+  const handlebookmark = async () => {
+    if (!UserInfo) {
+      return showNotification({
+        icon: <Lock size={18} />,
+        color: "red",
+        title: "Login required",
+        autoClose: 3000,
+      });
+    }
 
+    await bookmarkPost({ postId: post.id })
+      .then((res) => {
+        if (res.data.bookmarked) {
+          setbookmarkIds((prev) => {
+            return [...prev, post.id];
+          });
+          showNotification({
+            icon: <BookmarkSimple size={18} />,
+            message: "Post saved successfully",
+            autoClose: 3000,
+          });
+        } else {
+          setbookmarkIds((prev) => {
+            return prev.filter((id) => id !== post.id);
+          });
+          showNotification({
+            icon: <BookmarkSimple size={18} />,
+            message: "Post unsaved successfully",
+            autoClose: 3000,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <>
       <div
@@ -953,19 +995,19 @@ export const Post = ({ post, setPosts, comments }) => {
             {matches && (
               <Button
                 onClick={() => {
-                  if (navigator.share) {
-                    navigator.share({
-                      title: "Share Post",
-                      url: `https://momosz.com/post/${post?.id}`,
-                    });
-                  }
+                  handlebookmark();
                 }}
                 color={"gray"}
                 size="xs"
-                leftIcon={<Share size={18} />}
+                leftIcon={
+                  <BookmarkSimple
+                    weight={bookmarkIds.includes(post.id) ? "fill" : "regular"}
+                    size={18}
+                  />
+                }
                 variant="subtle"
               >
-                Share
+                {bookmarkIds.includes(post.id) ? "Saved" : "Save"}
               </Button>
             )}
           </div>

@@ -1,6 +1,7 @@
-import { Avatar, Indicator, Menu } from "@mantine/core";
+import { Avatar, Menu } from "@mantine/core";
 
 import {
+  BookmarkSimple,
   Info,
   MoonStars,
   SignIn,
@@ -67,7 +68,16 @@ export function ProfileMenu({ socket }) {
             </Menu.Item>
 
             <Menu.Divider />
+            <Menu.Item
+              onClick={() => {
+                navigate("/bookmarks");
+              }}
+              icon={<BookmarkSimple size={20} />}
+            >
+              Bookmarks
+            </Menu.Item>
 
+            <Menu.Divider />
             <Menu.Item
               onClick={() => {
                 setdarkmode(!darkmode);

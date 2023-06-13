@@ -2,6 +2,7 @@ import { Button, Menu, Modal } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
 
 import {
+  BookmarkSimple,
   CopySimple,
   DotsThree,
   Export,
@@ -14,11 +15,17 @@ import {
 import { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { deletePost } from "../api/DELETE";
-import { follow } from "../api/POST";
+import { bookmarkPost, follow } from "../api/POST";
 import { AuthContext } from "../context/Auth";
 
 export function PostMenu({ postinfo, setPosts }) {
-  const { UserInfo, followingdata, setfollowingdata } = useContext(AuthContext);
+  const {
+    UserInfo,
+    followingdata,
+    setfollowingdata,
+    bookmarkIds,
+    setbookmarkIds,
+  } = useContext(AuthContext);
   const [opened, setOpened] = useState(false);
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -110,7 +117,42 @@ export function PostMenu({ postinfo, setPosts }) {
         });
     }
   };
+  const handlebookmark = async () => {
+    if (!UserInfo) {
+      return showNotification({
+        icon: <Lock size={18} />,
+        color: "red",
+        title: "Login required",
+        autoClose: 3000,
+      });
+    }
 
+    await bookmarkPost({ postId: postinfo?.id })
+      .then((res) => {
+        if (res.data.bookmarked) {
+          setbookmarkIds((prev) => {
+            return [...prev, postinfo?.id];
+          });
+          showNotification({
+            icon: <BookmarkSimple size={18} />,
+            message: "Post saved successfully",
+            autoClose: 3000,
+          });
+        } else {
+          setbookmarkIds((prev) => {
+            return prev.filter((id) => id !== postinfo?.id);
+          });
+          showNotification({
+            icon: <BookmarkSimple size={18} />,
+            message: "Post unsaved successfully",
+            autoClose: 3000,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <>
       <Menu position="bottom-end" shadow="md" width={200}>
@@ -123,14 +165,26 @@ export function PostMenu({ postinfo, setPosts }) {
         </Menu.Target>
 
         <Menu.Dropdown>
+          <Menu.Item
+            onClick={() => {
+              handlebookmark();
+            }}
+            icon={
+              <BookmarkSimple
+                weight={bookmarkIds.includes(postinfo?.id) ? "fill" : "regular"}
+                size={14}
+              />
+            }
+          >
+            {bookmarkIds.includes(postinfo?.id) ? "Unsave" : "Save"}
+          </Menu.Item>
           {(UserInfo?.username === postinfo?.user.username ||
             UserInfo?.username === "katoph") && (
             <Menu.Item
               onClick={() => {
                 setOpened(true);
               }}
-              color="red"
-              icon={<Trash color="red" size={14} />}
+              icon={<Trash size={14} />}
             >
               Delete
             </Menu.Item>

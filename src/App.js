@@ -17,6 +17,7 @@ import {
 } from "@mantine/notifications";
 import {
   getTopuser,
+  getbookmarksid,
   leaderboardinfo,
   suggestedusersreq,
   userlevel,
@@ -37,6 +38,7 @@ import { Chatrooms } from "./views/Chat/Chatrooms";
 import { Discover } from "./views/Discover/Discover";
 import ReactGA from "react-ga4";
 import { SettingsPage } from "./views/settingspage/settingsPage";
+import { Bookmarks } from "./views/bookmark/Bookmarks";
 
 ReactGA.initialize("G-YJSVSC17CL");
 
@@ -59,7 +61,7 @@ function App() {
   const [userlevelinfo, setUserlevelinfo] = useState(null);
   const [onlineusers, setonlineusers] = useState([]);
   const [onlinelist, setonlinelist] = useState([]);
-
+  const [bookmarkIds, setbookmarkIds] = useState([]);
   useEffect(() => {
     socket.on("connect", () => {
       setIsConnected(true);
@@ -190,12 +192,23 @@ function App() {
           setUserlevelinfo(null);
         });
     }
+    async function getuserbookmarkids() {
+      await getbookmarksid()
+        .then((res) => {
+          setbookmarkIds(res.data.bookmarkIds);
+        })
+        .catch(() => {
+          setbookmarkIds([]);
+        });
+    }
     getleaderboard();
     getsuggestedusers();
     if (UserInfo) {
+      getuserbookmarkids();
       getuserlevel();
     } else {
       setUserlevelinfo(null);
+      setbookmarkIds([]);
     }
   }, [UserInfo]);
   const router = createBrowserRouter([
@@ -394,6 +407,18 @@ function App() {
         </>
       ),
     },
+    {
+      path: "/bookmarks",
+      element: (
+        <>
+          <Navbar socket={socket} />
+
+          <ScrollToTop />
+
+          <Bookmarks />
+        </>
+      ),
+    },
   ]);
   const [scroll, scrollTo] = useWindowScroll();
 
@@ -437,6 +462,8 @@ function App() {
               onlinelist,
               topUser,
               socket,
+              bookmarkIds,
+              setbookmarkIds,
             }}
           >
             <RouterProvider router={router} />

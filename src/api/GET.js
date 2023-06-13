@@ -107,9 +107,24 @@ export const getchatmessages = async (roomid, page) => {
     },
   });
 };
+
 export const gettrending = async () => {
   return await api.get(`/search/trending`);
 };
 export const getTopuser = async () => {
   return await api.get(`/suggestedusers/topuser`);
+};
+export const getbookmarksid = async () => {
+  return await api.get(`/userinfo/bookmarks/bookmarkids`, {
+    headers: {
+      Authorization: `${localStorage.getItem("token")}`,
+    },
+  });
+};
+export const getbookmarks = async () => {
+  return await api.get(`/userinfo/bookmarks/bookmarkposts`, {
+    headers: {
+      Authorization: `${localStorage.getItem("token")}`,
+    },
+  });
 };

@@ -324,9 +324,11 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
               </Text>
               {topUser === userprofile && <Topuserbadge />}
               <div>
-                <Text color={"#71767b"} weight={500} size={"md"}>
-                  #{rankinfo.rank}
-                </Text>
+                {rankinfo.rank && (
+                  <Text color={"#71767b"} weight={500} size={"md"}>
+                    #{rankinfo.rank}
+                  </Text>
+                )}
               </div>
             </div>
           </div>

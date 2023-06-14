@@ -236,17 +236,21 @@ const UserSearch = () => {
                   }}
                   key={val.id}
                   style={{
-                    padding: "1rem 1.4rem",
                     display: "flex",
+                    alignItems: "center",
                     gap: "0.6rem",
-
+                    margin: "0 1.4rem",
+                    padding: "1.5rem 0rem",
+                    borderBottom: darkmode
+                      ? "1px solid #343536"
+                      : "1px solid #e4e6eb",
                     cursor: "pointer",
                   }}
                 >
                   <img
                     style={{
-                      width: "40px",
-                      height: "40px",
+                      width: "45px",
+                      height: "45px",
                       borderRadius: "50%",
                     }}
                     src={val.avatar}
@@ -295,7 +299,6 @@ const UserSearch = () => {
                               e.stopPropagation();
                               handlefollow(val.id, val.username);
                             }}
-                            radius="xl"
                             size="xs"
                           >
                             {" "}
@@ -309,7 +312,6 @@ const UserSearch = () => {
                               e.stopPropagation();
                               handlefollow(val.id, val.username);
                             }}
-                            radius="xl"
                             size="xs"
                           >
                             {" "}
@@ -322,10 +324,10 @@ const UserSearch = () => {
                       <Text
                         style={{
                           wordBreak: "break-word",
+                          color: "#8e8e8e",
                         }}
                         size={"15px"}
                       >
-                        {" "}
                         {val.description}
                       </Text>
                     )}

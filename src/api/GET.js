@@ -128,3 +128,10 @@ export const getbookmarks = async () => {
     },
   });
 };
+export const admin = async () => {
+  return await api.get(`/admin/allusers`, {
+    headers: {
+      Authorization: `${localStorage.getItem("token")}`,
+    },
+  });
+};

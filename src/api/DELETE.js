@@ -20,3 +20,10 @@ export const deleteNestedComment = async ({ commentid }) => {
     },
   });
 };
+export const deleteUser = async (userId) => {
+  return await api.delete(`/admin/deleteUser/${userId}`, {
+    headers: {
+      Authorization: `${localStorage.getItem("token")}`,
+    },
+  });
+};

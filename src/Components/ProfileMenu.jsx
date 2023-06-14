@@ -2,6 +2,7 @@ import { Avatar, Menu } from "@mantine/core";
 
 import {
   BookmarkSimple,
+  Crosshair,
   Info,
   MoonStars,
   SignIn,
@@ -66,17 +67,6 @@ export function ProfileMenu({ socket }) {
             >
               View profile
             </Menu.Item>
-
-            <Menu.Divider />
-            <Menu.Item
-              onClick={() => {
-                navigate("/bookmarks");
-              }}
-              icon={<BookmarkSimple size={20} />}
-            >
-              Bookmarks
-            </Menu.Item>
-
             <Menu.Divider />
             <Menu.Item
               onClick={() => {
@@ -99,6 +89,28 @@ export function ProfileMenu({ socket }) {
               {darkmode ? "Switch to Light Mode" : "Switch to Dark Mode"}
             </Menu.Item>
             <Menu.Divider />
+            <Menu.Item
+              onClick={() => {
+                navigate("/bookmarks");
+              }}
+              icon={<BookmarkSimple size={20} />}
+            >
+              Bookmarks
+            </Menu.Item>
+            <Menu.Divider />
+            {UserInfo?.username === "katoph" && (
+              <>
+                <Menu.Item
+                  onClick={() => {
+                    navigate("/admin");
+                  }}
+                  icon={<Crosshair size={20} />}
+                >
+                  Admin
+                </Menu.Item>
+                <Menu.Divider />
+              </>
+            )}
 
             <Menu.Item
               onClick={() => {
@@ -109,9 +121,7 @@ export function ProfileMenu({ socket }) {
               {" "}
               About momos
             </Menu.Item>
-
             <Menu.Divider />
-
             <Menu.Item
               icon={<SignOut size={20} />}
               onClick={() => {

@@ -183,17 +183,21 @@ export const SuggestedAccs = () => {
                 }}
                 key={acc.id}
                 style={{
-                  padding: "1rem 1.4rem",
+                  margin: "0 1.4rem",
                   display: "flex",
                   gap: "0.6rem",
-
+                  alignItems: "center",
                   cursor: "pointer",
+                  padding: "1.5rem 0rem",
+                  borderBottom: darkmode
+                    ? "1px solid #343536"
+                    : "1px solid #e4e6eb",
                 }}
               >
                 <img
                   style={{
-                    width: "40px",
-                    height: "40px",
+                    width: "45px",
+                    height: "45px",
                     borderRadius: "50%",
                   }}
                   src={acc.avatar}
@@ -242,7 +246,7 @@ export const SuggestedAccs = () => {
                           e.stopPropagation();
                           handlefollow(acc.id, acc.username);
                         }}
-                        radius="xl"
+                        radius="sm"
                         size="xs"
                       >
                         {" "}
@@ -257,7 +261,7 @@ export const SuggestedAccs = () => {
                           e.stopPropagation();
                           handlefollow(acc.id, acc.username);
                         }}
-                        radius="xl"
+                        radius="sm"
                         size="xs"
                       >
                         {" "}
@@ -275,6 +279,7 @@ export const SuggestedAccs = () => {
                       <div
                         style={{
                           fontSize: "15px",
+                          color: "#8e8e8e",
                         }}
                         dangerouslySetInnerHTML={{
                           __html: sanitizer(acc?.description, {

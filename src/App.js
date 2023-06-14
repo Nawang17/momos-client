@@ -39,13 +39,14 @@ import { Discover } from "./views/Discover/Discover";
 import ReactGA from "react-ga4";
 import { SettingsPage } from "./views/settingspage/settingsPage";
 import { Bookmarks } from "./views/bookmark/Bookmarks";
+import { Admin } from "./views/admin/Admin";
 
 ReactGA.initialize("G-YJSVSC17CL");
 
 const socket = io(process.env.REACT_APP_SERVER_URL);
 
 function App() {
-  const idle = useIdle(120000); //in miliseconds; // 2 minutes of inactivity to be considered idle
+  const idle = useIdle(60000); //in miliseconds; // 1 minute of inactivity to be considered idle
   const [isConnected, setIsConnected] = useState(socket.connected);
 
   const [darkmode, setdarkmode] = useState(true);
@@ -416,6 +417,18 @@ function App() {
           <ScrollToTop />
 
           <Bookmarks />
+        </>
+      ),
+    },
+    {
+      path: "/admin",
+      element: (
+        <>
+          <Navbar socket={socket} />
+
+          <ScrollToTop />
+
+          <Admin />
         </>
       ),
     },

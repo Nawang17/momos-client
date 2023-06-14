@@ -62,3 +62,17 @@ export const updatenestedcomment = async ({
     }
   );
 };
+export const updateUserStatus = async (userId) => {
+  return await api.put(
+    "/admin/changeStatus",
+    {
+      userId,
+    },
+
+    {
+      headers: {
+        Authorization: `${localStorage.getItem("token")}`,
+      },
+    }
+  );
+};

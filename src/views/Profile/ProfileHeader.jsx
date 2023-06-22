@@ -29,6 +29,8 @@ import { useParams } from "react-router-dom";
 import { showNotification } from "@mantine/notifications";
 import reactStringReplace from "react-string-replace";
 import Topuserbadge from "../../helper/Topuserbadge";
+import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
+import locale from "date-fns/locale/en-US";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -49,6 +51,40 @@ const useStyles = createStyles(() => ({
   },
 }));
 export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
+  const formatDistanceLocale = {
+    lessThanXSeconds: "{{count}}s",
+    xSeconds: "{{count}}s",
+    halfAMinute: "30s",
+    lessThanXMinutes: "{{count}}m",
+    xMinutes: "{{count}}m",
+    aboutXHours: "{{count}}h",
+    xHours: "{{count}}h",
+    xDays: "{{count}}d",
+    aboutXWeeks: "{{count}}w",
+    xWeeks: "{{count}}w",
+    aboutXMonths: "{{count}}mo",
+    xMonths: "{{count}}mo",
+    aboutXYears: "{{count}}y",
+    xYears: "{{count}}y",
+    overXYears: "{{count}}y",
+    almostXYears: "{{count}}y",
+  };
+
+  function formatDistance(token, count, options) {
+    options = options || {};
+
+    const result = formatDistanceLocale[token].replace("{{count}}", count);
+
+    if (options.addSuffix) {
+      if (options.comparison > 0) {
+        return "in " + result;
+      } else {
+        return result + " ago";
+      }
+    }
+
+    return result;
+  }
   const { userprofile } = useParams();
 
   const {
@@ -331,6 +367,19 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                 )}
               </div>
             </div>
+            {!onlineusers.includes(profileInfo?.id) &&
+              profileInfo?.lastseen && (
+                <Text color="dimmed" size="xs">
+                  Active{" "}
+                  {formatDistanceToNowStrict(new Date(profileInfo?.lastseen), {
+                    locale: {
+                      ...locale,
+                      formatDistance,
+                    },
+                  })}{" "}
+                  ago
+                </Text>
+              )}
           </div>
         </>
       ) : (

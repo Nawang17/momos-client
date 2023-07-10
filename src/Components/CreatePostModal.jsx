@@ -207,37 +207,38 @@ export default function CreatePostModal({
               setError(err.response.data);
             }
           });
-      }
-      // if poll is regular post
-      await AddNewPostpoll(
-        choice1,
-        choice2,
-        choice3,
-        choice4,
-        pollquestion,
-        polldays,
-        pollhours,
-        pollminutes
-      )
-        .then((res) => {
-          closemodal();
+      } else {
+        // if poll is regular post
+        await AddNewPostpoll(
+          choice1,
+          choice2,
+          choice3,
+          choice4,
+          pollquestion,
+          polldays,
+          pollhours,
+          pollminutes
+        )
+          .then((res) => {
+            closemodal();
 
-          navigate(`/post/${res.data.newpostid}`);
-          showNotification({
-            color: "teal",
-            icon: <Lightning size={18} />,
-            title: "Post Created Successfully",
-            autoClose: 3000,
+            navigate(`/post/${res.data.newpostid}`);
+            showNotification({
+              color: "teal",
+              icon: <Lightning size={18} />,
+              title: "Post Created Successfully",
+              autoClose: 3000,
+            });
+          })
+          .catch((err) => {
+            setloading(false);
+            if (err.response.status === 0) {
+              setError("Internal Server Error");
+            } else {
+              setError(err.response.data);
+            }
           });
-        })
-        .catch((err) => {
-          setloading(false);
-          if (err.response.status === 0) {
-            setError("Internal Server Error");
-          } else {
-            setError(err.response.data);
-          }
-        });
+      }
     } else {
       const formData = new FormData();
       formData.append("media", media);

@@ -1,7 +1,6 @@
 import {
   ActionIcon,
   Badge,
-  Button,
   Container,
   Flex,
   Image,
@@ -15,9 +14,6 @@ import {
   Crown,
   Globe,
   LockLaminated,
-  Pencil,
-  SignOut,
-  Trash,
   Users,
   WarningCircle,
 } from "phosphor-react";
@@ -29,8 +25,8 @@ import { getcommunityPosts, getcommunityprofile } from "../../api/GET";
 import CreatePost from "../../Components/CreatePost";
 import { PostFeed } from "../../Components/PostFeed";
 import { showNotification } from "@mantine/notifications";
-import { deleteCommunity, leaveCommunity } from "../../api/DELETE";
-import { openConfirmModal } from "@mantine/modals";
+
+import { CommunityProfileMenu } from "./CommunityProfileMenu";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -112,95 +108,6 @@ export const CommunityProfile = () => {
       });
   }, []);
 
-  const handleLeaveCommunity = () => {
-    openConfirmModal({
-      title: "Are you sure you want to leave this community?",
-      children: (
-        <Text size="sm">
-          You will no longer be able to post or comment in this community. You
-          can rejoin at any time.
-        </Text>
-      ),
-      labels: { confirm: "Confirm", cancel: "Cancel" },
-      onCancel: () => {
-        return;
-      },
-      onConfirm: () => {
-        leaveCommunity(name)
-          .then(() => {
-            showNotification({
-              icon: <SignOut size={18} />,
-              color: "blue",
-              title: "You have left the community",
-              autoClose: 4000,
-            });
-            navigate(-1);
-          })
-          .catch((err) => {
-            if (err.response.status === 0) {
-              showNotification({
-                icon: <WarningCircle size={18} />,
-                color: "red",
-                title: "Internal Server Error",
-                autoClose: 4000,
-              });
-            } else {
-              showNotification({
-                icon: <WarningCircle size={18} />,
-                color: "red",
-                title: err.response.data,
-                autoClose: 4000,
-              });
-            }
-          });
-      },
-    });
-  };
-  const handledeleteCommunity = () => {
-    openConfirmModal({
-      title: "Are you sure you want to delete this community?",
-      children: (
-        <Text size="sm">
-          All posts and members of this community will be deleted forever. This
-          action cannot be undone.
-        </Text>
-      ),
-      labels: { confirm: "Yes, delete it", cancel: "No, don't delete it" },
-      confirmProps: { color: "red" },
-      onCancel: () => {
-        return;
-      },
-      onConfirm: () => {
-        deleteCommunity(name)
-          .then(() => {
-            showNotification({
-              icon: <Trash size={18} />,
-              color: "blue",
-              title: "You have deleted the community",
-              autoClose: 4000,
-            });
-            navigate(-1);
-          })
-          .catch((err) => {
-            if (err.response.status === 0) {
-              showNotification({
-                icon: <WarningCircle size={18} />,
-                color: "red",
-                title: "Internal Server Error",
-                autoClose: 4000,
-              });
-            } else {
-              showNotification({
-                icon: <WarningCircle size={18} />,
-                color: "red",
-                title: err.response.data,
-                autoClose: 4000,
-              });
-            }
-          });
-      },
-    });
-  };
   return (
     <Container px={0} className={classes.wrapper}>
       <div className={classes.leftWrapper}>
@@ -208,7 +115,7 @@ export const CommunityProfile = () => {
           style={{
             backgroundColor: darkmode ? "#1A1B1E" : "white",
             color: darkmode ? "white" : "black",
-            padding: "1rem 0rem 0rem 1rem",
+            padding: "1rem 1rem 0rem 1rem",
             display: "flex",
             justifyContent: "space-between",
           }}
@@ -216,6 +123,7 @@ export const CommunityProfile = () => {
           <ActionIcon onClick={() => navigate(-1)}>
             <ArrowLeft size="20px" />
           </ActionIcon>
+          <CommunityProfileMenu profiledata={communityInfo} />
         </div>
         {!loading || !postsLoading ? (
           <div
@@ -285,30 +193,6 @@ export const CommunityProfile = () => {
                   </Flex>
                 </Flex>
               </Flex>
-              {communityInfo?.communitymembers?.some(
-                (obj) => !obj.isOwner && obj.user.username === UserInfo.username
-              ) ? (
-                <Button
-                  onClick={() => handleLeaveCommunity()}
-                  size="xs"
-                  radius={"xl"}
-                  color="gray"
-                  leftIcon={<SignOut size={15} />}
-                >
-                  Leave
-                </Button>
-              ) : (
-                <Button
-                  onClick={() => {
-                    handledeleteCommunity();
-                  }}
-                  size="xs"
-                  radius={"xl"}
-                  color="red"
-                >
-                  Delete
-                </Button>
-              )}
             </Flex>
 
             <Tabs defaultValue="Posts">

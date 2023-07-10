@@ -45,6 +45,8 @@ export function PostMenu({ postinfo, setPosts }) {
         });
         if (pathname === `/post/${postinfo?.id}`) {
           navigate("/");
+        } else if (pathname === `/communitypost/${postinfo?.id}`) {
+          navigate(-1);
         }
       })
       .catch((err) => {

@@ -30,7 +30,7 @@ import CreatePost from "../../Components/CreatePost";
 import { PostFeed } from "../../Components/PostFeed";
 import { showNotification } from "@mantine/notifications";
 import { deleteCommunity, leaveCommunity } from "../../api/DELETE";
-import { modals } from "@mantine/modals";
+import { openConfirmModal } from "@mantine/modals";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -113,7 +113,7 @@ export const CommunityProfile = () => {
   }, []);
 
   const handleLeaveCommunity = () => {
-    modals.openConfirmModal({
+    openConfirmModal({
       title: "Are you sure you want to leave this community?",
       children: (
         <Text size="sm">
@@ -157,7 +157,7 @@ export const CommunityProfile = () => {
     });
   };
   const handledeleteCommunity = () => {
-    modals.openConfirmModal({
+    openConfirmModal({
       title: "Are you sure you want to delete this community?",
       children: (
         <Text size="sm">

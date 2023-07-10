@@ -17,14 +17,20 @@ import {
   BellRinging,
   ChatCircle,
   ChatTeardropDots,
+  GitPullRequest,
   Heart,
+  ThumbsUp,
+  Trash,
   User,
   UserPlus,
+  WarningCircle,
 } from "phosphor-react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { notis } from "../../api/GET";
+import { acceptCommunityrequest } from "../../api/POST";
+import { showNotification } from "@mantine/notifications";
 export default function Notis({ darkmode }) {
   const formatDistanceLocale = {
     lessThanXSeconds: "{{count}}s",
@@ -65,6 +71,34 @@ export default function Notis({ darkmode }) {
   const navigate = useNavigate();
   const [loading, setloading] = useState(true);
   const [notitype, setnotitype] = useState("All activity");
+
+  const handlecommunityrequest = (requestid, accept) => {
+    acceptCommunityrequest({ requestid, accept })
+      .then((res) => {
+        showNotification({
+          icon: <ThumbsUp size={18} />,
+          message: res.data,
+          autoClose: 5000,
+        });
+      })
+      .catch((err) => {
+        if (err.response.status === 0) {
+          showNotification({
+            icon: <WarningCircle size={18} />,
+            color: "red",
+            title: "Internal Server Error",
+            autoClose: 4000,
+          });
+        } else {
+          showNotification({
+            icon: <Trash size={18} />,
+            color: "red",
+            title: err.response.data,
+            autoClose: 4000,
+          });
+        }
+      });
+  };
   useEffect(() => {
     const getnotis = async () => {
       notis()
@@ -158,6 +192,17 @@ export default function Notis({ darkmode }) {
               >
                 Followers
               </Button>
+              <Button
+                onClick={() => setnotitype("COMMUNITY_JOIN_REQUEST")}
+                variant={
+                  notitype === "COMMUNITY_JOIN_REQUEST" ? "filled" : "default"
+                }
+                color="gray"
+                size="xs"
+                radius="xl"
+              >
+                Requests
+              </Button>
             </Flex>
             {!loading && notitype === "All activity" && Notis.length === 0 && (
               <Flex
@@ -238,6 +283,30 @@ export default function Notis({ darkmode }) {
                 </Flex>
               )}
             {!loading &&
+              notitype === "COMMUNITY_JOIN_REQUEST" &&
+              Notis.filter((val) => {
+                return val.type === "COMMUNITY_JOIN_REQUEST";
+              }).length === 0 && (
+                <Flex
+                  direction={"column"}
+                  align={"center"}
+                  justify={"center"}
+                  pt={40}
+                >
+                  <GitPullRequest
+                    size={50}
+                    color={darkmode ? "white" : "black"}
+                  />
+                  <Text weight={700} size={"sm"}>
+                    Community Join Requests
+                  </Text>
+                  <Text pt={10} align="center" size={"sm"}>
+                    When someone requests to join your community, you'll see it
+                    here
+                  </Text>
+                </Flex>
+              )}
+            {!loading &&
               notitype === "Followers" &&
               Notis.filter((val) => {
                 return val.type === "FOLLOW";
@@ -270,6 +339,8 @@ export default function Notis({ darkmode }) {
                     return val.type === "MENTION" || val.type === "QUOTE";
                   } else if (notitype === "Followers") {
                     return val.type === "FOLLOW";
+                  } else if (notitype === "COMMUNITY_JOIN_REQUEST") {
+                    return val.type === "COMMUNITY_JOIN_REQUEST";
                   } else {
                     return val;
                   }
@@ -280,6 +351,7 @@ export default function Notis({ darkmode }) {
                         setOpened(false);
                         if (data.type === "FOLLOW") {
                           navigate(`/${data.user.username}`);
+                        } else if (data.type === "COMMUNITY_JOIN_REQUEST") {
                         } else {
                           navigate(`/post/${data.postId}`);
                         }
@@ -412,6 +484,38 @@ export default function Notis({ darkmode }) {
                             width: "200px",
                           }}
                         >
+                          {data.type === "COMMUNITY_JOIN_REQUEST" && (
+                            <>
+                              <Text size="14px">
+                                <span style={{ fontWeight: "500" }}>
+                                  {data.user?.username}
+                                  {` `}
+                                </span>
+                                {data?.text}
+                              </Text>
+                              <Flex pt={5} gap={"0.5rem"} align={"center"}>
+                                <Button
+                                  onClick={() => {
+                                    handlecommunityrequest(data.id, true);
+                                  }}
+                                  compact
+                                  size="xs"
+                                >
+                                  Accept
+                                </Button>
+                                <Button
+                                  onClick={() => {
+                                    handlecommunityrequest(data.id, false);
+                                  }}
+                                  color="red"
+                                  compact
+                                  size="xs"
+                                >
+                                  Decline
+                                </Button>
+                              </Flex>
+                            </>
+                          )}
                           {data.type === "MENTION" && (
                             <Text size="14px">
                               <span style={{ fontWeight: "500" }}>

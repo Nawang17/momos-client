@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
 import CreatePostModal from "./CreatePostModal";
-const CreatePost = ({ UserInfo, darkmode }) => {
+const CreatePost = ({ UserInfo, darkmode, communityName }) => {
   const [opened, setOpened] = useState(false);
   const navigate = useNavigate();
   return (
@@ -57,6 +57,7 @@ const CreatePost = ({ UserInfo, darkmode }) => {
         opened={opened}
         setOpened={setOpened}
         UserInfo={UserInfo}
+        communityName={communityName}
       />
     </>
   );

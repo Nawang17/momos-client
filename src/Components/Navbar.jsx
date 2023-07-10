@@ -15,6 +15,7 @@ import {
   MagnifyingGlass,
   MoonStars,
   Sun,
+  UsersThree,
 } from "phosphor-react";
 import { ProfileMenu } from "./ProfileMenu";
 import Notis from "../views/Notis/Notis";
@@ -185,6 +186,7 @@ export function Navbar({ socket }) {
                     size={28}
                   />
                 </ActionIcon>
+
                 <ActionIcon>
                   <ChatCircleDots
                     onClick={() => {
@@ -193,6 +195,13 @@ export function Navbar({ socket }) {
                     color={darkmode ? "white" : "black"}
                     size={28}
                   />
+                </ActionIcon>
+                <ActionIcon
+                  onClick={() => {
+                    navigate("/communities");
+                  }}
+                >
+                  <UsersThree color={darkmode ? "white" : "black"} size={28} />
                 </ActionIcon>
                 <Notis darkmode={darkmode} />
               </>

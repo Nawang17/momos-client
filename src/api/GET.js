@@ -135,3 +135,34 @@ export const admin = async () => {
     },
   });
 };
+export const getcommunities = async () => {
+  return await api.get(`/getcommunities`, {
+    headers: {
+      Authorization: `${localStorage.getItem("token")}`,
+    },
+  });
+};
+export const getcommunityprofile = async (name) => {
+  return await api.get(`/getcommunities/communityProfile/${name}`, {
+    headers: {
+      Authorization: `${localStorage.getItem("token")}`,
+    },
+  });
+};
+export const getcommunityPosts = async (name) => {
+  return await api.get(`/getcommunities/communityPosts/${name}`, {
+    headers: {
+      Authorization: `${localStorage.getItem("token")}`,
+    },
+  });
+};
+export const getSinglecommunityPost = async (postid) => {
+  return await api.get(`/getcommunities/singlepost/${postid}`, {
+    headers: {
+      Authorization: `${localStorage.getItem("token")}`,
+    },
+  });
+};
+export const getallcommunities = async () => {
+  return await api.get(`/getcommunities/allcommunities`);
+};

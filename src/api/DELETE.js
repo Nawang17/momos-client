@@ -27,3 +27,17 @@ export const deleteUser = async (userId) => {
     },
   });
 };
+export const leaveCommunity = async (name) => {
+  return await api.delete(`/getcommunities/leavecommunity/${name}`, {
+    headers: {
+      Authorization: `${localStorage.getItem("token")}`,
+    },
+  });
+};
+export const deleteCommunity = async (name) => {
+  return await api.delete(`/getcommunities/deleteCommunity/${name}`, {
+    headers: {
+      Authorization: `${localStorage.getItem("token")}`,
+    },
+  });
+};

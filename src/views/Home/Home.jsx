@@ -162,7 +162,13 @@ export const Home = () => {
       <Container px={0} className={classes.wrapper}>
         <div className={classes.leftWrapper}>
           {" "}
-          {UserInfo && <CreatePost darkmode={darkmode} UserInfo={UserInfo} />}
+          {UserInfo && (
+            <CreatePost
+              darkmode={darkmode}
+              UserInfo={UserInfo}
+              communityName={""}
+            />
+          )}
           {UserInfo && (
             <div
               className={classes.sortby}

@@ -40,6 +40,10 @@ import ReactGA from "react-ga4";
 import { SettingsPage } from "./views/settingspage/settingsPage";
 import { Bookmarks } from "./views/bookmark/Bookmarks";
 import { Admin } from "./views/admin/Admin";
+import { Communities } from "./views/communities/Communities";
+import { CommunityProfile } from "./views/communities/CommunityProfile";
+import { Singlecommunitypost } from "./views/singlecommunitypost/Singelcommunitypost";
+import { ModalsProvider } from "@mantine/modals";
 
 ReactGA.initialize("G-YJSVSC17CL");
 
@@ -213,6 +217,45 @@ function App() {
     }
   }, [UserInfo]);
   const router = createBrowserRouter([
+    {
+      path: "/communitypost/:postid",
+      element: (
+        <>
+          <Navbar socket={socket} />
+
+          <ScrollToTop />
+
+          <Singlecommunitypost />
+        </>
+      ),
+      errorElement: <RouteError />,
+    },
+    {
+      path: "/Communities",
+      element: (
+        <>
+          <Navbar socket={socket} />
+
+          <ScrollToTop />
+
+          <Communities />
+        </>
+      ),
+      errorElement: <RouteError />,
+    },
+    {
+      path: "/community/:name",
+      element: (
+        <>
+          <Navbar socket={socket} />
+
+          <ScrollToTop />
+
+          <CommunityProfile />
+        </>
+      ),
+      errorElement: <RouteError />,
+    },
     {
       path: "/discover",
       element: (
@@ -437,52 +480,54 @@ function App() {
 
   return (
     <MantineProvider theme={{ colorScheme: darkmode ? "dark" : "light" }}>
-      <NotificationsProvider position="bottom-center">
-        <div className="App">
-          <Affix position={{ bottom: 20, right: 20 }}>
-            <Transition transition="slide-up" mounted={scroll.y > 0}>
-              {(transitionStyles) => (
-                <Button
-                  size="xs"
-                  color="gray"
-                  radius="xl"
-                  leftIcon={<ArrowUp size={16} />}
-                  style={transitionStyles}
-                  onClick={() => scrollTo({ y: 0 })}
-                >
-                  Scroll to top
-                </Button>
-              )}
-            </Transition>
-          </Affix>
-          <AuthContext.Provider
-            value={{
-              UserInfo,
-              setUserInfo,
-              followingdata,
-              setfollowingdata,
-              suggestedUsers,
-              setSuggestedusers,
-              darkmode,
-              setdarkmode,
-              leaderboard,
-              setLeaderboard,
-              leaderboardloading,
-              setLeaderboardloading,
-              userlevelinfo,
-              setUserlevelinfo,
-              onlineusers,
-              onlinelist,
-              topUser,
-              socket,
-              bookmarkIds,
-              setbookmarkIds,
-            }}
-          >
-            <RouterProvider router={router} />
-          </AuthContext.Provider>
-        </div>
-      </NotificationsProvider>
+      <ModalsProvider>
+        <NotificationsProvider position="bottom-center">
+          <div className="App">
+            <Affix position={{ bottom: 20, right: 20 }}>
+              <Transition transition="slide-up" mounted={scroll.y > 0}>
+                {(transitionStyles) => (
+                  <Button
+                    size="xs"
+                    color="gray"
+                    radius="xl"
+                    leftIcon={<ArrowUp size={16} />}
+                    style={transitionStyles}
+                    onClick={() => scrollTo({ y: 0 })}
+                  >
+                    Scroll to top
+                  </Button>
+                )}
+              </Transition>
+            </Affix>
+            <AuthContext.Provider
+              value={{
+                UserInfo,
+                setUserInfo,
+                followingdata,
+                setfollowingdata,
+                suggestedUsers,
+                setSuggestedusers,
+                darkmode,
+                setdarkmode,
+                leaderboard,
+                setLeaderboard,
+                leaderboardloading,
+                setLeaderboardloading,
+                userlevelinfo,
+                setUserlevelinfo,
+                onlineusers,
+                onlinelist,
+                topUser,
+                socket,
+                bookmarkIds,
+                setbookmarkIds,
+              }}
+            >
+              <RouterProvider router={router} />
+            </AuthContext.Provider>
+          </div>
+        </NotificationsProvider>
+      </ModalsProvider>
     </MantineProvider>
   );
 }

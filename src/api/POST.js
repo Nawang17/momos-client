@@ -175,3 +175,95 @@ export const bookmarkPost = async ({ postId }) => {
     }
   );
 };
+export const AddNewCommunity = async (formData) => {
+  return await api.post(
+    "/newcommunity",
+
+    formData,
+
+    {
+      headers: {
+        Authorization: `${localStorage.getItem("token")}`,
+      },
+    }
+  );
+};
+export const AddNewCommunityPost = async (formData) => {
+  return await api.post(
+    "/newcommunitypost",
+
+    formData,
+
+    {
+      headers: {
+        Authorization: `${localStorage.getItem("token")}`,
+      },
+    }
+  );
+};
+export const AddNewCommunitypoll = async (
+  choice1,
+  choice2,
+  choice3,
+  choice4,
+  pollquestion,
+
+  polldays,
+  pollhours,
+  pollminutes,
+  communityName
+) => {
+  return await api.post(
+    "/newcommunitypost/addpoll",
+
+    {
+      choice1,
+      choice2,
+      choice3,
+      choice4,
+      question: pollquestion,
+
+      durationday: polldays,
+      durationhour: pollhours,
+      durationminute: pollminutes,
+      communityName,
+    },
+
+    {
+      headers: {
+        Authorization: `${localStorage.getItem("token")}`,
+      },
+    }
+  );
+};
+export const JoinCommunity = async (communityName) => {
+  return await api.post(
+    "/newcommunity/joincommunity",
+
+    {
+      communityName,
+    },
+
+    {
+      headers: {
+        Authorization: `${localStorage.getItem("token")}`,
+      },
+    }
+  );
+};
+export const acceptCommunityrequest = async ({ requestid, accept }) => {
+  return await api.post(
+    `/newcommunity/acceptcommunityrequest`,
+
+    {
+      requestid,
+      accept,
+    },
+
+    {
+      headers: {
+        Authorization: `${localStorage.getItem("token")}`,
+      },
+    }
+  );
+};

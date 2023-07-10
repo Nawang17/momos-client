@@ -475,7 +475,14 @@ export const Post = ({ post, setPosts, comments }) => {
                 padding: "0rem 1rem 0rem 1rem",
               }}
               onClick={() => {
-                navigate(`/post/${post.id}`);
+                if (
+                  pathname.substring(0, pathname.indexOf("/", 1)) ===
+                  "/community"
+                ) {
+                  navigate(`/communitypost/${post.id}`);
+                } else {
+                  navigate(`/post/${post.id}`);
+                }
               }}
               className={classes.body}
             >
@@ -539,7 +546,14 @@ export const Post = ({ post, setPosts, comments }) => {
               {" "}
               <div
                 onClick={() => {
-                  navigate(`/post/${post.post.id}`);
+                  if (
+                    pathname.substring(0, pathname.indexOf("/", 1)) ===
+                    "/community"
+                  ) {
+                    navigate(`/communitypost/${post.post.id}`);
+                  } else {
+                    navigate(`/post/${post.post.id}`);
+                  }
                 }}
                 style={{
                   cursor: "pointer",
@@ -878,8 +892,17 @@ export const Post = ({ post, setPosts, comments }) => {
                   cursor: "pointer",
                 }}
                 onClick={() => {
-                  if (pathname !== `/post/${post.id}`) {
-                    navigate(`/post/${post.id}`);
+                  if (
+                    pathname.substring(0, pathname.indexOf("/", 1)) ===
+                    "/community"
+                  ) {
+                    if (pathname !== `/communitypost/${post.id}`) {
+                      navigate(`/communitypost/${post.id}`);
+                    }
+                  } else {
+                    if (pathname !== `/post/${post.id}`) {
+                      navigate(`/post/${post.id}`);
+                    }
                   }
                 }}
               >
@@ -963,7 +986,14 @@ export const Post = ({ post, setPosts, comments }) => {
             </Button>
             <Button
               onClick={() => {
-                navigate(`/post/${post.id}`);
+                if (
+                  pathname.substring(0, pathname.indexOf("/", 1)) ===
+                  "/community"
+                ) {
+                  navigate(`/communitypost/${post.id}`);
+                } else {
+                  navigate(`/post/${post.id}`);
+                }
               }}
               color={"gray"}
               size="xs"
@@ -1018,7 +1048,14 @@ export const Post = ({ post, setPosts, comments }) => {
               <>
                 <div
                   onClick={() => {
-                    navigate(`/post/${post.id}`);
+                    if (
+                      pathname.substring(0, pathname.indexOf("/", 1)) ===
+                      "/community"
+                    ) {
+                      navigate(`/communitypost/${post.id}`);
+                    } else {
+                      navigate(`/post/${post.id}`);
+                    }
                   }}
                   style={{
                     display: "flex",
@@ -1154,7 +1191,14 @@ export const Post = ({ post, setPosts, comments }) => {
 
                 <Text
                   onClick={() => {
-                    navigate(`/post/${post.id}`);
+                    if (
+                      pathname.substring(0, pathname.indexOf("/", 1)) ===
+                      "/community"
+                    ) {
+                      navigate(`/communitypost/${post.id}`);
+                    } else {
+                      navigate(`/post/${post.id}`);
+                    }
                   }}
                   color="dimmed"
                   size={"14px"}

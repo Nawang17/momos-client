@@ -19,7 +19,12 @@ import {
   X,
   XCircle,
 } from "phosphor-react";
-import { AddNewPost, AddNewPostpoll } from "../api/POST";
+import {
+  AddNewCommunityPost,
+  AddNewCommunitypoll,
+  AddNewPost,
+  AddNewPostpoll,
+} from "../api/POST";
 import { showNotification } from "@mantine/notifications";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import locale from "date-fns/locale/en-US";
@@ -32,6 +37,7 @@ export default function CreatePostModal({
 
   UserInfo,
   quotepostinfo,
+  communityName,
 }) {
   const formatDistanceLocale = {
     lessThanXSeconds: "{{count}}s",
@@ -169,6 +175,40 @@ export default function CreatePostModal({
     setloading(true);
     setError("");
     if (poll) {
+      // if poll is in community page
+      if (communityName) {
+        await AddNewCommunitypoll(
+          choice1,
+          choice2,
+          choice3,
+          choice4,
+          pollquestion,
+          polldays,
+          pollhours,
+          pollminutes,
+          communityName
+        )
+          .then((res) => {
+            closemodal();
+
+            navigate(`/communitypost/${res.data.newpostid}`);
+            showNotification({
+              color: "teal",
+              icon: <Lightning size={18} />,
+              title: "Post Created Successfully",
+              autoClose: 3000,
+            });
+          })
+          .catch((err) => {
+            setloading(false);
+            if (err.response.status === 0) {
+              setError("Internal Server Error");
+            } else {
+              setError(err.response.data);
+            }
+          });
+      }
+      // if poll is regular post
       await AddNewPostpoll(
         choice1,
         choice2,
@@ -204,27 +244,52 @@ export default function CreatePostModal({
       formData.append("text", text);
       formData.append("quoteid", quotepostinfo?.id ? quotepostinfo?.id : "");
       formData.append("gif", gifpreview);
+      //if post is in community page
+      if (communityName) {
+        formData.append("communityname", communityName);
+        await AddNewCommunityPost(formData)
+          .then((res) => {
+            closemodal();
 
-      await AddNewPost(formData)
-        .then((res) => {
-          closemodal();
-
-          navigate(`/post/${res.data.newpostid}`);
-          showNotification({
-            color: "teal",
-            icon: <Lightning size={18} />,
-            title: "Post Created Successfully",
-            autoClose: 3000,
+            navigate(`/communitypost/${res.data.newpostid}`);
+            showNotification({
+              color: "teal",
+              icon: <Lightning size={18} />,
+              title: "Post Created Successfully",
+              autoClose: 3000,
+            });
+          })
+          .catch((err) => {
+            setloading(false);
+            if (err.response.status === 0) {
+              setError("Internal Server Error");
+            } else {
+              setError(err.response.data);
+            }
           });
-        })
-        .catch((err) => {
-          setloading(false);
-          if (err.response.status === 0) {
-            setError("Internal Server Error");
-          } else {
-            setError(err.response.data);
-          }
-        });
+      } else {
+        //if post is regular post
+        await AddNewPost(formData)
+          .then((res) => {
+            closemodal();
+
+            navigate(`/post/${res.data.newpostid}`);
+            showNotification({
+              color: "teal",
+              icon: <Lightning size={18} />,
+              title: "Post Created Successfully",
+              autoClose: 3000,
+            });
+          })
+          .catch((err) => {
+            setloading(false);
+            if (err.response.status === 0) {
+              setError("Internal Server Error");
+            } else {
+              setError(err.response.data);
+            }
+          });
+      }
     }
   };
   const { darkmode } = useContext(AuthContext);

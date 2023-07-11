@@ -198,13 +198,32 @@ export const CommunityProfile = () => {
               wrap={"wrap"}
             >
               <Flex gap={20} align={"flex-start"}>
-                <Image
-                  width={84}
-                  height={84}
-                  radius={"100%"}
-                  withPlaceholder
-                  src={communityInfo?.banner}
-                />
+                <Flex
+                  gap={10}
+                  align={"center"}
+                  direction={"column"}
+                  justify={"center"}
+                >
+                  <Image
+                    width={84}
+                    height={84}
+                    radius={"100%"}
+                    withPlaceholder
+                    src={communityInfo?.banner}
+                  />
+                  {!ismember && !communityInfo?.private && (
+                    <Button
+                      size="xs"
+                      radius="lg"
+                      onClick={() => {
+                        handleJoinCommunity();
+                      }}
+                    >
+                      Join
+                    </Button>
+                  )}
+                </Flex>
+
                 <Flex
                   style={{
                     width: "100%",
@@ -258,17 +277,6 @@ export const CommunityProfile = () => {
                   </Flex>
                 </Flex>
               </Flex>
-              {!ismember && !communityInfo?.private && (
-                <Button
-                  size="xs"
-                  radius="lg"
-                  onClick={() => {
-                    handleJoinCommunity();
-                  }}
-                >
-                  Join
-                </Button>
-              )}
             </Flex>
 
             <Tabs defaultValue="Posts">

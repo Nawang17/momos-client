@@ -17,6 +17,7 @@ import {
   GitPullRequest,
   Globe,
   LockLaminated,
+  Note,
   Users,
   UsersThree,
   WarningCircle,
@@ -79,43 +80,19 @@ export const CommunityProfile = () => {
             message: res?.data?.message,
             autoClose: 5000,
           });
-          getcommunityPosts(name)
-            .then((res) => {
-              setCommunityPosts(res.data);
-              setPostsLoading(false);
-              setIsmember(true);
-              //add new user object to communityInfo community members
-              setCommunityInfo((prevState) => ({
-                ...prevState,
-                communitymembers: [
-                  ...prevState.communitymembers,
-                  {
-                    user: {
-                      username: UserInfo?.username,
-                      avatar: UserInfo?.avatar,
-                    },
-                  },
-                ],
-              }));
-            })
-            .catch((err) => {
-              setIsmember(false);
-              if (err.response.status === 0) {
-                showNotification({
-                  icon: <WarningCircle size={18} />,
-                  color: "red",
-                  title: "Internal Server Error",
-                  autoClose: 4000,
-                });
-              } else {
-                showNotification({
-                  icon: <WarningCircle size={18} />,
-                  color: "red",
-                  title: err.response.data,
-                  autoClose: 4000,
-                });
-              }
-            });
+          setIsmember(true);
+          setCommunityInfo((prevState) => ({
+            ...prevState,
+            communitymembers: [
+              ...prevState.communitymembers,
+              {
+                user: {
+                  username: UserInfo?.username,
+                  avatar: UserInfo?.avatar,
+                },
+              },
+            ],
+          }));
         }
       })
       .catch((err) => {
@@ -139,7 +116,11 @@ export const CommunityProfile = () => {
   useEffect(() => {
     getcommunityprofile(name)
       .then((res) => {
-        setCommunityInfo(res.data);
+        setCommunityInfo(res.data.community);
+        if (!res.data.community.private) {
+          setCommunityPosts(res.data.communityPosts);
+          setPostsLoading(false);
+        }
         setLoading(false);
       })
       .catch((err) => {
@@ -162,9 +143,12 @@ export const CommunityProfile = () => {
       });
     getcommunityPosts(name)
       .then((res) => {
-        setCommunityPosts(res.data);
-        setPostsLoading(false);
         setIsmember(true);
+        if (res.data.private) {
+          setCommunityPosts(res.data.communityPosts);
+          setPostsLoading(false);
+          setIsmember(true);
+        }
       })
       .catch((err) => {
         setIsmember(false);
@@ -221,11 +205,20 @@ export const CommunityProfile = () => {
                   withPlaceholder
                   src={communityInfo?.banner}
                 />
-                <Flex direction={"column"} gap={10}>
+                <Flex
+                  style={{
+                    width: "100%",
+                  }}
+                  direction={"column"}
+                  gap={10}
+                >
                   <Flex direction={"column"} gap={4}>
-                    <Text weight={700} size={"lg"}>
-                      {communityInfo?.name}
-                    </Text>
+                    <Flex align={"center"} gap={20}>
+                      <Text weight={700} size={"lg"}>
+                        {communityInfo?.name}
+                      </Text>
+                    </Flex>
+
                     <Text size={"sm"}>{communityInfo?.description}</Text>
                   </Flex>
                   <Flex wrap={"wrap"} align={"center"} gap={10}>
@@ -265,6 +258,17 @@ export const CommunityProfile = () => {
                   </Flex>
                 </Flex>
               </Flex>
+              {!ismember && !communityInfo?.private && (
+                <Button
+                  size="xs"
+                  radius="lg"
+                  onClick={() => {
+                    handleJoinCommunity();
+                  }}
+                >
+                  Join
+                </Button>
+              )}
             </Flex>
 
             <Tabs defaultValue="Posts">
@@ -280,7 +284,7 @@ export const CommunityProfile = () => {
                 }}
                 value="Posts"
               >
-                {postsLoading ? (
+                {postsLoading && (
                   <Flex
                     justify={"center"}
                     py={20}
@@ -291,48 +295,67 @@ export const CommunityProfile = () => {
                   >
                     <Loader />
                   </Flex>
-                ) : ismember ? (
+                )}
+                {!ismember && communityInfo?.private && !postsLoading ? (
                   <>
-                    {" "}
-                    <CreatePost
-                      darkmode={darkmode}
-                      UserInfo={UserInfo}
-                      communityName={name}
-                    />
-                    {communityPosts?.length !== 0 && !postsLoading && (
+                    <Flex
+                      direction={"column"}
+                      align={"center"}
+                      justify={"center"}
+                      gap={10}
+                      py={30}
+                    >
+                      <EyeSlash size={50} weight="light" />
+                      <Text size={"lg"} color="dimmed">
+                        Content is only visible to community members
+                      </Text>
+                      <Button
+                        mt={10}
+                        onClick={() => {
+                          handleJoinCommunity();
+                        }}
+                      >
+                        {communityInfo?.private
+                          ? "Request to join"
+                          : "Join Community"}
+                      </Button>
+                    </Flex>
+                  </>
+                ) : (
+                  <>
+                    {ismember && (
+                      <CreatePost
+                        darkmode={darkmode}
+                        UserInfo={UserInfo}
+                        communityName={name}
+                      />
+                    )}
+
+                    {communityPosts?.length !== 0 && !postsLoading ? (
                       <PostFeed
                         setPosts={setCommunityPosts}
                         posts={communityPosts}
                         loading={postsLoading}
                       />
-                    )}
-                  </>
-                ) : (
-                  <>
-                    <>
+                    ) : (
                       <Flex
                         direction={"column"}
                         align={"center"}
-                        justify={"center"}
                         gap={10}
-                        py={30}
+                        p={30}
+                        justify={"center"}
+                        style={{
+                          backgroundColor: darkmode ? "#1A1B1E" : "white",
+                          color: darkmode ? "white" : "black",
+                        }}
                       >
-                        <EyeSlash size={50} weight="light" />
-                        <Text size={"lg"} color="dimmed">
-                          Content is only visible to community members
+                        <Note color="gray" size={30} />
+                        <Text size={"sm"} color="dimmed">
+                          Get the conversation started. Be the first to post in
+                          this community.
                         </Text>
-                        <Button
-                          mt={10}
-                          onClick={() => {
-                            handleJoinCommunity();
-                          }}
-                        >
-                          {communityInfo?.private
-                            ? "Request to join"
-                            : "Join Community"}
-                        </Button>
                       </Flex>
-                    </>
+                    )}
                   </>
                 )}
               </Tabs.Panel>

@@ -1,6 +1,5 @@
 import {
   ActionIcon,
-  Button,
   Container,
   Flex,
   Tabs,
@@ -8,7 +7,7 @@ import {
   Image,
   createStyles,
   Input,
-  Title,
+  Loader,
 } from "@mantine/core";
 import {
   ArrowLeft,
@@ -54,6 +53,7 @@ export const Communities = () => {
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState();
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     if (!UserInfo) {
       setActiveTab("Find communities");
@@ -61,10 +61,12 @@ export const Communities = () => {
         setFindCommunities(res.data.findcommunities);
       });
     } else {
+      setLoading(true);
       setActiveTab("My communities");
       getcommunities().then((res) => {
         setMyCommunities(res.data.mycommunities);
         setFindCommunities(res.data.findcommunities);
+        setLoading(false);
       });
     }
   }, []);
@@ -112,88 +114,108 @@ export const Communities = () => {
                 </Flex>
               ) : (
                 <>
-                  {" "}
                   <Createnewcommunity />
-                  <Input
-                    onChange={(e) => setSearch(e.target.value)}
-                    value={search}
-                    my="md"
-                    placeholder="Search for communities 
+
+                  {myCommunities.length === 0 && !loading ? (
+                    <Text align="center" size={"sm"}>
+                      You will see your joined communities here
+                    </Text>
+                  ) : (
+                    <>
+                      <Input
+                        onChange={(e) => setSearch(e.target.value)}
+                        value={search}
+                        my="md"
+                        placeholder="Search for communities 
              "
-                  />
-                  <Flex gap={20} direction={"column"}>
-                    {myCommunities
-                      .filter((value) => {
-                        if (search === "") {
-                          return value;
-                        } else if (
-                          value.community.name
-                            .toLowerCase()
-                            .includes(search.toLowerCase())
-                        ) {
-                          return value;
-                        }
-                        return null;
-                      })
-                      .map((community) => (
-                        <Flex
-                          onClick={() => {
-                            navigate(`/community/${community.community.name}`);
-                          }}
-                          style={{
-                            cursor: "pointer",
-                          }}
-                          key={community.communityId}
-                        >
-                          <Flex gap={10}>
-                            <Image
-                              width={100}
-                              height={100}
-                              miw={"auto"}
-                              radius={community.community.banner ? "sm" : "0"}
-                              withPlaceholder
-                              src={community.community.banner}
-                            />
-
+                      />
+                      <Flex gap={20} direction={"column"}>
+                        {myCommunities
+                          .filter((value) => {
+                            if (search === "") {
+                              return value;
+                            } else if (
+                              value.community.name
+                                .toLowerCase()
+                                .includes(search.toLowerCase())
+                            ) {
+                              return value;
+                            }
+                            return null;
+                          })
+                          .map((community) => (
                             <Flex
-                              style={{
-                                width: "100%",
+                              onClick={() => {
+                                navigate(
+                                  `/community/${community.community.name}`
+                                );
                               }}
-                              gap={5}
-                              direction={"column"}
+                              style={{
+                                cursor: "pointer",
+                              }}
+                              key={community.communityId}
                             >
-                              <Text weight={600}>
-                                {community.community.name}
-                              </Text>
-                              <Flex gap={3} align={"center"}>
-                                <Users size={15} weight="light" />
+                              <Flex gap={10}>
+                                <Image
+                                  width={100}
+                                  height={100}
+                                  miw={"auto"}
+                                  radius={
+                                    community.community.banner ? "sm" : "0"
+                                  }
+                                  withPlaceholder
+                                  src={community.community.banner}
+                                />
 
-                                <Text size={"sm"} color="dimmed">
-                                  {community.community.communitymembers.length}{" "}
-                                  {community.community.communitymembers.length >
-                                  1
-                                    ? "members"
-                                    : "member"}
-                                </Text>
-                              </Flex>
-                              <Flex gap={3} align={"center"}>
-                                {community.community.private ? (
-                                  <LockLaminated size={15} weight="light" />
-                                ) : (
-                                  <Globe size={15} weight="light" />
-                                )}
+                                <Flex
+                                  style={{
+                                    width: "100%",
+                                  }}
+                                  gap={5}
+                                  direction={"column"}
+                                >
+                                  <Text weight={600}>
+                                    {community.community.name}
+                                  </Text>
+                                  <Flex gap={3} align={"center"}>
+                                    <Users size={15} weight="light" />
 
-                                <Text size={"sm"} color="dimmed">
-                                  {community.community.private
-                                    ? "Private"
-                                    : "Public"}
-                                </Text>
+                                    <Text size={"sm"} color="dimmed">
+                                      {
+                                        community.community.communitymembers
+                                          .length
+                                      }{" "}
+                                      {community.community.communitymembers
+                                        .length > 1
+                                        ? "members"
+                                        : "member"}
+                                    </Text>
+                                  </Flex>
+                                  <Flex gap={3} align={"center"}>
+                                    {community.community.private ? (
+                                      <LockLaminated size={15} weight="light" />
+                                    ) : (
+                                      <Globe size={15} weight="light" />
+                                    )}
+
+                                    <Text size={"sm"} color="dimmed">
+                                      {community.community.private
+                                        ? "Private"
+                                        : "Public"}
+                                    </Text>
+                                  </Flex>
+                                </Flex>
                               </Flex>
                             </Flex>
-                          </Flex>
-                        </Flex>
-                      ))}
-                  </Flex>
+                          ))}
+                      </Flex>
+                    </>
+                  )}
+                  {loading && (
+                    <Flex py={20} justify={"center"}>
+                      <Loader />
+                    </Flex>
+                  )}
                 </>
               )}
             </Tabs.Panel>
@@ -202,6 +224,7 @@ export const Communities = () => {
               <FindCommunity
                 findCommunities={findCommunities}
                 setFindCommunities={setFindCommunities}
+                loading={loading}
               />
             </Tabs.Panel>
           </Tabs>

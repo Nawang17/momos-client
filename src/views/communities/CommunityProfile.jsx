@@ -1,6 +1,7 @@
 import {
   ActionIcon,
   Badge,
+  Button,
   Container,
   Flex,
   Image,
@@ -12,9 +13,12 @@ import {
 import {
   ArrowLeft,
   Crown,
+  EyeSlash,
+  GitPullRequest,
   Globe,
   LockLaminated,
   Users,
+  UsersThree,
   WarningCircle,
 } from "phosphor-react";
 import { useContext, useEffect, useState } from "react";
@@ -27,6 +31,7 @@ import { PostFeed } from "../../Components/PostFeed";
 import { showNotification } from "@mantine/notifications";
 
 import { CommunityProfileMenu } from "./CommunityProfileMenu";
+import { JoinCommunity } from "../../api/POST";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -57,7 +62,80 @@ export const CommunityProfile = () => {
   const [communityPosts, setCommunityPosts] = useState([]);
   const [postsLoading, setPostsLoading] = useState(true);
   const navigate = useNavigate();
+  const [ismember, setIsmember] = useState(false);
   const { name } = useParams();
+  const handleJoinCommunity = () => {
+    JoinCommunity(name)
+      .then((res) => {
+        if (res.data.request) {
+          showNotification({
+            icon: <GitPullRequest size={18} />,
+            message: res.data.message,
+            autoClose: 5000,
+          });
+        } else {
+          showNotification({
+            icon: <UsersThree size={18} />,
+            message: res?.data?.message,
+            autoClose: 5000,
+          });
+          getcommunityPosts(name)
+            .then((res) => {
+              setCommunityPosts(res.data);
+              setPostsLoading(false);
+              setIsmember(true);
+              //add new user object to communityInfo community members
+              setCommunityInfo((prevState) => ({
+                ...prevState,
+                communitymembers: [
+                  ...prevState.communitymembers,
+                  {
+                    user: {
+                      username: UserInfo?.username,
+                      avatar: UserInfo?.avatar,
+                    },
+                  },
+                ],
+              }));
+            })
+            .catch((err) => {
+              setIsmember(false);
+              if (err.response.status === 0) {
+                showNotification({
+                  icon: <WarningCircle size={18} />,
+                  color: "red",
+                  title: "Internal Server Error",
+                  autoClose: 4000,
+                });
+              } else {
+                showNotification({
+                  icon: <WarningCircle size={18} />,
+                  color: "red",
+                  title: err.response.data,
+                  autoClose: 4000,
+                });
+              }
+            });
+        }
+      })
+      .catch((err) => {
+        if (err.response.status === 0) {
+          showNotification({
+            icon: <WarningCircle size={18} />,
+            color: "red",
+            title: "Internal Server Error",
+            autoClose: 4000,
+          });
+        } else {
+          showNotification({
+            icon: <WarningCircle size={18} />,
+            color: "red",
+            title: err.response.data,
+            autoClose: 4000,
+          });
+        }
+      });
+  };
   useEffect(() => {
     getcommunityprofile(name)
       .then((res) => {
@@ -86,22 +164,16 @@ export const CommunityProfile = () => {
       .then((res) => {
         setCommunityPosts(res.data);
         setPostsLoading(false);
+        setIsmember(true);
       })
       .catch((err) => {
-        navigate("/communities");
-
+        setIsmember(false);
+        setPostsLoading(false);
         if (err.response.status === 0) {
           showNotification({
             icon: <WarningCircle size={18} />,
             color: "red",
             title: "Internal Server Error",
-            autoClose: 4000,
-          });
-        } else {
-          showNotification({
-            icon: <WarningCircle size={18} />,
-            color: "red",
-            title: err.response.data,
             autoClose: 4000,
           });
         }
@@ -123,7 +195,7 @@ export const CommunityProfile = () => {
           <ActionIcon onClick={() => navigate(-1)}>
             <ArrowLeft size="20px" />
           </ActionIcon>
-          <CommunityProfileMenu profiledata={communityInfo} />
+          {ismember && <CommunityProfileMenu profiledata={communityInfo} />}
         </div>
         {!loading || !postsLoading ? (
           <div
@@ -159,7 +231,7 @@ export const CommunityProfile = () => {
                   <Flex wrap={"wrap"} align={"center"} gap={10}>
                     {communityInfo?.communitymembers?.some(
                       (obj) =>
-                        obj.isOwner && obj.user.username === UserInfo.username
+                        obj.isOwner && obj.user.username === UserInfo?.username
                     ) && (
                       <Flex gap={3} align={"center"}>
                         <Crown size={15} weight="light" />
@@ -187,7 +259,7 @@ export const CommunityProfile = () => {
                         {communityInfo?.communitymembers?.length}
                         {communityInfo?.communitymembers?.length > 1
                           ? " members"
-                          : "member"}
+                          : " member"}
                       </Text>
                     </Flex>
                   </Flex>
@@ -208,17 +280,60 @@ export const CommunityProfile = () => {
                 }}
                 value="Posts"
               >
-                <CreatePost
-                  darkmode={darkmode}
-                  UserInfo={UserInfo}
-                  communityName={name}
-                />
-                {communityPosts?.length !== 0 && !postsLoading && (
-                  <PostFeed
-                    setPosts={setCommunityPosts}
-                    posts={communityPosts}
-                    loading={postsLoading}
-                  />
+                {postsLoading ? (
+                  <Flex
+                    justify={"center"}
+                    py={20}
+                    style={{
+                      backgroundColor: darkmode ? "#1A1B1E" : "white",
+                      color: darkmode ? "white" : "black",
+                    }}
+                  >
+                    <Loader />
+                  </Flex>
+                ) : ismember ? (
+                  <>
+                    {" "}
+                    <CreatePost
+                      darkmode={darkmode}
+                      UserInfo={UserInfo}
+                      communityName={name}
+                    />
+                    {communityPosts?.length !== 0 && !postsLoading && (
+                      <PostFeed
+                        setPosts={setCommunityPosts}
+                        posts={communityPosts}
+                        loading={postsLoading}
+                      />
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <>
+                      <Flex
+                        direction={"column"}
+                        align={"center"}
+                        justify={"center"}
+                        gap={10}
+                        py={30}
+                      >
+                        <EyeSlash size={50} weight="light" />
+                        <Text size={"lg"} color="dimmed">
+                          Content is only visible to community members
+                        </Text>
+                        <Button
+                          mt={10}
+                          onClick={() => {
+                            handleJoinCommunity();
+                          }}
+                        >
+                          {communityInfo?.private
+                            ? "Request to join"
+                            : "Join Community"}
+                        </Button>
+                      </Flex>
+                    </>
+                  </>
                 )}
               </Tabs.Panel>
 
@@ -233,9 +348,13 @@ export const CommunityProfile = () => {
                 >
                   {communityInfo?.communitymembers?.map((member) => (
                     <Flex
+                      onClick={() => {
+                        navigate(`/${member?.user?.username}`);
+                      }}
                       key={member?.user?.username}
                       style={{
                         width: "100%",
+                        cursor: "pointer",
                       }}
                       p={10}
                       justify={"space-between"}

@@ -1,55 +1,11 @@
 import React, { useState } from "react";
-import { Flex, Text, Image, Input, Button } from "@mantine/core";
-import {
-  GitPullRequest,
-  Globe,
-  LockLaminated,
-  Users,
-  UsersThree,
-  WarningCircle,
-} from "phosphor-react";
+import { Flex, Text, Image, Input, Loader } from "@mantine/core";
+import { Globe, LockLaminated, Users } from "phosphor-react";
 import { useNavigate } from "react-router-dom";
-import { JoinCommunity } from "../../api/POST";
-import { showNotification } from "@mantine/notifications";
-const FindCommunity = ({ findCommunities, setFindCommunities }) => {
+const FindCommunity = ({ findCommunities, loading }) => {
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
-  const handleJoinCommunity = (communityName) => {
-    JoinCommunity(communityName)
-      .then((res) => {
-        if (res.data.request) {
-          showNotification({
-            icon: <GitPullRequest size={18} />,
-            message: res.data.message,
-            autoClose: 5000,
-          });
-        } else {
-          showNotification({
-            icon: <UsersThree size={18} />,
-            message: res?.data?.message,
-            autoClose: 5000,
-          });
-          navigate(`/community/${communityName}`);
-        }
-      })
-      .catch((err) => {
-        if (err.response.status === 0) {
-          showNotification({
-            icon: <WarningCircle size={18} />,
-            color: "red",
-            title: "Internal Server Error",
-            autoClose: 4000,
-          });
-        } else {
-          showNotification({
-            icon: <WarningCircle size={18} />,
-            color: "red",
-            title: err.response.data,
-            autoClose: 4000,
-          });
-        }
-      });
-  };
+
   return (
     <>
       <Input
@@ -59,6 +15,16 @@ const FindCommunity = ({ findCommunities, setFindCommunities }) => {
         placeholder="Search 
              "
       />
+      {findCommunities.length === 0 && !loading && (
+        <Text py={20} align="center" size="sm" color="dimmed">
+          You are already a member of all communities
+        </Text>
+      )}
+      {loading && (
+        <Flex py={20} justify={"center"}>
+          <Loader />
+        </Flex>
+      )}
       <Flex gap={20} direction={"column"}>
         {findCommunities
           .filter((value) => {
@@ -77,6 +43,7 @@ const FindCommunity = ({ findCommunities, setFindCommunities }) => {
               style={{
                 cursor: "pointer",
               }}
+              onClick={() => [navigate(`/community/${value.name}`)]}
               key={value.id}
             >
               <Flex gap={10}>
@@ -118,27 +85,6 @@ const FindCommunity = ({ findCommunities, setFindCommunities }) => {
                   </Flex>
                 </Flex>
               </Flex>
-              {value.private ? (
-                <Button
-                  onClick={() => {
-                    handleJoinCommunity(value.name);
-                  }}
-                  color="gray"
-                  size="xs"
-                >
-                  Request Access
-                </Button>
-              ) : (
-                <Button
-                  onClick={() => {
-                    handleJoinCommunity(value.name);
-                  }}
-                  color="gray"
-                  size="xs"
-                >
-                  Join community
-                </Button>
-              )}
             </Flex>
           ))}
       </Flex>

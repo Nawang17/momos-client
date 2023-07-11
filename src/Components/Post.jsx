@@ -3,6 +3,8 @@ import {
   Button,
   createStyles,
   Divider,
+  Flex,
+  Image,
   Indicator,
   Modal,
   Text,
@@ -12,14 +14,17 @@ import {
   BookmarkSimple,
   ChatCircle,
   CircleWavyCheck,
+  Globe,
   Heart,
   Link,
   Lock,
+  LockLaminated,
+  Users,
   WarningCircle,
 } from "phosphor-react";
 import { useMediaQuery } from "@mantine/hooks";
 import { PostMenu } from "./PostMenu";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../context/Auth";
 import { bookmarkPost, likePost } from "../api/POST";
@@ -94,6 +99,7 @@ const useStyles = createStyles(() => ({
 
 export const Post = ({ post, setPosts, comments }) => {
   const { pathname } = useLocation();
+  const { name } = useParams();
   const { classes } = useStyles();
   const navigate = useNavigate();
   const [opened, setOpened] = useState(false);
@@ -786,6 +792,67 @@ export const Post = ({ post, setPosts, comments }) => {
               </div>
             </div>
           )}
+
+          {/* community link preview */}
+          {post.comshare && (
+            <Flex
+              onClick={() => {
+                navigate(`/community/${post.comshare.name}`);
+              }}
+              style={{
+                border: darkmode ? "1px solid #2f3136" : "1px solid #e6ecf0",
+                cursor: "pointer",
+                borderRadius: "8px",
+                padding: "0.5rem",
+              }}
+              mx={"1rem"}
+              justify={"space-between"}
+              wrap={"wrap"}
+              gap={10}
+            >
+              <Flex gap={10}>
+                <Image
+                  width={100}
+                  height={100}
+                  miw={"auto"}
+                  radius={post.comshare.banner ? "sm" : "0"}
+                  withPlaceholder
+                  src={post.comshare.banner}
+                />
+
+                <Flex
+                  style={{
+                    width: "100%",
+                  }}
+                  gap={5}
+                  direction={"column"}
+                >
+                  <Text weight={600}>{post.comshare.name}</Text>
+                  <Flex gap={3} align={"center"}>
+                    <Users size={15} weight="light" />
+
+                    <Text size={"sm"} color="dimmed">
+                      {post.comshare.communitymembers.length}{" "}
+                      {post.comshare.communitymembers.length > 1
+                        ? "members"
+                        : "member"}
+                    </Text>
+                  </Flex>
+                  <Flex gap={3} align={"center"}>
+                    {post.comshare.private ? (
+                      <LockLaminated size={15} weight="light" />
+                    ) : (
+                      <Globe size={15} weight="light" />
+                    )}
+
+                    <Text size={"sm"} color="dimmed">
+                      {post.comshare.private ? "Private" : "Public"}
+                    </Text>
+                  </Flex>
+                </Flex>
+              </Flex>
+            </Flex>
+          )}
           {/* new footer */}
           <div
             style={{
@@ -1041,7 +1108,7 @@ export const Post = ({ post, setPosts, comments }) => {
               </Button>
             )}
           </div>
-          {pathname === "/" &&
+          {(pathname === "/" || pathname === `/community/${name}`) &&
             post?.comments.filter((val) => {
               return val?.text !== null && val?.gif === null;
             }).length > 1 && (

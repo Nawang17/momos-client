@@ -6,6 +6,7 @@ import { showNotification } from "@mantine/notifications";
 import { openConfirmModal } from "@mantine/modals";
 import {
   DotsThreeOutline,
+  ShareNetwork,
   SignOut,
   Trash,
   TrashSimple,
@@ -20,6 +21,7 @@ export const CommunityProfileMenu = ({ profiledata }) => {
 
   const handleLeaveCommunity = () => {
     openConfirmModal({
+      centered: true,
       title: "Are you sure you want to leave this community?",
       children: (
         <Text size="sm">
@@ -64,6 +66,7 @@ export const CommunityProfileMenu = ({ profiledata }) => {
   };
   const handledeleteCommunity = () => {
     openConfirmModal({
+      centered: true,
       title: "Are you sure you want to delete this community?",
       children: (
         <Text size="sm">
@@ -116,6 +119,19 @@ export const CommunityProfileMenu = ({ profiledata }) => {
       </Menu.Target>
 
       <Menu.Dropdown>
+        <Menu.Item
+          icon={<ShareNetwork size={14} />}
+          onClick={() => {
+            if (navigator.share) {
+              navigator.share({
+                title: "Share community",
+                url: window.location.href,
+              });
+            }
+          }}
+        >
+          Share
+        </Menu.Item>
         {profiledata?.communitymembers?.some(
           (obj) => !obj.isOwner && obj.user.username === UserInfo.username
         ) ? (

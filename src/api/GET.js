@@ -143,11 +143,7 @@ export const getcommunities = async () => {
   });
 };
 export const getcommunityprofile = async (name) => {
-  return await api.get(`/getcommunities/communityProfile/${name}`, {
-    headers: {
-      Authorization: `${localStorage.getItem("token")}`,
-    },
-  });
+  return await api.get(`/getcommunities/communityProfile/${name}`);
 };
 export const getcommunityPosts = async (name) => {
   return await api.get(`/getcommunities/communityPosts/${name}`, {

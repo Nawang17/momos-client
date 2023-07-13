@@ -3,7 +3,11 @@ import { Button, Container, createStyles, Loader } from "@mantine/core";
 import { PostFeed } from "../../Components/PostFeed";
 import { Sidebar } from "../../Components/Sidebar";
 import CreatePost from "../../Components/CreatePost";
-import { followinguserposts, HomePosts } from "../../api/GET";
+import {
+  communityuserposts,
+  followinguserposts,
+  HomePosts,
+} from "../../api/GET";
 import { AuthContext } from "../../context/Auth";
 import { showNotification } from "@mantine/notifications";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -11,6 +15,7 @@ import {
   ClockCounterClockwise,
   Sparkle,
   UserList,
+  UsersThree,
   WarningCircle,
 } from "phosphor-react";
 import Leaderboardhorizontal from "../../Components/Leaderboardhorizontal";
@@ -58,6 +63,30 @@ export const Home = () => {
       setloading(true);
       if (sortby === "Following") {
         await followinguserposts(0)
+          .then((res) => {
+            setHomePosts(res.data.homeposts);
+            setloading(false);
+            setpostCount(res.data.postCount);
+          })
+          .catch((err) => {
+            if (err.response.status === 0) {
+              showNotification({
+                icon: <WarningCircle size={18} />,
+                color: "red",
+                title: "Internal Server Error",
+                autoClose: 4000,
+              });
+            } else {
+              showNotification({
+                icon: <WarningCircle size={18} />,
+                color: "red",
+                title: err.response.data,
+                autoClose: 4000,
+              });
+            }
+          });
+      } else if (sortby === "Community") {
+        await communityuserposts(0)
           .then((res) => {
             setHomePosts(res.data.homeposts);
             setloading(false);
@@ -132,6 +161,28 @@ export const Home = () => {
             });
           }
         });
+    } else if (sortby === "Community") {
+      communityuserposts(page + 1)
+        .then((res) => {
+          setHomePosts((prev) => [...prev, ...res.data.homeposts]);
+        })
+        .catch((err) => {
+          if (err.response.status === 0) {
+            showNotification({
+              icon: <WarningCircle size={18} />,
+              color: "red",
+              title: "Internal Server Error",
+              autoClose: 4000,
+            });
+          } else {
+            showNotification({
+              icon: <WarningCircle size={18} />,
+              color: "red",
+              title: err.response.data,
+              autoClose: 4000,
+            });
+          }
+        });
     } else if (sortby === "Popular" || sortby === "Latest") {
       await HomePosts(page + 1, sortby)
         .then((res) => {
@@ -174,7 +225,8 @@ export const Home = () => {
               className={classes.sortby}
               style={{
                 display: "flex",
-                gap: "0.3rem",
+                gap: "0.5rem",
+
                 padding: "1rem 0.5rem",
                 backgroundColor: darkmode ? "#1A1B1E" : "white",
                 marginBottom: "0.5rem ",
@@ -182,7 +234,7 @@ export const Home = () => {
               }}
             >
               <Button
-                leftIcon={<ClockCounterClockwise size={20} />}
+                // leftIcon={<ClockCounterClockwise size={20} />}
                 onClick={() => setsortby("Latest")}
                 variant={sortby === "Latest" ? "filled" : "subtle"}
                 size="xs"
@@ -192,7 +244,7 @@ export const Home = () => {
                 Latest
               </Button>
               <Button
-                leftIcon={<Sparkle size={20} />}
+                // leftIcon={<Sparkle size={20} />}
                 onClick={() => setsortby("Popular")}
                 variant={sortby === "Popular" ? "filled" : "subtle"}
                 size="xs"
@@ -203,7 +255,7 @@ export const Home = () => {
               </Button>
 
               <Button
-                leftIcon={<UserList size={20} />}
+                // leftIcon={<UserList size={20} />}
                 onClick={() => setsortby("Following")}
                 variant={sortby === "Following" ? "filled" : "subtle"}
                 size="xs"
@@ -211,6 +263,16 @@ export const Home = () => {
                 color={"gray"}
               >
                 Following
+              </Button>
+              <Button
+                // leftIcon={<UsersThree size={20} />}
+                onClick={() => setsortby("Community")}
+                variant={sortby === "Community" ? "filled" : "subtle"}
+                size="xs"
+                radius={"xl"}
+                color={"gray"}
+              >
+                Community
               </Button>
             </div>
           )}

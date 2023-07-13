@@ -162,3 +162,10 @@ export const getSinglecommunityPost = async (postid) => {
 export const getallcommunities = async () => {
   return await api.get(`/getcommunities/allcommunities`);
 };
+export const communityuserposts = async (page) => {
+  return await api.get(`/homeposts/communityposts?page=${page}`, {
+    headers: {
+      Authorization: `${localStorage.getItem("token")}`,
+    },
+  });
+};

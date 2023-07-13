@@ -20,6 +20,7 @@ import {
   Lock,
   LockLaminated,
   Users,
+  UsersThree,
   WarningCircle,
 } from "phosphor-react";
 import { useMediaQuery } from "@mantine/hooks";
@@ -387,6 +388,26 @@ export const Post = ({ post, setPosts, comments }) => {
             className={classes.header}
           >
             <div className={classes.hLeft}>
+              {post?.community?.name &&
+                pathname !== `/community/${post?.community?.name}` && (
+                  <Flex
+                    style={{
+                      cursor: "pointer",
+                    }}
+                    onClick={() => {
+                      navigate(`/community/${post?.community?.name}`);
+                    }}
+                    pb={6}
+                    gap={6}
+                    align={"center"}
+                  >
+                    <UsersThree weight="light" size={14} />
+                    <Text color="dimmed" size={14}>
+                      {post?.community?.name}
+                    </Text>
+                  </Flex>
+                )}
+
               <div
                 style={{
                   display: "flex",
@@ -483,7 +504,8 @@ export const Post = ({ post, setPosts, comments }) => {
               onClick={() => {
                 if (
                   pathname.substring(0, pathname.indexOf("/", 1)) ===
-                  "/community"
+                    "/community" ||
+                  post?.community?.name
                 ) {
                   navigate(`/communitypost/${post.id}`);
                 } else {
@@ -554,7 +576,8 @@ export const Post = ({ post, setPosts, comments }) => {
                 onClick={() => {
                   if (
                     pathname.substring(0, pathname.indexOf("/", 1)) ===
-                    "/community"
+                      "/community" ||
+                    post?.community?.name
                   ) {
                     navigate(`/communitypost/${post.post.id}`);
                   } else {
@@ -961,7 +984,8 @@ export const Post = ({ post, setPosts, comments }) => {
                 onClick={() => {
                   if (
                     pathname.substring(0, pathname.indexOf("/", 1)) ===
-                    "/community"
+                      "/community" ||
+                    post?.community?.name
                   ) {
                     if (pathname !== `/communitypost/${post.id}`) {
                       navigate(`/communitypost/${post.id}`);
@@ -1055,7 +1079,8 @@ export const Post = ({ post, setPosts, comments }) => {
               onClick={() => {
                 if (
                   pathname.substring(0, pathname.indexOf("/", 1)) ===
-                  "/community"
+                    "/community" ||
+                  post?.community?.name
                 ) {
                   navigate(`/communitypost/${post.id}`);
                 } else {
@@ -1294,6 +1319,7 @@ export const Post = ({ post, setPosts, comments }) => {
         setHomePosts={setPosts}
         UserInfo={UserInfo}
         quotepostinfo={post}
+        communityName={post?.community?.name}
       />
 
       {/* like data modal  */}

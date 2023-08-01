@@ -66,12 +66,18 @@ const useStyles = createStyles(() => ({
     width: "100%",
   },
   gifimg: {
+    position: "absolute",
     width: "100%",
-    height: "auto",
+    height: "100%",
+    objectFit: "cover",
+    borderRadius: "0.5rem",
   },
   img: {
+    position: "absolute",
     width: "100%",
-    height: "auto",
+    height: "100%",
+    objectFit: "cover",
+    borderRadius: "4px",
   },
 
   body: {
@@ -520,25 +526,34 @@ export const Post = ({ post, setPosts, comments }) => {
           {post.image && (
             <div
               style={{
-                paddingTop: "0.5rem",
+                padding: "0.5rem 1rem 0rem 1rem",
               }}
             >
               {post?.filetype === "image" ? (
-                <img
-                  onClick={() => {
-                    setviewimg(post?.image);
-                    setOpened(true);
+                <div
+                  style={{
+                    position: "relative",
+                    width: "100%",
+                    paddingBottom:
+                      "75%" /* 4:3 aspect ratio (change as needed) */,
+                    overflow: "hidden",
                   }}
-                  loading="lazy"
-                  className={classes.img}
-                  src={post?.image}
-                  alt=""
-                />
+                >
+                  <img
+                    onClick={() => {
+                      setviewimg(post?.image);
+                      setOpened(true);
+                    }}
+                    loading="lazy"
+                    className={classes.img}
+                    src={post?.image}
+                    alt=""
+                  />
+                </div>
               ) : (
                 <video
                   poster={post?.image.slice(0, -3) + "jpg"}
-                  // preload="none"
-                  style={{ width: "100%", height: "auto" }}
+                  style={{ width: "100%", height: "auto", borderRadius: "4px" }}
                   controls
                 >
                   <source src={post?.image} type="video/mp4" />
@@ -547,22 +562,34 @@ export const Post = ({ post, setPosts, comments }) => {
               )}
             </div>
           )}
+
           {post?.gif && (
-            <>
-              <img
+            <div
+              style={{
+                padding: "0.5rem 1rem 0rem 1rem",
+              }}
+            >
+              <div
                 style={{
-                  paddingTop: "0.5rem",
+                  position: "relative",
+                  width: "100%",
+                  paddingBottom:
+                    "75%" /* 4:3 aspect ratio (change as needed) */,
+                  overflow: "hidden",
                 }}
-                onClick={() => {
-                  setviewimg(post?.gif);
-                  setOpened(true);
-                }}
-                loading="lazy"
-                className={classes.img}
-                src={post?.gif}
-                alt=""
-              />
-            </>
+              >
+                <img
+                  onClick={() => {
+                    setviewimg(post?.gif);
+                    setOpened(true);
+                  }}
+                  loading="lazy"
+                  className={classes.img}
+                  src={post?.gif}
+                  alt=""
+                />
+              </div>
+            </div>
           )}
           {post?.poll && <PostPolls post={post} />}
           {post.hasquote && post.post && (

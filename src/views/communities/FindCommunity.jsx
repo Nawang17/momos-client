@@ -12,7 +12,7 @@ const FindCommunity = ({ findCommunities, loading }) => {
         onChange={(e) => setSearch(e.target.value)}
         value={search}
         my="md"
-        placeholder="Search 
+        placeholder="Search for communities
              "
       />
       {findCommunities.length === 0 && !loading && (

@@ -81,8 +81,9 @@ const Createnewcommunity = () => {
         leftIcon={<UsersThree size={18} weight="fill" />}
         my="md"
         fullWidth
+        color="gray"
       >
-        Create a new community
+        Create community
       </Button>
 
       <Modal

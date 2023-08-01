@@ -6,7 +6,6 @@ import {
   Text,
   Image,
   createStyles,
-  Input,
   Loader,
 } from "@mantine/core";
 import {
@@ -122,13 +121,6 @@ export const Communities = () => {
                     </Text>
                   ) : (
                     <>
-                      <Input
-                        onChange={(e) => setSearch(e.target.value)}
-                        value={search}
-                        my="md"
-                        placeholder="Search for communities 
-             "
-                      />
                       <Flex gap={20} direction={"column"}>
                         {myCommunities
                           .filter((value) => {

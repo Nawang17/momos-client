@@ -537,6 +537,7 @@ export const Post = ({ post, setPosts, comments }) => {
                     paddingBottom:
                       "75%" /* 4:3 aspect ratio (change as needed) */,
                     overflow: "hidden",
+                    cursor: "pointer",
                   }}
                 >
                   <img
@@ -576,6 +577,7 @@ export const Post = ({ post, setPosts, comments }) => {
                   paddingBottom:
                     "75%" /* 4:3 aspect ratio (change as needed) */,
                   overflow: "hidden",
+                  cursor: "pointer",
                 }}
               >
                 <img

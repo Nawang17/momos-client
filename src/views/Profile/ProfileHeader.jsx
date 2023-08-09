@@ -31,6 +31,8 @@ import reactStringReplace from "react-string-replace";
 import Topuserbadge from "../../helper/Topuserbadge";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import locale from "date-fns/locale/en-US";
+import ImageViewer from "react-simple-image-viewer";
+
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -104,7 +106,7 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
   const [loading, setloading] = useState(true);
   const [unfollowconfirm, setunfollowconfirm] = useState(false);
   const [btndisabled, setbtndisabled] = useState(false);
-
+  const [imgopen, setimgopen] = useState(false);
   useEffect(() => {
     setloading(true);
     setbtndisabled(true);
@@ -322,7 +324,9 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                     size={16}
                   >
                     <Avatar
+                      onClick={() => [setimgopen(true)]}
                       style={{
+                        cursor: "pointer",
                         width: "100px",
                         height: "100px",
                         borderRadius: "50%",
@@ -873,6 +877,20 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
           </div>
         </div>
       </Modal>
+      {imgopen && (
+        <ImageViewer
+          backgroundStyle={{
+            zIndex: 1000,
+          }}
+          src={[profileInfo?.avatar]}
+          currentIndex={0}
+          disableScroll={false}
+          closeOnClickOutside={true}
+          onClose={() => {
+            setimgopen(false);
+          }}
+        />
+      )}
     </>
   );
 };

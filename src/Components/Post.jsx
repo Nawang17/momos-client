@@ -38,6 +38,8 @@ import CreatePostModal from "./CreatePostModal";
 import PostPolls from "./PostPolls";
 import Topuserbadge from "../helper/Topuserbadge";
 import { useImageSize } from "react-image-size";
+import ImageViewer from "react-simple-image-viewer";
+
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -101,7 +103,6 @@ const useStyles = createStyles(() => ({
     cursor: "pointer",
   },
 }));
-
 export const Post = ({ post, setPosts, comments }) => {
   const { pathname } = useLocation();
   const { name } = useParams();
@@ -1429,26 +1430,21 @@ export const Post = ({ post, setPosts, comments }) => {
           .reverse()}
       </Modal>
       {/* view img modal  */}
-      <Modal
-        zIndex={1000}
-        padding={0}
-        size="lg"
-        withCloseButton={false}
-        opened={opened}
-        onClose={() => {
-          setOpened(false);
-          setviewimg("");
-        }}
-      >
-        <div style={{ backgroundColor: "rgba(0, 0, 0, 0.4)" }}>
-          <img
-            loading="lazy"
-            style={{ width: "100%", height: "auto" }}
-            src={viewimg}
-            alt=""
-          />
-        </div>
-      </Modal>
+      {opened && (
+        <ImageViewer
+          backgroundStyle={{
+            zIndex: 1000,
+          }}
+          src={[viewimg]}
+          currentIndex={0}
+          disableScroll={false}
+          closeOnClickOutside={true}
+          onClose={() => {
+            setOpened(false);
+            setviewimg("");
+          }}
+        />
+      )}
     </>
   );
 };

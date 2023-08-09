@@ -37,7 +37,7 @@ import reactStringReplace from "react-string-replace";
 import CreatePostModal from "./CreatePostModal";
 import PostPolls from "./PostPolls";
 import Topuserbadge from "../helper/Topuserbadge";
-
+import { useImageSize } from "react-image-size";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -73,10 +73,8 @@ const useStyles = createStyles(() => ({
     borderRadius: "0.5rem",
   },
   img: {
-    position: "absolute",
     width: "100%",
     height: "100%",
-    objectFit: "cover",
     borderRadius: "4px",
   },
 
@@ -109,6 +107,10 @@ export const Post = ({ post, setPosts, comments }) => {
   const { name } = useParams();
   const { classes } = useStyles();
   const navigate = useNavigate();
+
+  const [dimensions] = useImageSize(
+    post?.filetype === "image" ? post?.image : post?.gif
+  );
   const [opened, setOpened] = useState(false);
   const [viewimg, setviewimg] = useState("");
   const {
@@ -535,12 +537,24 @@ export const Post = ({ post, setPosts, comments }) => {
                     position: "relative",
                     width: "100%",
                     paddingBottom:
-                      "75%" /* 4:3 aspect ratio (change as needed) */,
+                      dimensions?.width < dimensions?.height ? "75%" : "0",
+
+                    /* 4:3 aspect ratio (change as needed) */
                     overflow: "hidden",
                     cursor: "pointer",
                   }}
                 >
                   <img
+                    style={{
+                      position:
+                        dimensions?.width < dimensions?.height
+                          ? "absolute"
+                          : "static",
+                      objectFit:
+                        dimensions?.width < dimensions?.height
+                          ? "cover"
+                          : "fill",
+                    }}
                     onClick={() => {
                       setviewimg(post?.image);
                       setOpened(true);
@@ -575,7 +589,9 @@ export const Post = ({ post, setPosts, comments }) => {
                   position: "relative",
                   width: "100%",
                   paddingBottom:
-                    "75%" /* 4:3 aspect ratio (change as needed) */,
+                    dimensions?.width < dimensions?.height ? "75%" : "0",
+
+                  /* 4:3 aspect ratio (change as needed) */
                   overflow: "hidden",
                   cursor: "pointer",
                 }}
@@ -584,6 +600,14 @@ export const Post = ({ post, setPosts, comments }) => {
                   onClick={() => {
                     setviewimg(post?.gif);
                     setOpened(true);
+                  }}
+                  style={{
+                    position:
+                      dimensions?.width < dimensions?.height
+                        ? "absolute"
+                        : "static",
+                    objectFit:
+                      dimensions?.width < dimensions?.height ? "cover" : "fill",
                   }}
                   loading="lazy"
                   className={classes.img}

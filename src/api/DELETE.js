@@ -41,3 +41,10 @@ export const deleteCommunity = async (name) => {
     },
   });
 };
+export const deleteChatmessage = async (msgid) => {
+  return await api.delete(`/chat/deletemessage/${msgid}`, {
+    headers: {
+      Authorization: `${localStorage.getItem("token")}`,
+    },
+  });
+};

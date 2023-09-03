@@ -3,14 +3,23 @@ import {
   Avatar,
   Button,
   Container,
+  CopyButton,
   createStyles,
   Indicator,
   Loader,
+  Menu,
   ScrollArea,
   Text,
   Textarea,
 } from "@mantine/core";
-import { ArrowLeft, PaperPlaneRight, WarningCircle } from "phosphor-react";
+import {
+  ArrowLeft,
+  Copy,
+  DotsThreeOutline,
+  PaperPlaneRight,
+  Trash,
+  WarningCircle,
+} from "phosphor-react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useContext, useRef } from "react";
@@ -21,6 +30,7 @@ import { Sidebar } from "../../Components/Sidebar";
 import { AuthContext } from "../../context/Auth";
 import format from "date-fns/format";
 import { showNotification } from "@mantine/notifications";
+import { deleteChatmessage } from "../../api/DELETE";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -302,23 +312,67 @@ export const Chat = ({ socket }) => {
                         <div>
                           <div
                             style={{
-                              backgroundColor: darkmode
-                                ? "rgb(47, 51, 54)"
-                                : "rgb(239, 243, 244)",
-                              padding: "0.5rem",
-                              borderRadius: "8px 8px 8px 0px",
-                              wordBreak: "break-all",
-                              width: "fit-content",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "0.3rem",
                             }}
                           >
-                            <Text
-                              align="left"
-                              color={darkmode ? "white" : "#0F1419"}
-                              size={14}
+                            <div
+                              style={{
+                                cursor: "pointer",
+                                backgroundColor: darkmode
+                                  ? "rgb(47, 51, 54)"
+                                  : "rgb(239, 243, 244)",
+                                padding: "0.5rem",
+                                borderRadius: "8px 8px 8px 0px",
+                                wordBreak: "break-word",
+
+                                width: "fit-content",
+                              }}
                             >
-                              {message?.message}
-                            </Text>
+                              <Text
+                                align="left"
+                                color={darkmode ? "white" : "#0F1419"}
+                                size={14}
+                              >
+                                {message?.message}
+                              </Text>
+                            </div>
+                            <Menu shadow width={200}>
+                              <Menu.Target>
+                                <ActionIcon>
+                                  <DotsThreeOutline
+                                    color={darkmode ? "#909296" : "#868e96"}
+                                    size={15}
+                                    weight="fill"
+                                  />
+                                </ActionIcon>
+                              </Menu.Target>
+
+                              <Menu.Dropdown>
+                                <CopyButton value={message?.message}>
+                                  {({ copied, copy }) => (
+                                    <Menu.Item
+                                      onClick={() => {
+                                        copy();
+
+                                        showNotification({
+                                          icon: <Copy size={18} />,
+                                          title: "Message copied",
+                                          autoClose: 3000,
+                                          color: "gray",
+                                        });
+                                      }}
+                                      icon={<Copy size={19} weight="fill" />}
+                                    >
+                                      Copy message
+                                    </Menu.Item>
+                                  )}
+                                </CopyButton>
+                              </Menu.Dropdown>
+                            </Menu>
                           </div>
+
                           <Text pt={5} size={12} color={"dimmed"}>
                             {format(
                               new Date(message?.createdAt),
@@ -352,18 +406,102 @@ export const Chat = ({ socket }) => {
                         >
                           <div
                             style={{
-                              backgroundColor: "rgb(29, 155, 240)",
-                              padding: "0.5rem",
-                              borderRadius: "8px 8px 0px 8px",
-
-                              wordBreak: "break-all",
-                              width: "fit-content",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "0.3rem",
                             }}
                           >
-                            <Text align="left" color="white" size={14}>
-                              {message?.message}
-                            </Text>
+                            <Menu shadow width={200}>
+                              <Menu.Target>
+                                <ActionIcon>
+                                  <DotsThreeOutline
+                                    color={darkmode ? "#909296" : "#868e96"}
+                                    size={15}
+                                    weight="fill"
+                                  />
+                                </ActionIcon>
+                              </Menu.Target>
+
+                              <Menu.Dropdown>
+                                <CopyButton value={message?.message}>
+                                  {({ copied, copy }) => (
+                                    <Menu.Item
+                                      onClick={() => {
+                                        copy();
+
+                                        showNotification({
+                                          icon: <Copy size={18} />,
+                                          title: "Message copied",
+                                          autoClose: 3000,
+                                          color: "gray",
+                                        });
+                                      }}
+                                      icon={<Copy size={19} weight="fill" />}
+                                    >
+                                      Copy message
+                                    </Menu.Item>
+                                  )}
+                                </CopyButton>
+
+                                <Menu.Item
+                                  onClick={() => {
+                                    deleteChatmessage(message.id)
+                                      .then(() => {
+                                        setMessages(
+                                          messages.filter(
+                                            (msg) => msg.id !== message.id
+                                          )
+                                        );
+                                        showNotification({
+                                          title: "Message deleted",
+                                          autoClose: 3000,
+                                        });
+
+                                        setmsgcount((prev) => prev - 1);
+                                      })
+                                      .catch((err) => {
+                                        if (err.response.status === 0) {
+                                          showNotification({
+                                            icon: <WarningCircle size={18} />,
+                                            color: "red",
+                                            title: "Internal Server Error",
+                                            autoClose: 4000,
+                                          });
+                                        } else {
+                                          showNotification({
+                                            icon: <WarningCircle size={18} />,
+                                            color: "red",
+                                            title: err.response.data,
+                                            autoClose: 4000,
+                                          });
+                                        }
+                                      });
+                                  }}
+                                  icon={<Trash size={19} weight="fill" />}
+                                >
+                                  Delete for you
+                                </Menu.Item>
+                              </Menu.Dropdown>
+                            </Menu>
+
+                            <div
+                              style={{
+                                cursor: "pointer",
+                                backgroundColor: "rgb(29, 155, 240)",
+                                padding: "0.5rem",
+                                borderRadius: "8px 8px 0px 8px",
+
+                                wordBreak: "break-word",
+
+                                width: "fit-content",
+                              }}
+                            >
+                              <Text align="left" color="white" size={14}>
+                                {message?.message}
+                              </Text>
+                            </div>
                           </div>
+
                           <Text align="right" size={12} color={"dimmed"}>
                             {format(
                               new Date(message?.createdAt),

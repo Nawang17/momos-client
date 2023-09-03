@@ -235,7 +235,15 @@ export const Chatrooms = () => {
                     description={
                       rooms?.chats[0]?.message
                         ? rooms?.chats[0]?.message.length > 80
-                          ? rooms?.chats[0]?.message.substring(0, 80) + "..."
+                          ? rooms?.chats[0]?.user.username ===
+                            UserInfo?.username
+                            ? "You: " +
+                              rooms?.chats[0]?.message.substring(0, 80) +
+                              "..."
+                            : rooms?.chats[0]?.message.substring(0, 80) + "..."
+                          : rooms?.chats[0]?.user.username ===
+                            UserInfo?.username
+                          ? "You: " + rooms?.chats[0]?.message
                           : rooms?.chats[0]?.message
                         : "No messages yet"
                     }

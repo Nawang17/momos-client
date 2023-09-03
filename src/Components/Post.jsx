@@ -1431,19 +1431,25 @@ export const Post = ({ post, setPosts, comments }) => {
       </Modal>
       {/* view img modal  */}
       {opened && (
-        <ImageViewer
-          backgroundStyle={{
+        <div
+          style={{
             zIndex: 1000,
           }}
-          src={[viewimg]}
-          currentIndex={0}
-          disableScroll={false}
-          closeOnClickOutside={true}
-          onClose={() => {
-            setOpened(false);
-            setviewimg("");
-          }}
-        />
+        >
+          <ImageViewer
+            backgroundStyle={{
+              zIndex: 1000,
+            }}
+            src={[viewimg]}
+            currentIndex={0}
+            disableScroll={false}
+            closeOnClickOutside={true}
+            onClose={() => {
+              setOpened(false);
+              setviewimg("");
+            }}
+          />
+        </div>
       )}
     </>
   );

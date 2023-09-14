@@ -619,6 +619,135 @@ export const Post = ({ post, setPosts, comments }) => {
             </div>
           )}
           {post?.poll && <PostPolls post={post} />}
+
+          {/* link preview  */}
+          {post.previewlink && (
+            <div
+              style={{
+                padding: "0rem 1rem 0rem 1rem",
+              }}
+            >
+              <div
+                onClick={(e) => {
+                  e.stopPropagation();
+
+                  window.open(
+                    post?.text?.match(/https?:\/\/[^\s]+/)?.[0],
+                    "_blank"
+                  );
+                }}
+                style={{
+                  cursor: "pointer",
+                  border: darkmode ? "1px solid #2f3136" : "1px solid #e6ecf0",
+
+                  borderRadius: "8px",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    padding: "0.5rem",
+                    gap: "0.5rem",
+                  }}
+                >
+                  <div
+                    style={{
+                      paddingTop: "0.2rem",
+                    }}
+                  >
+                    <Link />
+                  </div>
+                  <div>
+                    {post?.previewlink?.url && (
+                      <Text size={"14px"} color={"dimmed"}>
+                        {post?.previewlink?.url
+                          ? post?.previewlink?.url
+                              .replace("https://", "")
+                              .replace("http://", "")
+                              .replace("www.", "")
+                              .split(/[/?#]/)[0]
+                          : ""}
+                      </Text>
+                    )}
+
+                    {post?.previewlink?.title && (
+                      <Text size={"14px"}> {post?.previewlink?.title}</Text>
+                    )}
+
+                    {post?.previewlink?.description && (
+                      <Text color={"dimmed"} size={"14px"}>
+                        {post?.previewlink?.description}
+                      </Text>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* community link preview */}
+          {post.comshare && (
+            <Flex
+              onClick={() => {
+                navigate(`/community/${post.comshare.name}`);
+              }}
+              style={{
+                border: darkmode ? "1px solid #2f3136" : "1px solid #e6ecf0",
+                cursor: "pointer",
+                borderRadius: "8px",
+                padding: "0.5rem",
+              }}
+              mx={"1rem"}
+              justify={"space-between"}
+              wrap={"wrap"}
+              gap={10}
+            >
+              <Flex gap={10}>
+                <Image
+                  width={100}
+                  height={100}
+                  miw={"auto"}
+                  radius={post.comshare.banner ? "sm" : "0"}
+                  withPlaceholder
+                  src={post.comshare.banner}
+                />
+
+                <Flex
+                  style={{
+                    width: "100%",
+                  }}
+                  gap={5}
+                  direction={"column"}
+                >
+                  <Text weight={600}>{post.comshare.name}</Text>
+                  <Flex gap={3} align={"center"}>
+                    <Users size={15} weight="light" />
+
+                    <Text size={"sm"} color="dimmed">
+                      {post.comshare.communitymembers.length}{" "}
+                      {post.comshare.communitymembers.length > 1
+                        ? "members"
+                        : "member"}
+                    </Text>
+                  </Flex>
+                  <Flex gap={3} align={"center"}>
+                    {post.comshare.private ? (
+                      <LockLaminated size={15} weight="light" />
+                    ) : (
+                      <Globe size={15} weight="light" />
+                    )}
+
+                    <Text size={"sm"} color="dimmed">
+                      {post.comshare.private ? "Private" : "Public"}
+                    </Text>
+                  </Flex>
+                </Flex>
+              </Flex>
+            </Flex>
+          )}
+
+          {/* quoted post */}
+
           {post.hasquote && post.post && (
             <div
               style={{
@@ -781,6 +910,8 @@ export const Post = ({ post, setPosts, comments }) => {
               </div>
             </div>
           )}
+
+          {/* quote delete */}
           {post.hasquote && !post.post && (
             <div
               style={{
@@ -807,128 +938,6 @@ export const Post = ({ post, setPosts, comments }) => {
                 </Text>
               </div>
             </div>
-          )}
-          {/* link preview  */}
-          {post.previewlink && (
-            <div
-              style={{
-                padding: "0rem 1rem 0rem 1rem",
-              }}
-            >
-              <div
-                onClick={(e) => {
-                  e.stopPropagation();
-
-                  window.open(post?.previewlink?.url, "_blank");
-                }}
-                style={{
-                  cursor: "pointer",
-                  border: darkmode ? "1px solid #2f3136" : "1px solid #e6ecf0",
-
-                  borderRadius: "8px",
-                }}
-              >
-                <div
-                  style={{
-                    display: "flex",
-                    padding: "0.5rem",
-                    gap: "0.5rem",
-                  }}
-                >
-                  <div
-                    style={{
-                      paddingTop: "0.2rem",
-                    }}
-                  >
-                    <Link />
-                  </div>
-                  <div>
-                    {post?.previewlink?.url && (
-                      <Text size={"14px"} color={"dimmed"}>
-                        {post?.previewlink?.url
-                          ? post?.previewlink?.url
-                              .replace("https://", "")
-                              .replace("http://", "")
-                              .replace("www.", "")
-                              .split(/[/?#]/)[0]
-                          : ""}
-                      </Text>
-                    )}
-
-                    {post?.previewlink?.title && (
-                      <Text size={"14px"}> {post?.previewlink?.title}</Text>
-                    )}
-
-                    {post?.previewlink?.description && (
-                      <Text color={"dimmed"} size={"14px"}>
-                        {post?.previewlink?.description}
-                      </Text>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* community link preview */}
-          {post.comshare && (
-            <Flex
-              onClick={() => {
-                navigate(`/community/${post.comshare.name}`);
-              }}
-              style={{
-                border: darkmode ? "1px solid #2f3136" : "1px solid #e6ecf0",
-                cursor: "pointer",
-                borderRadius: "8px",
-                padding: "0.5rem",
-              }}
-              mx={"1rem"}
-              justify={"space-between"}
-              wrap={"wrap"}
-              gap={10}
-            >
-              <Flex gap={10}>
-                <Image
-                  width={100}
-                  height={100}
-                  miw={"auto"}
-                  radius={post.comshare.banner ? "sm" : "0"}
-                  withPlaceholder
-                  src={post.comshare.banner}
-                />
-
-                <Flex
-                  style={{
-                    width: "100%",
-                  }}
-                  gap={5}
-                  direction={"column"}
-                >
-                  <Text weight={600}>{post.comshare.name}</Text>
-                  <Flex gap={3} align={"center"}>
-                    <Users size={15} weight="light" />
-
-                    <Text size={"sm"} color="dimmed">
-                      {post.comshare.communitymembers.length}{" "}
-                      {post.comshare.communitymembers.length > 1
-                        ? "members"
-                        : "member"}
-                    </Text>
-                  </Flex>
-                  <Flex gap={3} align={"center"}>
-                    {post.comshare.private ? (
-                      <LockLaminated size={15} weight="light" />
-                    ) : (
-                      <Globe size={15} weight="light" />
-                    )}
-
-                    <Text size={"sm"} color="dimmed">
-                      {post.comshare.private ? "Private" : "Public"}
-                    </Text>
-                  </Flex>
-                </Flex>
-              </Flex>
-            </Flex>
           )}
           {/* new footer */}
           <div

@@ -31,6 +31,7 @@ import { AuthContext } from "../../context/Auth";
 import format from "date-fns/format";
 import { showNotification } from "@mantine/notifications";
 import { deleteChatmessage } from "../../api/DELETE";
+import reactStringReplace from "react-string-replace";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -52,10 +53,12 @@ const useStyles = createStyles(() => ({
 }));
 
 export const Chat = ({ socket }) => {
+  const navigate = useNavigate();
+
   const { classes } = useStyles();
   const { darkmode, UserInfo, onlineusers } = useContext(AuthContext);
   const [page, setpage] = useState(0);
-  const navigate = useNavigate();
+
   const viewport = useRef(null);
   const scrollToBottom = () =>
     viewport.current.scrollTo({
@@ -71,6 +74,60 @@ export const Chat = ({ socket }) => {
   const mounted = useRef(false);
   const [scrolldown, setscrolldown] = useState(false);
   const [newmsgcount, setnewmsgcount] = useState(0);
+  const postvalue = (text) => {
+    let replacedText;
+
+    // Match URLs
+    replacedText = reactStringReplace(text, /(https?:\/\/\S+)/g, (match, i) => (
+      <span
+        onClick={(e) => {
+          e.stopPropagation();
+          window.location.href = match;
+        }}
+        style={{
+          textDecoration: "underline",
+        }}
+        key={match + i}
+      >
+        {match}
+      </span>
+    ));
+
+    // Match @-mentions
+
+    replacedText = reactStringReplace(replacedText, /@(\w+)/g, (match, i) => (
+      <span
+        style={{
+          textDecoration: "underline",
+        }}
+        onClick={(e) => {
+          e.stopPropagation();
+          navigate(`/${match}`);
+        }}
+        key={match + i}
+      >
+        @{match}
+      </span>
+    ));
+
+    // Match hashtags
+    replacedText = reactStringReplace(replacedText, /#(\w+)/g, (match, i) => (
+      <span
+        style={{
+          textDecoration: "underline",
+        }}
+        onClick={(e) => {
+          e.stopPropagation();
+          navigate(`/search/q/%23${match}`);
+        }}
+        key={match + i}
+      >
+        #{match}
+      </span>
+    ));
+
+    return replacedText;
+  };
   useEffect(() => {
     if (!UserInfo) {
       navigate("/");
@@ -335,7 +392,7 @@ export const Chat = ({ socket }) => {
                                 color={darkmode ? "white" : "#0F1419"}
                                 size={14}
                               >
-                                {message?.message}
+                                {postvalue(message?.message)}
                               </Text>
                             </div>
                             <Menu shadow width={200}>
@@ -497,7 +554,7 @@ export const Chat = ({ socket }) => {
                               }}
                             >
                               <Text align="left" color="white" size={14}>
-                                {message?.message}
+                                {postvalue(message?.message)}
                               </Text>
                             </div>
                           </div>

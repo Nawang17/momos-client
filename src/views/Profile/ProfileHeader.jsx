@@ -107,6 +107,7 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
   const [unfollowconfirm, setunfollowconfirm] = useState(false);
   const [btndisabled, setbtndisabled] = useState(false);
   const [imgopen, setimgopen] = useState(false);
+  const [banneropen, setbanneropen] = useState(false);
   useEffect(() => {
     setloading(true);
     setbtndisabled(true);
@@ -277,6 +278,10 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
             }}
           >
             <BackgroundImage
+              onClick={() => [setbanneropen(true)]}
+              style={{
+                cursor: "pointer",
+              }}
               src={
                 profileInfo?.profilebanner?.imageurl
                   ? profileInfo?.profilebanner?.imageurl
@@ -324,7 +329,7 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                     size={16}
                   >
                     <Avatar
-                      onClick={() => [setimgopen(true)]}
+                      onClick={(e) => e.stopPropagation()[setimgopen(true)]}
                       style={{
                         cursor: "pointer",
                         width: "100px",
@@ -877,6 +882,9 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
           </div>
         </div>
       </Modal>
+
+      {/* view user profile image */}
+
       {imgopen && (
         <ImageViewer
           backgroundStyle={{
@@ -888,6 +896,28 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
           closeOnClickOutside={true}
           onClose={() => {
             setimgopen(false);
+          }}
+        />
+      )}
+
+      {/* view user profile banner image  */}
+      {banneropen && (
+        <ImageViewer
+          backgroundStyle={{
+            zIndex: 1000,
+          }}
+          src={[
+            profileInfo?.profilebanner?.imageurl
+              ? profileInfo?.profilebanner?.imageurl
+              : darkmode
+              ? `https://ui-avatars.com/api/?background=373A40&color=fff&name=&size=1920`
+              : `https://ui-avatars.com/api/?background=dee2e6&color=fff&name=&size=1920`,
+          ]}
+          currentIndex={0}
+          disableScroll={false}
+          closeOnClickOutside={true}
+          onClose={() => {
+            setbanneropen(false);
           }}
         />
       )}

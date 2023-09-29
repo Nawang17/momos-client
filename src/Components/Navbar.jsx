@@ -173,7 +173,11 @@ export function Navbar({ socket }) {
                     }
                   }}
                 >
-                  <House size={28} color={darkmode ? "white" : "black"} />
+                  <House
+                    weight={pathname === "/" ? "fill" : "regular"}
+                    size={28}
+                    color={darkmode ? "white" : "black"}
+                  />
                 </ActionIcon>
 
                 <ActionIcon
@@ -182,6 +186,7 @@ export function Navbar({ socket }) {
                   }}
                 >
                   <MagnifyingGlass
+                    weight={pathname === "/discover" ? "fill" : "regular"}
                     color={darkmode ? "white" : "black"}
                     size={28}
                   />
@@ -189,6 +194,7 @@ export function Navbar({ socket }) {
 
                 <ActionIcon>
                   <ChatCircleDots
+                    weight={pathname === "/chatrooms" ? "fill" : "regular"}
                     onClick={() => {
                       navigate("/chatrooms");
                     }}
@@ -201,7 +207,11 @@ export function Navbar({ socket }) {
                     navigate("/communities");
                   }}
                 >
-                  <UsersThree color={darkmode ? "white" : "black"} size={28} />
+                  <UsersThree
+                    weight={pathname === "/communities" ? "fill" : "regular"}
+                    color={darkmode ? "white" : "black"}
+                    size={28}
+                  />
                 </ActionIcon>
                 <Notis darkmode={darkmode} />
               </>

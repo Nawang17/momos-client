@@ -129,7 +129,11 @@ export default function Notis({ darkmode }) {
     >
       <Popover.Target>
         <ActionIcon variant="transparent" onClick={() => setOpened((o) => !o)}>
-          <Bell size={28} color={darkmode ? "white" : "black"} />
+          <Bell
+            weight={opened ? "fill" : "regular"}
+            size={28}
+            color={darkmode ? "white" : "black"}
+          />
         </ActionIcon>
       </Popover.Target>
 

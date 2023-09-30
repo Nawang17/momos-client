@@ -15,9 +15,10 @@ import { useContext } from "react";
 import { AuthContext } from "../context/Auth";
 import { useNavigate } from "react-router-dom";
 import { CircleWavyCheck, Info } from "phosphor-react";
-import { leaderboardinfo, userlevel } from "../api/GET";
+import { getTopNews, leaderboardinfo, userlevel } from "../api/GET";
 import Topuserbadge from "../helper/Topuserbadge";
-
+import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
+import locale from "date-fns/locale/en-US";
 const useStyles = createStyles(() => ({
   wrapper: {
     width: "100%",
@@ -81,6 +82,7 @@ export const Sidebar = () => {
       v = n % 100;
     return n + (s[(v - 20) % 10] || s[v] || s[0]);
   }
+  const [news, setNews] = useState([]);
 
   useEffect(() => {
     const getleaderboardinfo = async () => {
@@ -107,6 +109,9 @@ export const Sidebar = () => {
           setUserlevelinfo(null);
         });
     };
+    getTopNews().then((res) => {
+      setNews(res.data.news.data);
+    });
     getleaderboardinfo();
     if (UserInfo) {
       getuserlevel();
@@ -114,6 +119,41 @@ export const Sidebar = () => {
       setUserlevelinfo(null);
     }
   }, [UserInfo]);
+  const formatDistanceLocale = {
+    lessThanXSeconds: "{{count}}s",
+    xSeconds: "{{count}}s",
+    halfAMinute: "30s",
+    lessThanXMinutes: "{{count}}m",
+    xMinutes: "{{count}}m",
+    aboutXHours: "{{count}}h",
+    xHours: "{{count}}h",
+    xDays: "{{count}}d",
+    aboutXWeeks: "{{count}}w",
+    xWeeks: "{{count}}w",
+    aboutXMonths: "{{count}}mo",
+    xMonths: "{{count}}mo",
+    aboutXYears: "{{count}}y",
+    xYears: "{{count}}y",
+    overXYears: "{{count}}y",
+    almostXYears: "{{count}}y",
+  };
+
+  function formatDistance(token, count, options) {
+    options = options || {};
+
+    const result = formatDistanceLocale[token].replace("{{count}}", count);
+
+    if (options.addSuffix) {
+      if (options.comparison > 0) {
+        return "in " + result;
+      } else {
+        return result + " ago";
+      }
+    }
+
+    return result;
+  }
+
   return (
     <div className={classes.wrapper}>
       <div className={classes.mainwrapper}>
@@ -532,6 +572,109 @@ export const Sidebar = () => {
             </div>
           </div>
         )}
+        {/* latest news */}
+
+        <div
+          style={{
+            backgroundColor: darkmode ? "#1A1B1E" : "white",
+            color: darkmode ? "white" : "black",
+            marginBottom: "0.5rem",
+            borderRadius: "4px",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              padding: "0.7rem 1rem 0 1rem",
+              gap: "0.4rem",
+              alignItems: "center",
+            }}
+          >
+            <Text weight={700} size={12}>
+              Top News
+            </Text>{" "}
+          </div>
+          <div
+            style={{
+              paddingTop: "0.3rem",
+            }}
+            className={classes.accounts}
+          >
+            {news.map((val, index) => {
+              return (
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    paddingTop: "0rem",
+                  }}
+                  onClick={() => {
+                    window.location.href = val?.url;
+                  }}
+                  key={val.uuid}
+                  className={classes.account}
+                >
+                  <div
+                    style={{
+                      // borderTop: darkmode
+                      //   ? "1px solid rgb(47, 49, 54)"
+                      //   : "1px solid rgb(230, 230, 230)",
+                      display: "flex",
+                      flex: 1,
+                      flexDirection: "column",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0rem",
+                      }}
+                    >
+                      <div>
+                        <Text
+                          color={darkmode ? "#c1c2c5" : "#000000"}
+                          size={"15px"}
+                          weight={600}
+                        >
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                            }}
+                          >
+                            <Text color="dimmed" size="12px">
+                              {val?.source}
+                            </Text>
+                          </div>
+                          <span
+                            style={{ paddingTop: "0.1rem" }}
+                            className="link-style"
+                          >
+                            {val?.title}
+                          </span>
+                        </Text>
+                        <Text pt="5px" size={"12px"} color="dimmed">
+                          {formatDistanceToNowStrict(
+                            new Date(val?.published_at),
+                            {
+                              locale: {
+                                ...locale,
+                                formatDistance,
+                              },
+                              addSuffix: true,
+                            }
+                          )}
+                        </Text>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
 
         {/* online users */}
         {onlinelist.length > 0 && (

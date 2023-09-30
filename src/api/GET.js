@@ -169,3 +169,6 @@ export const communityuserposts = async (page) => {
     },
   });
 };
+export const getTopNews = async () => {
+  return await api.get(`/news/Top`);
+};

@@ -7,8 +7,9 @@ import {
   Modal,
   Button,
   Input,
+  ActionIcon,
 } from "@mantine/core";
-import { Trash } from "phosphor-react";
+import { ArrowsDownUp, Trash } from "phosphor-react";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/Auth";
 import { admin } from "../../api/GET";
@@ -24,6 +25,7 @@ export function Admin() {
   const [users, setusers] = useState([]);
   const [currentuser, setcurrentuser] = useState(null);
   const [search, setsearch] = useState("");
+  const [sort, setsort] = useState("asc");
   useEffect(() => {
     const getallusers = async () => {
       await admin()
@@ -39,7 +41,7 @@ export function Admin() {
   const handleuserstatus = async (userId) => {
     await updateUserStatus(userId)
       .then((res) => {
-        console.log(res.data);
+        alert(res.data.message);
         setusers((prev) => {
           return prev.map((user) => {
             if (user.id === userId) {
@@ -53,7 +55,7 @@ export function Admin() {
         });
       })
       .catch((err) => {
-        console.log(err);
+        alert(err.data);
       });
   };
   const handleuserdelete = async (userId) => {
@@ -80,15 +82,34 @@ export function Admin() {
         <div
           style={{
             padding: "1rem",
+            display: "flex",
+            alignItems: "center",
+            gap: "1rem",
           }}
         >
           <Input
+            style={{ width: "100%" }}
             value={search}
             onChange={(e) => {
               setsearch(e.target.value);
             }}
             placeholder="Search"
           />
+          <ActionIcon
+            onClick={() => {
+              setsort((prev) => {
+                if (prev === "asc") {
+                  return "desc";
+                } else {
+                  return "asc";
+                }
+              });
+            }}
+            variant="default"
+            aria-label="Settings"
+          >
+            <ArrowsDownUp size={32} weight="fill" />
+          </ActionIcon>
         </div>
         <div
           style={{
@@ -99,6 +120,14 @@ export function Admin() {
           }}
         >
           {users
+            ?.sort((a, b) => {
+              if (sort === "asc") {
+                return a.id - b.id;
+              } else {
+                return b.id - a.id;
+              }
+            })
+
             ?.filter((user) => {
               if (user.username.toLowerCase().includes(search.toLowerCase())) {
                 return user;

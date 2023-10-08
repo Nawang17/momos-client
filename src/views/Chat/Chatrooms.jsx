@@ -212,12 +212,6 @@ export const Chatrooms = () => {
                         .includes(filterchat.toLowerCase());
                 })
 
-                .sort((a, b) => {
-                  return (
-                    new Date(b?.chats[0]?.createdAt) -
-                    new Date(a?.chats[0]?.createdAt)
-                  );
-                })
                 .map((rooms) => (
                   <NavLink
                     onClick={() => {

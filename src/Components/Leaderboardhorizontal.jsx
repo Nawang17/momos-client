@@ -152,13 +152,15 @@ const Leaderboardhorizontal = () => {
                     flexDirection: "column",
                     alignItems: "center",
                     justifyContent: "center",
-                    gap: "6px",
+                    gap: index === 0 ? "4px" : "6px",
 
                     cursor: "pointer",
                   }}
                 >
                   {index === 0 ? (
-                    <Crown weight="fill" size={25} color="gold" />
+                    <div className="heartbeat-icon">
+                      <Crown weight="fill" size={25} color="gold" />
+                    </div>
                   ) : (
                     <Badge
                       variant="filled"

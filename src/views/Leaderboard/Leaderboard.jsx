@@ -10,7 +10,7 @@ import {
   Loader,
   NavLink,
 } from "@mantine/core";
-import { ArrowLeft, Info, WarningCircle } from "phosphor-react";
+import { ArrowLeft, Crown, Info, WarningCircle } from "phosphor-react";
 
 import { useNavigate } from "react-router-dom";
 import { Sidebar } from "../../Components/Sidebar";
@@ -200,71 +200,143 @@ export const Leaderboard = () => {
               {leaderboard
                 .filter((obj) => !map[obj.id] && (map[obj.id] = true))
                 .map((acc, index) => (
-                  <NavLink
-                    style={{
-                      padding: "1rem 1.4rem",
-                    }}
-                    key={index}
-                    onClick={() => {
-                      navigate(`/${acc?.username}`);
-                    }}
-                    label={
+                  <>
+                    {index === 0 ? (
                       <div
                         style={{
+                          color: darkmode ? "white" : "black",
                           display: "flex",
                           alignItems: "center",
-                          gap: "0.5rem",
+                          justifyContent: "center",
+                          backgroundColor: darkmode ? "#1A1B1E" : "white",
+                          flexDirection: "column",
+                          padding: "2rem 0",
+                          borderBottom: darkmode
+                            ? "1px solid #303030"
+                            : "1px solid #e0e0e0",
                         }}
                       >
+                        <div
+                          onClick={() => {
+                            navigate(`/${acc?.username}`);
+                          }}
+                          style={{
+                            cursor: "pointer",
+                          }}
+                          className="heartbeat-icon"
+                        >
+                          <Crown color="gold" weight="fill" size={30} />{" "}
+                        </div>
+
                         <img
+                          onClick={() => {
+                            navigate(`/${acc?.username}`);
+                          }}
                           src={acc?.avatar}
                           style={{
-                            width: "45px",
-                            height: "45px",
+                            border: "4px solid gold",
+                            width: "60px",
+                            height: "60px",
                             borderRadius: "50%",
+                            cursor: "pointer",
                           }}
                           alt=""
                         />
-                        <div>{acc?.username}</div>
-                        {topUser === acc?.username && <Topuserbadge />}
-                      </div>
-                    }
-                    icon={
-                      <Badge
-                        variant="filled"
-                        color={
-                          darkmode
-                            ? index === 0
-                              ? "yellow"
-                              : index === 1
-                              ? "indigo"
-                              : index === 2
-                              ? "teal"
-                              : "gray"
-                            : index === 0
-                            ? "orange"
-                            : index === 1
-                            ? "indigo"
-                            : index === 2
-                            ? "teal"
-                            : "gray"
-                        }
-                      >
-                        {index + 1}
-                      </Badge>
-                    }
-                    rightSection={
-                      <div
-                        style={{
-                          fontSize: "0.8rem",
-                        }}
-                      >
-                        {`${acc.totalpoints}
+
+                        <Text
+                          style={{
+                            cursor: "pointer",
+                          }}
+                          onClick={() => {
+                            navigate(`/${acc?.username}`);
+                          }}
+                          size={"lg"}
+                          weight={600}
+                        >
+                          {acc?.username}
+                        </Text>
+                        <Text
+                          onClick={() => {
+                            navigate(`/${acc?.username}`);
+                          }}
+                          style={{
+                            cursor: "pointer",
+                          }}
+                          size={"sm"}
+                        >
+                          {`${acc.totalpoints}
                       points
                       `}
+                        </Text>
                       </div>
-                    }
-                  />
+                    ) : (
+                      <NavLink
+                        style={{
+                          padding: "1rem 1.4rem",
+                        }}
+                        key={index}
+                        onClick={() => {
+                          navigate(`/${acc?.username}`);
+                        }}
+                        label={
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "0.5rem",
+                            }}
+                          >
+                            <img
+                              src={acc?.avatar}
+                              style={{
+                                width: "45px",
+                                height: "45px",
+                                borderRadius: "50%",
+                              }}
+                              alt=""
+                            />
+                            <div>{acc?.username}</div>
+                            {topUser === acc?.username && <Topuserbadge />}
+                          </div>
+                        }
+                        icon={
+                          <Badge
+                            variant="filled"
+                            color={
+                              darkmode
+                                ? index === 0
+                                  ? "yellow"
+                                  : index === 1
+                                  ? "indigo"
+                                  : index === 2
+                                  ? "teal"
+                                  : "gray"
+                                : index === 0
+                                ? "orange"
+                                : index === 1
+                                ? "indigo"
+                                : index === 2
+                                ? "teal"
+                                : "gray"
+                            }
+                          >
+                            {index + 1}
+                          </Badge>
+                        }
+                        rightSection={
+                          <div
+                            style={{
+                              fontSize: "0.8rem",
+                            }}
+                          >
+                            {`${acc.totalpoints}
+                      points
+                      `}
+                          </div>
+                        }
+                      />
+                    )}
+                  </>
                 ))}
             </div>
           </InfiniteScroll>

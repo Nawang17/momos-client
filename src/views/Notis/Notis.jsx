@@ -149,7 +149,6 @@ export default function Notis({ darkmode }) {
             <Text size={"xl"} weight="bold">
               Notifications
             </Text>
-
             <Flex py={5} wrap={"wrap"} align={"center"} gap={"xs"}>
               <Button
                 onClick={() => setnotitype("All activity")}
@@ -486,6 +485,7 @@ export default function Notis({ darkmode }) {
                         <div
                           style={{
                             width: "200px",
+                            wordBreak: "break-word",
                           }}
                         >
                           {data.type === "COMMUNITY_JOIN_REQUEST" && (

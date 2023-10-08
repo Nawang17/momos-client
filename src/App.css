@@ -98,3 +98,27 @@
   border-radius: 4px;
   object-fit: cover;
 }
+.heartbeat-icon {
+  animation: heartbeat 1s infinite alternate, tilt 1s infinite alternate;
+}
+
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes tilt {
+  0% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(5deg);
+  }
+}

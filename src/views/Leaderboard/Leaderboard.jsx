@@ -9,6 +9,7 @@ import {
   Divider,
   Loader,
   NavLink,
+  Button,
 } from "@mantine/core";
 import { ArrowLeft, Crown, Info, WarningCircle } from "phosphor-react";
 
@@ -46,16 +47,18 @@ export const Leaderboard = () => {
   const { classes } = useStyles();
   const navigate = useNavigate();
   const { darkmode, topUser } = useContext(AuthContext);
-
+  const [type, settype] = useState("allTime");
   const [leaderboard, setLeaderboard] = useState([]);
   const [loading, setLoading] = useState(true);
   const [usercount, setusercount] = useState(0);
   const [page, setpage] = useState(0);
+  const currentDate = new Date();
   let map = {};
+
   useEffect(() => {
     setLoading(true);
 
-    leaderboardinfo(0)
+    leaderboardinfo(0, type)
       .then((res) => {
         setLeaderboard(res.data.leaderboard);
         setusercount(res.data.usersCount);
@@ -78,10 +81,10 @@ export const Leaderboard = () => {
           });
         }
       });
-  }, []);
+  }, [type]);
   const fetchMoreData = () => {
     setpage((prev) => prev + 1);
-    leaderboardinfo(page + 1)
+    leaderboardinfo(page + 1, type)
       .then((res) => {
         setLeaderboard((prev) => [...prev, ...res.data.leaderboard]);
       })
@@ -192,6 +195,57 @@ export const Leaderboard = () => {
             <div
               style={{
                 display: "flex",
+                flexDirection: "row",
+                backgroundColor: darkmode ? "#1A1B1E" : "white",
+                color: darkmode ? "white" : "black",
+                // justifyContent: "center",
+                alignItems: "center",
+                gap: "0.5rem",
+                padding: "1rem 1.4rem",
+                flexWrap: "wrap",
+              }}
+            >
+              <Button
+                onClick={() => settype("allTime")}
+                variant={type === "allTime" ? "filled" : "light"}
+                color="gray"
+                size="xs"
+                radius={"lg"}
+              >
+                All-time
+              </Button>
+              <Button
+                onClick={() => settype("currentMonth")}
+                variant={type === "currentMonth" ? "filled" : "light"}
+                color="gray"
+                size="xs"
+                radius={"lg"}
+              >
+                Current Month
+              </Button>
+
+              <Button
+                onClick={() => settype("currentYear")}
+                variant={type === "currentYear" ? "filled" : "light"}
+                color="gray"
+                size="xs"
+                radius={"lg"}
+              >
+                {currentDate.getFullYear()}
+              </Button>
+              <Button
+                onClick={() => settype("lastYear")}
+                variant={type === "lastYear" ? "filled" : "light"}
+                color="gray"
+                size="xs"
+                radius={"lg"}
+              >
+                {currentDate.getFullYear() - 1}
+              </Button>
+            </div>
+            <div
+              style={{
+                display: "flex",
                 flexDirection: "column",
                 backgroundColor: darkmode ? "#1A1B1E" : "white",
                 color: darkmode ? "white" : "black",
@@ -201,141 +255,71 @@ export const Leaderboard = () => {
                 .filter((obj) => !map[obj.id] && (map[obj.id] = true))
                 .map((acc, index) => (
                   <>
-                    {index === 0 ? (
-                      <div
-                        style={{
-                          color: darkmode ? "white" : "black",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          backgroundColor: darkmode ? "#1A1B1E" : "white",
-                          flexDirection: "column",
-                          padding: "2rem 0",
-                          borderBottom: darkmode
-                            ? "1px solid #303030"
-                            : "1px solid #e0e0e0",
-                        }}
-                      >
+                    <NavLink
+                      style={{
+                        padding: "1rem 1.4rem",
+                      }}
+                      key={index}
+                      onClick={() => {
+                        navigate(`/${acc?.username}`);
+                      }}
+                      label={
                         <div
-                          onClick={() => {
-                            navigate(`/${acc?.username}`);
-                          }}
                           style={{
-                            cursor: "pointer",
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.5rem",
                           }}
-                          className="heartbeat-icon"
                         >
-                          <Crown color="gold" weight="fill" size={30} />{" "}
-                        </div>
-
-                        <img
-                          onClick={() => {
-                            navigate(`/${acc?.username}`);
-                          }}
-                          src={acc?.avatar}
-                          style={{
-                            border: "4px solid gold",
-                            width: "60px",
-                            height: "60px",
-                            borderRadius: "50%",
-                            cursor: "pointer",
-                          }}
-                          alt=""
-                        />
-
-                        <Text
-                          style={{
-                            cursor: "pointer",
-                          }}
-                          onClick={() => {
-                            navigate(`/${acc?.username}`);
-                          }}
-                          size={"lg"}
-                          weight={600}
-                        >
-                          {acc?.username}
-                        </Text>
-                        <Text
-                          onClick={() => {
-                            navigate(`/${acc?.username}`);
-                          }}
-                          style={{
-                            cursor: "pointer",
-                          }}
-                          size={"sm"}
-                        >
-                          {`${acc.totalpoints}
-                      points
-                      `}
-                        </Text>
-                      </div>
-                    ) : (
-                      <NavLink
-                        style={{
-                          padding: "1rem 1.4rem",
-                        }}
-                        key={index}
-                        onClick={() => {
-                          navigate(`/${acc?.username}`);
-                        }}
-                        label={
-                          <div
+                          <img
+                            src={acc?.avatar}
                             style={{
-                              display: "flex",
-                              alignItems: "center",
-                              gap: "0.5rem",
+                              width: "45px",
+                              height: "45px",
+                              borderRadius: "50%",
                             }}
-                          >
-                            <img
-                              src={acc?.avatar}
-                              style={{
-                                width: "45px",
-                                height: "45px",
-                                borderRadius: "50%",
-                              }}
-                              alt=""
-                            />
-                            <div>{acc?.username}</div>
-                            {topUser === acc?.username && <Topuserbadge />}
-                          </div>
-                        }
-                        icon={
-                          <Badge
-                            variant="filled"
-                            color={
-                              darkmode
-                                ? index === 0
-                                  ? "yellow"
-                                  : index === 1
-                                  ? "indigo"
-                                  : index === 2
-                                  ? "teal"
-                                  : "gray"
-                                : index === 0
-                                ? "orange"
+                            alt=""
+                          />
+                          <div>{acc?.username}</div>
+                          {topUser === acc?.username && <Topuserbadge />}
+                        </div>
+                      }
+                      icon={
+                        <Badge
+                          variant="filled"
+                          color={
+                            darkmode
+                              ? index === 0
+                                ? "yellow"
                                 : index === 1
                                 ? "indigo"
                                 : index === 2
                                 ? "teal"
                                 : "gray"
-                            }
-                          >
-                            {index + 1}
-                          </Badge>
-                        }
-                        rightSection={
-                          <div
-                            style={{
-                              fontSize: "0.8rem",
-                            }}
-                          >
-                            {`${acc.totalpoints}
+                              : index === 0
+                              ? "orange"
+                              : index === 1
+                              ? "indigo"
+                              : index === 2
+                              ? "teal"
+                              : "gray"
+                          }
+                        >
+                          {index + 1}
+                        </Badge>
+                      }
+                      rightSection={
+                        <div
+                          style={{
+                            fontSize: "0.8rem",
+                          }}
+                        >
+                          {`${acc.totalpoints}
                       points
                       `}
-                          </div>
-                        }
-                      />
-                    )}
+                        </div>
+                      }
+                    />
                   </>
                 ))}
             </div>

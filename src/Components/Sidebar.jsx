@@ -88,7 +88,7 @@ export const Sidebar = () => {
     const getleaderboardinfo = async () => {
       setLoading(true);
 
-      await leaderboardinfo(0)
+      await leaderboardinfo(0, "allTime")
         .then((res) => {
           setLeaderboard(res.data.leaderboard);
 

@@ -171,7 +171,7 @@ function App() {
   }, []);
   useEffect(() => {
     async function getleaderboard() {
-      await leaderboardinfo(0)
+      await leaderboardinfo(0, "allTime")
         .then((res) => {
           setLeaderboard(res.data.leaderboard);
           setLeaderboardloading(false);

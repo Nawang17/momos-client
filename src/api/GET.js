@@ -65,8 +65,8 @@ export const searchposts = async ({ searchvalue }) => {
   );
 };
 
-export const leaderboardinfo = async (page) => {
-  return await api.get(`/leaderboard?page=${page}`);
+export const leaderboardinfo = async (page, type) => {
+  return await api.get(`/leaderboard?page=${page}&type=${type}`);
 };
 
 export const getmoreprofileposts = async (userid, page) => {

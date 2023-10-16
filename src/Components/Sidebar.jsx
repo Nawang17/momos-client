@@ -29,7 +29,7 @@ const useStyles = createStyles(() => ({
     },
   },
   mainwrapper: {
-    top: "65px",
+    top: "-50px",
     position: "sticky",
 
     paddingBottom: "1rem",

@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { createStyles, ActionIcon, Skeleton, Text } from "@mantine/core";
 import { Post } from "../../Components/Post";
 import Reply from "./Reply";
-import { ArrowLeft, ChatCircleDots } from "phosphor-react";
+import { ArrowLeft, ChatCircleDots } from "@phosphor-icons/react";
 import { Comments } from "../singlecommunitypost/Comments";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/Auth";

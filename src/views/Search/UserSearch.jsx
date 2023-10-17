@@ -10,7 +10,7 @@ import {
   UserPlus,
   WarningCircle,
   X,
-} from "phosphor-react";
+} from "@phosphor-icons/react";
 import React, { useContext } from "react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";

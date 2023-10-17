@@ -12,7 +12,7 @@ import {
   UserMinus,
   UserPlus,
   WarningCircle,
-} from "phosphor-react";
+} from "@phosphor-icons/react";
 
 import { useNavigate } from "react-router-dom";
 import { Sidebar } from "../../Components/Sidebar";

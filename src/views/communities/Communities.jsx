@@ -14,7 +14,7 @@ import {
   LockLaminated,
   Users,
   UsersThree,
-} from "phosphor-react";
+} from "@phosphor-icons/react";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Sidebar } from "../../Components/Sidebar";

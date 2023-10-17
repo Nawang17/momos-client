@@ -8,7 +8,12 @@ import {
   Text,
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
-import { CaretRight, CircleWavyCheck, Crown, Info } from "phosphor-react";
+import {
+  CaretRight,
+  CircleWavyCheck,
+  Crown,
+  Info,
+} from "@phosphor-icons/react";
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/Auth";

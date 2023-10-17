@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 import confetti from "canvas-confetti";
 import { AuthContext } from "../../context/Auth";
 import GoogleLogin from "@leecheuk/react-google-login";
-import { ShieldCheck, User, WarningCircle } from "phosphor-react";
+import { ShieldCheck, User, WarningCircle } from "@phosphor-icons/react";
 
 export function Register({ socket }) {
   const navigate = useNavigate();

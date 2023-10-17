@@ -6,7 +6,7 @@ import {
   UserMinus,
   UserPlus,
   WarningCircle,
-} from "phosphor-react";
+} from "@phosphor-icons/react";
 import React, { useContext } from "react";
 import { useEffect } from "react";
 import { useState } from "react";

@@ -11,7 +11,7 @@ import {
   NavLink,
   Button,
 } from "@mantine/core";
-import { ArrowLeft, Crown, Info, WarningCircle } from "phosphor-react";
+import { ArrowLeft, Info, WarningCircle } from "@phosphor-icons/react";
 
 import { useNavigate } from "react-router-dom";
 import { Sidebar } from "../../Components/Sidebar";

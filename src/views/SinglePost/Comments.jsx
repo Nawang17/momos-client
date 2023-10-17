@@ -16,7 +16,7 @@ import {
   Heart,
   Lock,
   WarningCircle,
-} from "phosphor-react";
+} from "@phosphor-icons/react";
 import { CommentMenu } from "../../Components/CommentMenu";
 import { useNavigate } from "react-router-dom";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";

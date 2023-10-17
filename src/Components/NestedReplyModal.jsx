@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Modal, Textarea, Divider, Button, Text } from "@mantine/core";
-import { Gif, Lightning, Pencil, X, XCircle } from "phosphor-react";
+import { Gif, Lightning, Pencil, X, XCircle } from "@phosphor-icons/react";
 import { addComment, addnestedComment } from "../api/POST";
 import { showNotification } from "@mantine/notifications";
 import { AuthContext } from "../context/Auth";

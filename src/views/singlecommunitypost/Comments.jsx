@@ -16,7 +16,7 @@ import {
   Heart,
   Lock,
   WarningCircle,
-} from "phosphor-react";
+} from "@phosphor-icons/react";
 import { CommentMenu } from "../../Components/CommentMenu";
 import { useNavigate } from "react-router-dom";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
@@ -549,7 +549,7 @@ export const Comments = ({
                       <img
                         loading="lazy"
                         style={{
-                          width: "100%",
+                          height: "100%",
                           borderRadius: "0.5rem",
                         }}
                         src={comment?.gif}
@@ -791,7 +791,7 @@ export const Comments = ({
                           <img
                             loading="lazy"
                             style={{
-                              width: "100%",
+                              height: "100%",
                               borderRadius: "0.5rem",
                             }}
                             src={data?.gif}

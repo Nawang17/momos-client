@@ -17,7 +17,7 @@ import {
   UserList,
   UsersThree,
   WarningCircle,
-} from "phosphor-react";
+} from "@phosphor-icons/react";
 import Leaderboardhorizontal from "../../Components/Leaderboardhorizontal";
 
 const useStyles = createStyles(() => ({

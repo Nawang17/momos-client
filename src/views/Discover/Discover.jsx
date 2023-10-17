@@ -7,7 +7,7 @@ import {
   Text,
 } from "@mantine/core";
 
-import { MagnifyingGlass, TrendUp } from "phosphor-react";
+import { MagnifyingGlass, TrendUp } from "@phosphor-icons/react";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { gettrending } from "../../api/GET";

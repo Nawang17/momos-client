@@ -11,7 +11,7 @@ import {
   UserMinus,
   UserPlus,
   WarningCircle,
-} from "phosphor-react";
+} from "@phosphor-icons/react";
 import { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { deletePost } from "../api/DELETE";

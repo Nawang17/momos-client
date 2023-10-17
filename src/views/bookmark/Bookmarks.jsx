@@ -1,5 +1,5 @@
 import { ActionIcon, Container, createStyles, Text } from "@mantine/core";
-import { ArrowLeft } from "phosphor-react";
+import { ArrowLeft } from "@phosphor-icons/react";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getbookmarks } from "../../api/GET";

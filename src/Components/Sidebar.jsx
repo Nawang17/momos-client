@@ -14,7 +14,7 @@ import {
 import { useContext } from "react";
 import { AuthContext } from "../context/Auth";
 import { useNavigate } from "react-router-dom";
-import { CircleWavyCheck, Info } from "phosphor-react";
+import { CircleWavyCheck, Info } from "@phosphor-icons/react";
 import { getTopNews, leaderboardinfo, userlevel } from "../api/GET";
 import Topuserbadge from "../helper/Topuserbadge";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";

@@ -8,7 +8,7 @@ import {
   Text,
   Textarea,
 } from "@mantine/core";
-import { Image, UsersThree, WarningCircle } from "phosphor-react";
+import { Image, UsersThree, WarningCircle } from "@phosphor-icons/react";
 import { useDisclosure } from "@mantine/hooks";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../../context/Auth";

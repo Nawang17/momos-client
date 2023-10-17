@@ -22,7 +22,7 @@ import {
   Users,
   UsersThree,
   WarningCircle,
-} from "phosphor-react";
+} from "@phosphor-icons/react";
 import { useMediaQuery } from "@mantine/hooks";
 import { PostMenu } from "./PostMenu";
 import { useLocation, useNavigate, useParams } from "react-router-dom";

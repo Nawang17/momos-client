@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Flex, Text, Image, Input, Loader } from "@mantine/core";
-import { Globe, LockLaminated, Users } from "phosphor-react";
+import { Globe, LockLaminated, Users } from "@phosphor-icons/react";
 import { useNavigate } from "react-router-dom";
 const FindCommunity = ({ findCommunities, loading }) => {
   const [search, setSearch] = useState("");

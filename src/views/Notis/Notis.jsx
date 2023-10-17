@@ -24,7 +24,7 @@ import {
   User,
   UserPlus,
   WarningCircle,
-} from "phosphor-react";
+} from "@phosphor-icons/react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";

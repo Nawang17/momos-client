@@ -19,7 +19,7 @@ import {
   PaperPlaneRight,
   Trash,
   WarningCircle,
-} from "phosphor-react";
+} from "@phosphor-icons/react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useContext, useRef } from "react";

@@ -18,7 +18,7 @@ import {
   Lightning,
   X,
   XCircle,
-} from "phosphor-react";
+} from "@phosphor-icons/react";
 import {
   AddNewCommunityPost,
   AddNewCommunitypoll,

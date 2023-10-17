@@ -12,7 +12,7 @@ import {
   CircleWavyCheck,
   Lock,
   WarningCircle,
-} from "phosphor-react";
+} from "@phosphor-icons/react";
 
 const PostPolls = ({ post }) => {
   const [poll, setpoll] = useState(post);

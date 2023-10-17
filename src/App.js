@@ -26,7 +26,7 @@ import { Editprofile } from "./views/UserSettings/Editprofile";
 import { Search } from "./views/Search/Search";
 import { SuggestedAccs } from "./views/SuggestedAccounts/SuggestedAccs";
 import { Affix, Button, MantineProvider, Transition } from "@mantine/core";
-import { ArrowUp, HandWaving } from "phosphor-react";
+import { ArrowUp, HandWaving } from "@phosphor-icons/react";
 import { Leaderboard } from "./views/Leaderboard/Leaderboard";
 import ScrollToTop from "./helper/ScrollToTop";
 import { useWindowScroll, useIdle } from "@mantine/hooks";

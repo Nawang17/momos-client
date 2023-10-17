@@ -1,5 +1,5 @@
 import { ActionIcon, Container, createStyles, List, Text } from "@mantine/core";
-import { ArrowLeft } from "phosphor-react";
+import { ArrowLeft } from "@phosphor-icons/react";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getreposts } from "../../api/GET";

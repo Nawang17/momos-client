@@ -5,8 +5,7 @@ import { Avatar, Indicator, Text, createStyles } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import locale from "date-fns/locale/en-US";
-import { CommentMenu } from "./CommentMenu";
-import { NestedCommentMenu } from "./NestedCommentMenu";
+
 import Topuserbadge from "../helper/Topuserbadge";
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -294,7 +293,7 @@ const RepliesFeed = ({ replies, loading, setreplies }) => {
                           <img
                             loading="lazy"
                             style={{
-                              width: "100%",
+                              height: "100%",
                               borderRadius: "0.5rem",
                             }}
                             src={reply?.gif}

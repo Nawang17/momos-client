@@ -21,7 +21,7 @@ import {
   Users,
   UsersThree,
   WarningCircle,
-} from "phosphor-react";
+} from "@phosphor-icons/react";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Sidebar } from "../../Components/Sidebar";

@@ -5,7 +5,7 @@ import Hsuggestedacc from "./Hsuggestedacc";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useMediaQuery } from "@mantine/hooks";
 import { AuthContext } from "../context/Auth";
-import { SmileySad } from "phosphor-react";
+import { SmileySad } from "@phosphor-icons/react";
 
 const useStyles = createStyles(() => ({
   wrapper: {

@@ -15,7 +15,12 @@ import {
 import { Sidebar } from "../../Components/Sidebar";
 import { useNavigate } from "react-router-dom";
 import { showNotification } from "@mantine/notifications";
-import { ArrowLeft, Camera, Pencil, WarningCircle } from "phosphor-react";
+import {
+  ArrowLeft,
+  Camera,
+  Pencil,
+  WarningCircle,
+} from "@phosphor-icons/react";
 import { editprofileinfo } from "../../api/GET";
 import { updateprofileinfo } from "../../api/UPDATE";
 import { useContext } from "react";

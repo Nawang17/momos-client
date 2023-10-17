@@ -18,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 import GoogleLogin from "@leecheuk/react-google-login";
-import { ShieldCheck, User, WarningCircle } from "phosphor-react";
+import { ShieldCheck, User, WarningCircle } from "@phosphor-icons/react";
 import confetti from "canvas-confetti";
 
 export function Login({ socket }) {

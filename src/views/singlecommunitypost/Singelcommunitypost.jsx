@@ -5,7 +5,7 @@ import { SinglePostFeed } from "./SinglePostFeed";
 import { useLocation, useParams } from "react-router-dom";
 import { getSinglecommunityPost } from "../../api/GET";
 import { showNotification } from "@mantine/notifications";
-import { WarningCircle } from "phosphor-react";
+import { WarningCircle } from "@phosphor-icons/react";
 
 const useStyles = createStyles(() => ({
   wrapper: {

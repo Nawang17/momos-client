@@ -11,7 +11,7 @@ import {
   Trash,
   TrashSimple,
   WarningCircle,
-} from "phosphor-react";
+} from "@phosphor-icons/react";
 import { deleteCommunity, leaveCommunity } from "../../api/DELETE";
 
 export const CommunityProfileMenu = ({ profiledata }) => {

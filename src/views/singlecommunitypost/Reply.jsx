@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Button, Input, Text } from "@mantine/core";
-import { Lock } from "phosphor-react";
+import { Lock } from "@phosphor-icons/react";
 import { AuthContext } from "../../context/Auth";
 import { showNotification } from "@mantine/notifications";
 import NestedReplyModal from "../../Components/NestedReplyModal";

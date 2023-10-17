@@ -16,7 +16,7 @@ import {
   MoonStars,
   Sun,
   UsersThree,
-} from "phosphor-react";
+} from "@phosphor-icons/react";
 import { ProfileMenu } from "./ProfileMenu";
 import Notis from "../views/Notis/Notis";
 import { AuthContext } from "../context/Auth";

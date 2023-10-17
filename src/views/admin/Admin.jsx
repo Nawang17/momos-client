@@ -9,7 +9,7 @@ import {
   Input,
   ActionIcon,
 } from "@mantine/core";
-import { ArrowsDownUp, Trash } from "phosphor-react";
+import { ArrowsDownUp, Trash } from "@phosphor-icons/react";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/Auth";
 import { admin } from "../../api/GET";

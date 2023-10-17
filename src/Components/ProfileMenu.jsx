@@ -9,7 +9,7 @@ import {
   SignOut,
   Sun,
   UserCircle,
-} from "phosphor-react";
+} from "@phosphor-icons/react";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/Auth";

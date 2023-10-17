@@ -21,7 +21,7 @@ import {
   Lock,
   MagnifyingGlass,
   NotePencil,
-} from "phosphor-react";
+} from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 
 import { useContext } from "react";

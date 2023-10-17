@@ -19,7 +19,10 @@ import {
   UserMinus,
   CalendarBlank,
   UsersThree,
-} from "phosphor-react";
+  Bug,
+  Plant,
+  Star,
+} from "@phosphor-icons/react";
 import { useNavigate } from "react-router-dom";
 import { follow } from "../../api/POST";
 import { AuthContext } from "../../context/Auth";
@@ -358,23 +361,59 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
             <div
               style={{
                 display: "flex",
-                width: "auto",
-                alignItems: "center",
-                gap: "0.3rem",
+                justifyContent: "space-between",
               }}
             >
-              <Text weight={500} size={"lg"}>
-                {" "}
-                {userprofile}
-              </Text>
-              {topUser === userprofile && <Topuserbadge />}
-              <div>
-                {rankinfo.rank && (
-                  <Text color={"#71767b"} weight={500} size={"md"}>
-                    #{rankinfo.rank}
-                  </Text>
-                )}
+              <div
+                style={{
+                  display: "flex",
+                  width: "auto",
+                  alignItems: "center",
+                  gap: "0.3rem",
+                }}
+              >
+                <Text weight={500} size={"lg"}>
+                  {" "}
+                  {userprofile}
+                </Text>
+
+                {topUser === userprofile && <Topuserbadge />}
+                <div>
+                  {rankinfo.rank && (
+                    <Text color={"#71767b"} weight={500} size={"md"}>
+                      #{rankinfo.rank}
+                    </Text>
+                  )}
+                </div>
               </div>
+              {/* <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  backgroundColor: darkmode ? "rgb(40 39 37)" : "gray",
+                  borderRadius: "4px",
+                  gap: "0.5rem",
+                  padding: "0.2rem 0.5rem 0.2rem 0.5rem",
+                }}
+              >
+               
+                <Star
+                  style={{
+                    cursor: "pointer",
+                  }}
+                  size={20}
+                  weight="fill"
+                  color="gold"
+                />{" "}
+                <Plant
+                  style={{
+                    cursor: "pointer",
+                  }}
+                  color="#5ef90b"
+                  size={20}
+                  weight="fill"
+                />
+              </div> */}
             </div>
             {!onlineusers.includes(profileInfo?.id) &&
               profileInfo?.lastseen && (

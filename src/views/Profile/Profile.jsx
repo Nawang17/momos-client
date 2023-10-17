@@ -4,7 +4,12 @@ import { Container, createStyles, Loader, Tabs, Text } from "@mantine/core";
 import { PostFeed } from "../../Components/PostFeed";
 import { Sidebar } from "../../Components/Sidebar";
 import { ProfileHeader } from "./ProfileHeader";
-import { ChatTeardrop, Heart, Note, WarningCircle } from "phosphor-react";
+import {
+  ChatTeardrop,
+  Heart,
+  Note,
+  WarningCircle,
+} from "@phosphor-icons/react";
 import { useLocation, useParams } from "react-router-dom";
 import {
   getmorelikedposts,

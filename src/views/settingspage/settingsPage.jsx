@@ -1,5 +1,11 @@
 import { ActionIcon, Container, createStyles, NavLink } from "@mantine/core";
-import { ArrowLeft, CaretRight, Key, Palette, User } from "phosphor-react";
+import {
+  ArrowLeft,
+  CaretRight,
+  Key,
+  Palette,
+  User,
+} from "@phosphor-icons/react";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Sidebar } from "../../Components/Sidebar";

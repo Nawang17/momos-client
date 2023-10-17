@@ -1,6 +1,6 @@
 import { Popover, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { Crown } from "phosphor-react";
+import { Crown } from "@phosphor-icons/react";
 
 const Topuserbadge = () => {
   const [opened, { close, open }] = useDisclosure(false);

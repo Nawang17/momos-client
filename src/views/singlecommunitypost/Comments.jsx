@@ -549,7 +549,8 @@ export const Comments = ({
                       <img
                         loading="lazy"
                         style={{
-                          height: "100%",
+                          maxWidth: "100%",
+                          height: "auto",
                           borderRadius: "0.5rem",
                         }}
                         src={comment?.gif}
@@ -791,7 +792,8 @@ export const Comments = ({
                           <img
                             loading="lazy"
                             style={{
-                              height: "100%",
+                              maxWidth: "100%",
+                              height: "auto",
                               borderRadius: "0.5rem",
                             }}
                             src={data?.gif}

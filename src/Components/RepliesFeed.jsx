@@ -293,7 +293,8 @@ const RepliesFeed = ({ replies, loading, setreplies }) => {
                           <img
                             loading="lazy"
                             style={{
-                              height: "100%",
+                              maxWidth: "100%",
+                              height: "auto",
                               borderRadius: "0.5rem",
                             }}
                             src={reply?.gif}

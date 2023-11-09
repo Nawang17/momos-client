@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import {
   Avatar,
   Badge,
+  Button,
   createStyles,
   Flex,
   Indicator,
@@ -10,7 +11,9 @@ import {
   Tooltip,
 } from "@mantine/core";
 import {
+  CaretDown,
   CaretRight,
+  CaretUp,
   ChatCircle,
   CircleWavyCheck,
   Heart,
@@ -31,7 +34,7 @@ import Topuserbadge from "../../helper/Topuserbadge";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
-    padding: "1rem",
+    padding: "1rem 1rem 0.5rem 1rem",
     display: "flex",
     gap: "1rem",
   },
@@ -120,6 +123,7 @@ export const Comments = ({
   const [opened, setOpened] = useState(false);
   const { UserInfo, darkmode, onlineusers, topUser } = useContext(AuthContext);
   const [replypost, setReplyPost] = useState(null);
+  const [commentFoldState, setCommentFoldState] = useState({});
   const postvalue = (text) => {
     let replacedText;
 
@@ -406,6 +410,13 @@ export const Comments = ({
         }
       });
   };
+
+  const toggleFold = (commentId) => {
+    setCommentFoldState((prevState) => ({
+      ...prevState,
+      [commentId]: !prevState[commentId], // Toggle the fold state
+    }));
+  };
   return (
     <>
       {/* commentfeed */}
@@ -549,7 +560,8 @@ export const Comments = ({
                       <img
                         loading="lazy"
                         style={{
-                          width: "100%",
+                          maxWidth: "100%",
+                          height: "auto",
                           borderRadius: "0.5rem",
                         }}
                         src={comment?.gif}
@@ -628,253 +640,287 @@ export const Comments = ({
                   </div>
                 </div>
               </div>
-
-              {comment.nestedcomments.map((data) => {
-                return (
-                  <div
-                    style={{
-                      backgroundColor: darkmode ? "#1A1B1E" : "white",
-                      color: darkmode ? "white" : "black",
-                    }}
-                    key={data.id}
-                    className={classes.replywrapper}
+              {comment.nestedcomments.length > 0 && (
+                <div
+                  onClick={() => {
+                    toggleFold(comment.id);
+                  }}
+                  style={{
+                    backgroundColor: darkmode ? "#1A1B1E" : "white",
+                    color: darkmode ? "white" : "black",
+                    padding: "0 0 0.4rem 4rem",
+                  }}
+                >
+                  <Button
+                    radius="xl"
+                    color="#3ea6ff"
+                    variant="subtle"
+                    leftIcon={
+                      commentFoldState[comment.id] ? <CaretUp /> : <CaretDown />
+                    }
                   >
-                    <div className={classes.left}>
-                      <Indicator
-                        disabled={!onlineusers.includes(data?.user?.id)}
-                        style={{
-                          cursor: "pointer",
-                        }}
-                        withBorder
-                        inline
-                        color="green"
-                        size={9}
-                        offset={6}
-                        position="bottom-end"
-                      >
-                        <Avatar
-                          onClick={() => {
-                            navigate(`/${data.user.username}`);
+                    {comment.nestedcomments.length} replies
+                  </Button>
+                </div>
+              )}
+              {commentFoldState[comment.id] &&
+                comment.nestedcomments.length > 0 &&
+                comment.nestedcomments.map((data) => {
+                  return (
+                    <div
+                      style={{
+                        backgroundColor: darkmode ? "#1A1B1E" : "white",
+                        color: darkmode ? "white" : "black",
+                      }}
+                      key={data.id}
+                      className={classes.replywrapper}
+                    >
+                      <div className={classes.left}>
+                        <Indicator
+                          disabled={!onlineusers.includes(data?.user?.id)}
+                          style={{
+                            cursor: "pointer",
                           }}
-                          size="30px"
-                          radius={"xl"}
-                          src={data.user.avatar}
-                          alt=""
-                          loading="lazy"
-                        />
-                      </Indicator>
-                    </div>
-                    <div className={classes.right}>
-                      <div className={classes.header}>
-                        <div className={classes.hLeft}>
+                          withBorder
+                          inline
+                          color="green"
+                          size={9}
+                          offset={6}
+                          position="bottom-end"
+                        >
+                          <Avatar
+                            onClick={() => {
+                              navigate(`/${data.user.username}`);
+                            }}
+                            size="30px"
+                            radius={"xl"}
+                            src={data.user.avatar}
+                            alt=""
+                            loading="lazy"
+                          />
+                        </Indicator>
+                      </div>
+                      <div className={classes.right}>
+                        <div className={classes.header}>
+                          <div className={classes.hLeft}>
+                            <div
+                              style={{
+                                display: "flex",
+                                gap: "0.1rem",
+                                alignItems: "center",
+                              }}
+                            >
+                              <Text
+                                onClick={() => {
+                                  navigate(`/${data.user.username}`);
+                                }}
+                                style={{ cursor: "pointer" }}
+                                weight={500}
+                                size="14px"
+                              >
+                                {data?.user.username}
+                              </Text>
+                              {topUser === data.user.username && (
+                                <Topuserbadge />
+                              )}
+                              {data?.user.verified &&
+                                (data?.user.id !== 5 ? (
+                                  <CircleWavyCheck
+                                    size={17}
+                                    color="#0ba6da"
+                                    weight="fill"
+                                  />
+                                ) : (
+                                  <CircleWavyCheck
+                                    size={17}
+                                    color="#0ba6da"
+                                    weight="fill"
+                                  />
+                                ))}
+                              {postuser === data?.user.username && (
+                                <Popover
+                                  zIndex={1000}
+                                  width={"auto"}
+                                  position="top"
+                                  withArrow
+                                  padding={0}
+                                  shadow="md"
+                                >
+                                  <Popover.Target>
+                                    <Tooltip label="Original poster">
+                                      <Badge
+                                        style={{
+                                          cursor: "pointer",
+                                        }}
+                                        color="gray"
+                                        variant="filled"
+                                        size="xs"
+                                      >
+                                        OP
+                                      </Badge>
+                                    </Tooltip>
+                                  </Popover.Target>
+                                  <Popover.Dropdown>
+                                    <Text size="sm">Original poster</Text>
+                                  </Popover.Dropdown>
+                                </Popover>
+                              )}
+                              <Text color="dimmed">·</Text>
+                              <Text color="dimmed" size="13px">
+                                {formatDistanceToNowStrict(
+                                  new Date(data?.createdAt),
+                                  {
+                                    locale: {
+                                      ...locale,
+                                      formatDistance,
+                                    },
+                                  }
+                                )}
+                              </Text>
+                              {data?.createdAt !== data?.updatedAt && (
+                                <Text color="dimmed" size="13px">
+                                  (edited)
+                                </Text>
+                              )}
+                              <Flex align={"center"}>
+                                <CaretRight
+                                  size={14}
+                                  weight="fill"
+                                  color="gray"
+                                />
+                                <Text
+                                  onClick={() => {
+                                    navigate(
+                                      `/${data?.repliedtouser.username}`
+                                    );
+                                  }}
+                                  style={{
+                                    cursor: "pointer",
+                                  }}
+                                  color="dimmed"
+                                  size="13px"
+                                  weight={500}
+                                >
+                                  {data?.repliedtouser.username}
+                                </Text>
+                              </Flex>
+                            </div>
+                          </div>
+                          <div className={classes.hRight}>
+                            <NestedCommentMenu
+                              setComments={setComments}
+                              commentuser={data?.user.username}
+                              commentId={data?.id}
+                              replyingtoId={data.commentId}
+                              userid={data.userId}
+                              nestedcommentinfo={data}
+                            />
+                          </div>
+                        </div>
+                        <div className={classes.body}>
+                          {data?.text && (
+                            <Text size="15px">{postvalue(data?.text)}</Text>
+                          )}
+                        </div>
+                        {data?.gif && (
+                          <div
+                            style={{
+                              padding: "0.3rem 0",
+                            }}
+                          >
+                            <img
+                              loading="lazy"
+                              style={{
+                                maxWidth: "100%",
+                                height: "auto",
+                                borderRadius: "0.5rem",
+                              }}
+                              src={data?.gif}
+                              alt=""
+                            />
+                          </div>
+                        )}
+
+                        <div style={{ display: "flex", gap: "0.8rem" }}>
                           <div
                             style={{
                               display: "flex",
-                              gap: "0.1rem",
                               alignItems: "center",
+                              gap: "0.2rem",
+                              cursor: "pointer",
+                            }}
+                            onClick={() => {
+                              handlenestedlikescomment(
+                                data?.id,
+                                data?.commentId
+                              );
                             }}
                           >
+                            {!data?.nestedcommentlikes.find((like) => {
+                              return (
+                                like?.user?.username === UserInfo?.username
+                              );
+                            }) ? (
+                              <Heart color="gray" weight="light" size={18} />
+                            ) : (
+                              <Heart
+                                color={"rgb(255, 69, 0)"}
+                                weight="fill"
+                                size={18}
+                              />
+                            )}
                             <Text
-                              onClick={() => {
-                                navigate(`/${data.user.username}`);
-                              }}
-                              style={{ cursor: "pointer" }}
-                              weight={500}
+                              className="unclickablevalue"
+                              color={
+                                !data?.nestedcommentlikes.find((like) => {
+                                  return (
+                                    like?.user?.username === UserInfo?.username
+                                  );
+                                })
+                                  ? "rgb(134, 142, 150)"
+                                  : "rgb(255, 69, 0)"
+                              }
                               size="14px"
                             >
-                              {data?.user.username}
+                              {data?.nestedcommentlikes?.length}
                             </Text>
-                            {topUser === data.user.username && <Topuserbadge />}
-                            {data?.user.verified &&
-                              (data?.user.id !== 5 ? (
-                                <CircleWavyCheck
-                                  size={17}
-                                  color="#0ba6da"
-                                  weight="fill"
-                                />
-                              ) : (
-                                <CircleWavyCheck
-                                  size={17}
-                                  color="#0ba6da"
-                                  weight="fill"
-                                />
-                              ))}
-                            {postuser === data?.user.username && (
-                              <Popover
-                                zIndex={1000}
-                                width={"auto"}
-                                position="top"
-                                withArrow
-                                padding={0}
-                                shadow="md"
-                              >
-                                <Popover.Target>
-                                  <Tooltip label="Original poster">
-                                    <Badge
-                                      style={{
-                                        cursor: "pointer",
-                                      }}
-                                      color="gray"
-                                      variant="filled"
-                                      size="xs"
-                                    >
-                                      OP
-                                    </Badge>
-                                  </Tooltip>
-                                </Popover.Target>
-                                <Popover.Dropdown>
-                                  <Text size="sm">Original poster</Text>
-                                </Popover.Dropdown>
-                              </Popover>
-                            )}
-                            <Text color="dimmed">·</Text>
-                            <Text color="dimmed" size="13px">
-                              {formatDistanceToNowStrict(
-                                new Date(data?.createdAt),
-                                {
-                                  locale: {
-                                    ...locale,
-                                    formatDistance,
-                                  },
-                                }
-                              )}
-                            </Text>
-                            {data?.createdAt !== data?.updatedAt && (
-                              <Text color="dimmed" size="13px">
-                                (edited)
-                              </Text>
-                            )}
-                            <Flex align={"center"}>
-                              <CaretRight
-                                size={14}
-                                weight="fill"
-                                color="gray"
-                              />
-                              <Text
-                                onClick={() => {
-                                  navigate(`/${data?.repliedtouser.username}`);
-                                }}
-                                style={{
-                                  cursor: "pointer",
-                                }}
-                                color="dimmed"
-                                size="13px"
-                                weight={500}
-                              >
-                                {data?.repliedtouser.username}
-                              </Text>
-                            </Flex>
                           </div>
-                        </div>
-                        <div className={classes.hRight}>
-                          <NestedCommentMenu
-                            setComments={setComments}
-                            commentuser={data?.user.username}
-                            commentId={data?.id}
-                            replyingtoId={data.commentId}
-                            userid={data.userId}
-                            nestedcommentinfo={data}
-                          />
-                        </div>
-                      </div>
-                      <div className={classes.body}>
-                        {data?.text && (
-                          <Text size="15px">{postvalue(data?.text)}</Text>
-                        )}
-                      </div>
-                      {data?.gif && (
-                        <div
-                          style={{
-                            padding: "0.3rem 0",
-                          }}
-                        >
-                          <img
-                            loading="lazy"
-                            style={{
-                              width: "100%",
-                              borderRadius: "0.5rem",
+                          <div
+                            onClick={() => {
+                              if (!UserInfo) {
+                                showNotification({
+                                  color: "red",
+                                  icon: <Lock size={18} />,
+                                  title: "Login required",
+                                  autoClose: 3000,
+                                });
+                              } else {
+                                setOpened(!opened);
+                                setReplyPost({
+                                  replyingto: data.user.username,
+                                  postId: data.postId,
+                                  replyingtouserid: data.userId,
+                                  commentId: data.commentId,
+                                });
+                              }
                             }}
-                            src={data?.gif}
-                            alt=""
-                          />
-                        </div>
-                      )}
-
-                      <div style={{ display: "flex", gap: "0.8rem" }}>
-                        <div
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "0.2rem",
-                            cursor: "pointer",
-                          }}
-                          onClick={() => {
-                            handlenestedlikescomment(data?.id, data?.commentId);
-                          }}
-                        >
-                          {!data?.nestedcommentlikes.find((like) => {
-                            return like?.user?.username === UserInfo?.username;
-                          }) ? (
-                            <Heart color="gray" weight="light" size={18} />
-                          ) : (
-                            <Heart
-                              color={"rgb(255, 69, 0)"}
-                              weight="fill"
-                              size={18}
-                            />
-                          )}
-                          <Text
-                            className="unclickablevalue"
-                            color={
-                              !data?.nestedcommentlikes.find((like) => {
-                                return (
-                                  like?.user?.username === UserInfo?.username
-                                );
-                              })
-                                ? "rgb(134, 142, 150)"
-                                : "rgb(255, 69, 0)"
-                            }
-                            size="14px"
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "0.2rem",
+                              cursor: "pointer",
+                            }}
                           >
-                            {data?.nestedcommentlikes?.length}
-                          </Text>
-                        </div>
-                        <div
-                          onClick={() => {
-                            if (!UserInfo) {
-                              showNotification({
-                                color: "red",
-                                icon: <Lock size={18} />,
-                                title: "Login required",
-                                autoClose: 3000,
-                              });
-                            } else {
-                              setOpened(!opened);
-                              setReplyPost({
-                                replyingto: data.user.username,
-                                postId: data.postId,
-                                replyingtouserid: data.userId,
-                                commentId: data.commentId,
-                              });
-                            }
-                          }}
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "0.2rem",
-                            cursor: "pointer",
-                          }}
-                        >
-                          <ChatCircle color="gray" weight="light" size={18} />
-                          <Text color="dimmed" weight={"500"} size="14px">
-                            Reply
-                          </Text>
+                            <ChatCircle color="gray" weight="light" size={18} />
+                            <Text color="dimmed" weight={"500"} size="14px">
+                              Reply
+                            </Text>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
             </div>
           );
         })}

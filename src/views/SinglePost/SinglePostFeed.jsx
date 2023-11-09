@@ -3,7 +3,7 @@ import { createStyles, ActionIcon, Skeleton, Text } from "@mantine/core";
 import { Post } from "../../Components/Post";
 import Reply from "./Reply";
 import { ArrowLeft, ChatCircleDots } from "@phosphor-icons/react";
-import { Comments } from "../singlecommunitypost/Comments";
+import { Comments } from "../SinglePost/Comments";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/Auth";
 import { useState } from "react";

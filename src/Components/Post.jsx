@@ -1196,10 +1196,23 @@ export const Post = ({ post, setPosts, comments }) => {
               </Button>
             )}
           </div>
+          {/* Check if the current page path is the home page ("/") or a specific community page ("/community/{name}")
+ If true, proceed to the next set of conditions */}
           {(pathname === "/" || pathname === `/community/${name}`) &&
-            post?.comments.filter((val) => {
+            /* Check if there are more than 1 comments with non-null text and no gif in the post
+             */
+            (post?.comments.filter((val) => {
               return val?.text !== null && val?.gif === null;
-            }).length > 1 && (
+            }).length > 1 ||
+              /* OR
+ Check if the most recent comment's text is non-null and the comment was created within the last 10 days */
+              (post?.comments[post?.comments.length - 1]?.text !== null &&
+                // Check if the difference between the current date and the recent comment's createdAt date is less than 10 days
+                new Date() -
+                  new Date(
+                    post?.comments[post?.comments.length - 1]?.createdAt
+                  ) <
+                  10 * 24 * 60 * 60 * 1000)) && ( // 10 days in milliseconds
               <>
                 <div
                   onClick={() => {
@@ -1221,13 +1234,8 @@ export const Post = ({ post, setPosts, comments }) => {
                   }}
                 >
                   {post?.comments
-                    .filter((val) => {
-                      return val?.text !== null && val?.gif === null;
-                    })
-                    .sort((a, b) => {
-                      return b?.commentlikes.length - a?.commentlikes.length;
-                    })
-                    .slice(0, post?.comments.length === 2 ? 1 : 2)
+
+                    .slice(post?.comments.length === 2 ? -1 : -2)
                     .map((com) => {
                       if (com?.text === null && com?.gif) {
                         return null;
@@ -1341,7 +1349,8 @@ export const Post = ({ post, setPosts, comments }) => {
                           </div>
                         </div>
                       );
-                    })}
+                    })
+                    .reverse()}
                 </div>
 
                 <Text

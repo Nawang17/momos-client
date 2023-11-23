@@ -11,13 +11,7 @@ import {
 import { AuthContext } from "../../context/Auth";
 import { showNotification } from "@mantine/notifications";
 import InfiniteScroll from "react-infinite-scroll-component";
-import {
-  ClockCounterClockwise,
-  Sparkle,
-  UserList,
-  UsersThree,
-  WarningCircle,
-} from "@phosphor-icons/react";
+import { WarningCircle } from "@phosphor-icons/react";
 import Leaderboardhorizontal from "../../Components/Leaderboardhorizontal";
 
 const useStyles = createStyles(() => ({

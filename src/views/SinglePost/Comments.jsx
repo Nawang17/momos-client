@@ -469,16 +469,47 @@ export const Comments = ({
                 <div className={classes.right}>
                   <div className={classes.header}>
                     <div className={classes.hLeft}>
-                      <Text
-                        style={{ cursor: "pointer" }}
-                        onClick={() => {
-                          navigate(`/${comment.user.username}`);
-                        }}
-                        weight={500}
-                        size="15px"
-                      >
-                        {comment.user.username}
-                      </Text>
+                      {postuser === comment?.user.username ? (
+                        <Popover
+                          zIndex={1000}
+                          width={"auto"}
+                          position="top"
+                          withArrow
+                          padding={0}
+                          shadow="md"
+                        >
+                          <Popover.Target>
+                            <Tooltip label="Original poster">
+                              <Badge
+                                onClick={() => {
+                                  navigate(`/${comment.user.username}`);
+                                }}
+                                style={{
+                                  cursor: "pointer",
+                                  textTransform: "none",
+                                }}
+                                color="gray"
+                                variant="filled"
+                                size="md"
+                              >
+                                {comment?.user.username}
+                              </Badge>
+                            </Tooltip>
+                          </Popover.Target>
+                        </Popover>
+                      ) : (
+                        <Text
+                          onClick={() => {
+                            navigate(`/${comment.user.username}`);
+                          }}
+                          style={{ cursor: "pointer" }}
+                          weight={500}
+                          size="15px"
+                        >
+                          {comment?.user.username}
+                        </Text>
+                      )}
+
                       {topUser === comment.user.username && <Topuserbadge />}
                       {comment?.user.verified &&
                         (comment?.user.id !== 5 ? (
@@ -494,34 +525,7 @@ export const Comments = ({
                             weight="fill"
                           />
                         ))}
-                      {postuser === comment?.user?.username && (
-                        <Popover
-                          zIndex={1000}
-                          width={"auto"}
-                          position="top"
-                          withArrow
-                          padding={0}
-                          shadow="md"
-                        >
-                          <Popover.Target>
-                            <Tooltip label="Original poster">
-                              <Badge
-                                style={{
-                                  cursor: "pointer",
-                                }}
-                                color="gray"
-                                variant="filled"
-                                size="xs"
-                              >
-                                OP
-                              </Badge>
-                            </Tooltip>
-                          </Popover.Target>
-                          <Popover.Dropdown>
-                            <Text size="sm">Original poster</Text>
-                          </Popover.Dropdown>
-                        </Popover>
-                      )}
+
                       <Text color="dimmed">·</Text>
                       <Text color="dimmed" size="13px">
                         {formatDistanceToNowStrict(
@@ -710,16 +714,47 @@ export const Comments = ({
                                 alignItems: "center",
                               }}
                             >
-                              <Text
-                                onClick={() => {
-                                  navigate(`/${data.user.username}`);
-                                }}
-                                style={{ cursor: "pointer" }}
-                                weight={500}
-                                size="14px"
-                              >
-                                {data?.user.username}
-                              </Text>
+                              {postuser === data?.user.username ? (
+                                <Popover
+                                  zIndex={1000}
+                                  width={"auto"}
+                                  position="top"
+                                  withArrow
+                                  padding={0}
+                                  shadow="md"
+                                >
+                                  <Popover.Target>
+                                    <Tooltip label="Original poster">
+                                      <Badge
+                                        onClick={() => {
+                                          navigate(`/${data.user.username}`);
+                                        }}
+                                        style={{
+                                          cursor: "pointer",
+                                          textTransform: "none",
+                                        }}
+                                        color="gray"
+                                        variant="filled"
+                                        size="md"
+                                      >
+                                        {data?.user.username}
+                                      </Badge>
+                                    </Tooltip>
+                                  </Popover.Target>
+                                </Popover>
+                              ) : (
+                                <Text
+                                  onClick={() => {
+                                    navigate(`/${data.user.username}`);
+                                  }}
+                                  style={{ cursor: "pointer" }}
+                                  weight={500}
+                                  size="14px"
+                                >
+                                  {data?.user.username}
+                                </Text>
+                              )}
+
                               {topUser === data.user.username && (
                                 <Topuserbadge />
                               )}
@@ -737,34 +772,7 @@ export const Comments = ({
                                     weight="fill"
                                   />
                                 ))}
-                              {postuser === data?.user.username && (
-                                <Popover
-                                  zIndex={1000}
-                                  width={"auto"}
-                                  position="top"
-                                  withArrow
-                                  padding={0}
-                                  shadow="md"
-                                >
-                                  <Popover.Target>
-                                    <Tooltip label="Original poster">
-                                      <Badge
-                                        style={{
-                                          cursor: "pointer",
-                                        }}
-                                        color="gray"
-                                        variant="filled"
-                                        size="xs"
-                                      >
-                                        OP
-                                      </Badge>
-                                    </Tooltip>
-                                  </Popover.Target>
-                                  <Popover.Dropdown>
-                                    <Text size="sm">Original poster</Text>
-                                  </Popover.Dropdown>
-                                </Popover>
-                              )}
+
                               <Text color="dimmed">·</Text>
                               <Text color="dimmed" size="13px">
                                 {formatDistanceToNowStrict(

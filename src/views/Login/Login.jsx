@@ -73,7 +73,7 @@ export function Login({ socket }) {
     setloading(true);
     seterror("");
 
-    await LoginReq("Demo", "demo")
+    await LoginReq("Demo", "demo123")
       .then(async (res) => {
         setUserInfo(res.data.user);
         localStorage.setItem("token", res.data.token);

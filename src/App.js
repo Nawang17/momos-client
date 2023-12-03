@@ -447,7 +447,7 @@ function App() {
 
           <ScrollToTop />
 
-          <SettingsPage />
+          <SettingsPage socket={socket} />
         </>
       ),
     },

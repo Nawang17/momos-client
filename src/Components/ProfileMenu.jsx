@@ -3,6 +3,7 @@ import { Avatar, Menu } from "@mantine/core";
 import {
   BookmarkSimple,
   Crosshair,
+  Gear,
   Info,
   MoonStars,
   SignIn,
@@ -70,6 +71,24 @@ export function ProfileMenu({ socket }) {
             <Menu.Divider />
             <Menu.Item
               onClick={() => {
+                navigate("/settings");
+              }}
+              icon={<Gear size={20} />}
+            >
+              Settings
+            </Menu.Item>
+            <Menu.Divider />
+            <Menu.Item
+              onClick={() => {
+                navigate("/bookmarks");
+              }}
+              icon={<BookmarkSimple size={20} />}
+            >
+              Bookmarks
+            </Menu.Item>
+            <Menu.Divider />
+            <Menu.Item
+              onClick={() => {
                 setdarkmode(!darkmode);
                 if (darkmode) {
                   document.body.style.backgroundColor = "#f0f2f5";
@@ -89,15 +108,7 @@ export function ProfileMenu({ socket }) {
               {darkmode ? "Switch to Light Mode" : "Switch to Dark Mode"}
             </Menu.Item>
             <Menu.Divider />
-            <Menu.Item
-              onClick={() => {
-                navigate("/bookmarks");
-              }}
-              icon={<BookmarkSimple size={20} />}
-            >
-              Bookmarks
-            </Menu.Item>
-            <Menu.Divider />
+
             {UserInfo?.username === "katoph" && (
               <>
                 <Menu.Item

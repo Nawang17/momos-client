@@ -76,3 +76,23 @@ export const updateUserStatus = async (userId) => {
     }
   );
 };
+export const updateUserPassword = async (
+  CurrentPassword,
+  NewPassword,
+  ConfirmNewPassword
+) => {
+  return await api.put(
+    "/usersettings/updatePassword",
+    {
+      CurrentPassword,
+      NewPassword,
+      ConfirmNewPassword,
+    },
+
+    {
+      headers: {
+        Authorization: `${localStorage.getItem("token")}`,
+      },
+    }
+  );
+};

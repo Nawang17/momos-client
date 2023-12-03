@@ -48,3 +48,14 @@ export const deleteChatmessage = async (msgid) => {
     },
   });
 };
+export const deleteAccount = async (currentPassword) => {
+  return await api.delete(
+    `/usersettings/deleteAccount/${currentPassword}`,
+
+    {
+      headers: {
+        Authorization: `${localStorage.getItem("token")}`,
+      },
+    }
+  );
+};

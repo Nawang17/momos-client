@@ -52,7 +52,7 @@ export const SettingsPage = ({ socket }) => {
     if (!UserInfo) {
       navigate("/");
     }
-  }, []);
+  }, [UserInfo]);
   const handlelogout = () => {
     socket.emit("removeOnlinestatus", { token: localStorage.getItem("token") });
     setUserInfo(null);

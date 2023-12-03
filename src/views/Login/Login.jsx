@@ -255,7 +255,7 @@ export function Login({ socket }) {
             style={{ marginTop: "15px" }}
             onClick={() => {
               setPassword("demo");
-              setUsername("Demo");
+              setUsername("demo123");
               demologin();
             }}
             variant="default"

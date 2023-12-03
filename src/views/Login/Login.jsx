@@ -254,8 +254,9 @@ export function Login({ socket }) {
           <Button
             style={{ marginTop: "15px" }}
             onClick={() => {
-              setPassword("demo");
-              setUsername("demo123");
+              setUsername("demo");
+
+              setPassword("demo123");
               demologin();
             }}
             variant="default"

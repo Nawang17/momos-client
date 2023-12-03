@@ -103,25 +103,26 @@ export const SettingsPage = ({ socket }) => {
             label="Edit profile"
             rightSection={<CaretRight size="0.8rem" stroke={1.5} />}
           />
-          <Divider my="sm" />
-          <Text pl={13} pb={5} weight={700}>
-            Security
-          </Text>
-          {/* <ChangeEmail /> */}
-
           <ChangePassword />
           <Divider my="sm" />
+          {/* <Text pl={13} pb={5} weight={700}>
+            Security
+          </Text>
+          <ChangeEmail />
+
+          <ChangePassword />
+          <Divider my="sm" /> */}
           <Text pl={13} pb={5} weight={700}>
             Other
           </Text>
           <Apperance />
 
-          <DeleteAccount socket={socket} />
-          <NavLink
+          {/* <DeleteAccount socket={socket} /> */}
+          {/* <NavLink
             color="red"
             onClick={() => handlelogout()}
             label={`Log out @${UserInfo?.username}`}
-          />
+          /> */}
         </div>
       </div>
 

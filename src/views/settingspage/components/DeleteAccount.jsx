@@ -101,7 +101,7 @@ const DeleteAccount = ({ socket }) => {
           <PasswordInput
             value={currentPassword}
             onChange={(e) => setCurrentPassword(e.currentTarget.value)}
-            label="CurrentPassword"
+            label="Current Password"
           />
           <Button
             disabled={currentPassword === ""}

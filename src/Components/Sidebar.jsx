@@ -29,7 +29,6 @@ const useStyles = createStyles(() => ({
     },
   },
   mainwrapper: {
-    top: "-50px",
     position: "sticky",
 
     paddingBottom: "1rem",
@@ -156,7 +155,12 @@ export const Sidebar = () => {
 
   return (
     <div className={classes.wrapper}>
-      <div className={classes.mainwrapper}>
+      <div
+        style={{
+          top: UserInfo ? "-50px" : "69px",
+        }}
+        className={classes.mainwrapper}
+      >
         {UserInfo && (
           <div
             style={{

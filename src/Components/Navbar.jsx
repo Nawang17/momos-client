@@ -166,7 +166,7 @@ export function Navbar({ socket }) {
           <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
             {UserInfo && (
               <>
-                {width > 500 && (
+                {width > 499 && (
                   <>
                     {" "}
                     <ActionIcon

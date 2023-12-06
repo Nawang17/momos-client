@@ -511,7 +511,7 @@ function App() {
           position={width < 500 ? "top-center" : "bottom-center"}
         >
           <div className="App">
-            <Affix position={{ bottom: 70, right: 20 }}>
+            {/* <Affix position={{ bottom: 70, right: 20 }}>
               <Transition transition="slide-up" mounted={scroll.y > 0}>
                 {(transitionStyles) => (
                   <Button
@@ -526,7 +526,7 @@ function App() {
                   </Button>
                 )}
               </Transition>
-            </Affix>
+            </Affix> */}
             <AuthContext.Provider
               value={{
                 UserInfo,

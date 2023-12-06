@@ -9,12 +9,13 @@ import {
   MagnifyingGlass,
   UsersThree,
 } from "@phosphor-icons/react";
-import { useViewportSize } from "@mantine/hooks";
+import { useViewportSize, useWindowScroll } from "@mantine/hooks";
 const BottomBar = () => {
   const navigate = useNavigate();
   const { height, width } = useViewportSize();
   const { pathname } = useLocation();
   const { UserInfo, darkmode } = useContext(AuthContext);
+  const [scroll, scrollTo] = useWindowScroll();
 
   return (
     <div>
@@ -28,7 +29,7 @@ const BottomBar = () => {
             color: "white",
             display: "flex",
             justifyContent: "space-around",
-            padding: "15px 0px",
+            padding: scroll.y > 0 ? "15px 0px 35px 0" : "15px 0px",
             borderTop: !darkmode ? "1px solid #e9ecef" : "1px solid #2C2E33",
             zIndex: 999,
           }}

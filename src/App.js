@@ -29,7 +29,7 @@ import { Affix, Button, MantineProvider, Transition } from "@mantine/core";
 import { ArrowUp, HandWaving } from "@phosphor-icons/react";
 import { Leaderboard } from "./views/Leaderboard/Leaderboard";
 import ScrollToTop from "./helper/ScrollToTop";
-import { useWindowScroll, useIdle } from "@mantine/hooks";
+import { useWindowScroll, useIdle, useViewportSize } from "@mantine/hooks";
 import { About } from "./Components/About";
 import { Chat } from "./views/Chat/Chat";
 import { Reposts } from "./views/Reposts/Reposts";
@@ -44,6 +44,7 @@ import { Communities } from "./views/communities/Communities";
 import { CommunityProfile } from "./views/communities/CommunityProfile";
 import { Singlecommunitypost } from "./views/singlecommunitypost/Singelcommunitypost";
 import { ModalsProvider } from "@mantine/modals";
+import BottomBar from "./Components/BottomBar";
 
 ReactGA.initialize("G-YJSVSC17CL");
 
@@ -67,6 +68,8 @@ function App() {
   const [onlineusers, setonlineusers] = useState([]);
   const [onlinelist, setonlinelist] = useState([]);
   const [bookmarkIds, setbookmarkIds] = useState([]);
+  const { height, width } = useViewportSize();
+
   useEffect(() => {
     socket.on("connect", () => {
       setIsConnected(true);
@@ -216,6 +219,9 @@ function App() {
       setbookmarkIds([]);
     }
   }, [UserInfo]);
+
+  //put <BottomBar /> for each route at end of element
+
   const router = createBrowserRouter([
     {
       path: "/communitypost/:postid",
@@ -226,6 +232,7 @@ function App() {
           <ScrollToTop />
 
           <Singlecommunitypost />
+          <BottomBar />
         </>
       ),
       errorElement: <RouteError />,
@@ -239,6 +246,7 @@ function App() {
           <ScrollToTop />
 
           <Communities />
+          <BottomBar />
         </>
       ),
       errorElement: <RouteError />,
@@ -252,6 +260,7 @@ function App() {
           <ScrollToTop />
 
           <CommunityProfile />
+          <BottomBar />
         </>
       ),
       errorElement: <RouteError />,
@@ -265,6 +274,7 @@ function App() {
           <ScrollToTop />
 
           <Discover />
+          <BottomBar />
         </>
       ),
       errorElement: <RouteError />,
@@ -280,6 +290,7 @@ function App() {
           {!UserInfo && !loading && <Hero darkmode={darkmode} />}
 
           <Home />
+          <BottomBar />
         </>
       ),
       errorElement: <RouteError />,
@@ -293,6 +304,7 @@ function App() {
           <ScrollToTop />
 
           <Search />
+          <BottomBar />
         </>
       ),
       errorElement: <RouteError />,
@@ -307,6 +319,7 @@ function App() {
           <Navbar socket={socket} />
 
           <SinglePost />
+          <BottomBar />
         </>
       ),
       errorElement: <RouteError />,
@@ -321,6 +334,7 @@ function App() {
           <Navbar socket={socket} />
 
           <Profile />
+          <BottomBar />
         </>
       ),
       errorElement: <RouteError />,
@@ -334,6 +348,7 @@ function App() {
           <Navbar socket={socket} />
 
           <Reposts />
+          <BottomBar />
         </>
       ),
       errorElement: <RouteError />,
@@ -347,6 +362,7 @@ function App() {
           <ScrollToTop />
 
           <SuggestedAccs />
+          <BottomBar />
         </>
       ),
       errorElement: <RouteError />,
@@ -360,6 +376,7 @@ function App() {
           <ScrollToTop />
 
           <Leaderboard />
+          <BottomBar />
         </>
       ),
       errorElement: <RouteError />,
@@ -373,6 +390,7 @@ function App() {
           <ScrollToTop />
 
           <Editprofile />
+          <BottomBar />
         </>
       ),
       errorElement: <RouteError />,
@@ -412,6 +430,7 @@ function App() {
           <ScrollToTop />
 
           <About />
+          <BottomBar />
         </>
       ),
     },
@@ -424,6 +443,7 @@ function App() {
           <ScrollToTop />
 
           <Chat socket={socket} />
+          <BottomBar />
         </>
       ),
     },
@@ -436,6 +456,7 @@ function App() {
           <ScrollToTop />
 
           <Chatrooms />
+          <BottomBar />
         </>
       ),
     },
@@ -460,6 +481,7 @@ function App() {
           <ScrollToTop />
 
           <Bookmarks />
+          <BottomBar />
         </>
       ),
     },
@@ -472,6 +494,7 @@ function App() {
           <ScrollToTop />
 
           <Admin />
+          <BottomBar />
         </>
       ),
     },
@@ -481,9 +504,14 @@ function App() {
   return (
     <MantineProvider theme={{ colorScheme: darkmode ? "dark" : "light" }}>
       <ModalsProvider>
-        <NotificationsProvider position="bottom-center">
+        <NotificationsProvider
+          style={{
+            zIndex: 999,
+          }}
+          position={width < 500 ? "top-center" : "bottom-center"}
+        >
           <div className="App">
-            <Affix position={{ bottom: 20, right: 20 }}>
+            <Affix position={{ bottom: 70, right: 20 }}>
               <Transition transition="slide-up" mounted={scroll.y > 0}>
                 {(transitionStyles) => (
                   <Button

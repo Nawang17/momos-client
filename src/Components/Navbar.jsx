@@ -20,6 +20,7 @@ import {
 import { ProfileMenu } from "./ProfileMenu";
 import Notis from "../views/Notis/Notis";
 import { AuthContext } from "../context/Auth";
+import { useViewportSize } from "@mantine/hooks";
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -75,6 +76,7 @@ export function Navbar({ socket }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [noti, setnoti] = useState(null);
+  const { height, width } = useViewportSize();
   useEffect(() => {
     socket.on("newnotification", (data) => {
       setnoti(data);
@@ -164,55 +166,66 @@ export function Navbar({ socket }) {
           <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
             {UserInfo && (
               <>
-                <ActionIcon
-                  onClick={() => {
-                    if (pathname === "/") {
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                    } else {
-                      navigate("/");
-                    }
-                  }}
-                >
-                  <House
-                    weight={pathname === "/" ? "fill" : "regular"}
-                    size={28}
-                    color={darkmode ? "white" : "black"}
-                  />
-                </ActionIcon>
+                {width > 500 && (
+                  <>
+                    {" "}
+                    <ActionIcon
+                      onClick={() => {
+                        if (pathname === "/") {
+                          window.scrollTo({ top: 0, behavior: "smooth" });
+                        } else {
+                          navigate("/");
+                        }
+                      }}
+                    >
+                      <House
+                        weight={pathname === "/" ? "fill" : "regular"}
+                        size={28}
+                        color={darkmode ? "white" : "black"}
+                      />
+                    </ActionIcon>
+                    <ActionIcon
+                      onClick={() => {
+                        navigate("/discover");
+                      }}
+                    >
+                      <MagnifyingGlass
+                        weight={pathname === "/discover" ? "fill" : "regular"}
+                        color={darkmode ? "white" : "black"}
+                        size={28}
+                      />
+                    </ActionIcon>
+                    <ActionIcon>
+                      <ChatCircleDots
+                        weight={
+                          pathname === "/chatrooms" ||
+                          pathname.split("/")[1] === "chat"
+                            ? "fill"
+                            : "regular"
+                        }
+                        onClick={() => {
+                          navigate("/chatrooms");
+                        }}
+                        color={darkmode ? "white" : "black"}
+                        size={28}
+                      />
+                    </ActionIcon>
+                    <ActionIcon
+                      onClick={() => {
+                        navigate("/communities");
+                      }}
+                    >
+                      <UsersThree
+                        weight={
+                          pathname === "/communities" ? "fill" : "regular"
+                        }
+                        color={darkmode ? "white" : "black"}
+                        size={28}
+                      />
+                    </ActionIcon>
+                  </>
+                )}
 
-                <ActionIcon
-                  onClick={() => {
-                    navigate("/discover");
-                  }}
-                >
-                  <MagnifyingGlass
-                    weight={pathname === "/discover" ? "fill" : "regular"}
-                    color={darkmode ? "white" : "black"}
-                    size={28}
-                  />
-                </ActionIcon>
-
-                <ActionIcon>
-                  <ChatCircleDots
-                    weight={pathname === "/chatrooms" ? "fill" : "regular"}
-                    onClick={() => {
-                      navigate("/chatrooms");
-                    }}
-                    color={darkmode ? "white" : "black"}
-                    size={28}
-                  />
-                </ActionIcon>
-                <ActionIcon
-                  onClick={() => {
-                    navigate("/communities");
-                  }}
-                >
-                  <UsersThree
-                    weight={pathname === "/communities" ? "fill" : "regular"}
-                    color={darkmode ? "white" : "black"}
-                    size={28}
-                  />
-                </ActionIcon>
                 <Notis darkmode={darkmode} />
               </>
             )}

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useContext } from "react";
 import { AuthContext } from "../context/Auth";
 import { ActionIcon } from "@mantine/core";
@@ -9,14 +9,15 @@ import {
   MagnifyingGlass,
   UsersThree,
 } from "@phosphor-icons/react";
-import { useViewportSize, useWindowScroll } from "@mantine/hooks";
+import { useViewportSize } from "@mantine/hooks";
+import useDetectScroll from "@smakss/react-scroll-direction";
 const BottomBar = () => {
   const navigate = useNavigate();
   const { height, width } = useViewportSize();
   const { pathname } = useLocation();
   const { UserInfo, darkmode } = useContext(AuthContext);
-  const [scroll, scrollTo] = useWindowScroll();
 
+  const scrollDir = useDetectScroll();
   return (
     <div>
       {width < 500 && UserInfo && (
@@ -29,7 +30,7 @@ const BottomBar = () => {
             color: "white",
             display: "flex",
             justifyContent: "space-around",
-            padding: scroll.y > 0 ? "15px 0px 35px 0" : "15px 0px",
+            padding: scrollDir === "down" ? "15px 0px 35px 0" : "15px 0px",
             borderTop: !darkmode ? "1px solid #e9ecef" : "1px solid #2C2E33",
             zIndex: 999,
           }}

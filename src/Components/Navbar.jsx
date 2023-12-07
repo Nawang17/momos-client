@@ -166,66 +166,58 @@ export function Navbar({ socket }) {
           <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
             {UserInfo && (
               <>
-                {width > 499 && (
-                  <>
-                    {" "}
-                    <ActionIcon
-                      onClick={() => {
-                        if (pathname === "/") {
-                          window.scrollTo({ top: 0, behavior: "smooth" });
-                        } else {
-                          navigate("/");
-                        }
-                      }}
-                    >
-                      <House
-                        weight={pathname === "/" ? "fill" : "regular"}
-                        size={28}
-                        color={darkmode ? "white" : "black"}
-                      />
-                    </ActionIcon>
-                    <ActionIcon
-                      onClick={() => {
-                        navigate("/discover");
-                      }}
-                    >
-                      <MagnifyingGlass
-                        weight={pathname === "/discover" ? "fill" : "regular"}
-                        color={darkmode ? "white" : "black"}
-                        size={28}
-                      />
-                    </ActionIcon>
-                    <ActionIcon>
-                      <ChatCircleDots
-                        weight={
-                          pathname === "/chatrooms" ||
-                          pathname.split("/")[1] === "chat"
-                            ? "fill"
-                            : "regular"
-                        }
-                        onClick={() => {
-                          navigate("/chatrooms");
-                        }}
-                        color={darkmode ? "white" : "black"}
-                        size={28}
-                      />
-                    </ActionIcon>
-                    <ActionIcon
-                      onClick={() => {
-                        navigate("/communities");
-                      }}
-                    >
-                      <UsersThree
-                        weight={
-                          pathname === "/communities" ? "fill" : "regular"
-                        }
-                        color={darkmode ? "white" : "black"}
-                        size={28}
-                      />
-                    </ActionIcon>
-                  </>
-                )}
-
+                <ActionIcon
+                  onClick={() => {
+                    if (pathname === "/") {
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    } else {
+                      navigate("/");
+                    }
+                  }}
+                >
+                  <House
+                    weight={pathname === "/" ? "fill" : "regular"}
+                    size={28}
+                    color={darkmode ? "white" : "black"}
+                  />
+                </ActionIcon>
+                <ActionIcon
+                  onClick={() => {
+                    navigate("/discover");
+                  }}
+                >
+                  <MagnifyingGlass
+                    weight={pathname === "/discover" ? "fill" : "regular"}
+                    color={darkmode ? "white" : "black"}
+                    size={28}
+                  />
+                </ActionIcon>
+                <ActionIcon>
+                  <ChatCircleDots
+                    weight={
+                      pathname === "/chatrooms" ||
+                      pathname.split("/")[1] === "chat"
+                        ? "fill"
+                        : "regular"
+                    }
+                    onClick={() => {
+                      navigate("/chatrooms");
+                    }}
+                    color={darkmode ? "white" : "black"}
+                    size={28}
+                  />
+                </ActionIcon>
+                <ActionIcon
+                  onClick={() => {
+                    navigate("/communities");
+                  }}
+                >
+                  <UsersThree
+                    weight={pathname === "/communities" ? "fill" : "regular"}
+                    color={darkmode ? "white" : "black"}
+                    size={28}
+                  />
+                </ActionIcon>
                 <Notis darkmode={darkmode} />
               </>
             )}

@@ -508,10 +508,10 @@ function App() {
           style={{
             zIndex: 999,
           }}
-          position={width < 500 ? "top-center" : "bottom-center"}
+          position={"bottom-center"}
         >
           <div className="App">
-            {/* <Affix position={{ bottom: 70, right: 20 }}>
+            <Affix position={{ bottom: 20, right: 20 }}>
               <Transition transition="slide-up" mounted={scroll.y > 0}>
                 {(transitionStyles) => (
                   <Button
@@ -526,7 +526,7 @@ function App() {
                   </Button>
                 )}
               </Transition>
-            </Affix> */}
+            </Affix>
             <AuthContext.Provider
               value={{
                 UserInfo,

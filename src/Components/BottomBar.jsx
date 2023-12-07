@@ -19,8 +19,8 @@ const BottomBar = () => {
 
   const scrollDir = useDetectScroll();
   return (
-    <div>
-      {width < 500 && UserInfo && (
+    <>
+      {/* {width < 500 && UserInfo && (
         <div
           style={{
             position: "fixed",
@@ -94,8 +94,8 @@ const BottomBar = () => {
             </ActionIcon>
           </>
         </div>
-      )}
-    </div>
+      )} */}
+    </>
   );
 };
 

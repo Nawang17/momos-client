@@ -534,9 +534,15 @@ export const Chat = ({ socket }) => {
                                         }
                                       });
                                   }}
-                                  icon={<Trash size={19} weight="fill" />}
+                                  icon={
+                                    <Trash
+                                      color="red"
+                                      size={19}
+                                      weight="duotone"
+                                    />
+                                  }
                                 >
-                                  Delete for you
+                                  Delete message
                                 </Menu.Item>
                               </Menu.Dropdown>
                             </Menu>

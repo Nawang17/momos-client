@@ -361,6 +361,7 @@ export const Post = ({ post, setPosts, comments }) => {
             return [...prev, post.id];
           });
           showNotification({
+            color: "yellow",
             icon: <BookmarkSimple size={18} />,
             message: "Post saved successfully",
             autoClose: 3000,
@@ -370,6 +371,7 @@ export const Post = ({ post, setPosts, comments }) => {
             return prev.filter((id) => id !== post.id);
           });
           showNotification({
+            color: "gray",
             icon: <BookmarkSimple size={18} />,
             message: "Post unsaved successfully",
             autoClose: 3000,
@@ -1182,7 +1184,7 @@ export const Post = ({ post, setPosts, comments }) => {
                 onClick={() => {
                   handlebookmark();
                 }}
-                color={"gray"}
+                color={bookmarkIds.includes(post.id) ? "yellow" : "gray"}
                 size="xs"
                 leftIcon={
                   <BookmarkSimple

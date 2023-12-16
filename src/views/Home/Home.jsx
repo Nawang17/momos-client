@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { Alert, Button, Container, createStyles, Loader } from "@mantine/core";
+import { Button, Container, createStyles, Loader } from "@mantine/core";
 import { PostFeed } from "../../Components/PostFeed";
 import { Sidebar } from "../../Components/Sidebar";
 import CreatePost from "../../Components/CreatePost";
@@ -11,9 +11,8 @@ import {
 import { AuthContext } from "../../context/Auth";
 import { showNotification } from "@mantine/notifications";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Star, WarningCircle } from "@phosphor-icons/react";
+import { WarningCircle } from "@phosphor-icons/react";
 import Leaderboardhorizontal from "../../Components/Leaderboardhorizontal";
-import { useLocalStorage } from "@mantine/hooks";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -49,10 +48,7 @@ export const Home = () => {
   const [postCount, setpostCount] = useState(0);
 
   const [sortby, setsortby] = useState("Latest");
-  const [value2023YearReview, set2023YearReviewValue] = useLocalStorage({
-    key: "2023YearReview",
-    defaultValue: "false",
-  });
+
   useEffect(() => {
     setsortby("Latest");
   }, [UserInfo]);
@@ -211,7 +207,6 @@ export const Home = () => {
     <>
       <Container px={0} className={classes.wrapper}>
         <div className={classes.leftWrapper}>
-          {" "}
           {UserInfo && (
             <CreatePost
               darkmode={darkmode}
@@ -219,24 +214,7 @@ export const Home = () => {
               communityName={""}
             />
           )}
-          {/* {value2023YearReview !== "true" && (
-            <Alert
-              style={{
-                cursor: "pointer",
-                marginBottom: "8px",
-              }}
-              onClose={() => {
-                set2023YearReviewValue("true");
-              }}
-              icon={<Star size={18} color="#dbd80f" weight="fill" />}
-              title="2023 Year in Review"
-              withCloseButton
-              radius={0}
-              variant={darkmode ? "light" : "outline"}
-            >
-              See momos review for this year
-            </Alert>
-          )} */}
+
           {UserInfo && (
             <div
               className={classes.sortby}

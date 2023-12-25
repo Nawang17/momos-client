@@ -129,31 +129,27 @@ export function PostMenu({ postinfo, setPosts }) {
       });
     }
 
-    await bookmarkPost({ postId: postinfo?.id })
-      .then((res) => {
-        if (res.data.bookmarked) {
-          setbookmarkIds((prev) => {
-            return [...prev, postinfo?.id];
-          });
-          showNotification({
-            icon: <BookmarkSimple size={18} />,
-            message: "Post saved successfully",
-            autoClose: 3000,
-          });
-        } else {
-          setbookmarkIds((prev) => {
-            return prev.filter((id) => id !== postinfo?.id);
-          });
-          showNotification({
-            icon: <BookmarkSimple size={18} />,
-            message: "Post unsaved successfully",
-            autoClose: 3000,
-          });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    await bookmarkPost({ postId: postinfo?.id }).then((res) => {
+      if (res.data.bookmarked) {
+        setbookmarkIds((prev) => {
+          return [...prev, postinfo?.id];
+        });
+        showNotification({
+          icon: <BookmarkSimple size={18} />,
+          message: "Post saved successfully",
+          autoClose: 3000,
+        });
+      } else {
+        setbookmarkIds((prev) => {
+          return prev.filter((id) => id !== postinfo?.id);
+        });
+        showNotification({
+          icon: <BookmarkSimple size={18} />,
+          message: "Post unsaved successfully",
+          autoClose: 3000,
+        });
+      }
+    });
   };
   return (
     <>

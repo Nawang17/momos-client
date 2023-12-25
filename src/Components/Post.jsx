@@ -39,6 +39,7 @@ import PostPolls from "./PostPolls";
 import Topuserbadge from "../helper/Topuserbadge";
 import { useImageSize } from "react-image-size";
 import ImageViewer from "react-simple-image-viewer";
+import { format } from "date-fns";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -491,12 +492,20 @@ export const Post = ({ post, setPosts, comments }) => {
                   </div>
 
                   <Text color="dimmed" size={12}>
-                    {formatDistanceToNowStrict(new Date(post.createdAt), {
-                      locale: {
-                        ...locale,
-                        formatDistance,
-                      },
-                    })}
+                    {pathname.substring(0, pathname.indexOf("/", 1)) ===
+                      "/post" ||
+                    pathname.substring(0, pathname.indexOf("/", 1)) ===
+                      "/communitypost"
+                      ? format(
+                          new Date(post.createdAt),
+                          "h:mm a  ·  MM/dd/yyyy"
+                        )
+                      : formatDistanceToNowStrict(new Date(post.createdAt), {
+                          locale: {
+                            ...locale,
+                            formatDistance,
+                          },
+                        })}
                   </Text>
                 </div>
               </div>

@@ -107,7 +107,6 @@ export default function Notis({ darkmode }) {
           setloading(false);
         })
         .catch((err) => {
-          console.log(err);
           setloading(true);
         });
     };

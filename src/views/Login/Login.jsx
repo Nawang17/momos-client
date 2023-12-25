@@ -248,7 +248,6 @@ export function Login({ socket }) {
               </Button>
             )}
             onSuccess={(res) => googleSuccess(res)}
-            onFailure={(res) => console.log(res)}
             cookiePolicy={"single_host_origin"}
           />
           <Button

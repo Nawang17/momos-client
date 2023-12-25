@@ -210,7 +210,6 @@ export function Register({ socket }) {
                 </Button>
               )}
               onSuccess={(res) => googleSuccess(res)}
-              onFailure={(res) => console.log(res)}
               cookiePolicy={"single_host_origin"}
             />
           </div>

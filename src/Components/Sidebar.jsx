@@ -94,7 +94,6 @@ export const Sidebar = () => {
           setLoading(false);
         })
         .catch((err) => {
-          console.log(err);
           setLoading(true);
         });
     };

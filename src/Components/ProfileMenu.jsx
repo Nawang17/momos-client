@@ -69,7 +69,7 @@ export function ProfileMenu({ socket }) {
               View profile
             </Menu.Item>
             <Menu.Divider />
-            {/* <Menu.Item
+            <Menu.Item
               onClick={() => {
                 navigate("/settings");
               }}
@@ -77,7 +77,7 @@ export function ProfileMenu({ socket }) {
             >
               Settings
             </Menu.Item>
-            <Menu.Divider /> */}
+            <Menu.Divider />
             <Menu.Item
               onClick={() => {
                 navigate("/bookmarks");

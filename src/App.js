@@ -460,18 +460,18 @@ function App() {
         </>
       ),
     },
-    // {
-    //   path: "/settings",
-    //   element: (
-    //     <>
-    //       <Navbar socket={socket} />
+    {
+      path: "/settings",
+      element: (
+        <>
+          <Navbar socket={socket} />
 
-    //       <ScrollToTop />
+          <ScrollToTop />
 
-    //       <SettingsPage socket={socket} />
-    //     </>
-    //   ),
-    // },
+          <SettingsPage socket={socket} />
+        </>
+      ),
+    },
     {
       path: "/bookmarks",
       element: (

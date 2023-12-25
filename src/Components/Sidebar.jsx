@@ -70,18 +70,34 @@ export const Sidebar = () => {
   } = useContext(AuthContext);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  const getLevel = () => {
-    const points = userlevelinfo?.totalpoints;
-    let level = Math.floor(points / 10);
-    let progress = points % 10;
-    return { level, progress };
-  };
+
   function numberToOrdinal(n) {
     var s = ["th", "st", "nd", "rd"],
       v = n % 100;
     return n + (s[(v - 20) % 10] || s[v] || s[0]);
   }
   const [news, setNews] = useState([]);
+  function calculateLevelAndProgress() {
+    const points = userlevelinfo?.totalpoints;
+    const base = 3; // log base value
+    let level = 1;
+    let requiredPoints = base;
+
+    while (points >= requiredPoints) {
+      level++;
+      requiredPoints = Math.pow(base, level);
+    }
+
+    const levelStartPoints = Math.pow(base, level - 1);
+    const levelProgress = Math.max(0, points - levelStartPoints + 1);
+    const totalPointsInLevel = requiredPoints - levelStartPoints;
+
+    return {
+      level: level, // Start with level 1
+      progress: levelProgress,
+      totalPointsInLevel: totalPointsInLevel,
+    };
+  }
 
   useEffect(() => {
     const getleaderboardinfo = async () => {
@@ -202,6 +218,7 @@ export const Sidebar = () => {
               {!userlevelinfo ? (
                 <Skeleton height={10} radius="xl" mt={15} />
               ) : (
+                //user level info
                 <div
                   style={{
                     width: "100%",
@@ -241,7 +258,7 @@ export const Sidebar = () => {
                           color="cyan"
                           size="xs"
                         >
-                          LVL {getLevel().level}
+                          LVL {calculateLevelAndProgress().level}
                         </Badge>
                       </Popover.Target>
                       <Popover.Dropdown>
@@ -255,14 +272,17 @@ export const Sidebar = () => {
                         <Text size={"xs"}></Text>
 
                         <Text pt={5} size={"xs"}>
-                          · Level is based on total points.
+                          🏆 Level is based on total points.
                         </Text>
                         <Text pt={5} size={"xs"}>
-                          · Your level will increase by 1 for every 10 points.
+                          🎢 Logarithmic Magic: I use a special formula with a
+                          base of 3. At first, you'll quickly move through the
+                          levels, but as you earn more points, each new level
+                          becomes a bit more challenging to reach.
                         </Text>
                         <Text pt={5} size={"xs"}>
-                          · You can earn points by posting, and gaining likes
-                          and new followers.
+                          📈 You can earn points by gaining likes on your
+                          content.
                         </Text>
                       </Popover.Dropdown>
                     </Popover>
@@ -274,7 +294,8 @@ export const Sidebar = () => {
                     size={12}
                     weight={500}
                   >
-                    {getLevel().progress} / 10 points
+                    {calculateLevelAndProgress().progress} /{" "}
+                    {calculateLevelAndProgress().totalPointsInLevel} points
                   </Text>
                   <div
                     style={{
@@ -298,13 +319,14 @@ export const Sidebar = () => {
                       size={10}
                     >
                       {" "}
-                      LVL {getLevel().level + 1}
+                      LVL {calculateLevelAndProgress().level + 1}
                     </Text>
                   </div>
                   <Progress
-                    value={getLevel().progress * 10}
+                    value={calculateLevelAndProgress().progress}
                     mt={4}
                     radius="xl"
+                    color="#17caad"
                   />
                 </div>
               )}

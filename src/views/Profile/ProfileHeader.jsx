@@ -9,6 +9,8 @@ import {
   Avatar,
   Indicator,
   BackgroundImage,
+  Badge,
+  Progress,
 } from "@mantine/core";
 import {
   ArrowLeft,
@@ -19,9 +21,7 @@ import {
   UserMinus,
   CalendarBlank,
   UsersThree,
-  Bug,
-  Plant,
-  Star,
+  Lightning,
 } from "@phosphor-icons/react";
 import { useNavigate } from "react-router-dom";
 import { follow } from "../../api/POST";
@@ -270,6 +270,27 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
 
     return replacedText;
   };
+  function calculateLevelAndProgress() {
+    const points = rankinfo?.points;
+    const base = 3; // log base value
+    let level = 1;
+    let requiredPoints = base;
+
+    while (points >= requiredPoints) {
+      level++;
+      requiredPoints = Math.pow(base, level);
+    }
+
+    const levelStartPoints = Math.pow(base, level - 1);
+    const levelProgress = Math.max(0, points - levelStartPoints + 1);
+    const totalPointsInLevel = requiredPoints - levelStartPoints;
+
+    return {
+      level: level, // Start with level 1
+      progress: levelProgress,
+      totalPointsInLevel: totalPointsInLevel,
+    };
+  }
   return (
     <>
       {!loading && !profileloading ? (
@@ -727,6 +748,90 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                   <Text color={"#71767b"} weight={"400"} component="span">
                     Followers
                   </Text>
+                </Text>
+              </div>
+            </div>
+          </div>
+
+          {/* account level and progress */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+
+              padding: "0.7rem",
+              borderRadius: "4px",
+
+              gap: "0.5rem",
+              backgroundColor: "#311B92",
+            }}
+          >
+            <Lightning size={32} color="#dbd80f" weight="fill" />
+            <div
+              style={{
+                width: "100%",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  margin: "0.5rem 0",
+                  gap: "0.5rem",
+                }}
+              >
+                <Text
+                  style={{
+                    cursor: "pointer",
+                  }}
+                  size="xs"
+                  weight={500}
+                  color="#17caad"
+                >
+                  {rankinfo?.points} points
+                </Text>
+                <Badge
+                  style={{
+                    cursor: "pointer",
+                  }}
+                  color="cyan"
+                  size="xs"
+                >
+                  Rank # {rankinfo?.rank}
+                </Badge>
+              </div>
+              <Progress
+                value={calculateLevelAndProgress().progress}
+                mt={4}
+                radius="xl"
+                size={"lg"}
+                color="#17caad"
+              />
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  marginTop: "0.2rem",
+                }}
+              >
+                <Text
+                  style={{
+                    cursor: "pointer",
+                  }}
+                  size="sm"
+                  weight={600}
+                  color="#17caad"
+                >
+                  Level {calculateLevelAndProgress().level}
+                </Text>
+                <Text pt={5} size="xs" weight={500} color="#17caad">
+                  <Text component="span" color="dimmed">
+                    {calculateLevelAndProgress().totalPointsInLevel -
+                      calculateLevelAndProgress().progress}{" "}
+                    points to
+                  </Text>{" "}
+                  LEVEL {calculateLevelAndProgress().level + 1}
                 </Text>
               </div>
             </div>

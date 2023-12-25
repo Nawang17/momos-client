@@ -42,17 +42,6 @@ const Reply = ({
       >
         <Button
           onClick={() => {
-            setsortcommentby("Top");
-          }}
-          variant={sortcommentby === "Top" ? "filled" : "subtle"}
-          size="xs"
-          radius={"xl"}
-          color={"gray"}
-        >
-          Top
-        </Button>
-        <Button
-          onClick={() => {
             setsortcommentby("Latest");
           }}
           variant={sortcommentby === "Latest" ? "filled" : "subtle"}
@@ -61,6 +50,17 @@ const Reply = ({
           color={"gray"}
         >
           Latest
+        </Button>
+        <Button
+          onClick={() => {
+            setsortcommentby("Top");
+          }}
+          variant={sortcommentby === "Top" ? "filled" : "subtle"}
+          size="xs"
+          radius={"xl"}
+          color={"gray"}
+        >
+          Top
         </Button>
         <Button
           onClick={() => {

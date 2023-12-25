@@ -96,3 +96,17 @@ export const updateUserPassword = async (
     }
   );
 };
+export const updateChatroomStatus = async (roomid) => {
+  return await api.put(
+    "/chat/closechat",
+    {
+      roomid,
+    },
+
+    {
+      headers: {
+        Authorization: `${localStorage.getItem("token")}`,
+      },
+    }
+  );
+};

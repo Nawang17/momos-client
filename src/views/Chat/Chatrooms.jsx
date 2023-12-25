@@ -7,6 +7,7 @@ import {
   Indicator,
   Input,
   Loader,
+  Menu,
   Modal,
   NavLink,
   Text,
@@ -18,9 +19,12 @@ import locale from "date-fns/locale/en-US";
 import {
   ArrowLeft,
   ChatCircleDots,
+  DotsThreeOutline,
   Lock,
   MagnifyingGlass,
+  MinusSquare,
   NotePencil,
+  UserCircle,
 } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 
@@ -29,6 +33,7 @@ import { useNavigate } from "react-router-dom";
 import { getchat, getchatrooms, searchusers } from "../../api/GET";
 import { Sidebar } from "../../Components/Sidebar";
 import { AuthContext } from "../../context/Auth";
+import { updateChatroomStatus } from "../../api/UPDATE";
 const useStyles = createStyles(() => ({
   wrapper: {
     display: "flex",
@@ -112,11 +117,11 @@ export const Chatrooms = () => {
       searchuser();
     }
   }, [debouncedSearch]);
-  useEffect(() => {
-    if (!UserInfo) {
-      navigate("/");
-    }
-  }, [UserInfo]);
+  // useEffect(() => {
+  //   if (!UserInfo) {
+  //     navigate("/");
+  //   }
+  // }, [UserInfo]);
   useEffect(() => {
     async function getchatroomsfunc() {
       await getchatrooms()
@@ -222,9 +227,9 @@ export const Chatrooms = () => {
                       padding: "1rem 1rem ",
                     }}
                     label={
-                      rooms.userone.username !== UserInfo?.username
-                        ? rooms.userone.username
-                        : rooms.usertwo.username
+                      rooms?.userone?.username !== UserInfo?.username
+                        ? rooms?.userone?.username
+                        : rooms?.usertwo?.username
                     }
                     description={
                       rooms?.chats[0]?.message
@@ -242,19 +247,92 @@ export const Chatrooms = () => {
                         : "No messages yet"
                     }
                     rightSection={
-                      rooms?.chats[0]?.createdAt && (
-                        <Text size={14} color="dimmed">
-                          {formatDistanceToNowStrict(
-                            new Date(rooms?.chats[0]?.createdAt),
-                            {
-                              locale: {
-                                ...locale,
-                                formatDistance,
-                              },
-                            }
-                          )}
-                        </Text>
-                      )
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "flex-end",
+                          gap: "0.5rem",
+                        }}
+                      >
+                        <Menu shadow="md" width={200}>
+                          <Menu.Target>
+                            <ActionIcon
+                              onClick={(e) => {
+                                e.stopPropagation();
+                              }}
+                            >
+                              <DotsThreeOutline
+                                size={18}
+                                weight="fill"
+                                color="gray"
+                              />
+                            </ActionIcon>
+                          </Menu.Target>
+
+                          <Menu.Dropdown>
+                            <Menu.Item
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                navigate(
+                                  `/${
+                                    rooms?.userone?.username !==
+                                    UserInfo?.username
+                                      ? rooms?.userone?.username
+                                      : rooms?.usertwo?.username
+                                  }`
+                                );
+                              }}
+                              icon={<UserCircle size={18} weight="fill" />}
+                            >
+                              Profile
+                            </Menu.Item>
+                            <Menu.Item
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                updateChatroomStatus(rooms?.roomid)
+                                  .then((res) => {
+                                    showNotification({
+                                      title: "Success",
+                                      message: "Chat closed successfully",
+                                      color: "green",
+                                      autoClose: 3000,
+                                    });
+                                    chatrooms.splice(
+                                      chatrooms.indexOf(rooms),
+                                      1
+                                    );
+                                    setChatrooms([...chatrooms]);
+                                  })
+                                  .catch(() => {
+                                    showNotification({
+                                      title: "Error",
+                                      message: "Something went wrong",
+                                      color: "red",
+                                      autoClose: 3000,
+                                    });
+                                  });
+                              }}
+                              icon={<MinusSquare size={18} weight="fill" />}
+                            >
+                              Close DM
+                            </Menu.Item>
+                          </Menu.Dropdown>
+                        </Menu>
+                        {/* {rooms?.chats[0]?.createdAt && (
+                          <Text size={11} color="dimmed">
+                            {formatDistanceToNowStrict(
+                              new Date(rooms?.chats[0]?.createdAt),
+                              {
+                                locale: {
+                                  ...locale,
+                                  formatDistance,
+                                },
+                              }
+                            )}
+                          </Text>
+                        )} */}
+                      </div>
                     }
                     icon={
                       <Indicator

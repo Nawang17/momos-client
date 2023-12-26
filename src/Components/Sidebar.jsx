@@ -14,7 +14,7 @@ import {
 import { useContext } from "react";
 import { AuthContext } from "../context/Auth";
 import { useNavigate } from "react-router-dom";
-import { CircleWavyCheck, Info } from "@phosphor-icons/react";
+import { CircleWavyCheck, Info, SketchLogo } from "@phosphor-icons/react";
 import { getTopNews, leaderboardinfo, userlevel } from "../api/GET";
 import Topuserbadge from "../helper/Topuserbadge";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
@@ -168,7 +168,47 @@ export const Sidebar = () => {
 
     return result;
   }
-
+  const getRankInfo = () => {
+    const totalPoints = userlevelinfo?.totalpoints;
+    if (totalPoints >= 201) {
+      return {
+        backgroundColor: "#d381e5",
+        rankName: "Diamond",
+        color: "white",
+        icon: <SketchLogo size={16} color="#d381e5" weight="fill" />,
+      };
+    } else if (totalPoints >= 151) {
+      return {
+        backgroundColor: "#3ba7b4",
+        rankName: "Platinum",
+        color: "white",
+        icon: <SketchLogo size={16} color="#3ba7b4" weight="fill" />,
+      };
+    } else if (totalPoints >= 101) {
+      return {
+        backgroundColor: "#ffd700",
+        rankName: "Gold",
+        color: "black",
+        icon: <SketchLogo size={16} color="#ffd700" weight="fill" />,
+      };
+    } else if (totalPoints >= 51) {
+      return {
+        backgroundColor: "#c0c0c0",
+        rankName: "Silver",
+        color: "black",
+        icon: (
+          <SketchLogo size={16} color="RGB(192, 192, 192) " weight="fill" />
+        ),
+      };
+    } else {
+      return {
+        backgroundColor: "#cd7f32",
+        rankName: "Bronze",
+        color: "white",
+        icon: <SketchLogo size={16} color="RGB(205, 127, 50)" weight="fill" />,
+      };
+    }
+  };
   return (
     <div className={classes.wrapper}>
       <div
@@ -251,16 +291,13 @@ export const Sidebar = () => {
                       withArrow
                       shadow="md"
                     >
-                      <Popover.Target>
-                        <Badge
-                          style={{
-                            cursor: "pointer",
-                          }}
-                          color="cyan"
-                          size="xs"
-                        >
-                          LVL {calculateLevelAndProgress().level}
-                        </Badge>
+                      <Popover.Target
+                        style={{
+                          cursor: "pointer",
+                        }}
+                        className="heartbeat-icon"
+                      >
+                        {getRankInfo().icon}
                       </Popover.Target>
                       <Popover.Dropdown>
                         <Text
@@ -276,7 +313,8 @@ export const Sidebar = () => {
                           🏆 Your level is based on how many points you have.
                         </Text>
                         <Text pt={5} size={"xs"}>
-                          🎢 Leveling becomes more challenging with each new level.
+                          🎢 Leveling becomes more challenging with each new
+                          level.
                         </Text>
                         <Text pt={5} size={"xs"}>
                           📈 You can earn points by gaining likes on your
@@ -292,35 +330,14 @@ export const Sidebar = () => {
                     size={12}
                     weight={500}
                   >
-                    {calculateLevelAndProgress().progress} /{" "}
-                    {calculateLevelAndProgress().totalPointsInLevel} points
+                    {getRankInfo().rankName} Rank - {userlevelinfo?.totalpoints}{" "}
+                    points
                   </Text>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      marginTop: "0.2rem",
-                    }}
-                  >
-                    <Text
-                      color={darkmode ? "#c1c2c5" : "#000000"}
-                      pt={5}
-                      size={10}
-                    >
-                      {" "}
-                      Progress
-                    </Text>
-                    <Text
-                      color={darkmode ? "#c1c2c5" : "#000000"}
-                      pt={5}
-                      size={10}
-                    >
-                      {" "}
-                      LVL {calculateLevelAndProgress().level + 1}
-                    </Text>
-                  </div>
+
                   <Progress
+                    style={{
+                      margin: "0.6rem 0",
+                    }}
                     value={
                       (calculateLevelAndProgress().progress /
                         calculateLevelAndProgress().totalPointsInLevel) *
@@ -330,6 +347,32 @@ export const Sidebar = () => {
                     radius="xl"
                     color="#17caad"
                   />
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Text
+                      color={darkmode ? "#c1c2c5" : "#000000"}
+                      size={12}
+                      weight={500}
+                    >
+                      {" "}
+                      Level {calculateLevelAndProgress().level}
+                    </Text>
+                    <Text
+                      color={darkmode ? "#c1c2c5" : "#000000"}
+                      size={12}
+                      weight={500}
+                    >
+                      {" "}
+                      {calculateLevelAndProgress().totalPointsInLevel -
+                        calculateLevelAndProgress().progress}{" "}
+                      pts to Level {calculateLevelAndProgress().level + 1}
+                    </Text>
+                  </div>
                 </div>
               )}
             </div>

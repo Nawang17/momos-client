@@ -876,7 +876,7 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                       calculateLevelAndProgress().progress}{" "}
                     points to
                   </Text>{" "}
-                  LEVEL {calculateLevelAndProgress().level + 1}
+                  Level {calculateLevelAndProgress().level + 1}
                 </Text>
               </div>
             </div>

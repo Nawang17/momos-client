@@ -273,13 +273,10 @@ export const Sidebar = () => {
                         <Text size={"xs"}></Text>
 
                         <Text pt={5} size={"xs"}>
-                          🏆 Level is based on total points.
+                          🏆 Your level is based on how many points you have.
                         </Text>
                         <Text pt={5} size={"xs"}>
-                          🎢 Logarithmic Magic: I use a special formula with a
-                          base of 3. At first, you'll quickly move through the
-                          levels, but as you earn more points, each new level
-                          becomes a bit more challenging to reach.
+                          🎢 Leveling becomes more challenging with each new level.
                         </Text>
                         <Text pt={5} size={"xs"}>
                           📈 You can earn points by gaining likes on your

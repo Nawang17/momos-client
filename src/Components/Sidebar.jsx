@@ -323,7 +323,11 @@ export const Sidebar = () => {
                     </Text>
                   </div>
                   <Progress
-                    value={calculateLevelAndProgress().progress}
+                    value={
+                      (calculateLevelAndProgress().progress /
+                        calculateLevelAndProgress().totalPointsInLevel) *
+                      100
+                    }
                     mt={4}
                     radius="xl"
                     color="#17caad"

@@ -758,7 +758,6 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
             style={{
               display: "flex",
               alignItems: "center",
-
               padding: "0.7rem",
               borderRadius: "4px",
 
@@ -801,7 +800,11 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                 </Badge>
               </div>
               <Progress
-                value={calculateLevelAndProgress().progress}
+                value={
+                  (calculateLevelAndProgress().progress /
+                    calculateLevelAndProgress().totalPointsInLevel) *
+                  100
+                }
                 mt={4}
                 radius="xl"
                 size={"lg"}

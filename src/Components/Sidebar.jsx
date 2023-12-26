@@ -79,23 +79,24 @@ export const Sidebar = () => {
   const [news, setNews] = useState([]);
   function calculateLevelAndProgress() {
     const points = userlevelinfo?.totalpoints;
-    const base = 3; // log base value
+    const base = 3;
+    const scalingFactor = 1.5;
     let level = 1;
-    let requiredPoints = base;
+    let requiredPoints = base * Math.pow(level, scalingFactor);
 
     while (points >= requiredPoints) {
       level++;
-      requiredPoints = Math.pow(base, level);
+      requiredPoints = base * Math.pow(level, scalingFactor);
     }
 
-    const levelStartPoints = Math.pow(base, level - 1);
-    const levelProgress = Math.max(0, points - levelStartPoints + 1);
+    const levelStartPoints = base * Math.pow(level - 1, scalingFactor);
+    const levelProgress = Math.max(0, points - levelStartPoints);
     const totalPointsInLevel = requiredPoints - levelStartPoints;
 
     return {
-      level: level, // Start with level 1
-      progress: levelProgress,
-      totalPointsInLevel: totalPointsInLevel,
+      level: level,
+      progress: Math.floor(levelProgress),
+      totalPointsInLevel: Math.ceil(totalPointsInLevel),
     };
   }
 
@@ -272,13 +273,10 @@ export const Sidebar = () => {
                         <Text size={"xs"}></Text>
 
                         <Text pt={5} size={"xs"}>
-                          🏆 Level is based on total points.
+                          🏆 Your level is based on how many points you have.
                         </Text>
                         <Text pt={5} size={"xs"}>
-                          🎢 Logarithmic Magic: I use a special formula with a
-                          base of 3. At first, you'll quickly move through the
-                          levels, but as you earn more points, each new level
-                          becomes a bit more challenging to reach.
+                          🎢 Leveling becomes more challenging with each new level.
                         </Text>
                         <Text pt={5} size={"xs"}>
                           📈 You can earn points by gaining likes on your

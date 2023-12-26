@@ -809,7 +809,13 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
               color: `${getRankInfo().color}`,
             }}
           >
-            <ActionIcon color="dark" variant="filled" radius="xl" size="lg">
+            <ActionIcon
+              className="heartbeat-icon"
+              color="dark"
+              variant="filled"
+              radius="xl"
+              size="lg"
+            >
               {getRankInfo().icon}
             </ActionIcon>
 

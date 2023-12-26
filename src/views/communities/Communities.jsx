@@ -7,13 +7,16 @@ import {
   Image,
   createStyles,
   Loader,
+  Popover,
 } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import {
   ArrowLeft,
   Globe,
   LockLaminated,
   Users,
   UsersThree,
+  Crown,
 } from "@phosphor-icons/react";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -43,6 +46,29 @@ const useStyles = createStyles(() => ({
     },
   },
 }));
+
+const Communityownericon = () => {
+  const [opened, { close, open }] = useDisclosure(false);
+  return (
+    <Popover position="right" withArrow shadow="md" opened={opened}>
+      <Popover.Target className="heartbeat-icon">
+        <Crown
+          onMouseEnter={open}
+          onMouseLeave={close}
+          style={{
+            cursor: "pointer",
+          }}
+          size={16}
+          color="gray"
+        />
+      </Popover.Target>
+
+      <Popover.Dropdown Dropdown sx={{ pointerEvents: "none" }}>
+        <Text size="sm">You own this community.</Text>
+      </Popover.Dropdown>
+    </Popover>
+  );
+};
 
 export const Communities = () => {
   const { classes } = useStyles();
@@ -166,9 +192,12 @@ export const Communities = () => {
                                   gap={5}
                                   direction={"column"}
                                 >
-                                  <Text weight={600}>
-                                    {community.community.name}
-                                  </Text>
+                                  <Flex align={"center"} gap={5}>
+                                    <Text weight={600}>
+                                      {community.community.name}
+                                    </Text>
+                                    {community.isOwner && <Communityownericon />}
+                                  </Flex>
                                   <Flex gap={3} align={"center"}>
                                     <Users size={15} weight="light" />
 

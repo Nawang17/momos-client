@@ -21,7 +21,7 @@ import {
   UserMinus,
   CalendarBlank,
   UsersThree,
-  Lightning,
+  SketchLogo,
 } from "@phosphor-icons/react";
 import { useNavigate } from "react-router-dom";
 import { follow } from "../../api/POST";
@@ -292,7 +292,48 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
       totalPointsInLevel: Math.ceil(totalPointsInLevel),
     };
   }
-  
+  const getRankInfo = () => {
+    const totalPoints = rankinfo?.points;
+    if (totalPoints >= 201) {
+      return {
+        backgroundColor: "#d381e5",
+        rankName: "Diamond",
+        color: "white",
+        icon: <SketchLogo size={25} color="#d381e5" weight="fill" />,
+      };
+    } else if (totalPoints >= 151) {
+      return {
+        backgroundColor: "#3ba7b4",
+        rankName: "Platinum",
+        color: "white",
+        icon: <SketchLogo size={25} color="#3ba7b4" weight="fill" />,
+      };
+    } else if (totalPoints >= 101) {
+      return {
+        backgroundColor: "#ffd700",
+        rankName: "Gold",
+        color: "black",
+        icon: <SketchLogo size={25} color="#ffd700" weight="fill" />,
+      };
+    } else if (totalPoints >= 51) {
+      return {
+        backgroundColor: "#c0c0c0",
+        rankName: "Silver",
+        color: "black",
+        icon: (
+          <SketchLogo size={25} color="RGB(192, 192, 192) " weight="fill" />
+        ),
+      };
+    } else {
+      return {
+        backgroundColor: "#cd7f32",
+        rankName: "Bronze",
+        color: "white",
+        icon: <SketchLogo size={25} color="RGB(205, 127, 50)" weight="fill" />,
+      };
+    }
+  };
+
   return (
     <>
       {!loading && !profileloading ? (
@@ -760,14 +801,18 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
             style={{
               display: "flex",
               alignItems: "center",
-              padding: "0.7rem",
+              padding: "0.4rem 0.7rem",
               borderRadius: "4px",
 
               gap: "0.5rem",
-              backgroundColor: "#311B92",
+              backgroundColor: `${getRankInfo().backgroundColor}`,
+              color: `${getRankInfo().color}`,
             }}
           >
-            <Lightning size={32} color="#dbd80f" weight="fill" />
+            <ActionIcon color="dark" variant="filled" radius="xl" size="lg">
+              {getRankInfo().icon}
+            </ActionIcon>
+
             <div
               style={{
                 width: "100%",
@@ -787,19 +832,9 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                   }}
                   size="xs"
                   weight={500}
-                  color="#17caad"
                 >
-                  {rankinfo?.points} points
+                  {getRankInfo().rankName} Rank - {rankinfo?.points} points
                 </Text>
-                <Badge
-                  style={{
-                    cursor: "pointer",
-                  }}
-                  color="cyan"
-                  size="xs"
-                >
-                  Rank # {rankinfo?.rank}
-                </Badge>
               </div>
               <Progress
                 value={
@@ -826,12 +861,11 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                   }}
                   size="sm"
                   weight={600}
-                  color="#17caad"
                 >
                   Level {calculateLevelAndProgress().level}
                 </Text>
-                <Text pt={5} size="xs" weight={500} color="#17caad">
-                  <Text component="span" color="dimmed">
+                <Text pt={5} size="xs" weight={500}>
+                  <Text component="span">
                     {calculateLevelAndProgress().totalPointsInLevel -
                       calculateLevelAndProgress().progress}{" "}
                     points to

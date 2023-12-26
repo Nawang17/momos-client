@@ -5,7 +5,7 @@ import { Crown } from "@phosphor-icons/react";
 const Topuserbadge = () => {
   const [opened, { close, open }] = useDisclosure(false);
   return (
-    <Popover width={100} position="right" withArrow shadow="md" opened={opened}>
+    <Popover position="right" withArrow shadow="md" opened={opened}>
       <Popover.Target className="heartbeat-icon">
         <Crown
           onMouseEnter={open}

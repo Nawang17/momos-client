@@ -40,6 +40,7 @@ import Topuserbadge from "../helper/Topuserbadge";
 import { useImageSize } from "react-image-size";
 import ImageViewer from "react-simple-image-viewer";
 import { format } from "date-fns";
+import UserRankBadge from "../helper/UserRankBadge";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -474,6 +475,12 @@ export const Post = ({ post, setPosts, comments }) => {
                       {post.user.username}
                     </Text>
                     {topUser === post.user.username && <Topuserbadge />}
+
+                    <UserRankBadge
+                      usertotalpoints={
+                        post?.usertotalpoints ? post?.usertotalpoints : 0
+                      }
+                    />
 
                     {post?.user?.verified &&
                       (post?.user?.id !== 5 ? (

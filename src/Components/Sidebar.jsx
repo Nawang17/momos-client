@@ -170,28 +170,28 @@ export const Sidebar = () => {
   }
   const getRankInfo = () => {
     const totalPoints = userlevelinfo?.totalpoints;
-    if (totalPoints >= 201) {
+    if (totalPoints >= 200) {
       return {
         backgroundColor: "#d381e5",
         rankName: "Diamond",
         color: "white",
         icon: <SketchLogo size={16} color="#d381e5" weight="fill" />,
       };
-    } else if (totalPoints >= 151) {
+    } else if (totalPoints >= 150) {
       return {
         backgroundColor: "#3ba7b4",
         rankName: "Platinum",
         color: "white",
         icon: <SketchLogo size={16} color="#3ba7b4" weight="fill" />,
       };
-    } else if (totalPoints >= 101) {
+    } else if (totalPoints >= 100) {
       return {
         backgroundColor: "#ffd700",
         rankName: "Gold",
         color: "black",
         icon: <SketchLogo size={16} color="#ffd700" weight="fill" />,
       };
-    } else if (totalPoints >= 51) {
+    } else if (totalPoints >= 50) {
       return {
         backgroundColor: "#c0c0c0",
         rankName: "Silver",

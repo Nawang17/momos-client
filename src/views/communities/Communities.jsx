@@ -94,7 +94,7 @@ export const Communities = () => {
         setLoading(false);
       });
     }
-  }, []);
+  }, [UserInfo]);
   return (
     <Container px={0} className={classes.wrapper}>
       <div className={classes.leftWrapper}>
@@ -196,7 +196,9 @@ export const Communities = () => {
                                     <Text weight={600}>
                                       {community.community.name}
                                     </Text>
-                                    {community.isOwner && <Communityownericon />}
+                                    {community.isOwner && (
+                                      <Communityownericon />
+                                    )}
                                   </Flex>
                                   <Flex gap={3} align={"center"}>
                                     <Users size={15} weight="light" />

@@ -17,6 +17,7 @@ import confetti from "canvas-confetti";
 import { AuthContext } from "../../context/Auth";
 import GoogleLogin from "@leecheuk/react-google-login";
 import { ShieldCheck, User, WarningCircle } from "@phosphor-icons/react";
+import ReactGA from "react-ga4";
 
 export function Register({ socket }) {
   const navigate = useNavigate();
@@ -42,6 +43,11 @@ export function Register({ socket }) {
         localStorage.setItem("token", res.data.token);
         socket.emit("onlinestatus", {
           token: res.data.token,
+        });
+        ReactGA.event({
+          category: 'Button',
+          action: 'Regular_account_register',
+          label: 'Register'
         });
         confetti({
           particleCount: 300,
@@ -78,8 +84,14 @@ export function Register({ socket }) {
         socket.emit("onlinestatus", {
           token: res.data.token,
         });
+       
         navigate("/");
         if (res.data.type === "login") {
+          ReactGA.event({
+            category: 'Button',
+            action: 'Google_account_login',
+            label: 'Login'
+          });
           showNotification({
             icon: <ShieldCheck size={18} />,
             title: "Login Successful",
@@ -90,6 +102,11 @@ export function Register({ socket }) {
             setfollowingdata(resp.data.userfollowingarr);
           });
         } else if (res.data.type === "register") {
+          ReactGA.event({
+            category: 'Button',
+            action: 'Google_account_register',
+            label: 'Register'
+          });
           confetti({
             particleCount: 300,
             spread: 70,

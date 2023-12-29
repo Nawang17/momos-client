@@ -20,6 +20,7 @@ import { useEffect } from "react";
 import GoogleLogin from "@leecheuk/react-google-login";
 import { ShieldCheck, User, WarningCircle } from "@phosphor-icons/react";
 import confetti from "canvas-confetti";
+import ReactGA from "react-ga4";
 
 export function Login({ socket }) {
   const { setUserInfo, UserInfo, setfollowingdata, darkmode } =
@@ -47,6 +48,11 @@ export function Login({ socket }) {
       .then(async (res) => {
         setUserInfo(res.data.user);
         localStorage.setItem("token", res.data.token);
+        ReactGA.event({
+          category: 'Button',
+          action: 'Regular_login',
+          label: 'Login'
+        });
         socket.emit("onlinestatus", {
           token: res.data.token,
         });
@@ -80,6 +86,11 @@ export function Login({ socket }) {
         socket.emit("onlinestatus", {
           token: res.data.token,
         });
+        ReactGA.event({
+          category: 'Button',
+          action: 'Regular_login',
+          label: 'Login'
+        });
         showNotification({
           icon: <ShieldCheck size={18} />,
           title: "Login Successful",
@@ -112,8 +123,14 @@ export function Login({ socket }) {
         socket.emit("onlinestatus", {
           token: res.data.token,
         });
+       
         navigate("/");
         if (res.data.type === "login") {
+          ReactGA.event({
+            category: 'Button',
+            action: 'Google_login',
+            label: 'Login'
+          });
           showNotification({
             icon: <ShieldCheck size={18} />,
             title: "Login Successful",
@@ -124,6 +141,11 @@ export function Login({ socket }) {
             setfollowingdata(resp.data.userfollowingarr);
           });
         } else if (res.data.type === "register") {
+          ReactGA.event({
+            category: 'Button',
+            action: 'Google_account_register',
+            label: 'Register'
+          });
           confetti({
             particleCount: 300,
             spread: 70,

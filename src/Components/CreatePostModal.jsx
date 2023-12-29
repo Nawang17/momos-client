@@ -31,6 +31,8 @@ import locale from "date-fns/locale/en-US";
 import { AuthContext } from "../context/Auth";
 import { useNavigate } from "react-router-dom";
 import GifPicker from "gif-picker-react";
+import ReactGA from "react-ga4";
+
 export default function CreatePostModal({
   opened,
   setOpened,
@@ -221,7 +223,11 @@ export default function CreatePostModal({
         )
           .then((res) => {
             closemodal();
-
+            ReactGA.event({
+              category: 'Button',
+              action: 'New_post',
+              label: 'Post'
+            });
             navigate(`/post/${res.data.newpostid}`);
             showNotification({
               color: "teal",
@@ -273,7 +279,11 @@ export default function CreatePostModal({
         await AddNewPost(formData)
           .then((res) => {
             closemodal();
-
+            ReactGA.event({
+              category: 'Button',
+              action: 'New_post',
+              label: 'Post'
+            });
             navigate(`/post/${res.data.newpostid}`);
             showNotification({
               color: "teal",

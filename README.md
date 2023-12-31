@@ -16,23 +16,5 @@ To get started with the development of this project, you will need to have Node.
 3. Start the development server by running `npm start` or `yarn start` (However, ensure that your React client is already running on http://localhost:3000/. This connection is crucial for the client to communicate with the API. )
 4. Make sure to also check out the server-side repository for this project, which can be found at https://github.com/Nawang17/momos-server.
 
-## ⭐ Features
-
-- Create posts with text and images
-- Like and comment on posts
-- Like comments and reply to them
-- Mention users in posts and comments
-- Chat with other users in real time
-- Quote other posts
-- Search for users and posts
-- Sort posts and comments by date or popularity
-- View user online status
-- Follow other users
-- Personalize your profile with profile picture, banner and description
-- Receive notifications for likes, comments, and new followers
-- Authenticate using Google or normal login with username and password
-- Leaderboard system based on total points, where users can compete to reach the top
-- Earn points by creating new posts, receiving likes, and gaining new followers
-- Trending topics based on popular hashtags
 
 Please note that this project is for educational purposes and may have bugs or unfinished features. If you encounter any issues or have any suggestions, please feel free to reach out or submit a pull request.

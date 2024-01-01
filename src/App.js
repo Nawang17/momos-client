@@ -166,7 +166,6 @@ function App() {
           setLoading(false);
         })
         .catch(() => {
-          localStorage.removeItem("token");
           setUserInfo(null);
           setLoading(false);
         });

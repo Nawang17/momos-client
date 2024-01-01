@@ -163,9 +163,7 @@ export const Leaderboard = () => {
                 How to earn points?
               </Text>
               <Text size={"xs"}>+1 point for each like on your posts</Text>
-              <Text size={"xs"}>
-                +1 point for each like on your comments and replies
-              </Text>
+
               <Text size={"xs"} color="red">
                 *Self likes are not counted
               </Text>

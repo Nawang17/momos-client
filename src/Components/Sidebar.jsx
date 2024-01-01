@@ -411,7 +411,7 @@ export const Sidebar = () => {
                 <Popover.Dropdown>
                   <Text size={"xs"}>
                     The leaderboard ranking is based on the total number of
-                    points earned by the user. (Leaderboard reset every month )
+                    points earned by the user.
                   </Text>
                   <Divider my="xs" />
                   <Text color={"#1DA1F2"} size={"sm"} weight={500}>
@@ -419,9 +419,7 @@ export const Sidebar = () => {
                   </Text>
 
                   <Text size={"xs"}>+1 point for each like on your posts</Text>
-                  <Text size={"xs"}>
-                    +1 point for each like on your comments and replies
-                  </Text>
+
                   <Text size={"xs"} color="red">
                     *Self likes are not counted
                   </Text>
@@ -592,9 +590,7 @@ export const Sidebar = () => {
                   </Text>
 
                   <Text size={"xs"}>+1 point for each like on your posts</Text>
-                  <Text size={"xs"}>
-                    +1 point for each like on your comments and replies
-                  </Text>
+
                   <Text size={"xs"} color="red">
                     *Self likes are not counted
                   </Text>

@@ -476,12 +476,6 @@ export const Post = ({ post, setPosts, comments }) => {
                     </Text>
                     {topUser === post.user.username && <Topuserbadge />}
 
-                    <UserRankBadge
-                      usertotalpoints={
-                        post?.usertotalpoints ? post?.usertotalpoints : 0
-                      }
-                    />
-
                     {post?.user?.verified &&
                       (post?.user?.id !== 5 ? (
                         <CircleWavyCheck

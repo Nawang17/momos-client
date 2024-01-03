@@ -185,6 +185,7 @@ function App() {
         })
 
         .catch(() => {
+          setUserInfo(null);
           setUserlevelinfo(null);
         });
     }

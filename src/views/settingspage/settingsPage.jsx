@@ -4,26 +4,24 @@ import {
   createStyles,
   Divider,
   NavLink,
-  Switch,
+
   Text,
 } from "@mantine/core";
 import {
   ArrowLeft,
   CaretRight,
-  Key,
-  Palette,
-  SignOut,
-  User,
+
 } from "@phosphor-icons/react";
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Sidebar } from "../../Components/Sidebar";
 import { AuthContext } from "../../context/Auth";
 import Apperance from "./components/Apperance";
-import DeleteAccount from "./components/DeleteAccount";
 import ChangePassword from "./components/ChangePassword";
 import ChangeEmail from "./components/ChangeEmail";
-import { showNotification } from "@mantine/notifications";
+import { useState } from "react";
+import { getUserInfo } from "../../api/GET";
+import { format } from "date-fns";
 const useStyles = createStyles(() => ({
   wrapper: {
     display: "flex",
@@ -45,28 +43,20 @@ const useStyles = createStyles(() => ({
 
 export const SettingsPage = ({ socket }) => {
   const { classes } = useStyles();
-  const { darkmode, UserInfo, setUserInfo, setfollowingdata } =
+  const [usersettingsInfo, setUsersettingsInfo] = useState([]);
+  const { darkmode, UserInfo, } =
     useContext(AuthContext);
   const navigate = useNavigate();
   useEffect(() => {
-    if (!UserInfo) {
-      navigate("/");
-    }
+    getUserInfo()
+      .then((res) => {
+        setUsersettingsInfo(res.data);
+      })
+      .catch(() => {
+        navigate("/");
+      });
   }, [UserInfo]);
-  const handlelogout = () => {
-    socket.emit("removeOnlinestatus", { token: localStorage.getItem("token") });
-    setUserInfo(null);
-
-    localStorage.removeItem("token");
-
-    setfollowingdata([]);
-    showNotification({
-      icon: <SignOut size={18} />,
-      title: "Logged out",
-      autoClose: 3000,
-      color: "gray",
-    });
-  };
+ 
   return (
     <Container px={0} className={classes.wrapper}>
       <div className={classes.leftWrapper}>
@@ -103,12 +93,21 @@ export const SettingsPage = ({ socket }) => {
             label="Edit profile"
             rightSection={<CaretRight size="0.8rem" stroke={1.5} />}
           />
-          <ChangePassword />
+          {!usersettingsInfo?.isGoogleAccount && (
+            <>
+              <ChangeEmail
+                usersettingsInfo={usersettingsInfo}
+                setUsersettingsInfo={setUsersettingsInfo}
+              />
+              <ChangePassword />
+            </>
+          )}
+
           <Divider my="sm" />
           {/* <Text pl={13} pb={5} weight={700}>
             Security
           </Text>
-          <ChangeEmail />
+          
 
           <ChangePassword />
           <Divider my="sm" /> */}
@@ -116,13 +115,16 @@ export const SettingsPage = ({ socket }) => {
             Other
           </Text>
           <Apperance />
-
+          <NavLink
+            description={
+              usersettingsInfo?.createdAt &&
+              format(new Date(usersettingsInfo?.createdAt), "PP h:mm a")
+            }
+            label="Account created"
+          />
           {/* <DeleteAccount socket={socket} /> */}
-          {/* <NavLink
-            color="red"
-            onClick={() => handlelogout()}
-            label={`Log out @${UserInfo?.username}`}
-          /> */}
+          
+    
         </div>
       </div>
 

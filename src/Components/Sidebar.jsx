@@ -66,6 +66,7 @@ export const Sidebar = () => {
     onlinelist,
     topUser,
     setLeaderboardloading,
+    setUserInfo,
   } = useContext(AuthContext);
   const navigate = useNavigate();
   const totalPoints = userlevelinfo?.totalpoints;
@@ -78,6 +79,7 @@ export const Sidebar = () => {
           setUserlevelinfo(res.data.userlevel);
         })
         .catch(() => {
+          setUserInfo(null);
           setUserlevelinfo(null);
         });
     };

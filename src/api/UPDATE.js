@@ -110,3 +110,19 @@ export const updateChatroomStatus = async (roomid) => {
     }
   );
 };
+
+export const updateUserEmail = async (email, password) => {
+  return await api.put(
+    "/usersettings//updateEmail",
+    {
+      email,
+      password,
+    },
+
+    {
+      headers: {
+        Authorization: `${localStorage.getItem("token")}`,
+      },
+    }
+  );
+};

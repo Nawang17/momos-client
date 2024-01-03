@@ -12,7 +12,7 @@ const Apperance = () => {
     <>
       <NavLink
         onClick={() => setOpened(true)}
-        label="Display Theme"
+        label="Display theme"
         rightSection={
           <div
             style={{

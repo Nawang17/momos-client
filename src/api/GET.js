@@ -172,3 +172,11 @@ export const communityuserposts = async (page) => {
 export const getTopNews = async () => {
   return await api.get(`/news/Top`);
 };
+
+export const getUserInfo = async () => {
+  return await api.get(`/usersettings/getUserInfo`, {
+    headers: {
+      Authorization: `${localStorage.getItem("token")}`,
+    },
+  });
+};

@@ -52,7 +52,7 @@ const ChangePassword = () => {
     <>
       <NavLink
         onClick={() => setOpened(true)}
-        label="Change Password"
+        label="Change password"
         rightSection={<CaretRight size="0.8rem" stroke={1.5} />}
       />
       <Modal

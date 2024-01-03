@@ -191,6 +191,7 @@ export const Leaderboard = () => {
             }
           >
             <div
+              key={Math.random()}
               style={{
                 display: "flex",
                 flexDirection: "row",

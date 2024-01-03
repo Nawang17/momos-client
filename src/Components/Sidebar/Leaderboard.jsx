@@ -26,11 +26,14 @@ const useStyles = createStyles(() => ({
     cursor: "pointer",
   },
 }));
-const Leaderboard = ({ loading }) => {
+const Leaderboard = () => {
   const { classes } = useStyles();
   const navigate = useNavigate();
 
-  const { darkmode, leaderboard, topUser } = useContext(AuthContext);
+  const { darkmode, leaderboard, topUser, leaderboardloading } =
+    useContext(AuthContext);
+
+  // convert number value to ordinal (1st ,2nd ,3rd etc)
   function numberToOrdinal(n) {
     var s = ["th", "st", "nd", "rd"],
       v = n % 100;
@@ -38,7 +41,7 @@ const Leaderboard = ({ loading }) => {
   }
   return (
     <>
-      {!loading ? (
+      {!leaderboardloading ? (
         <div
           style={{
             backgroundColor: darkmode ? "#1A1B1E" : "white",

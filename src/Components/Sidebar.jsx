@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   Avatar,
   createStyles,
@@ -13,11 +13,11 @@ import { useContext } from "react";
 import { AuthContext } from "../context/Auth";
 import { useLocation, useNavigate } from "react-router-dom";
 import { SketchLogo } from "@phosphor-icons/react";
-import { getTopNews, leaderboardinfo, userlevel } from "../api/GET";
+import { leaderboardinfo, userlevel } from "../api/GET";
 import Topuserbadge from "../helper/Topuserbadge";
-import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
-import locale from "date-fns/locale/en-US";
 import Leaderboard from "./Sidebar/Leaderboard";
+import News from "./Sidebar/News";
+import { calculateLevelAndProgress } from "../helper/helperfunctions";
 const useStyles = createStyles(() => ({
   wrapper: {
     width: "100%",
@@ -65,105 +65,48 @@ export const Sidebar = () => {
     setUserlevelinfo,
     onlinelist,
     topUser,
+    setLeaderboardloading,
   } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
-
-  const [news, setNews] = useState([]);
-  function calculateLevelAndProgress() {
-    const points = userlevelinfo?.totalpoints;
-    const base = 3;
-    const scalingFactor = 1.5;
-    let level = 1;
-    let requiredPoints = base * Math.pow(level, scalingFactor);
-
-    while (points >= requiredPoints) {
-      level++;
-      requiredPoints = base * Math.pow(level, scalingFactor);
-    }
-
-    const levelStartPoints = base * Math.pow(level - 1, scalingFactor);
-    const levelProgress = Math.max(0, points - levelStartPoints);
-    const totalPointsInLevel = requiredPoints - levelStartPoints;
-
-    return {
-      level: level,
-      progress: Math.floor(levelProgress),
-      totalPointsInLevel: Math.ceil(totalPointsInLevel),
-    };
-  }
+  const totalPoints = userlevelinfo?.totalpoints;
 
   const { pathname } = useLocation();
   useEffect(() => {
-    const getleaderboardinfo = async () => {
-      setLoading(true);
-
-      await leaderboardinfo(0, "allTime")
-        .then((res) => {
-          setLeaderboard(res.data.leaderboard);
-
-          setLoading(false);
-        })
-        .catch((err) => {
-          setLoading(true);
-        });
-    };
-    const getuserlevel = async () => {
-      await userlevel()
+    const getuserlevel = () => {
+      userlevel()
         .then((res) => {
           setUserlevelinfo(res.data.userlevel);
         })
-
         .catch(() => {
           setUserlevelinfo(null);
         });
     };
-    getTopNews().then((res) => {
-      setNews(res.data.news.data);
-    });
-    if (pathname === "/") {
-      getleaderboardinfo();
-    }
+
     if (UserInfo) {
       getuserlevel();
     } else {
       setUserlevelinfo(null);
     }
   }, [UserInfo]);
-  const formatDistanceLocale = {
-    lessThanXSeconds: "{{count}}s",
-    xSeconds: "{{count}}s",
-    halfAMinute: "30s",
-    lessThanXMinutes: "{{count}}m",
-    xMinutes: "{{count}}m",
-    aboutXHours: "{{count}}h",
-    xHours: "{{count}}h",
-    xDays: "{{count}}d",
-    aboutXWeeks: "{{count}}w",
-    xWeeks: "{{count}}w",
-    aboutXMonths: "{{count}}mo",
-    xMonths: "{{count}}mo",
-    aboutXYears: "{{count}}y",
-    xYears: "{{count}}y",
-    overXYears: "{{count}}y",
-    almostXYears: "{{count}}y",
-  };
+  useEffect(() => {
+    const getleaderboardinfo = () => {
+      setLeaderboardloading(true);
 
-  function formatDistance(token, count, options) {
-    options = options || {};
+      leaderboardinfo(0, "allTime")
+        .then((res) => {
+          setLeaderboard(res.data.leaderboard);
 
-    const result = formatDistanceLocale[token].replace("{{count}}", count);
-
-    if (options.addSuffix) {
-      if (options.comparison > 0) {
-        return "in " + result;
-      } else {
-        return result + " ago";
-      }
+          setLeaderboardloading(false);
+        })
+        .catch(() => {
+          setLeaderboardloading(true);
+        });
+    };
+    if (pathname === "/") {
+      getleaderboardinfo();
     }
+  }, []);
 
-    return result;
-  }
   const getRankInfo = () => {
     const totalPoints = userlevelinfo?.totalpoints;
     if (totalPoints >= 200) {
@@ -335,8 +278,9 @@ export const Sidebar = () => {
                       margin: "0.6rem 0",
                     }}
                     value={
-                      (calculateLevelAndProgress().progress /
-                        calculateLevelAndProgress().totalPointsInLevel) *
+                      (calculateLevelAndProgress(totalPoints).progress /
+                        calculateLevelAndProgress(totalPoints)
+                          .totalPointsInLevel) *
                       100
                     }
                     mt={4}
@@ -356,7 +300,7 @@ export const Sidebar = () => {
                       weight={500}
                     >
                       {" "}
-                      Level {calculateLevelAndProgress().level}
+                      Level {calculateLevelAndProgress(totalPoints).level}
                     </Text>
                     <Text
                       color={darkmode ? "#c1c2c5" : "#000000"}
@@ -364,9 +308,11 @@ export const Sidebar = () => {
                       weight={500}
                     >
                       {" "}
-                      {calculateLevelAndProgress().totalPointsInLevel -
-                        calculateLevelAndProgress().progress}{" "}
-                      pts to Level {calculateLevelAndProgress().level + 1}
+                      {calculateLevelAndProgress(totalPoints)
+                        .totalPointsInLevel -
+                        calculateLevelAndProgress(totalPoints).progress}{" "}
+                      pts to Level{" "}
+                      {calculateLevelAndProgress(totalPoints).level + 1}
                     </Text>
                   </div>
                 </div>
@@ -376,111 +322,10 @@ export const Sidebar = () => {
         )}
 
         {/* leaderboard */}
-        {pathname === "/" && <Leaderboard loading={loading} />}
+        {pathname === "/" && <Leaderboard />}
 
         {/* latest news */}
-
-        <div
-          style={{
-            backgroundColor: darkmode ? "#1A1B1E" : "white",
-            color: darkmode ? "white" : "black",
-            marginBottom: "0.5rem",
-            borderRadius: "4px",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              padding: "0.7rem 1rem 0 1rem",
-              gap: "0.4rem",
-              alignItems: "center",
-            }}
-          >
-            <Text weight={700} size={12}>
-              Top News
-            </Text>{" "}
-          </div>
-          <div
-            style={{
-              paddingTop: "0.3rem",
-            }}
-            className={classes.accounts}
-          >
-            {news.map((val, index) => {
-              return (
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    paddingTop: "0rem",
-                  }}
-                  onClick={() => {
-                    window.location.href = val?.url;
-                  }}
-                  key={val.uuid}
-                  className={classes.account}
-                >
-                  <div
-                    style={{
-                      // borderTop: darkmode
-                      //   ? "1px solid rgb(47, 49, 54)"
-                      //   : "1px solid rgb(230, 230, 230)",
-                      display: "flex",
-                      flex: 1,
-                      flexDirection: "column",
-                    }}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "0rem",
-                      }}
-                    >
-                      <div>
-                        <Text
-                          color={darkmode ? "#c1c2c5" : "#000000"}
-                          size={"15px"}
-                          weight={600}
-                        >
-                          <div
-                            style={{
-                              display: "flex",
-                              alignItems: "center",
-                            }}
-                          >
-                            <Text color="dimmed" size="12px">
-                              {val?.source}
-                            </Text>
-                          </div>
-                          <span
-                            style={{ paddingTop: "0.1rem" }}
-                            className="link-style"
-                          >
-                            {val?.title}
-                          </span>
-                        </Text>
-                        <Text pt="5px" size={"12px"} color="dimmed">
-                          {formatDistanceToNowStrict(
-                            new Date(val?.published_at),
-                            {
-                              locale: {
-                                ...locale,
-                                formatDistance,
-                              },
-                              addSuffix: true,
-                            }
-                          )}
-                        </Text>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+        <News />
 
         {/* online users */}
         {onlinelist.length > 0 && (

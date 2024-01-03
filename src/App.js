@@ -18,7 +18,6 @@ import {
 import {
   getTopuser,
   getbookmarksid,
-  leaderboardinfo,
   suggestedusersreq,
   userlevel,
 } from "./api/GET";
@@ -29,7 +28,7 @@ import { Affix, Button, MantineProvider, Transition } from "@mantine/core";
 import { ArrowUp, HandWaving } from "@phosphor-icons/react";
 import { Leaderboard } from "./views/Leaderboard/Leaderboard";
 import ScrollToTop from "./helper/ScrollToTop";
-import { useWindowScroll, useIdle, useViewportSize } from "@mantine/hooks";
+import { useWindowScroll, useIdle } from "@mantine/hooks";
 import { About } from "./Components/About";
 import { Chat } from "./views/Chat/Chat";
 import { Reposts } from "./views/Reposts/Reposts";
@@ -68,7 +67,6 @@ function App() {
   const [onlineusers, setonlineusers] = useState([]);
   const [onlinelist, setonlinelist] = useState([]);
   const [bookmarkIds, setbookmarkIds] = useState([]);
-  const { height, width } = useViewportSize();
 
   useEffect(() => {
     socket.on("connect", () => {
@@ -173,16 +171,6 @@ function App() {
     getloginstatus();
   }, []);
   useEffect(() => {
-    async function getleaderboard() {
-      await leaderboardinfo(0, "allTime")
-        .then((res) => {
-          setLeaderboard(res.data.leaderboard);
-          setLeaderboardloading(false);
-        })
-        .catch(() => {
-          setLeaderboardloading(true);
-        });
-    }
     async function getsuggestedusers() {
       await suggestedusersreq({
         name: UserInfo?.username ? UserInfo.username : "suggestedUsers",
@@ -209,7 +197,6 @@ function App() {
           setbookmarkIds([]);
         });
     }
-    getleaderboard();
     getsuggestedusers();
     if (UserInfo) {
       getuserbookmarkids();

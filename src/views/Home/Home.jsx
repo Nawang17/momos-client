@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { Button, Container, createStyles, Loader } from "@mantine/core";
+import { Button, Container, createStyles, Loader, Text } from "@mantine/core";
 import { PostFeed } from "../../Components/PostFeed";
 import { Sidebar } from "../../Components/Sidebar";
 import CreatePost from "../../Components/CreatePost";
@@ -290,15 +290,16 @@ export const Home = () => {
             }
             endMessage={
               <>
-                {/* <Text
+                <Text
                   style={{
                     marginTop: "1rem",
                   }}
+                  size={"sm"}
                   align="center"
-                  color={darkmode ? "white" : "dark"}
+                  color={"dimmed"}
                 >
-                  You have seen it all
-                </Text> */}
+                  You have seen it all :) Come back later for more!
+                </Text>
               </>
             }
           >

@@ -14,8 +14,7 @@ import {
 } from "@mantine/core";
 import { useDebouncedValue } from "@mantine/hooks";
 import { showNotification } from "@mantine/notifications";
-import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
-import locale from "date-fns/locale/en-US";
+
 import {
   ArrowLeft,
   ChatCircleDots,
@@ -34,6 +33,7 @@ import { getchat, getchatrooms, searchusers } from "../../api/GET";
 import { Sidebar } from "../../Components/Sidebar";
 import { AuthContext } from "../../context/Auth";
 import { updateChatroomStatus } from "../../api/UPDATE";
+
 const useStyles = createStyles(() => ({
   wrapper: {
     display: "flex",
@@ -54,41 +54,6 @@ const useStyles = createStyles(() => ({
 }));
 
 export const Chatrooms = () => {
-  const formatDistanceLocale = {
-    lessThanXSeconds: "{{count}}s",
-    xSeconds: "{{count}}s",
-    halfAMinute: "30s",
-    lessThanXMinutes: "{{count}}m",
-    xMinutes: "{{count}}m",
-    aboutXHours: "{{count}}h",
-    xHours: "{{count}}h",
-    xDays: "{{count}}d",
-    aboutXWeeks: "{{count}}w",
-    xWeeks: "{{count}}w",
-    aboutXMonths: "{{count}}mo",
-    xMonths: "{{count}}mo",
-    aboutXYears: "{{count}}y",
-    xYears: "{{count}}y",
-    overXYears: "{{count}}y",
-    almostXYears: "{{count}}y",
-  };
-
-  function formatDistance(token, count, options) {
-    options = options || {};
-
-    const result = formatDistanceLocale[token].replace("{{count}}", count);
-
-    if (options.addSuffix) {
-      if (options.comparison > 0) {
-        return "in " + result;
-      } else {
-        return result + " ago";
-      }
-    }
-
-    return result;
-  }
-
   const { classes } = useStyles();
   const { darkmode, UserInfo, onlineusers } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);

@@ -32,7 +32,7 @@ import { AuthContext } from "../context/Auth";
 import { useNavigate } from "react-router-dom";
 import GifPicker from "gif-picker-react";
 import ReactGA from "react-ga4";
-
+import { formatDistance } from "../helper/DateFormat";
 export default function CreatePostModal({
   opened,
   setOpened,
@@ -41,39 +41,6 @@ export default function CreatePostModal({
   quotepostinfo,
   communityName,
 }) {
-  const formatDistanceLocale = {
-    lessThanXSeconds: "{{count}}s",
-    xSeconds: "{{count}}s",
-    halfAMinute: "30s",
-    lessThanXMinutes: "{{count}}m",
-    xMinutes: "{{count}}m",
-    aboutXHours: "{{count}}h",
-    xHours: "{{count}}h",
-    xDays: "{{count}}d",
-    aboutXWeeks: "{{count}}w",
-    xWeeks: "{{count}}w",
-    aboutXMonths: "{{count}}mo",
-    xMonths: "{{count}}mo",
-    aboutXYears: "{{count}}y",
-    xYears: "{{count}}y",
-    overXYears: "{{count}}y",
-    almostXYears: "{{count}}y",
-  };
-  function formatDistance(token, count, options) {
-    options = options || {};
-
-    const result = formatDistanceLocale[token].replace("{{count}}", count);
-
-    if (options.addSuffix) {
-      if (options.comparison > 0) {
-        return "in " + result;
-      } else {
-        return result + " ago";
-      }
-    }
-
-    return result;
-  }
   const [flieInputState, setFileInputState] = useState("");
   const [previewSource, setPreviewSource] = useState("");
   const navigate = useNavigate();
@@ -224,9 +191,9 @@ export default function CreatePostModal({
           .then((res) => {
             closemodal();
             ReactGA.event({
-              category: 'Button',
-              action: 'New_post',
-              label: 'Post'
+              category: "Button",
+              action: "New_post",
+              label: "Post",
             });
             navigate(`/post/${res.data.newpostid}`);
             showNotification({
@@ -280,9 +247,9 @@ export default function CreatePostModal({
           .then((res) => {
             closemodal();
             ReactGA.event({
-              category: 'Button',
-              action: 'New_post',
-              label: 'Post'
+              category: "Button",
+              action: "New_post",
+              label: "Post",
             });
             navigate(`/post/${res.data.newpostid}`);
             showNotification({

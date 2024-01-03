@@ -9,7 +9,6 @@ import {
   Avatar,
   Indicator,
   BackgroundImage,
-  Badge,
   Progress,
 } from "@mantine/core";
 import {
@@ -21,7 +20,6 @@ import {
   UserMinus,
   CalendarBlank,
   UsersThree,
-  SketchLogo,
 } from "@phosphor-icons/react";
 import { useNavigate } from "react-router-dom";
 import { follow } from "../../api/POST";
@@ -35,7 +33,9 @@ import Topuserbadge from "../../helper/Topuserbadge";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import locale from "date-fns/locale/en-US";
 import ImageViewer from "react-simple-image-viewer";
-
+import { formatDistance } from "../../helper/DateFormat";
+import { calculateLevelAndProgress } from "../../helper/helperfunctions";
+import { getRankInfo } from "../../helper/RankInfo";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -56,40 +56,6 @@ const useStyles = createStyles(() => ({
   },
 }));
 export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
-  const formatDistanceLocale = {
-    lessThanXSeconds: "{{count}}s",
-    xSeconds: "{{count}}s",
-    halfAMinute: "30s",
-    lessThanXMinutes: "{{count}}m",
-    xMinutes: "{{count}}m",
-    aboutXHours: "{{count}}h",
-    xHours: "{{count}}h",
-    xDays: "{{count}}d",
-    aboutXWeeks: "{{count}}w",
-    xWeeks: "{{count}}w",
-    aboutXMonths: "{{count}}mo",
-    xMonths: "{{count}}mo",
-    aboutXYears: "{{count}}y",
-    xYears: "{{count}}y",
-    overXYears: "{{count}}y",
-    almostXYears: "{{count}}y",
-  };
-
-  function formatDistance(token, count, options) {
-    options = options || {};
-
-    const result = formatDistanceLocale[token].replace("{{count}}", count);
-
-    if (options.addSuffix) {
-      if (options.comparison > 0) {
-        return "in " + result;
-      } else {
-        return result + " ago";
-      }
-    }
-
-    return result;
-  }
   const { userprofile } = useParams();
 
   const {
@@ -270,69 +236,7 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
 
     return replacedText;
   };
-  function calculateLevelAndProgress() {
-    const points = rankinfo?.points;
-    const base = 3;
-    const scalingFactor = 1.5;
-    let level = 1;
-    let requiredPoints = base * Math.pow(level, scalingFactor);
-
-    while (points >= requiredPoints) {
-      level++;
-      requiredPoints = base * Math.pow(level, scalingFactor);
-    }
-
-    const levelStartPoints = base * Math.pow(level - 1, scalingFactor);
-    const levelProgress = Math.max(0, points - levelStartPoints);
-    const totalPointsInLevel = requiredPoints - levelStartPoints;
-
-    return {
-      level: level,
-      progress: Math.floor(levelProgress),
-      totalPointsInLevel: Math.ceil(totalPointsInLevel),
-    };
-  }
-  const getRankInfo = () => {
-    const totalPoints = rankinfo?.points;
-    if (totalPoints >= 200) {
-      return {
-        backgroundColor: "#d381e5",
-        rankName: "Diamond",
-        color: "white",
-        icon: <SketchLogo size={25} color="#d381e5" weight="fill" />,
-      };
-    } else if (totalPoints >= 150) {
-      return {
-        backgroundColor: "#3ba7b4",
-        rankName: "Platinum",
-        color: "white",
-        icon: <SketchLogo size={25} color="#3ba7b4" weight="fill" />,
-      };
-    } else if (totalPoints >= 100) {
-      return {
-        backgroundColor: "#ffd700",
-        rankName: "Gold",
-        color: "black",
-        icon: <SketchLogo size={25} color="#ffd700" weight="fill" />,
-      };
-    } else if (totalPoints >= 50) {
-      return {
-        backgroundColor: "#c0c0c0",
-        rankName: "Silver",
-        color: "black",
-        icon: (
-          <SketchLogo size={25} color="RGB(192, 192, 192) " weight="fill" />
-        ),
-      };
-    } else {
-      return {
-        backgroundColor: "#cd7f32",
-        rankName: "Bronze",
-        color: "white",
-        icon: <SketchLogo size={25} color="RGB(205, 127, 50)" weight="fill" />,
-      };
-    }
-  };
+  const totalPoints = rankinfo?.points;
 
   return (
     <>
@@ -805,8 +709,8 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
               borderRadius: "4px",
 
               gap: "0.5rem",
-              backgroundColor: `${getRankInfo().backgroundColor}`,
-              color: `${getRankInfo().color}`,
+              backgroundColor: `${getRankInfo(totalPoints).backgroundColor}`,
+              color: `${getRankInfo(totalPoints).color}`,
             }}
           >
             <ActionIcon
@@ -816,7 +720,7 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
               radius="xl"
               size="lg"
             >
-              {getRankInfo().icon}
+              {getRankInfo(totalPoints).icon}
             </ActionIcon>
 
             <div
@@ -839,13 +743,14 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                   size="xs"
                   weight={500}
                 >
-                  {getRankInfo().rankName} Rank - {rankinfo?.points} points
+                  {getRankInfo(totalPoints).rankName} Rank - {rankinfo?.points}{" "}
+                  points
                 </Text>
               </div>
               <Progress
                 value={
-                  (calculateLevelAndProgress().progress /
-                    calculateLevelAndProgress().totalPointsInLevel) *
+                  (calculateLevelAndProgress(totalPoints).progress /
+                    calculateLevelAndProgress(totalPoints).totalPointsInLevel) *
                   100
                 }
                 mt={4}
@@ -868,15 +773,15 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                   size="sm"
                   weight={600}
                 >
-                  Level {calculateLevelAndProgress().level}
+                  Level {calculateLevelAndProgress(totalPoints).level}
                 </Text>
                 <Text pt={5} size="xs" weight={500}>
                   <Text component="span">
-                    {calculateLevelAndProgress().totalPointsInLevel -
-                      calculateLevelAndProgress().progress}{" "}
+                    {calculateLevelAndProgress(totalPoints).totalPointsInLevel -
+                      calculateLevelAndProgress(totalPoints).progress}{" "}
                     points to
                   </Text>{" "}
-                  Level {calculateLevelAndProgress().level + 1}
+                  Level {calculateLevelAndProgress(totalPoints).level + 1}
                 </Text>
               </div>
             </div>

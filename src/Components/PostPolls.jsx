@@ -13,48 +13,16 @@ import {
   Lock,
   WarningCircle,
 } from "@phosphor-icons/react";
-
+import { formatDistance } from "../helper/DateFormat";
 const PostPolls = ({ post }) => {
   const [poll, setpoll] = useState(post);
-  const formatDistanceLocale = {
-    lessThanXSeconds: "{{count}}s",
-    xSeconds: "{{count}}s",
-    halfAMinute: "30s",
-    lessThanXMinutes: "{{count}}m",
-    xMinutes: "{{count}} mintues",
-    aboutXHours: "{{count}}h",
-    xHours: "{{count}}h",
-    xDays: "{{count}}d",
-    aboutXWeeks: "{{count}}w",
-    xWeeks: "{{count}}w",
-    aboutXMonths: "{{count}}mo",
-    xMonths: "{{count}}mo",
-    aboutXYears: "{{count}}y",
-    xYears: "{{count}}y",
-    overXYears: "{{count}}y",
-    almostXYears: "{{count}}y",
-  };
+
   function hasDatePassed(dateString) {
     const now = new Date();
     const dateToCheck = new Date(dateString);
     return dateToCheck < now;
   }
 
-  function formatDistance(token, count, options) {
-    options = options || {};
-
-    const result = formatDistanceLocale[token].replace("{{count}}", count);
-
-    if (options.addSuffix) {
-      if (options.comparison > 0) {
-        return "in " + result;
-      } else {
-        return result + " ago";
-      }
-    }
-
-    return result;
-  }
   const { UserInfo, darkmode } = useContext(AuthContext);
   const [votemodal, setvotemodal] = useState(false);
   const navigate = useNavigate();

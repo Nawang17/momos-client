@@ -11,18 +11,15 @@ import { formatDistanceToNowStrict } from "date-fns";
 import locale from "date-fns/locale/en-US";
 
 import {
-  ArrowsClockwise,
   At,
   Bell,
   BellRinging,
-  ChatCircle,
   ChatTeardropDots,
   GitPullRequest,
   Heart,
   ThumbsUp,
   Trash,
   User,
-  UserPlus,
   WarningCircle,
 } from "@phosphor-icons/react";
 import { useEffect } from "react";
@@ -31,41 +28,8 @@ import { useNavigate } from "react-router-dom";
 import { notis } from "../../api/GET";
 import { acceptCommunityrequest } from "../../api/POST";
 import { showNotification } from "@mantine/notifications";
+import { formatDistance } from "../../helper/DateFormat";
 export default function Notis({ darkmode }) {
-  const formatDistanceLocale = {
-    lessThanXSeconds: "{{count}}s",
-    xSeconds: "{{count}}s",
-    halfAMinute: "30s",
-    lessThanXMinutes: "{{count}}m",
-    xMinutes: "{{count}}m",
-    aboutXHours: "{{count}}h",
-    xHours: "{{count}}h",
-    xDays: "{{count}}d",
-    aboutXWeeks: "{{count}}w",
-    xWeeks: "{{count}}w",
-    aboutXMonths: "{{count}}mo",
-    xMonths: "{{count}}mo",
-    aboutXYears: "{{count}}y",
-    xYears: "{{count}}y",
-    overXYears: "{{count}}y",
-    almostXYears: "{{count}}y",
-  };
-
-  function formatDistance(token, count, options) {
-    options = options || {};
-
-    const result = formatDistanceLocale[token].replace("{{count}}", count);
-
-    if (options.addSuffix) {
-      if (options.comparison > 0) {
-        return "in " + result;
-      } else {
-        return result + " ago";
-      }
-    }
-
-    return result;
-  }
   const [opened, setOpened] = useState(false);
   const [Notis, setnotis] = useState([]);
   const navigate = useNavigate();

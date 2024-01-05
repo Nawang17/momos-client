@@ -82,7 +82,8 @@ export const Chat = ({ socket }) => {
       <span
         onClick={(e) => {
           e.stopPropagation();
-          window.location.href = match;
+          window.open( match, "_blank");
+
         }}
         style={{
           textDecoration: "underline",

@@ -34,7 +34,7 @@ const PostPolls = ({ post }) => {
       <span
         onClick={(e) => {
           e.stopPropagation();
-          window.location.href = match;
+          window.open( match, "_blank");
         }}
         className="link-style"
         style={{

@@ -479,7 +479,7 @@ export const Sidebar = () => {
             }}
             size="12px"
           >
-            © 2023 momos. All rights reserved.
+            © 2024 momos. All rights reserved.
           </Text>
         </div>
 

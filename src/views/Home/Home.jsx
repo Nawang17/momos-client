@@ -290,16 +290,18 @@ export const Home = () => {
             }
             endMessage={
               <>
-                <Text
-                  style={{
-                    marginTop: "1rem",
-                  }}
-                  size={"sm"}
-                  align="center"
-                  color={"dimmed"}
-                >
-                  You have seen it all :) Come back later for more!
-                </Text>
+                {homePosts.length > 0 && (
+                  <Text
+                    style={{
+                      marginTop: "1rem",
+                    }}
+                    size={"sm"}
+                    align="center"
+                    color={"dimmed"}
+                  >
+                    You have seen it all &#x1F60A; Come back later for more!
+                  </Text>
+                )}
               </>
             }
           >

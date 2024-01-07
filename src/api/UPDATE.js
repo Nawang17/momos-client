@@ -126,3 +126,15 @@ export const updateUserEmail = async (email, password) => {
     }
   );
 };
+export const forgotPassword = async (email) => {
+  return await api.put("/forgotPassword", {
+    email,
+  });
+};
+
+export const resetPassword = async (resetToken, password) => {
+  return await api.put("/resetPassword", {
+    resetToken: resetToken,
+    password: password,
+  });
+};

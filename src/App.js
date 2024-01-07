@@ -44,6 +44,7 @@ import { CommunityProfile } from "./views/communities/CommunityProfile";
 import { Singlecommunitypost } from "./views/singlecommunitypost/Singelcommunitypost";
 import { ModalsProvider } from "@mantine/modals";
 import BottomBar from "./Components/BottomBar";
+import { ForgotPasswordUpdate } from "./views/Login/ForgotPasswordUpdate";
 
 ReactGA.initialize("G-YJSVSC17CL");
 
@@ -482,6 +483,20 @@ function App() {
           <ScrollToTop />
 
           <Admin />
+          <BottomBar />
+        </>
+      ),
+    },
+    // reset-password
+    {
+      path: "/reset-password/:resetToken",
+      element: (
+        <>
+          <Navbar socket={socket} />
+
+          <ScrollToTop />
+
+          <ForgotPasswordUpdate socket={socket} />
           <BottomBar />
         </>
       ),

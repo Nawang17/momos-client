@@ -25,6 +25,7 @@ export function Register({ socket }) {
     useContext(AuthContext);
   const [Username, setUsername] = useState("");
   const [Password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   const [loading, setloading] = useState(false);
   const [error, seterror] = useState("");
   const [googleloading, setgoogleloading] = useState(false);
@@ -37,7 +38,7 @@ export function Register({ socket }) {
     setloading(true);
     seterror("");
     e.preventDefault();
-    RegisterReq(Username, Password)
+    RegisterReq(Username, Password, email)
       .then((res) => {
         setUserInfo(res.data.user);
         localStorage.setItem("token", res.data.token);
@@ -45,9 +46,9 @@ export function Register({ socket }) {
           token: res.data.token,
         });
         ReactGA.event({
-          category: 'Button',
-          action: 'Regular_account_register',
-          label: 'Register'
+          category: "Button",
+          action: "Regular_account_register",
+          label: "Register",
         });
         confetti({
           particleCount: 300,
@@ -84,13 +85,13 @@ export function Register({ socket }) {
         socket.emit("onlinestatus", {
           token: res.data.token,
         });
-       
+
         navigate("/");
         if (res.data.type === "login") {
           ReactGA.event({
-            category: 'Button',
-            action: 'Google_account_login',
-            label: 'Login'
+            category: "Button",
+            action: "Google_account_login",
+            label: "Login",
           });
           showNotification({
             icon: <ShieldCheck size={18} />,
@@ -103,9 +104,9 @@ export function Register({ socket }) {
           });
         } else if (res.data.type === "register") {
           ReactGA.event({
-            category: 'Button',
-            action: 'Google_account_register',
-            label: 'Register'
+            category: "Button",
+            action: "Google_account_register",
+            label: "Register",
           });
           confetti({
             particleCount: 300,
@@ -174,18 +175,36 @@ export function Register({ socket }) {
           </Text>
           <form onSubmit={(e) => handleRegister(e)}>
             <TextInput
+              onChange={(e) => setEmail(e.target.value)}
+              label="Email (optional)"
+              placeholder="you@youremail.com"
+              value={email}
+            />
+            <Text pt={1} size={13} color="dimmed">
+              Never shown to the public
+            </Text>
+            <TextInput
+              value={Username}
               onChange={(e) => setUsername(e.target.value)}
               label="Username"
               placeholder="Username"
               required
+              mt="xs"
             />
+            <Text pt={1} size={13} color="dimmed">
+              Unique, no spaces, short
+            </Text>
             <PasswordInput
+              value={Password}
               onChange={(e) => setPassword(e.target.value)}
               label="Password"
               placeholder="Password"
               required
-              mt="md"
+              mt="xs"
             />
+            <Text pt={1} size={13} color="dimmed">
+              At least 6 characters
+            </Text>
 
             <Button loading={loading} type="submit" fullWidth mt="xl">
               Register

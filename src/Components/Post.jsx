@@ -259,8 +259,7 @@ export const Post = ({ post, setPosts, comments }) => {
       <span
         onClick={(e) => {
           e.stopPropagation();
-          window.open( match, "_blank");
-          
+          window.open(match, "_blank");
         }}
         className="link-style"
         style={{

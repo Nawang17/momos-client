@@ -21,6 +21,7 @@ import GoogleLogin from "@leecheuk/react-google-login";
 import { ShieldCheck, User, WarningCircle } from "@phosphor-icons/react";
 import confetti from "canvas-confetti";
 import ReactGA from "react-ga4";
+import ForgotPasswordModal from "./ForgotPasswordModal";
 
 export function Login({ socket }) {
   const { setUserInfo, UserInfo, setfollowingdata, darkmode } =
@@ -30,7 +31,7 @@ export function Login({ socket }) {
   const [Password, setPassword] = useState("");
   const [loading, setloading] = useState(false);
   const [error, seterror] = useState("");
-
+  const [opened, setOpened] = useState(false);
   const [googleloading, setgoogleloading] = useState(false);
 
   useEffect(() => {
@@ -49,9 +50,9 @@ export function Login({ socket }) {
         setUserInfo(res.data.user);
         localStorage.setItem("token", res.data.token);
         ReactGA.event({
-          category: 'Button',
-          action: 'Regular_login',
-          label: 'Login'
+          category: "Button",
+          action: "Regular_login",
+          label: "Login",
         });
         socket.emit("onlinestatus", {
           token: res.data.token,
@@ -87,9 +88,9 @@ export function Login({ socket }) {
           token: res.data.token,
         });
         ReactGA.event({
-          category: 'Button',
-          action: 'Regular_login',
-          label: 'Login'
+          category: "Button",
+          action: "Regular_login",
+          label: "Login",
         });
         showNotification({
           icon: <ShieldCheck size={18} />,
@@ -123,13 +124,13 @@ export function Login({ socket }) {
         socket.emit("onlinestatus", {
           token: res.data.token,
         });
-       
+
         navigate("/");
         if (res.data.type === "login") {
           ReactGA.event({
-            category: 'Button',
-            action: 'Google_login',
-            label: 'Login'
+            category: "Button",
+            action: "Google_login",
+            label: "Login",
           });
           showNotification({
             icon: <ShieldCheck size={18} />,
@@ -142,9 +143,9 @@ export function Login({ socket }) {
           });
         } else if (res.data.type === "register") {
           ReactGA.event({
-            category: 'Button',
-            action: 'Google_account_register',
-            label: 'Register'
+            category: "Button",
+            action: "Google_account_register",
+            label: "Register",
           });
           confetti({
             particleCount: 300,
@@ -234,8 +235,19 @@ export function Login({ socket }) {
               mt="md"
               autoComplete="current-password"
             />
-
-            <Button loading={loading} type="submit" fullWidth mt="xl">
+            <Text
+              style={{
+                cursor: "pointer",
+              }}
+              pt={5}
+              size="sm"
+              color="blue"
+              onClick={() => setOpened(true)}
+            >
+              I forgot my password
+            </Text>
+            <ForgotPasswordModal opened={opened} setOpened={setOpened} />
+            <Button loading={loading} type="submit" fullWidth mt="lg">
               Login
             </Button>
           </form>

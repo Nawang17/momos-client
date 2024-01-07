@@ -14,10 +14,11 @@ export const LoginStatus = async () => {
     },
   });
 };
-export const RegisterReq = async (username, password) => {
+export const RegisterReq = async (username, password, email) => {
   return await api.post("/auth/register", {
     username,
     password,
+    email,
   });
 };
 export const googleauth = async (username, email, avatar) => {

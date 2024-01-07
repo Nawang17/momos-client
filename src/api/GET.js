@@ -180,3 +180,6 @@ export const getUserInfo = async () => {
     },
   });
 };
+export const resetTokenCheck = async (resetToken) => {
+  return await api.get(`/resetTokenCheck/${resetToken}`);
+};

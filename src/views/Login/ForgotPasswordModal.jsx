@@ -6,13 +6,16 @@ const ForgotPasswordModal = ({ opened, setOpened }) => {
   const [email, setEmail] = useState("");
   const [emailSent, setEmailSent] = useState(false);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const onModalClose = () => {
     setOpened(false);
     setEmailSent(false);
     setEmail("");
     setError("");
+    setLoading(false);
   };
   const onResetClick = () => {
+    setLoading(true);
     setError("");
     forgotPassword(email)
       .then(() => {
@@ -20,6 +23,7 @@ const ForgotPasswordModal = ({ opened, setOpened }) => {
       })
       .catch((err) => {
         setError(err.response.data);
+        setLoading(false);
       });
   };
   return (
@@ -76,6 +80,7 @@ const ForgotPasswordModal = ({ opened, setOpened }) => {
               placeholder="you@youremail.com"
             />
             <Button
+              loading={loading}
               onClick={() => {
                 onResetClick();
               }}

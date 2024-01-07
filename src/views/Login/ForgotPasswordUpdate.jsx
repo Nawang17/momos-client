@@ -46,6 +46,7 @@ export const ForgotPasswordUpdate = ({ socket }) => {
   const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
   const [error, seterror] = useState("");
+  const [submitLoading, setsubmitLoading] = useState(false);
   useEffect(() => {
     socket.emit("removeOnlinestatus", {
       token: localStorage?.getItem("token"),
@@ -64,6 +65,7 @@ export const ForgotPasswordUpdate = ({ socket }) => {
       });
   }, []);
   const onSumbit = () => {
+    setsubmitLoading(true);
     seterror("");
     resetPassword(resetToken, NewPassword)
       .then((res) => {
@@ -93,6 +95,7 @@ export const ForgotPasswordUpdate = ({ socket }) => {
       })
       .catch((err) => {
         seterror(err?.response?.data);
+        setsubmitLoading(false);
       });
   };
   return (
@@ -130,6 +133,7 @@ export const ForgotPasswordUpdate = ({ socket }) => {
                 radius="xl"
               />
               <Button
+                loading={submitLoading}
                 onClick={() => {
                   onSumbit();
                 }}

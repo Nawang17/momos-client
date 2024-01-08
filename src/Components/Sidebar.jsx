@@ -375,6 +375,9 @@ export const Sidebar = () => {
                         }}
                       >
                         <Text>{val.username}</Text>
+                        {val?.verified && <Verifiedbadge/>
+                        }
+
                         {topUser === val.username && <Topuserbadge />}
                       </div>
                     }

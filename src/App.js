@@ -1,14 +1,6 @@
 import "./App.css";
 import { useState, useEffect } from "react";
-import { Navbar } from "./Components/Navbar";
-import { Home } from "./views/Home/Home";
-import { Login } from "./views/Login/Login";
-import { Register } from "./views/Register/Register";
-import { SinglePost } from "./views/SinglePost/SinglePost";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Profile } from "./views/Profile/Profile";
-import { RouteError } from "./Components/RouteError";
-import { Hero } from "./Components/Hero";
+import { RouterProvider } from "react-router-dom";
 import { AuthContext } from "./context/Auth";
 import { LoginStatus } from "./api/AUTH";
 import {
@@ -21,31 +13,20 @@ import {
   suggestedusersreq,
   userlevel,
 } from "./api/GET";
-import { Editprofile } from "./views/UserSettings/Editprofile";
-import { Search } from "./views/Search/Search";
-import { SuggestedAccs } from "./views/SuggestedAccounts/SuggestedAccs";
+
 import { Affix, Button, MantineProvider, Transition } from "@mantine/core";
 import { ArrowUp, HandWaving } from "@phosphor-icons/react";
-import { Leaderboard } from "./views/Leaderboard/Leaderboard";
-import ScrollToTop from "./helper/ScrollToTop";
-import { useWindowScroll, useIdle } from "@mantine/hooks";
-import { About } from "./Components/About";
-import { Chat } from "./views/Chat/Chat";
-import { Reposts } from "./views/Reposts/Reposts";
-import { io } from "socket.io-client";
-import { Chatrooms } from "./views/Chat/Chatrooms";
-import { Discover } from "./views/Discover/Discover";
-import ReactGA from "react-ga4";
-import { SettingsPage } from "./views/settingspage/settingsPage";
-import { Bookmarks } from "./views/bookmark/Bookmarks";
-import { Admin } from "./views/admin/Admin";
-import { Communities } from "./views/communities/Communities";
-import { CommunityProfile } from "./views/communities/CommunityProfile";
-import { Singlecommunitypost } from "./views/singlecommunitypost/Singelcommunitypost";
-import { ModalsProvider } from "@mantine/modals";
-import BottomBar from "./Components/BottomBar";
-import { ForgotPasswordUpdate } from "./views/Login/ForgotPasswordUpdate";
 
+import { useWindowScroll, useIdle } from "@mantine/hooks";
+
+import { io } from "socket.io-client";
+
+import ReactGA from "react-ga4";
+
+import { ModalsProvider } from "@mantine/modals";
+
+import { routes } from "./routes";
+import { Darkmodecheck } from "./helper/Darkmodecheck";
 ReactGA.initialize("G-YJSVSC17CL");
 
 const socket = io(process.env.REACT_APP_SERVER_URL);
@@ -53,11 +34,9 @@ const socket = io(process.env.REACT_APP_SERVER_URL);
 function App() {
   const idle = useIdle(60000); //in miliseconds; // 1 minute of inactivity to be considered idle
   const [isConnected, setIsConnected] = useState(socket.connected);
-
+  const [scroll, scrollTo] = useWindowScroll();
   const [darkmode, setdarkmode] = useState(true);
-
   const [UserInfo, setUserInfo] = useState(null);
-
   const [followingdata, setfollowingdata] = useState([]);
   const [suggestedUsers, setSuggestedusers] = useState([]);
   const [leaderboard, setLeaderboard] = useState([]);
@@ -68,7 +47,53 @@ function App() {
   const [onlineusers, setonlineusers] = useState([]);
   const [onlinelist, setonlinelist] = useState([]);
   const [bookmarkIds, setbookmarkIds] = useState([]);
+  function getloginstatus() {
+    LoginStatus()
+      .then((res) => {
+        setUserInfo(res.data.user);
+        setfollowingdata(res.data.userfollowingarr);
+        showNotification({
+          icon: <HandWaving size={18} />,
+          title: `Welcome back, ${res.data.user.username}`,
 
+          autoClose: 3000,
+        });
+        setLoading(false);
+      })
+      .catch(() => {
+        setUserInfo(null);
+        setLoading(false);
+      });
+  }
+  function getsuggestedusers() {
+    suggestedusersreq({
+      name: UserInfo?.username ? UserInfo.username : "suggestedUsers",
+    }).then((res) => {
+      setSuggestedusers(res.data.suggestedusers);
+    });
+  }
+  function getuserlevel() {
+    userlevel()
+      .then((res) => {
+        setUserlevelinfo(res.data.userlevel);
+      })
+
+      .catch(() => {
+        setUserInfo(null);
+        setUserlevelinfo(null);
+      });
+  }
+  function getuserbookmarkids() {
+    getbookmarksid()
+      .then((res) => {
+        setbookmarkIds(res.data.bookmarkIds);
+      })
+      .catch(() => {
+        setbookmarkIds([]);
+      });
+  }
+
+  //socket connection intialization
   useEffect(() => {
     socket.on("connect", () => {
       setIsConnected(true);
@@ -95,6 +120,8 @@ function App() {
       socket.off("disconnect");
     };
   }, []);
+
+  //socket connection on idle event
   useEffect(() => {
     socket.on("connect", () => {
       setIsConnected(true);
@@ -111,30 +138,7 @@ function App() {
   }, [idle]);
 
   useEffect(() => {
-    if (localStorage.getItem("darkmode") === null) {
-      if (
-        window.matchMedia &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches
-      ) {
-        localStorage.setItem("darkmode", "true");
-        setdarkmode(true);
-        document.body.style = "background: #101113;";
-      } else {
-        localStorage.setItem("darkmode", "false");
-        setdarkmode(false);
-        document.body.style = "background: #f0f2f5;";
-      }
-    } else {
-      if (localStorage.getItem("darkmode") === "true") {
-        setdarkmode(true);
-
-        document.body.style = "background: #101113;";
-      } else {
-        setdarkmode(false);
-
-        document.body.style = "background: #f0f2f5;";
-      }
-    }
+    Darkmodecheck(setdarkmode);
     const gettopuserr = async () => {
       await getTopuser().then((res) => {
         settopUser(res.data.topuser);
@@ -151,54 +155,10 @@ function App() {
     ██║╚██╔╝██║██║   ██║██║╚██╔╝██║██║   ██║╚════██║
     ██║ ╚═╝ ██║╚██████╔╝██║ ╚═╝ ██║╚██████╔╝███████║
     ╚═╝     ╚═╝ ╚═════╝ ╚═╝     ╚═╝ ╚═════╝ ╚══════╝ `);
-    async function getloginstatus() {
-      await LoginStatus()
-        .then(async (res) => {
-          setUserInfo(res.data.user);
-          setfollowingdata(res.data.userfollowingarr);
-          showNotification({
-            icon: <HandWaving size={18} />,
-            title: `Welcome back, ${res.data.user.username}`,
 
-            autoClose: 3000,
-          });
-          setLoading(false);
-        })
-        .catch(() => {
-          setUserInfo(null);
-          setLoading(false);
-        });
-    }
     getloginstatus();
   }, []);
   useEffect(() => {
-    async function getsuggestedusers() {
-      await suggestedusersreq({
-        name: UserInfo?.username ? UserInfo.username : "suggestedUsers",
-      }).then((res) => {
-        setSuggestedusers(res.data.suggestedusers);
-      });
-    }
-    async function getuserlevel() {
-      await userlevel()
-        .then((res) => {
-          setUserlevelinfo(res.data.userlevel);
-        })
-
-        .catch(() => {
-          setUserInfo(null);
-          setUserlevelinfo(null);
-        });
-    }
-    async function getuserbookmarkids() {
-      await getbookmarksid()
-        .then((res) => {
-          setbookmarkIds(res.data.bookmarkIds);
-        })
-        .catch(() => {
-          setbookmarkIds([]);
-        });
-    }
     getsuggestedusers();
     if (UserInfo) {
       getuserbookmarkids();
@@ -208,301 +168,6 @@ function App() {
       setbookmarkIds([]);
     }
   }, [UserInfo]);
-
-  //put <BottomBar /> for each route at end of element
-
-  const router = createBrowserRouter([
-    {
-      path: "/communitypost/:postid",
-      element: (
-        <>
-          <Navbar socket={socket} />
-
-          <ScrollToTop />
-
-          <Singlecommunitypost />
-          <BottomBar />
-        </>
-      ),
-      errorElement: <RouteError />,
-    },
-    {
-      path: "/Communities",
-      element: (
-        <>
-          <Navbar socket={socket} />
-
-          <ScrollToTop />
-
-          <Communities />
-          <BottomBar />
-        </>
-      ),
-      errorElement: <RouteError />,
-    },
-    {
-      path: "/community/:name",
-      element: (
-        <>
-          <Navbar socket={socket} />
-
-          <ScrollToTop />
-
-          <CommunityProfile />
-          <BottomBar />
-        </>
-      ),
-      errorElement: <RouteError />,
-    },
-    {
-      path: "/discover",
-      element: (
-        <>
-          <Navbar socket={socket} />
-
-          <ScrollToTop />
-
-          <Discover />
-          <BottomBar />
-        </>
-      ),
-      errorElement: <RouteError />,
-    },
-    {
-      path: "/",
-      element: (
-        <>
-          <Navbar socket={socket} />
-
-          <ScrollToTop />
-
-          {!UserInfo && !loading && <Hero darkmode={darkmode} />}
-
-          <Home />
-          <BottomBar />
-        </>
-      ),
-      errorElement: <RouteError />,
-    },
-    {
-      path: "/search/q/:searchquery",
-      element: (
-        <>
-          <Navbar socket={socket} />
-
-          <ScrollToTop />
-
-          <Search />
-          <BottomBar />
-        </>
-      ),
-      errorElement: <RouteError />,
-    },
-
-    {
-      path: "/post/:postid",
-      element: (
-        <>
-          <ScrollToTop />
-
-          <Navbar socket={socket} />
-
-          <SinglePost />
-          <BottomBar />
-        </>
-      ),
-      errorElement: <RouteError />,
-    },
-    //profile page
-    {
-      path: "/:userprofile",
-      element: (
-        <>
-          <ScrollToTop />
-
-          <Navbar socket={socket} />
-
-          <Profile />
-          <BottomBar />
-        </>
-      ),
-      errorElement: <RouteError />,
-    },
-    {
-      path: "/reposts/:postId",
-      element: (
-        <>
-          <ScrollToTop />
-
-          <Navbar socket={socket} />
-
-          <Reposts />
-          <BottomBar />
-        </>
-      ),
-      errorElement: <RouteError />,
-    },
-    {
-      path: "/suggestedaccounts",
-      element: (
-        <>
-          <Navbar socket={socket} />
-
-          <ScrollToTop />
-
-          <SuggestedAccs />
-          <BottomBar />
-        </>
-      ),
-      errorElement: <RouteError />,
-    },
-    {
-      path: "/Leaderboard",
-      element: (
-        <>
-          <Navbar socket={socket} />
-
-          <ScrollToTop />
-
-          <Leaderboard />
-          <BottomBar />
-        </>
-      ),
-      errorElement: <RouteError />,
-    },
-    {
-      path: "/editprofile",
-      element: (
-        <>
-          <Navbar socket={socket} />
-
-          <ScrollToTop />
-
-          <Editprofile />
-          <BottomBar />
-        </>
-      ),
-      errorElement: <RouteError />,
-    },
-    {
-      path: "/Login",
-      element: (
-        <>
-          <Navbar socket={socket} />
-
-          <ScrollToTop />
-
-          <Login socket={socket} />
-        </>
-      ),
-      errorElement: <RouteError />,
-    },
-    {
-      path: "/Register",
-      element: (
-        <>
-          <Navbar socket={socket} />
-
-          <ScrollToTop />
-
-          <Register socket={socket} />
-        </>
-      ),
-      errorElement: <RouteError />,
-    },
-    {
-      path: "/About",
-      element: (
-        <>
-          <Navbar socket={socket} />
-
-          <ScrollToTop />
-
-          <About />
-          <BottomBar />
-        </>
-      ),
-    },
-    {
-      path: "/Chat/:roomid",
-      element: (
-        <>
-          <Navbar socket={socket} />
-
-          <ScrollToTop />
-
-          <Chat socket={socket} />
-          <BottomBar />
-        </>
-      ),
-    },
-    {
-      path: "/Chatrooms",
-      element: (
-        <>
-          <Navbar socket={socket} />
-
-          <ScrollToTop />
-
-          <Chatrooms />
-          <BottomBar />
-        </>
-      ),
-    },
-    {
-      path: "/settings",
-      element: (
-        <>
-          <Navbar socket={socket} />
-
-          <ScrollToTop />
-
-          <SettingsPage socket={socket} />
-        </>
-      ),
-    },
-    {
-      path: "/bookmarks",
-      element: (
-        <>
-          <Navbar socket={socket} />
-
-          <ScrollToTop />
-
-          <Bookmarks />
-          <BottomBar />
-        </>
-      ),
-    },
-    {
-      path: "/admin",
-      element: (
-        <>
-          <Navbar socket={socket} />
-
-          <ScrollToTop />
-
-          <Admin />
-          <BottomBar />
-        </>
-      ),
-    },
-    // reset-password
-    {
-      path: "/reset-password/:resetToken",
-      element: (
-        <>
-          <Navbar socket={socket} />
-
-          <ScrollToTop />
-
-          <ForgotPasswordUpdate socket={socket} />
-          <BottomBar />
-        </>
-      ),
-    },
-  ]);
-  const [scroll, scrollTo] = useWindowScroll();
 
   return (
     <MantineProvider theme={{ colorScheme: darkmode ? "dark" : "light" }}>
@@ -554,7 +219,9 @@ function App() {
                 setbookmarkIds,
               }}
             >
-              <RouterProvider router={router} />
+              <RouterProvider
+                router={routes(socket, UserInfo, loading, darkmode)}
+              />
             </AuthContext.Provider>
           </div>
         </NotificationsProvider>

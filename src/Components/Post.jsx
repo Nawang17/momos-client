@@ -13,7 +13,6 @@ import {
   ArrowsClockwise,
   BookmarkSimple,
   ChatCircle,
-  CircleWavyCheck,
   Globe,
   Heart,
   Link,
@@ -41,6 +40,7 @@ import { useImageSize } from "react-image-size";
 import ImageViewer from "react-simple-image-viewer";
 import { format } from "date-fns";
 import { formatDistance } from "../helper/DateFormat";
+import Verifiedbadge from "../helper/VerifiedBadge";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -439,22 +439,10 @@ export const Post = ({ post, setPosts, comments }) => {
                     >
                       {post.user.username}
                     </Text>
-                    {topUser === post.user.username && <Topuserbadge />}
+                 
 
                     {post?.user?.verified &&
-                      (post?.user?.id !== 5 ? (
-                        <CircleWavyCheck
-                          size={16}
-                          color="#0ba6da"
-                          weight="fill"
-                        />
-                      ) : (
-                        <CircleWavyCheck
-                          size={16}
-                          color="#0ba6da"
-                          weight="fill"
-                        />
-                      ))}
+                      (<Verifiedbadge />)}   {topUser === post.user.username && <Topuserbadge />}
                   </div>
 
                   <Text color="dimmed" size={12}>
@@ -797,21 +785,10 @@ export const Post = ({ post, setPosts, comments }) => {
                       {" "}
                       {post?.post.user?.username}
                     </Text>
-                    {topUser === post?.post.user?.username && <Topuserbadge />}
                     {post?.post.user.verified &&
-                      (post?.post.user.id !== 5 ? (
-                        <CircleWavyCheck
-                          size={17}
-                          color="#0ba6da"
-                          weight="fill"
-                        />
-                      ) : (
-                        <CircleWavyCheck
-                          size={17}
-                          color="#0ba6da"
-                          weight="fill"
-                        />
-                      ))}
+                     <Verifiedbadge />}
+                    {topUser === post?.post.user?.username && <Topuserbadge />}
+                   
                   </div>
                   <Text color={"dimmed"}>·</Text>
                   <Text color={"dimmed"}>
@@ -1280,19 +1257,7 @@ export const Post = ({ post, setPosts, comments }) => {
                                 </Text>
 
                                 {com?.user?.verified &&
-                                  (com?.user?.id !== 5 ? (
-                                    <CircleWavyCheck
-                                      size={16}
-                                      color="#0ba6da"
-                                      weight="fill"
-                                    />
-                                  ) : (
-                                    <CircleWavyCheck
-                                      size={16}
-                                      color="#0ba6da"
-                                      weight="fill"
-                                    />
-                                  ))}
+                                <Verifiedbadge />}
                                 {topUser === com?.user?.username && (
                                   <Topuserbadge />
                                 )}
@@ -1414,10 +1379,11 @@ export const Post = ({ post, setPosts, comments }) => {
                   }}
                 >
                   <Text weight={500}> {likeuser?.user?.username}</Text>
-                  {topUser === likeuser?.user?.username && <Topuserbadge />}
                   {likeuser?.user?.verified && (
-                    <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
+                   <Verifiedbadge />
                   )}
+                  {topUser === likeuser?.user?.username && <Topuserbadge />}
+                
                 </div>
               </div>
             );

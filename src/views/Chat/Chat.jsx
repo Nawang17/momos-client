@@ -5,6 +5,7 @@ import {
   Container,
   CopyButton,
   createStyles,
+  Flex,
   Indicator,
   Loader,
   Menu,
@@ -32,6 +33,8 @@ import format from "date-fns/format";
 import { showNotification } from "@mantine/notifications";
 import { deleteChatmessage } from "../../api/DELETE";
 import reactStringReplace from "react-string-replace";
+import Verifiedbadge from "../../helper/VerifiedBadge";
+import Topuserbadge from "../../helper/Topuserbadge";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -56,7 +59,7 @@ export const Chat = ({ socket }) => {
   const navigate = useNavigate();
 
   const { classes } = useStyles();
-  const { darkmode, UserInfo, onlineusers } = useContext(AuthContext);
+  const { darkmode, UserInfo, onlineusers,topUser } = useContext(AuthContext);
   const [page, setpage] = useState(0);
 
   const viewport = useRef(null);
@@ -292,11 +295,20 @@ export const Chat = ({ socket }) => {
                 flexDirection: "column",
               }}
             >
+              <Flex align={'center'} gap={'4px'}>
               <Text weight={500}>
                 {chatinfo?.userone?.username === UserInfo?.username
                   ? chatinfo?.usertwo?.username
                   : chatinfo?.userone?.username}
               </Text>
+              {chatinfo?.userone?.username === UserInfo?.username
+                  ? chatinfo?.usertwo?.verified && <Verifiedbadge />
+                  : chatinfo?.userone?.verified && <Verifiedbadge />}
+
+                   {chatinfo?.userone?.username === UserInfo?.username
+                  ? chatinfo?.usertwo?.username === topUser && <Topuserbadge />
+                  : chatinfo?.userone?.username === topUser && <Topuserbadge />}
+             </Flex>
               {onlineusers.includes(
                 chatinfo?.userone?.username === UserInfo?.username
                   ? chatinfo?.usertwo?.id

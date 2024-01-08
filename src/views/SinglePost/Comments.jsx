@@ -15,7 +15,6 @@ import {
   CaretRight,
   CaretUp,
   ChatCircle,
-  CircleWavyCheck,
   Heart,
   Lock,
   WarningCircle,
@@ -32,6 +31,7 @@ import reactStringReplace from "react-string-replace";
 import { likecomment, nestedlikecomment } from "../../api/POST";
 import Topuserbadge from "../../helper/Topuserbadge";
 import { formatDistance } from "../../helper/DateFormat";
+import Verifiedbadge from "../../helper/VerifiedBadge";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -479,22 +479,10 @@ export const Comments = ({
                         </Text>
                       )}
 
-                      {topUser === comment.user.username && <Topuserbadge />}
-                      {comment?.user.verified &&
-                        (comment?.user.id !== 5 ? (
-                          <CircleWavyCheck
-                            size={17}
-                            color="#0ba6da"
-                            weight="fill"
-                          />
-                        ) : (
-                          <CircleWavyCheck
-                            size={17}
-                            color="#0ba6da"
-                            weight="fill"
-                          />
-                        ))}
-
+                    
+                      {comment?.user?.verified &&
+                       <Verifiedbadge />}
+                      {topUser === comment?.user?.username && <Topuserbadge />}
                       <Text color="dimmed">·</Text>
                       <Text color="dimmed" size="13px">
                         {formatDistanceToNowStrict(
@@ -720,27 +708,16 @@ export const Comments = ({
                                   weight={500}
                                   size="14px"
                                 >
-                                  {data?.user.username}
+                                  {data?.user?.username}
                                 </Text>
                               )}
 
-                              {topUser === data.user.username && (
+                             
+                              {data?.user?.verified &&
+                              <Verifiedbadge />}
+                               {topUser === data?.user?.username && (
                                 <Topuserbadge />
                               )}
-                              {data?.user.verified &&
-                                (data?.user.id !== 5 ? (
-                                  <CircleWavyCheck
-                                    size={17}
-                                    color="#0ba6da"
-                                    weight="fill"
-                                  />
-                                ) : (
-                                  <CircleWavyCheck
-                                    size={17}
-                                    color="#0ba6da"
-                                    weight="fill"
-                                  />
-                                ))}
 
                               <Text color="dimmed">·</Text>
                               <Text color="dimmed" size="13px">

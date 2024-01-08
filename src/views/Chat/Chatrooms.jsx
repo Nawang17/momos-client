@@ -33,6 +33,8 @@ import { getchat, getchatrooms, searchusers } from "../../api/GET";
 import { Sidebar } from "../../Components/Sidebar";
 import { AuthContext } from "../../context/Auth";
 import { updateChatroomStatus } from "../../api/UPDATE";
+import Verifiedbadge from "../../helper/VerifiedBadge";
+import Topuserbadge from "../../helper/Topuserbadge";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -55,7 +57,7 @@ const useStyles = createStyles(() => ({
 
 export const Chatrooms = () => {
   const { classes } = useStyles();
-  const { darkmode, UserInfo, onlineusers } = useContext(AuthContext);
+  const { darkmode, UserInfo, onlineusers,topUser } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const [chatrooms, setChatrooms] = useState([]);
@@ -192,9 +194,24 @@ export const Chatrooms = () => {
                       padding: "1rem 1rem ",
                     }}
                     label={
-                      rooms?.userone?.username !== UserInfo?.username
-                        ? rooms?.userone?.username
-                        : rooms?.usertwo?.username
+                      <>
+                      {rooms?.userone?.username !== UserInfo?.username
+                        ?  <div
+                        style={{
+                          display:'flex',
+                          alignItems:"center",
+                          gap:'4px'
+                        }}
+                        ><Text>{rooms?.userone?.username} </Text> {rooms?.userone?.verified && <Verifiedbadge />}
+                        {topUser === rooms?.userone?.username && <Topuserbadge />}
+                       </div>
+                        :  <div
+                        style={{
+                          display:'flex',
+                          alignItems:"center",
+                          gap:'4px'
+                        }}
+                        ><Text>{rooms?.usertwo?.username} </Text> {rooms?.usertwo?.verified && <Verifiedbadge />}    {topUser === rooms?.usertwo?.username && <Topuserbadge />}</div>} </>
                     }
                     description={
                       rooms?.chats[0]?.message

@@ -7,7 +7,6 @@ import {
 } from "@mantine/core";
 import {
   ArrowLeft,
-  CircleWavyCheck,
   Lock,
   UserMinus,
   UserPlus,
@@ -23,6 +22,7 @@ import { showNotification } from "@mantine/notifications";
 import { follow } from "../../api/POST";
 import * as DOMPurify from "dompurify";
 import Topuserbadge from "../../helper/Topuserbadge";
+import Verifiedbadge from "../../helper/VerifiedBadge";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -227,24 +227,21 @@ export const SuggestedAccs = () => {
                       }}
                     >
                       <Text size={"16px"} weight={"500"}>
-                        {acc.username}
+                        {acc?.username}
                       </Text>
 
-                      {topUser === acc.username && <Topuserbadge />}
-                      {acc.verified && (
-                        <CircleWavyCheck
-                          size={17}
-                          color="#0ba6da"
-                          weight="fill"
-                        />
-                      )}
+                    
+                      {acc?.verified && (
+                        <Verifiedbadge  />
+                      )}  
+                      {topUser === acc?.username && <Topuserbadge />}
                     </div>
-                    {!followingdata.includes(acc.username) ? (
+                    {!followingdata.includes(acc?.username) ? (
                       <Button
-                        disabled={btndisabled === acc.username}
+                        disabled={btndisabled === acc?.username}
                         onClick={(e) => {
                           e.stopPropagation();
-                          handlefollow(acc.id, acc.username);
+                          handlefollow(acc?.id, acc?.username);
                         }}
                         radius="sm"
                         size="xs"

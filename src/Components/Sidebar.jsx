@@ -18,6 +18,7 @@ import Topuserbadge from "../helper/Topuserbadge";
 import Leaderboard from "./Sidebar/Leaderboard";
 import News from "./Sidebar/News";
 import { calculateLevelAndProgress } from "../helper/helperfunctions";
+import Verifiedbadge from "../helper/VerifiedBadge";
 const useStyles = createStyles(() => ({
   wrapper: {
     width: "100%",
@@ -224,6 +225,7 @@ export const Sidebar = () => {
                     >
                       {userlevelinfo?.username}
                     </Text>
+                   {userlevelinfo?.verified && <Verifiedbadge />}
                     {topUser === userlevelinfo?.username && <Topuserbadge />}
                     <Popover
                       zIndex={1000}

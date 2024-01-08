@@ -3,7 +3,7 @@ import { useDebouncedValue } from "@mantine/hooks";
 import { showNotification } from "@mantine/notifications";
 import {
   ArrowLeft,
-  CircleWavyCheck,
+
   Lock,
   MagnifyingGlass,
   UserMinus,
@@ -19,6 +19,7 @@ import { follow } from "../../api/POST";
 import { PostFeed } from "../../Components/PostFeed";
 import { AuthContext } from "../../context/Auth";
 import Topuserbadge from "../../helper/Topuserbadge";
+import Verifiedbadge from "../../helper/VerifiedBadge";
 
 const UserSearch = () => {
   const navigate = useNavigate();
@@ -282,14 +283,10 @@ const UserSearch = () => {
                         <Text size={"16px"} weight={"500"}>
                           {val.username}
                         </Text>
-                        {topUser === val.username && <Topuserbadge />}
+                      
                         {val.verified && (
-                          <CircleWavyCheck
-                            size={17}
-                            color="#0ba6da"
-                            weight="fill"
-                          />
-                        )}
+                         <Verifiedbadge />
+                        )}   {topUser === val.username && <Topuserbadge />}
                       </div>
                       {UserInfo?.username !== val.username &&
                         (!followingdata.includes(val.username) ? (

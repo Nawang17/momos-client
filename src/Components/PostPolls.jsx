@@ -9,11 +9,12 @@ import { pollvote } from "../api/POST";
 import { showNotification } from "@mantine/notifications";
 import {
   CheckCircle,
-  CircleWavyCheck,
   Lock,
   WarningCircle,
 } from "@phosphor-icons/react";
 import { formatDistance } from "../helper/DateFormat";
+import Verifiedbadge from "../helper/VerifiedBadge";
+import Topuserbadge from "../helper/Topuserbadge";
 const PostPolls = ({ post }) => {
   const [poll, setpoll] = useState(post);
 
@@ -23,7 +24,7 @@ const PostPolls = ({ post }) => {
     return dateToCheck < now;
   }
 
-  const { UserInfo, darkmode } = useContext(AuthContext);
+  const { UserInfo, darkmode,topUser } = useContext(AuthContext);
   const [votemodal, setvotemodal] = useState(false);
   const navigate = useNavigate();
   const postvalue = (text) => {
@@ -394,8 +395,9 @@ const PostPolls = ({ post }) => {
                 >
                   <Text weight={500}> {vals?.user?.username}</Text>
                   {vals?.user?.verified && (
-                    <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
+                     <Verifiedbadge />
                   )}
+                    {topUser === vals?.user.username && <Topuserbadge />}
                 </div>
               </div>
             );

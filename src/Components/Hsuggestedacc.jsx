@@ -1,7 +1,6 @@
 import { Button, Text } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
 import {
-  CircleWavyCheck,
   Lock,
   UserMinus,
   UserPlus,
@@ -14,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { follow } from "../api/POST";
 import { AuthContext } from "../context/Auth";
 import Topuserbadge from "../helper/Topuserbadge";
+import Verifiedbadge from "../helper/VerifiedBadge";
 
 const Hsuggestedacc = () => {
   const navigate = useNavigate();
@@ -140,10 +140,11 @@ const Hsuggestedacc = () => {
                 {" "}
                 {value.username}
               </Text>
-              {topUser === value.username && <Topuserbadge />}
               {value.verified && (
-                <CircleWavyCheck size={17} color="#0ba6da" weight="fill" />
+                <Verifiedbadge />
               )}
+              {topUser === value.username && <Topuserbadge />}
+             
             </div>
             {!followingdata.includes(value.username) ? (
               <Button

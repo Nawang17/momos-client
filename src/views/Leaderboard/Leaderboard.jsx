@@ -22,6 +22,7 @@ import { AuthContext } from "../../context/Auth";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { showNotification } from "@mantine/notifications";
 import Topuserbadge from "../../helper/Topuserbadge";
+import Verifiedbadge from "../../helper/VerifiedBadge";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -280,6 +281,8 @@ export const Leaderboard = () => {
                             alt=""
                           />
                           <div>{acc?.username}</div>
+                          {acc?.verified &&
+                               <Verifiedbadge />}
                           {topUser === acc?.username && <Topuserbadge />}
                         </div>
                       }

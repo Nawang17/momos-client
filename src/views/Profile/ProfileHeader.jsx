@@ -13,7 +13,7 @@ import {
 } from "@mantine/core";
 import {
   ArrowLeft,
-  CircleWavyCheck,
+ 
   WarningCircle,
   Lock,
   UserPlus,
@@ -36,6 +36,7 @@ import ImageViewer from "react-simple-image-viewer";
 import { formatDistance } from "../../helper/DateFormat";
 import { calculateLevelAndProgress } from "../../helper/helperfunctions";
 import { getRankInfo } from "../../helper/RankInfo";
+import Verifiedbadge from "../../helper/VerifiedBadge";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -345,7 +346,7 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                   {" "}
                   {userprofile}
                 </Text>
-
+               {profileInfo?.verified && <Verifiedbadge />} 
                 {topUser === userprofile && <Topuserbadge />}
                 <div>
                   {rankinfo.rank && (
@@ -859,21 +860,9 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                     >
                       {" "}
                       <Text weight="500">{item.following.username}</Text>
-                      {topUser === item.following.username && <Topuserbadge />}
+                      
                       {item.following.verified &&
-                        (item.following.id !== 5 ? (
-                          <CircleWavyCheck
-                            size={17}
-                            color="#0ba6da"
-                            weight="fill"
-                          />
-                        ) : (
-                          <CircleWavyCheck
-                            size={17}
-                            color="#0ba6da"
-                            weight="fill"
-                          />
-                        ))}
+                      <Verifiedbadge />}{topUser === item.following.username && <Topuserbadge />}
                     </div>
                   </div>
                 );
@@ -915,22 +904,11 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                       }}
                     >
                       {" "}
-                      <Text weight="500">{item.follower.username}</Text>
-                      {topUser === item.follower.username && <Topuserbadge />}
+                      <Text weight="500">{item.follower.username}</Text> 
                       {item.follower.verified &&
-                        (item.follower.id !== 5 ? (
-                          <CircleWavyCheck
-                            size={17}
-                            color="#0ba6da"
-                            weight="fill"
-                          />
-                        ) : (
-                          <CircleWavyCheck
-                            size={17}
-                            color="#0ba6da"
-                            weight="fill"
-                          />
-                        ))}
+                        <Verifiedbadge />}
+                      {topUser === item.follower.username && <Topuserbadge />}
+                     
                     </div>
                   </div>
                 );

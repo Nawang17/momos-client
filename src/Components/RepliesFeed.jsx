@@ -7,6 +7,7 @@ import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import locale from "date-fns/locale/en-US";
 import { formatDistance } from "../helper/DateFormat";
 import Topuserbadge from "../helper/Topuserbadge";
+import Verifiedbadge from "../helper/VerifiedBadge";
 const useStyles = createStyles(() => ({
   wrapper: {
     padding: "1rem 0rem 1rem 0rem",
@@ -165,6 +166,7 @@ const RepliesFeed = ({ replies, loading, setreplies }) => {
                           >
                             {reply?.user?.username}
                           </Text>
+                         {reply?.user?.verified && <Verifiedbadge />} 
                           {topUser === reply?.user?.username && (
                             <Topuserbadge />
                           )}

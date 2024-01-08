@@ -10,13 +10,14 @@ import {
 import { useMediaQuery } from "@mantine/hooks";
 import {
   CaretRight,
-  CircleWavyCheck,
+
   Crown,
   Info,
 } from "@phosphor-icons/react";
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/Auth";
+import Verifiedbadge from "../helper/VerifiedBadge";
 const useStyles = createStyles(() => ({
   wrapper: {
     width: "100%",
@@ -210,11 +211,7 @@ const Leaderboardhorizontal = () => {
                       {val.username}
                     </Text>
                     {val.verified && (
-                      <CircleWavyCheck
-                        size={16}
-                        color="#0ba6da"
-                        weight="fill"
-                      />
+                    <Verifiedbadge />
                     )}
                   </div>
                   <Text size={"12px"} color={"dimmed"}>

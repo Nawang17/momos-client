@@ -23,24 +23,26 @@ import {
   WarningCircle,
 } from "@phosphor-icons/react";
 import { useMediaQuery } from "@mantine/hooks";
-import { PostMenu } from "./PostMenu";
+import { PostMenu } from "./components/Header/PostMenu";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useContext, useEffect } from "react";
-import { AuthContext } from "../context/Auth";
-import { bookmarkPost, likePost } from "../api/POST";
+import { AuthContext } from "../../context/Auth";
+import { bookmarkPost, likePost } from "../../api/POST";
 import { showNotification } from "@mantine/notifications";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import locale from "date-fns/locale/en-US";
 import { useState } from "react";
 import reactStringReplace from "react-string-replace";
-import CreatePostModal from "./CreatePostModal";
-import PostPolls from "./PostPolls";
-import Topuserbadge from "../helper/Topuserbadge";
+import CreatePostModal from "../CreatePostModal";
+import PostPolls from "../PostPolls";
+import Topuserbadge from "../../helper/Topuserbadge";
 import { useImageSize } from "react-image-size";
 import ImageViewer from "react-simple-image-viewer";
-import { format } from "date-fns";
-import { formatDistance } from "../helper/DateFormat";
-import Verifiedbadge from "../helper/VerifiedBadge";
+import { formatDistance } from "../../helper/DateFormat";
+import Verifiedbadge from "../../helper/VerifiedBadge";
+import BookmarkNotiModal from "./common/BookmarkNotiModal";
+import PostHeader from "./components/Header/PostHeader";
+import PostFooter from "./components/Header/PostFooter";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -128,7 +130,7 @@ export const Post = ({ post, setPosts, comments }) => {
   const [openConfirm, setOpenConfirm] = useState(false);
   const matches = useMediaQuery("(min-width: 530px)");
   const showoverflow = useMediaQuery("(max-width: 390px)");
-
+  const [bookmarkModalOpen, setbookmarkModalOpen] = useState(false);
   const handleLike = async () => {
     if (!UserInfo) {
       return showNotification({
@@ -327,13 +329,12 @@ export const Post = ({ post, setPosts, comments }) => {
           setbookmarkIds((prev) => {
             return [...prev, post.id];
           });
-          showNotification({
-            color: "yellow",
-            icon: <BookmarkSimple size={18} />,
-            message: "Post saved successfully",
-            autoClose: 3000,
-          });
+          setbookmarkModalOpen(true);
+          setTimeout(() => {
+            setbookmarkModalOpen(false);
+          }, 2000);
         } else {
+          setbookmarkModalOpen(false);
           setbookmarkIds((prev) => {
             return prev.filter((id) => id !== post.id);
           });
@@ -359,115 +360,9 @@ export const Post = ({ post, setPosts, comments }) => {
         className={classes.wrapper}
       >
         <div className={classes.right}>
-          <div
-            style={{
-              padding: "0rem 1rem ",
-            }}
-            className={classes.header}
-          >
-            <div className={classes.hLeft}>
-              {post?.community?.name &&
-                pathname !== `/community/${post?.community?.name}` && (
-                  <Flex
-                    style={{
-                      cursor: "pointer",
-                    }}
-                    onClick={() => {
-                      navigate(`/community/${post?.community?.name}`);
-                    }}
-                    pb={6}
-                    gap={6}
-                    align={"center"}
-                  >
-                    <UsersThree weight="light" size={14} />
-                    <Text color="dimmed" size={14}>
-                      {post?.community?.name}
-                    </Text>
-                  </Flex>
-                )}
+          {/* Post header  */}
+          <PostHeader post={post} setPosts={setPosts} />
 
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.5rem",
-                }}
-              >
-                <Indicator
-                  disabled={!onlineusers.includes(post?.user?.id)}
-                  style={{
-                    cursor: "pointer",
-                  }}
-                  withBorder
-                  inline
-                  color="green"
-                  size={9}
-                  offset={7}
-                  position="bottom-end"
-                >
-                  <Avatar
-                    onClick={() => {
-                      navigate(`/${post.user.username}`);
-                    }}
-                    size="40px"
-                    radius={"xl"}
-                    src={post.user.avatar}
-                    alt=""
-                    loading="lazy"
-                  />
-                </Indicator>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "0.2rem",
-                    }}
-                  >
-                    <Text
-                      style={{ cursor: "pointer" }}
-                      onClick={() => {
-                        navigate(`/${post.user.username}`);
-                      }}
-                      weight={500}
-                      size="15px"
-                    >
-                      {post.user.username}
-                    </Text>
-                 
-
-                    {post?.user?.verified &&
-                      (<Verifiedbadge />)}   {topUser === post.user.username && <Topuserbadge />}
-                  </div>
-
-                  <Text color="dimmed" size={12}>
-                    {pathname.substring(0, pathname.indexOf("/", 1)) ===
-                      "/post" ||
-                    pathname.substring(0, pathname.indexOf("/", 1)) ===
-                      "/communitypost"
-                      ? format(
-                          new Date(post.createdAt),
-                          "h:mm a  ·  MM/dd/yyyy"
-                        )
-                      : formatDistanceToNowStrict(new Date(post.createdAt), {
-                          locale: {
-                            ...locale,
-                            formatDistance,
-                          },
-                        })}
-                  </Text>
-                </div>
-              </div>
-            </div>
-            <div className={classes.hRight}>
-              <PostMenu postinfo={post} setPosts={setPosts} />
-            </div>
-          </div>
           {post.text && !post?.poll && (
             <div
               style={{
@@ -785,10 +680,8 @@ export const Post = ({ post, setPosts, comments }) => {
                       {" "}
                       {post?.post.user?.username}
                     </Text>
-                    {post?.post.user.verified &&
-                     <Verifiedbadge />}
+                    {post?.post.user.verified && <Verifiedbadge />}
                     {topUser === post?.post.user?.username && <Topuserbadge />}
-                   
                   </div>
                   <Text color={"dimmed"}>·</Text>
                   <Text color={"dimmed"}>
@@ -893,6 +786,12 @@ export const Post = ({ post, setPosts, comments }) => {
               </div>
             </div>
           )}
+          {/* <PostFooter
+            post={post}
+            comments={comments}
+            setPosts={setPosts}
+            setOpenConfirm={setOpenConfirm}
+          /> */}
           {/* new footer */}
           <div
             style={{
@@ -1256,8 +1155,7 @@ export const Post = ({ post, setPosts, comments }) => {
                                   {com?.user?.username}
                                 </Text>
 
-                                {com?.user?.verified &&
-                                <Verifiedbadge />}
+                                {com?.user?.verified && <Verifiedbadge />}
                                 {topUser === com?.user?.username && (
                                   <Topuserbadge />
                                 )}
@@ -1327,6 +1225,7 @@ export const Post = ({ post, setPosts, comments }) => {
             )}
         </div>
       </div>
+      {/* repost post modal */}
       <CreatePostModal
         opened={openConfirm}
         setOpened={setOpenConfirm}
@@ -1379,11 +1278,8 @@ export const Post = ({ post, setPosts, comments }) => {
                   }}
                 >
                   <Text weight={500}> {likeuser?.user?.username}</Text>
-                  {likeuser?.user?.verified && (
-                   <Verifiedbadge />
-                  )}
+                  {likeuser?.user?.verified && <Verifiedbadge />}
                   {topUser === likeuser?.user?.username && <Topuserbadge />}
-                
                 </div>
               </div>
             );
@@ -1412,6 +1308,10 @@ export const Post = ({ post, setPosts, comments }) => {
           />
         </div>
       )}
+      <BookmarkNotiModal
+        bookmarkModalOpen={bookmarkModalOpen}
+        setbookmarkModalOpen={bookmarkModalOpen}
+      />
     </>
   );
 };

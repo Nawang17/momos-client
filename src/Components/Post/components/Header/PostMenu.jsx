@@ -14,9 +14,10 @@ import {
 } from "@phosphor-icons/react";
 import { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { deletePost } from "../api/DELETE";
-import { bookmarkPost, follow } from "../api/POST";
-import { AuthContext } from "../context/Auth";
+import { deletePost } from "../../../../api/DELETE";
+import { bookmarkPost, follow } from "../../../../api/POST";
+import { AuthContext } from "../../../../context/Auth";
+import BookmarkNotiModal from "../../common/BookmarkNotiModal";
 
 export function PostMenu({ postinfo, setPosts }) {
   const {
@@ -29,7 +30,7 @@ export function PostMenu({ postinfo, setPosts }) {
   const [opened, setOpened] = useState(false);
   const navigate = useNavigate();
   const { pathname } = useLocation();
-
+  const [bookmarkModalOpen,setbookmarkModalOpen] = useState(false)
   const handlePostDelete = () => {
     setOpened(false);
     deletePost({ postid: postinfo?.id })
@@ -131,18 +132,21 @@ export function PostMenu({ postinfo, setPosts }) {
 
     await bookmarkPost({ postId: postinfo?.id }).then((res) => {
       if (res.data.bookmarked) {
+        setbookmarkModalOpen(true)
+        setTimeout(() => {
+          setbookmarkModalOpen(false)
+
+          }, 3000);
         setbookmarkIds((prev) => {
           return [...prev, postinfo?.id];
         });
-        showNotification({
-          icon: <BookmarkSimple size={18} />,
-          message: "Post saved successfully",
-          autoClose: 3000,
-        });
       } else {
+        setbookmarkModalOpen(false)
+        
         setbookmarkIds((prev) => {
           return prev.filter((id) => id !== postinfo?.id);
         });
+
         showNotification({
           icon: <BookmarkSimple size={18} />,
           message: "Post unsaved successfully",
@@ -275,6 +279,7 @@ export function PostMenu({ postinfo, setPosts }) {
           </div>
         </div>
       </Modal>
+      <BookmarkNotiModal bookmarkModalOpen={bookmarkModalOpen} setbookmarkModalOpen={bookmarkModalOpen}/>
     </>
   );
 }

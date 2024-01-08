@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { createStyles, ActionIcon, Skeleton, Text } from "@mantine/core";
-import { Post } from "../../Components/Post";
+import { Post } from "../../Components/Post/Post";
 import Reply from "./Reply";
 import { ArrowLeft, ChatCircleDots } from "@phosphor-icons/react";
 import { Comments } from "../SinglePost/Comments";

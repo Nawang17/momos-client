@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { createStyles, ScrollArea, Skeleton, Text } from "@mantine/core";
-import { Post } from "./Post";
+import { Post } from "./Post/Post";
 import Hsuggestedacc from "./Hsuggestedacc";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useMediaQuery } from "@mantine/hooks";

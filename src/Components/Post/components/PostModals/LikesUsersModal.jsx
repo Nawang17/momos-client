@@ -21,35 +21,41 @@ const LikesUsersModal = ({ post, likemodalstate, setlikemodalstate }) => {
           setlikemodalstate(false);
         }}
       >
-        {post?.likes
-          ?.map((likeuser) => {
-            return (
-              <Flex
-                key={likeuser?.user?.username}
-                onClick={() => {
-                  // navigate to user profile
-                  navigate(`/${likeuser?.user?.username}`);
-                }}
-                className="addPointer"
-                gap="0.5rem"
-                align="center"
-                padding="0.5rem 0.5rem 0.5rem 0"
-              >
-                {/* show like user's avatar, username, user badges */}
-                <Avatar size="40px" radius="xl" src={likeuser?.user?.avatar} />
+        <Flex direction="column" gap="1rem">
+          {post?.likes
+            ?.map((likeuser) => {
+              return (
+                <Flex
+                  key={likeuser?.user?.username}
+                  onClick={() => {
+                    // navigate to user profile
+                    navigate(`/${likeuser?.user?.username}`);
+                  }}
+                  className="addPointer"
+                  gap="0.5rem"
+                  align="center"
+                  padding="0.5rem 0.5rem 0.5rem 0"
+                >
+                  {/* show like user's avatar, username, user badges */}
+                  <Avatar
+                    size="40px"
+                    radius="xl"
+                    src={likeuser?.user?.avatar}
+                  />
 
-                <Flex align="center" gap="0.3rem">
-                  {/* username */}
-                  <Text weight={500}> {likeuser?.user?.username}</Text>
-                  {/* verified badge if user is verified */}
-                  {likeuser?.user?.verified && <Verifiedbadge />}
-                  {/* top user badge if user is top user */}
-                  {topUser === likeuser?.user?.username && <Topuserbadge />}
+                  <Flex align="center" gap="0.3rem">
+                    {/* username */}
+                    <Text weight={500}> {likeuser?.user?.username}</Text>
+                    {/* verified badge if user is verified */}
+                    {likeuser?.user?.verified && <Verifiedbadge />}
+                    {/* top user badge if user is top user */}
+                    {topUser === likeuser?.user?.username && <Topuserbadge />}
+                  </Flex>
                 </Flex>
-              </Flex>
-            );
-          })
-          .reverse()}
+              );
+            })
+            .reverse()}
+        </Flex>
         {/* reverse the array to show the latest likes first */}
       </Modal>
     </>

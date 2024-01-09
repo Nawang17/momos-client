@@ -15,11 +15,16 @@ import {
 import { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { deletePost } from "../../../../api/DELETE";
-import { bookmarkPost, follow } from "../../../../api/POST";
+import { follow } from "../../../../api/POST";
 import { AuthContext } from "../../../../context/Auth";
-import BookmarkNotiModal from "../../common/BookmarkNotiModal";
+import { handlebookmark } from "../../common/functions";
 
-export function PostMenu({ postinfo, setPosts }) {
+export function PostMenu({
+  postinfo,
+  setPosts,
+  bookmarkModalOpen,
+  setbookmarkModalOpen,
+}) {
   const {
     UserInfo,
     followingdata,
@@ -30,7 +35,6 @@ export function PostMenu({ postinfo, setPosts }) {
   const [opened, setOpened] = useState(false);
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const [bookmarkModalOpen,setbookmarkModalOpen] = useState(false)
   const handlePostDelete = () => {
     setOpened(false);
     deletePost({ postid: postinfo?.id })
@@ -120,41 +124,7 @@ export function PostMenu({ postinfo, setPosts }) {
         });
     }
   };
-  const handlebookmark = async () => {
-    if (!UserInfo) {
-      return showNotification({
-        icon: <Lock size={18} />,
-        color: "red",
-        title: "Login required",
-        autoClose: 3000,
-      });
-    }
 
-    await bookmarkPost({ postId: postinfo?.id }).then((res) => {
-      if (res.data.bookmarked) {
-        setbookmarkModalOpen(true)
-        setTimeout(() => {
-          setbookmarkModalOpen(false)
-
-          }, 3000);
-        setbookmarkIds((prev) => {
-          return [...prev, postinfo?.id];
-        });
-      } else {
-        setbookmarkModalOpen(false)
-        
-        setbookmarkIds((prev) => {
-          return prev.filter((id) => id !== postinfo?.id);
-        });
-
-        showNotification({
-          icon: <BookmarkSimple size={18} />,
-          message: "Post unsaved successfully",
-          autoClose: 3000,
-        });
-      }
-    });
-  };
   return (
     <>
       <Menu position="bottom-end" shadow="md" width={200}>
@@ -169,7 +139,12 @@ export function PostMenu({ postinfo, setPosts }) {
         <Menu.Dropdown>
           <Menu.Item
             onClick={() => {
-              handlebookmark();
+              handlebookmark(
+                UserInfo,
+                setbookmarkIds,
+                setbookmarkModalOpen,
+                postinfo
+              );
             }}
             icon={
               <BookmarkSimple
@@ -279,7 +254,6 @@ export function PostMenu({ postinfo, setPosts }) {
           </div>
         </div>
       </Modal>
-      <BookmarkNotiModal bookmarkModalOpen={bookmarkModalOpen} setbookmarkModalOpen={bookmarkModalOpen}/>
     </>
   );
 }

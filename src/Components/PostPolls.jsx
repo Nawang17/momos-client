@@ -2,19 +2,16 @@ import React, { useContext, useState } from "react";
 import { Button, Modal, Progress, Text } from "@mantine/core";
 import { AuthContext } from "../context/Auth";
 import { useNavigate } from "react-router-dom";
-import reactStringReplace from "react-string-replace";
+
 import { formatDistanceToNowStrict } from "date-fns";
 import locale from "date-fns/locale/en-US";
 import { pollvote } from "../api/POST";
 import { showNotification } from "@mantine/notifications";
-import {
-  CheckCircle,
-  Lock,
-  WarningCircle,
-} from "@phosphor-icons/react";
+import { CheckCircle, Lock, WarningCircle } from "@phosphor-icons/react";
 import { formatDistance } from "../helper/DateFormat";
 import Verifiedbadge from "../helper/VerifiedBadge";
 import Topuserbadge from "../helper/Topuserbadge";
+import { formatText } from "../helper/FormatText";
 const PostPolls = ({ post }) => {
   const [poll, setpoll] = useState(post);
 
@@ -24,62 +21,9 @@ const PostPolls = ({ post }) => {
     return dateToCheck < now;
   }
 
-  const { UserInfo, darkmode,topUser } = useContext(AuthContext);
+  const { UserInfo, darkmode, topUser } = useContext(AuthContext);
   const [votemodal, setvotemodal] = useState(false);
   const navigate = useNavigate();
-  const postvalue = (text) => {
-    let replacedText;
-
-    // Match URLs
-    replacedText = reactStringReplace(text, /(https?:\/\/\S+)/g, (match, i) => (
-      <span
-        onClick={(e) => {
-          e.stopPropagation();
-          window.open( match, "_blank");
-        }}
-        className="link-style"
-        style={{
-          color: "#1d9bf0",
-        }}
-        key={match + i}
-      >
-        {match}
-      </span>
-    ));
-
-    // Match @-mentions
-
-    replacedText = reactStringReplace(replacedText, /@(\w+)/g, (match, i) => (
-      <span
-        className="link-style"
-        onClick={(e) => {
-          e.stopPropagation();
-          navigate(`/${match}`);
-        }}
-        style={{ color: "#1d9bf0" }}
-        key={match + i}
-      >
-        @{match}
-      </span>
-    ));
-
-    // Match hashtags
-    replacedText = reactStringReplace(replacedText, /#(\w+)/g, (match, i) => (
-      <span
-        className="link-style"
-        onClick={(e) => {
-          e.stopPropagation();
-          navigate(`/search/q/%23${match}`);
-        }}
-        style={{ color: "#1d9bf0" }}
-        key={match + i}
-      >
-        #{match}
-      </span>
-    ));
-
-    return replacedText;
-  };
 
   const handlePollvote = async (pollchoice) => {
     if (!UserInfo) {
@@ -165,7 +109,7 @@ const PostPolls = ({ post }) => {
             }}
           >
             <Text weight={600} size="15px">
-              {postvalue(post?.text)}
+              {formatText(post?.text, navigate)}
             </Text>
           </div>
         )}
@@ -394,10 +338,8 @@ const PostPolls = ({ post }) => {
                   }}
                 >
                   <Text weight={500}> {vals?.user?.username}</Text>
-                  {vals?.user?.verified && (
-                     <Verifiedbadge />
-                  )}
-                    {topUser === vals?.user.username && <Topuserbadge />}
+                  {vals?.user?.verified && <Verifiedbadge />}
+                  {topUser === vals?.user.username && <Topuserbadge />}
                 </div>
               </div>
             );

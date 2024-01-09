@@ -1,38 +1,18 @@
 import {
   Avatar,
-  Button,
   createStyles,
-  Divider,
   Flex,
   Image,
   Indicator,
-  Modal,
   Text,
 } from "@mantine/core";
-import {
-  ArrowsClockwise,
-  BookmarkSimple,
-  ChatCircle,
-  Globe,
-  Heart,
-  Link,
-  Lock,
-  LockLaminated,
-  Users,
-  UsersThree,
-  WarningCircle,
-} from "@phosphor-icons/react";
-import { useMediaQuery } from "@mantine/hooks";
-import { PostMenu } from "./components/Header/PostMenu";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { Globe, Link, LockLaminated, Users } from "@phosphor-icons/react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../../context/Auth";
-import { bookmarkPost, likePost } from "../../api/POST";
-import { showNotification } from "@mantine/notifications";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import locale from "date-fns/locale/en-US";
 import { useState } from "react";
-import reactStringReplace from "react-string-replace";
 import CreatePostModal from "../CreatePostModal";
 import PostPolls from "../PostPolls";
 import Topuserbadge from "../../helper/Topuserbadge";
@@ -40,9 +20,11 @@ import { useImageSize } from "react-image-size";
 import ImageViewer from "react-simple-image-viewer";
 import { formatDistance } from "../../helper/DateFormat";
 import Verifiedbadge from "../../helper/VerifiedBadge";
-import BookmarkNotiModal from "./common/BookmarkNotiModal";
-import PostHeader from "./components/Header/PostHeader";
-import PostFooter from "./components/Header/PostFooter";
+import BookmarkNotiModal from "./components/PostModals/BookmarkNotiModal";
+import PostHeader from "./components/PostHeader/PostHeader";
+import PostFooter from "./components/PostFooter/PostFooter";
+import CommentPreview from "./components/PostFooter/CommentPreview";
+import { formatText } from "../../helper/FormatText";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -108,7 +90,6 @@ const useStyles = createStyles(() => ({
 }));
 export const Post = ({ post, setPosts, comments }) => {
   const { pathname } = useLocation();
-  const { name } = useParams();
   const { classes } = useStyles();
   const navigate = useNavigate();
 
@@ -117,195 +98,11 @@ export const Post = ({ post, setPosts, comments }) => {
   );
   const [opened, setOpened] = useState(false);
   const [viewimg, setviewimg] = useState("");
-  const {
-    UserInfo,
-    darkmode,
-    onlineusers,
-    topUser,
-    socket,
-    bookmarkIds,
-    setbookmarkIds,
-  } = useContext(AuthContext);
-  const [likemodal, setlikemodal] = useState(false);
+  const { UserInfo, darkmode, onlineusers, topUser, socket } =
+    useContext(AuthContext);
   const [openConfirm, setOpenConfirm] = useState(false);
-  const matches = useMediaQuery("(min-width: 530px)");
-  const showoverflow = useMediaQuery("(max-width: 390px)");
   const [bookmarkModalOpen, setbookmarkModalOpen] = useState(false);
-  const handleLike = async () => {
-    if (!UserInfo) {
-      return showNotification({
-        icon: <Lock size={18} />,
-        color: "red",
-        title: "Login required",
-        autoClose: 3000,
-      });
-    } else {
-      if (
-        post?.likes.find((like) => {
-          return like?.user?.username === UserInfo?.username;
-        })
-      ) {
-        setPosts((prev) => {
-          return prev.map((p) => {
-            if (p.id === post.id) {
-              let likearr = p.likes;
-              likearr = likearr.filter(
-                (likeuser) => likeuser?.user?.username !== UserInfo?.username
-              );
 
-              return { ...p, likes: likearr };
-            } else {
-              return p;
-            }
-          });
-        });
-      } else {
-        setPosts((prev) =>
-          prev.map((p) => {
-            if (p.id === post.id) {
-              return {
-                ...p,
-                likes: [
-                  ...p.likes,
-                  {
-                    user: {
-                      username: UserInfo?.username,
-                      avatar: UserInfo?.avatar,
-                    },
-                  },
-                ],
-              };
-            } else {
-              return p;
-            }
-          })
-        );
-      }
-
-      await likePost({ postId: post.id })
-        .then((res) => {
-          if (res.data.liked) {
-            if (
-              post?.likes.find((like) => {
-                return like?.user?.username === UserInfo?.username;
-              })
-            ) {
-              setPosts((prev) =>
-                prev.map((p) => {
-                  if (p.id === post.id) {
-                    return {
-                      ...p,
-                      likes: [
-                        ...p.likes,
-                        {
-                          user: {
-                            username: UserInfo?.username,
-                            avatar: UserInfo?.avatar,
-                          },
-                        },
-                      ],
-                    };
-                  }
-                  return p;
-                })
-              );
-            }
-          } else {
-            if (
-              !post?.likes.find((like) => {
-                return like?.user?.username === UserInfo?.username;
-              })
-            ) {
-              setPosts((prev) =>
-                prev.map((p) => {
-                  if (p.id === post.id) {
-                    let likeaarr = p.likes;
-                    likeaarr = likeaarr.filter(
-                      (likeuser) =>
-                        likeuser?.user?.username !== UserInfo?.username
-                    );
-
-                    return { ...p, likes: likeaarr };
-                  } else {
-                    return p;
-                  }
-                })
-              );
-            }
-          }
-        })
-        .catch((err) => {
-          if (err.response.status === 0) {
-            showNotification({
-              icon: <WarningCircle size={18} />,
-              color: "red",
-              title: "Internal Server Error",
-              autoClose: 4000,
-            });
-          } else {
-            showNotification({
-              icon: <WarningCircle size={18} />,
-              color: "red",
-              title: err.response.data,
-              autoClose: 4000,
-            });
-          }
-        });
-    }
-  };
-  const postvalue = (text) => {
-    let replacedText;
-
-    // Match URLs
-    replacedText = reactStringReplace(text, /(https?:\/\/\S+)/g, (match, i) => (
-      <span
-        onClick={(e) => {
-          e.stopPropagation();
-          window.open(match, "_blank");
-        }}
-        className="link-style"
-        style={{
-          color: "#1d9bf0",
-        }}
-        key={match + i}
-      >
-        {match}
-      </span>
-    ));
-
-    // Match @-mentions
-
-    replacedText = reactStringReplace(replacedText, /@(\w+)/g, (match, i) => (
-      <span
-        className="link-style"
-        onClick={(e) => {
-          e.stopPropagation();
-          navigate(`/${match}`);
-        }}
-        style={{ color: "#1d9bf0" }}
-        key={match + i}
-      >
-        @{match}
-      </span>
-    ));
-
-    // Match hashtags
-    replacedText = reactStringReplace(replacedText, /#(\w+)/g, (match, i) => (
-      <span
-        className="link-style"
-        onClick={(e) => {
-          e.stopPropagation();
-          navigate(`/search/q/%23${match}`);
-        }}
-        style={{ color: "#1d9bf0" }}
-        key={match + i}
-      >
-        #{match}
-      </span>
-    ));
-
-    return replacedText;
-  };
   useEffect(() => {
     socket.on("post-deleted", (data) => {
       if (pathname === `/post/${Number(data)}`) {
@@ -313,43 +110,7 @@ export const Post = ({ post, setPosts, comments }) => {
       }
     });
   }, []);
-  const handlebookmark = async () => {
-    if (!UserInfo) {
-      return showNotification({
-        icon: <Lock size={18} />,
-        color: "red",
-        title: "Login required",
-        autoClose: 3000,
-      });
-    }
 
-    await bookmarkPost({ postId: post.id })
-      .then((res) => {
-        if (res.data.bookmarked) {
-          setbookmarkIds((prev) => {
-            return [...prev, post.id];
-          });
-          setbookmarkModalOpen(true);
-          setTimeout(() => {
-            setbookmarkModalOpen(false);
-          }, 2000);
-        } else {
-          setbookmarkModalOpen(false);
-          setbookmarkIds((prev) => {
-            return prev.filter((id) => id !== post.id);
-          });
-          showNotification({
-            color: "gray",
-            icon: <BookmarkSimple size={18} />,
-            message: "Post unsaved successfully",
-            autoClose: 3000,
-          });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
   return (
     <>
       <div
@@ -361,7 +122,12 @@ export const Post = ({ post, setPosts, comments }) => {
       >
         <div className={classes.right}>
           {/* Post header  */}
-          <PostHeader post={post} setPosts={setPosts} />
+          <PostHeader
+            post={post}
+            setPosts={setPosts}
+            bookmarkModalOpen={bookmarkModalOpen}
+            setbookmarkModalOpen={setbookmarkModalOpen}
+          />
 
           {post.text && !post?.poll && (
             <div
@@ -383,7 +149,7 @@ export const Post = ({ post, setPosts, comments }) => {
               }}
               className={classes.body}
             >
-              <Text size="15px">{postvalue(post?.text)}</Text>
+              <Text size="15px">{formatText(post?.text, navigate)}</Text>
             </div>
           )}
           {post.image && (
@@ -786,443 +552,17 @@ export const Post = ({ post, setPosts, comments }) => {
               </div>
             </div>
           )}
-          {/* <PostFooter
+
+          {/* Post footer */}
+          <PostFooter
             post={post}
             comments={comments}
             setPosts={setPosts}
             setOpenConfirm={setOpenConfirm}
-          /> */}
-          {/* new footer */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              fontSize: "13px",
-              color: "#868e96",
-              marginTop: "0.4rem",
-              overflow: "auto",
-              padding: "0rem 1rem",
-            }}
-          >
-            {/* poststatsinfo */}
-            {matches ? (
-              post?.likes?.length > 3 ? (
-                <div
-                  style={{
-                    display: "flex",
-                    gap: "0.3rem",
-                    alignItems: "center",
-                  }}
-                >
-                  <Avatar.Group
-                    style={{
-                      cursor: "pointer",
-                    }}
-                    onClick={() => {
-                      setlikemodal(true);
-                    }}
-                    spacing="sm"
-                  >
-                    <Avatar
-                      size="sm"
-                      src={post?.likes[post?.likes?.length - 1]?.user?.avatar}
-                      radius="xl"
-                    />
-                    <Avatar
-                      size="sm"
-                      src={post?.likes[post?.likes?.length - 2]?.user?.avatar}
-                      radius="xl"
-                    />
-                    <Avatar
-                      size="sm"
-                      src={post?.likes[post?.likes?.length - 3]?.user?.avatar}
-                      radius="xl"
-                    />{" "}
-                  </Avatar.Group>
-                  <Text
-                    className="hoveru"
-                    style={{
-                      cursor: "pointer",
-                    }}
-                    onClick={() => {
-                      setlikemodal(true);
-                    }}
-                  >
-                    Liked by{" "}
-                    <Text weight={500} component="span">
-                      {post?.likes[post?.likes?.length - 1]?.user?.username}{" "}
-                    </Text>{" "}
-                    and{" "}
-                    <Text weight={500} component="span">
-                      {post.likes.length - 1} others
-                    </Text>
-                  </Text>
-                </div>
-              ) : (
-                <Text
-                  className="hoveru"
-                  style={{
-                    cursor: "pointer",
-                  }}
-                  onClick={() => {
-                    setlikemodal(true);
-                  }}
-                >
-                  {post.likes.length} likes
-                </Text>
-              )
-            ) : (
-              <Text
-                className="hoveru"
-                style={{
-                  cursor: "pointer",
-                }}
-                onClick={() => {
-                  setlikemodal(true);
-                }}
-              >
-                {post.likes.length} likes
-              </Text>
-            )}
-
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "0.3rem",
-              }}
-            >
-              <Text
-                className="hoveru"
-                style={{
-                  cursor: "pointer",
-                }}
-                onClick={() => {
-                  if (
-                    pathname.substring(0, pathname.indexOf("/", 1)) ===
-                      "/community" ||
-                    post?.community?.name
-                  ) {
-                    if (pathname !== `/communitypost/${post.id}`) {
-                      navigate(`/communitypost/${post.id}`);
-                    }
-                  } else {
-                    if (pathname !== `/post/${post.id}`) {
-                      navigate(`/post/${post.id}`);
-                    }
-                  }
-                }}
-              >
-                {comments
-                  ? `${comments?.reduce((acc, curr) => {
-                      return acc + curr.nestedcomments?.length;
-                    }, comments.length)}`
-                  : `${post.comments?.reduce((acc, curr) => {
-                      return acc + curr.nestedcomments?.length;
-                    }, post.comments.length)}`}{" "}
-                comments
-              </Text>
-              <Text>·</Text>
-              <Text
-                className="hoveru"
-                style={{
-                  cursor: "pointer",
-                }}
-                onClick={() => {
-                  if (post?.postquotesCount > 0) {
-                    navigate(`/reposts/${post.id}`);
-                  }
-                }}
-              >
-                {" "}
-                {post?.postquotesCount} reposts
-              </Text>
-            </div>
-          </div>
-          <div
-            style={{
-              padding: "0rem 0.5rem",
-            }}
-          >
-            <Divider my={2} />
-          </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              overflow: showoverflow ? "auto" : "hidden",
-              padding: "0rem 1rem ",
-            }}
-          >
-            <Button
-              onClick={() => {
-                handleLike();
-              }}
-              color={
-                !post?.likes.find((like) => {
-                  return like?.user?.username === UserInfo?.username;
-                })
-                  ? "gray"
-                  : "red"
-              }
-              size="xs"
-              leftIcon={
-                <Heart
-                  weight={
-                    !post?.likes.find((like) => {
-                      return like?.user?.username === UserInfo?.username;
-                    })
-                      ? "light"
-                      : "fill"
-                  }
-                  color={
-                    !post?.likes.find((like) => {
-                      return like?.user?.username === UserInfo?.username;
-                    })
-                      ? darkmode
-                        ? "#e9ecef"
-                        : "#868e96"
-                      : "red"
-                  }
-                  size={18}
-                />
-              }
-              variant="subtle"
-            >
-              Like
-            </Button>
-            <Button
-              onClick={() => {
-                if (
-                  pathname.substring(0, pathname.indexOf("/", 1)) ===
-                    "/community" ||
-                  post?.community?.name
-                ) {
-                  navigate(`/communitypost/${post.id}`);
-                } else {
-                  navigate(`/post/${post.id}`);
-                }
-              }}
-              color={"gray"}
-              size="xs"
-              leftIcon={<ChatCircle size={18} />}
-              variant="subtle"
-            >
-              Comment
-            </Button>
-            <Button
-              onClick={() => {
-                if (UserInfo) {
-                  setOpenConfirm(true);
-                } else {
-                  showNotification({
-                    icon: <Lock size={18} />,
-                    title: "Login required",
-                    autoClose: 3000,
-                    color: "red",
-                  });
-                }
-              }}
-              color={"gray"}
-              size="xs"
-              leftIcon={<ArrowsClockwise size={18} />}
-              variant="subtle"
-            >
-              Repost
-            </Button>
-            {matches && (
-              <Button
-                onClick={() => {
-                  handlebookmark();
-                }}
-                color={bookmarkIds.includes(post.id) ? "yellow" : "gray"}
-                size="xs"
-                leftIcon={
-                  <BookmarkSimple
-                    weight={bookmarkIds.includes(post.id) ? "fill" : "regular"}
-                    size={18}
-                  />
-                }
-                variant="subtle"
-              >
-                {bookmarkIds.includes(post.id) ? "Saved" : "Save"}
-              </Button>
-            )}
-          </div>
-          {/* Check if the current page path is the home page ("/") or a specific community page ("/community/{name}")
- If true, proceed to the next set of conditions */}
-          {(pathname === "/" || pathname === `/community/${name}`) &&
-            /* Check if there are more than 1 comments with non-null text and no gif in the post
-             */
-            (post?.comments.filter((val) => {
-              return val?.text !== null && val?.gif === null;
-            }).length > 1 ||
-              /* OR
- Check if the most recent comment's text is non-null and the comment was created within the last 10 days */
-              (post?.comments[post?.comments.length - 1]?.text !== null &&
-                // Check if the difference between the current date and the recent comment's createdAt date is less than 10 days
-                new Date() -
-                  new Date(
-                    post?.comments[post?.comments.length - 1]?.createdAt
-                  ) <
-                  10 * 24 * 60 * 60 * 1000)) && ( // 10 days in milliseconds
-              <>
-                <div
-                  onClick={() => {
-                    if (
-                      pathname.substring(0, pathname.indexOf("/", 1)) ===
-                      "/community"
-                    ) {
-                      navigate(`/communitypost/${post.id}`);
-                    } else {
-                      navigate(`/post/${post.id}`);
-                    }
-                  }}
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    cursor: "pointer",
-                    gap: "1rem",
-                    paddingTop: "0.7rem",
-                  }}
-                >
-                  {post?.comments
-
-                    .slice(post?.comments.length === 2 ? -1 : -2)
-                    .map((com) => {
-                      if (com?.text === null && com?.gif) {
-                        return null;
-                      }
-                      return (
-                        <div
-                          key={com.id}
-                          style={{
-                            padding: "0 1rem",
-                          }}
-                        >
-                          <div
-                            style={{
-                              display: "flex",
-                              gap: "0.5rem",
-                            }}
-                          >
-                            {/* left */}
-                            <div>
-                              <Indicator
-                                disabled={!onlineusers.includes(com?.user?.id)}
-                                style={{
-                                  cursor: "pointer",
-                                }}
-                                withBorder
-                                inline
-                                color="green"
-                                size={9}
-                                offset={7}
-                                position="bottom-end"
-                              >
-                                <Avatar
-                                  onClick={() => {
-                                    navigate(`/${com?.user?.username}`);
-                                  }}
-                                  size="40px"
-                                  radius={"xl"}
-                                  src={com?.user?.avatar}
-                                  alt=""
-                                  loading="lazy"
-                                />
-                              </Indicator>
-                            </div>
-                            <div
-                              style={{
-                                width: "100%",
-                              }}
-                            >
-                              <div
-                                style={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  gap: "0.2rem",
-                                }}
-                              >
-                                <Text
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    navigate(`/${com?.user?.username}`);
-                                  }}
-                                  size={"15px"}
-                                  weight={500}
-                                >
-                                  {com?.user?.username}
-                                </Text>
-
-                                {com?.user?.verified && <Verifiedbadge />}
-                                {topUser === com?.user?.username && (
-                                  <Topuserbadge />
-                                )}
-                                <Text color="dimmed">·</Text>
-                                <Text size={"12px"} color="dimmed">
-                                  {formatDistanceToNowStrict(
-                                    new Date(com?.createdAt),
-                                    {
-                                      locale: {
-                                        ...locale,
-                                        formatDistance,
-                                      },
-                                    }
-                                  )}
-                                </Text>
-                              </div>
-                              {com.text && (
-                                <div
-                                  style={{
-                                    cursor: "pointer",
-                                    paddingTop: "0",
-                                  }}
-                                  className={classes.body}
-                                >
-                                  <Text size="15px">
-                                    {postvalue(com?.text)}
-                                  </Text>
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })
-                    .reverse()}
-                </div>
-
-                <Text
-                  onClick={() => {
-                    if (
-                      pathname.substring(0, pathname.indexOf("/", 1)) ===
-                      "/community"
-                    ) {
-                      navigate(`/communitypost/${post.id}`);
-                    } else {
-                      navigate(`/post/${post.id}`);
-                    }
-                  }}
-                  color="dimmed"
-                  size={"14px"}
-                  style={{
-                    padding: "0.1rem 0.1rem 0.5rem 4rem",
-                    cursor: "pointer",
-                  }}
-                >
-                  See all{" "}
-                  {comments
-                    ? `${comments?.reduce((acc, curr) => {
-                        return acc + curr.nestedcomments?.length;
-                      }, comments.length)}`
-                    : `${post.comments?.reduce((acc, curr) => {
-                        return acc + curr.nestedcomments?.length;
-                      }, post.comments.length)}`}{" "}
-                  comments
-                </Text>
-              </>
-            )}
+            bookmarkModalOpen={bookmarkModalOpen}
+            setbookmarkModalOpen={setbookmarkModalOpen}
+          />
+          <CommentPreview post={post} comments={comments} />
         </div>
       </div>
       {/* repost post modal */}
@@ -1235,57 +575,6 @@ export const Post = ({ post, setPosts, comments }) => {
         communityName={post?.community?.name}
       />
 
-      {/* like data modal  */}
-      <Modal
-        zIndex={1000}
-        title={`Likes (${post.likes.length})`}
-        overflow="inside"
-        opened={likemodal}
-        onClose={() => {
-          setlikemodal(false);
-        }}
-      >
-        {post?.likes
-          ?.map((likeuser) => {
-            return (
-              <div
-                key={likeuser?.user?.username}
-                onClick={() => {
-                  navigate(`/${likeuser?.user?.username}`);
-                }}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.5rem",
-                  padding: "0.5rem 0.5rem 0.5rem 0",
-                  cursor: "pointer",
-                }}
-              >
-                <img
-                  style={{
-                    width: "40px",
-                    height: "40px",
-                    borderRadius: "50%",
-                  }}
-                  src={likeuser?.user?.avatar}
-                  alt=""
-                />
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.3rem",
-                  }}
-                >
-                  <Text weight={500}> {likeuser?.user?.username}</Text>
-                  {likeuser?.user?.verified && <Verifiedbadge />}
-                  {topUser === likeuser?.user?.username && <Topuserbadge />}
-                </div>
-              </div>
-            );
-          })
-          .reverse()}
-      </Modal>
       {/* view img modal  */}
       {opened && (
         <div
@@ -1308,9 +597,10 @@ export const Post = ({ post, setPosts, comments }) => {
           />
         </div>
       )}
+      {/* Post Bookmarked not modal */}
       <BookmarkNotiModal
         bookmarkModalOpen={bookmarkModalOpen}
-        setbookmarkModalOpen={bookmarkModalOpen}
+        setbookmarkModalOpen={setbookmarkModalOpen}
       />
     </>
   );

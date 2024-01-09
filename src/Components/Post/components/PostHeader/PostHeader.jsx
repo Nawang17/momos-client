@@ -11,7 +11,12 @@ import locale from "date-fns/locale/en-US";
 import { format } from "date-fns";
 import { formatDistance } from "../../../../helper/DateFormat";
 
-const PostHeader = ({ post, setPosts }) => {
+const PostHeader = ({
+  post,
+  setPosts,
+  bookmarkModalOpen,
+  setbookmarkModalOpen,
+}) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { onlineusers, topUser } = useContext(AuthContext);
@@ -113,7 +118,12 @@ const PostHeader = ({ post, setPosts }) => {
         </Flex>
       </div>
       {/* right side of header that has the post menu   */}
-      <PostMenu postinfo={post} setPosts={setPosts} />
+      <PostMenu
+        postinfo={post}
+        setPosts={setPosts}
+        bookmarkModalOpen={bookmarkModalOpen}
+        setbookmarkModalOpen={setbookmarkModalOpen}
+      />
     </Flex>
   );
 };

@@ -27,11 +27,11 @@ import NestedReplyModal from "../../Components/NestedReplyModal";
 import { AuthContext } from "../../context/Auth";
 import { showNotification } from "@mantine/notifications";
 import { NestedCommentMenu } from "../../Components/NestedCommentMenu";
-import reactStringReplace from "react-string-replace";
 import { likecomment, nestedlikecomment } from "../../api/POST";
 import Topuserbadge from "../../helper/Topuserbadge";
 import { formatDistance } from "../../helper/DateFormat";
 import Verifiedbadge from "../../helper/VerifiedBadge";
+import { formatText } from "../../helper/FormatText";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -92,59 +92,7 @@ export const Comments = ({
   const { UserInfo, darkmode, onlineusers, topUser } = useContext(AuthContext);
   const [replypost, setReplyPost] = useState(null);
   const [commentFoldState, setCommentFoldState] = useState({});
-  const postvalue = (text) => {
-    let replacedText;
 
-    // Match URLs
-    replacedText = reactStringReplace(text, /(https?:\/\/\S+)/g, (match, i) => (
-      <span
-        onClick={(e) => {
-          e.stopPropagation();
-          window.open( match, "_blank");
-
-        }}
-        className="link-style"
-        style={{
-          color: "#1d9bf0",
-        }}
-        key={match + i}
-      >
-        {match}
-      </span>
-    ));
-
-    // Match @-mentions
-
-    replacedText = reactStringReplace(replacedText, /@(\w+)/g, (match, i) => (
-      <span
-        className="link-style"
-        onClick={(e) => {
-          e.stopPropagation();
-          navigate(`/${match}`);
-        }}
-        style={{ color: "#1d9bf0" }}
-        key={match + i}
-      >
-        @{match}
-      </span>
-    ));
-    // Match hashtags
-    replacedText = reactStringReplace(replacedText, /#(\w+)/g, (match, i) => (
-      <span
-        className="link-style"
-        onClick={(e) => {
-          e.stopPropagation();
-          navigate(`/search/q/%23${match}`);
-        }}
-        style={{ color: "#1d9bf0" }}
-        key={match + i}
-      >
-        #{match}
-      </span>
-    ));
-
-    return replacedText;
-  };
   const handlelikecomment = async (commentId) => {
     if (!UserInfo) {
       return showNotification({
@@ -479,9 +427,7 @@ export const Comments = ({
                         </Text>
                       )}
 
-                    
-                      {comment?.user?.verified &&
-                       <Verifiedbadge />}
+                      {comment?.user?.verified && <Verifiedbadge />}
                       {topUser === comment?.user?.username && <Topuserbadge />}
                       <Text color="dimmed">·</Text>
                       <Text color="dimmed" size="13px">
@@ -510,7 +456,9 @@ export const Comments = ({
                     </div>
                   </div>
                   <div className={classes.body}>
-                    <Text size="15px">{postvalue(comment?.text)}</Text>
+                    <Text size="15px">
+                      {formatText(comment?.text, navigate)}
+                    </Text>
                   </div>
                   {comment?.gif && (
                     <div
@@ -712,10 +660,8 @@ export const Comments = ({
                                 </Text>
                               )}
 
-                             
-                              {data?.user?.verified &&
-                              <Verifiedbadge />}
-                               {topUser === data?.user?.username && (
+                              {data?.user?.verified && <Verifiedbadge />}
+                              {topUser === data?.user?.username && (
                                 <Topuserbadge />
                               )}
 
@@ -773,7 +719,9 @@ export const Comments = ({
                         </div>
                         <div className={classes.body}>
                           {data?.text && (
-                            <Text size="15px">{postvalue(data?.text)}</Text>
+                            <Text size="15px">
+                              {formatText(data?.text, navigate)}
+                            </Text>
                           )}
                         </div>
                         {data?.gif && (

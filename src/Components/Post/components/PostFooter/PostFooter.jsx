@@ -1,4 +1,4 @@
-import { Avatar, Button, Divider, Flex, Modal, Text } from "@mantine/core";
+import { Avatar, Button, Divider, Flex, Text } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
 import {
   ArrowsClockwise,
@@ -12,20 +12,24 @@ import React, { useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../../context/Auth";
 import { useMediaQuery } from "@mantine/hooks";
-import Verifiedbadge from "../../../../helper/VerifiedBadge";
-import Topuserbadge from "../../../../helper/Topuserbadge";
 import { useState } from "react";
-import { bookmarkPost, likePost } from "../../../../api/POST";
+import { likePost } from "../../../../api/POST";
+import LikesUsersModal from "../PostModals/LikesUsersModal";
+import { handlebookmark } from "../../common/functions";
 
-const PostFooter = ({ post, comments, setPosts, setOpenConfirm }) => {
-  const { UserInfo, darkmode, topUser, bookmarkIds, setbookmarkIds } =
+const PostFooter = ({
+  post,
+  comments,
+  setPosts,
+  setOpenConfirm,
+  setbookmarkModalOpen,
+}) => {
+  const { UserInfo, darkmode, bookmarkIds, setbookmarkIds } =
     useContext(AuthContext);
   const { pathname } = useLocation();
   const bigScreen = useMediaQuery("(min-width: 530px)");
   const showoverflow = useMediaQuery("(max-width: 390px)");
-  const [likemodal, setlikemodal] = useState(false);
-  const [bookmarkModalOpen, setbookmarkModalOpen] = useState(false);
-
+  const [likemodalstate, setlikemodalstate] = useState(false);
   const navigate = useNavigate();
   const handleLike = async () => {
     if (!UserInfo) {
@@ -149,43 +153,7 @@ const PostFooter = ({ post, comments, setPosts, setOpenConfirm }) => {
         });
     }
   };
-  const handlebookmark = async () => {
-    if (!UserInfo) {
-      return showNotification({
-        icon: <Lock size={18} />,
-        color: "red",
-        title: "Login required",
-        autoClose: 3000,
-      });
-    }
 
-    await bookmarkPost({ postId: post.id })
-      .then((res) => {
-        if (res.data.bookmarked) {
-          setbookmarkIds((prev) => {
-            return [...prev, post.id];
-          });
-          setbookmarkModalOpen(true);
-          setTimeout(() => {
-            setbookmarkModalOpen(false);
-          }, 2000);
-        } else {
-          setbookmarkModalOpen(false);
-          setbookmarkIds((prev) => {
-            return prev.filter((id) => id !== post.id);
-          });
-          showNotification({
-            color: "gray",
-            icon: <BookmarkSimple size={18} />,
-            message: "Post unsaved successfully",
-            autoClose: 3000,
-          });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
   return (
     <>
       <Flex
@@ -209,7 +177,7 @@ const PostFooter = ({ post, comments, setPosts, setOpenConfirm }) => {
                 className="addPointer"
                 onClick={() => {
                   //onclick show modal with a display of all users that liked the post
-                  setlikemodal(true);
+                  setlikemodalstate(true);
                 }}
                 spacing="sm"
               >
@@ -233,7 +201,7 @@ const PostFooter = ({ post, comments, setPosts, setOpenConfirm }) => {
               <Text
                 className="hoveru addPointer"
                 onClick={() => {
-                  setlikemodal(true);
+                  setlikemodalstate(true);
                 }}
               >
                 Liked by{" "}
@@ -253,10 +221,10 @@ const PostFooter = ({ post, comments, setPosts, setOpenConfirm }) => {
                 cursor: "pointer",
               }}
               onClick={() => {
-                setlikemodal(true);
+                setlikemodalstate(true);
               }}
             >
-              {post.likes.length} likes
+              {post?.likes?.length} likes
             </Text>
           )
         ) : (
@@ -265,7 +233,7 @@ const PostFooter = ({ post, comments, setPosts, setOpenConfirm }) => {
             className="hoveru addPointer"
             onClick={() => {
               //onclick show modal with a display of all users that liked the post
-              setlikemodal(true);
+              setlikemodalstate(true);
             }}
           >
             {post?.likes?.length} likes
@@ -330,20 +298,22 @@ const PostFooter = ({ post, comments, setPosts, setOpenConfirm }) => {
         <Divider my={2} />
       </div>
       {/* post action buttons - like, comment, repost, save */}
-      <div
+
+      <Flex
+        justify="space-between"
+        p="0rem 1rem"
         style={{
-          display: "flex",
-          justifyContent: "space-between",
-          overflow: showoverflow ? "auto" : "hidden",
-          padding: "0rem 1rem ",
+          overflow: showoverflow ? "auto" : "hidden", //if screen width is < 390px then show overflow else dont
         }}
       >
+        {/* like button */}
         <Button
           onClick={() => {
             handleLike();
           }}
           color={
-            !post?.likes.find((like) => {
+            //if the current user has liked the post then color the like button red else color it gray
+            !post?.likes?.find((like) => {
               return like?.user?.username === UserInfo?.username;
             })
               ? "gray"
@@ -353,14 +323,14 @@ const PostFooter = ({ post, comments, setPosts, setOpenConfirm }) => {
           leftIcon={
             <Heart
               weight={
-                !post?.likes.find((like) => {
+                !post?.likes?.find((like) => {
                   return like?.user?.username === UserInfo?.username;
                 })
                   ? "light"
                   : "fill"
               }
               color={
-                !post?.likes.find((like) => {
+                !post?.likes?.find((like) => {
                   return like?.user?.username === UserInfo?.username;
                 })
                   ? darkmode
@@ -375,16 +345,20 @@ const PostFooter = ({ post, comments, setPosts, setOpenConfirm }) => {
         >
           Like
         </Button>
+        {/* comment button  */}
         <Button
           onClick={() => {
             if (
+              //check if the post is a community post or the current path is a communnity page
               pathname.substring(0, pathname.indexOf("/", 1)) ===
                 "/community" ||
               post?.community?.name
             ) {
-              navigate(`/communitypost/${post.id}`);
+              //if post is a community post and that it is not already in the community post posts path then navigate to the community post path else dont
+              navigate(`/communitypost/${post?.id}`);
             } else {
-              navigate(`/post/${post.id}`);
+              // if the current path is already the single post then dont navigate else navigate to the post path
+              navigate(`/post/${post?.id}`);
             }
           }}
           color={"gray"}
@@ -394,8 +368,10 @@ const PostFooter = ({ post, comments, setPosts, setOpenConfirm }) => {
         >
           Comment
         </Button>
+        {/* repost button */}
         <Button
           onClick={() => {
+            //if the current user is logged in then open the repost modal else show a notification that login is required
             if (UserInfo) {
               setOpenConfirm(true);
             } else {
@@ -414,75 +390,37 @@ const PostFooter = ({ post, comments, setPosts, setOpenConfirm }) => {
         >
           Repost
         </Button>
+        {/* only show the save button if the screen width is >= 530px */}
         {bigScreen && (
           <Button
             onClick={() => {
-              handlebookmark();
+              handlebookmark(
+                UserInfo,
+                setbookmarkIds,
+                setbookmarkModalOpen,
+                post
+              );
             }}
-            color={bookmarkIds.includes(post.id) ? "yellow" : "gray"}
+            color={bookmarkIds?.includes(post?.id) ? "yellow" : "gray"}
             size="xs"
             leftIcon={
               <BookmarkSimple
-                weight={bookmarkIds.includes(post.id) ? "fill" : "regular"}
+                weight={bookmarkIds?.includes(post?.id) ? "fill" : "regular"}
                 size={18}
               />
             }
             variant="subtle"
           >
-            {bookmarkIds.includes(post.id) ? "Saved" : "Save"}
+            {bookmarkIds?.includes(post?.id) ? "Saved" : "Save"}
           </Button>
         )}
-      </div>
-      <Modal
-        zIndex={1000}
-        title={`Likes (${post.likes.length})`}
-        overflow="inside"
-        opened={likemodal}
-        onClose={() => {
-          setlikemodal(false);
-        }}
-      >
-        {post?.likes
-          ?.map((likeuser) => {
-            return (
-              <div
-                key={likeuser?.user?.username}
-                onClick={() => {
-                  navigate(`/${likeuser?.user?.username}`);
-                }}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.5rem",
-                  padding: "0.5rem 0.5rem 0.5rem 0",
-                  cursor: "pointer",
-                }}
-              >
-                <img
-                  style={{
-                    width: "40px",
-                    height: "40px",
-                    borderRadius: "50%",
-                  }}
-                  src={likeuser?.user?.avatar}
-                  alt=""
-                />
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.3rem",
-                  }}
-                >
-                  <Text weight={500}> {likeuser?.user?.username}</Text>
-                  {likeuser?.user?.verified && <Verifiedbadge />}
-                  {topUser === likeuser?.user?.username && <Topuserbadge />}
-                </div>
-              </div>
-            );
-          })
-          .reverse()}
-      </Modal>
+      </Flex>
+      {/* modal that shows the users that liked the post */}
+      <LikesUsersModal
+        post={post}
+        likemodalstate={likemodalstate}
+        setlikemodalstate={setlikemodalstate}
+      />
     </>
   );
 };

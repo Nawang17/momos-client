@@ -13,7 +13,6 @@ import {
 } from "@mantine/core";
 import {
   ArrowLeft,
- 
   WarningCircle,
   Lock,
   UserPlus,
@@ -28,7 +27,6 @@ import { AuthContext } from "../../context/Auth";
 import { getchat, profilefollowdata } from "../../api/GET";
 import { useParams } from "react-router-dom";
 import { showNotification } from "@mantine/notifications";
-import reactStringReplace from "react-string-replace";
 import Topuserbadge from "../../helper/Topuserbadge";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import locale from "date-fns/locale/en-US";
@@ -37,6 +35,7 @@ import { formatDistance } from "../../helper/DateFormat";
 import { calculateLevelAndProgress } from "../../helper/helperfunctions";
 import { getRankInfo } from "../../helper/RankInfo";
 import Verifiedbadge from "../../helper/VerifiedBadge";
+import { formatText } from "../../helper/FormatText";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -184,60 +183,7 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
   };
   const [opened, setOpened] = useState(false);
   const [modaltitle, setmodaltitle] = useState("");
-  const description = (text) => {
-    let replacedText;
 
-    // Match URLs
-    replacedText = reactStringReplace(text, /(https?:\/\/\S+)/g, (match, i) => (
-      <span
-        onClick={(e) => {
-          e.stopPropagation();
-          window.open( match, "_blank");
-
-        }}
-        className="link-style"
-        style={{
-          color: "#1d9bf0",
-        }}
-        key={match + i}
-      >
-        {match}
-      </span>
-    ));
-
-    // Match @-mentions
-
-    replacedText = reactStringReplace(replacedText, /@(\w+)/g, (match, i) => (
-      <span
-        className="link-style"
-        onClick={(e) => {
-          e.stopPropagation();
-          navigate(`/${match}`);
-        }}
-        style={{ color: "#1d9bf0" }}
-        key={match + i}
-      >
-        @{match}
-      </span>
-    ));
-
-    // Match hashtags
-    replacedText = reactStringReplace(replacedText, /#(\w+)/g, (match, i) => (
-      <span
-        className="link-style"
-        onClick={(e) => {
-          e.stopPropagation();
-          navigate(`/search/q/%23${match}`);
-        }}
-        style={{ color: "#1d9bf0" }}
-        key={match + i}
-      >
-        #{match}
-      </span>
-    ));
-
-    return replacedText;
-  };
   const totalPoints = rankinfo?.points;
 
   return (
@@ -346,7 +292,7 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                   {" "}
                   {userprofile}
                 </Text>
-               {profileInfo?.verified && <Verifiedbadge />} 
+                {profileInfo?.verified && <Verifiedbadge />}
                 {topUser === userprofile && <Topuserbadge />}
                 <div>
                   {rankinfo.rank && (
@@ -629,7 +575,7 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                   whiteSpace: "pre-wrap",
                 }}
               >
-                <Text>{description(profileInfo?.description)}</Text>
+                <Text>{formatText(profileInfo?.description, navigate)}</Text>
               </div>
             )}
             {/* joined date */}
@@ -860,9 +806,8 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                     >
                       {" "}
                       <Text weight="500">{item.following.username}</Text>
-                      
-                      {item.following.verified &&
-                      <Verifiedbadge />}{topUser === item.following.username && <Topuserbadge />}
+                      {item.following.verified && <Verifiedbadge />}
+                      {topUser === item.following.username && <Topuserbadge />}
                     </div>
                   </div>
                 );
@@ -904,11 +849,9 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                       }}
                     >
                       {" "}
-                      <Text weight="500">{item.follower.username}</Text> 
-                      {item.follower.verified &&
-                        <Verifiedbadge />}
+                      <Text weight="500">{item.follower.username}</Text>
+                      {item.follower.verified && <Verifiedbadge />}
                       {topUser === item.follower.username && <Topuserbadge />}
-                     
                     </div>
                   </div>
                 );

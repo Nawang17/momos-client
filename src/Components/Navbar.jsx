@@ -24,10 +24,12 @@ import Notis from "../views/Notis/Notis";
 import { AuthContext } from "../context/Auth";
 import { useViewportSize } from "@mantine/hooks";
 import { showNotification } from "@mantine/notifications";
+import { dynamicActivate } from "../i18n.js";
 const lngs = {
   en: { nativeName: "English" },
   ko: { nativeName: "Korean" },
 };
+
 const useStyles = createStyles((theme) => ({
   root: {
     position: "sticky",
@@ -188,7 +190,8 @@ export function Navbar({ socket }) {
                           title: `Language changed to ${lngs[languageCode].nativeName}`,
                           color: "blue",
                         });
-                        // i18n.changeLanguage(languageCode);
+                        window.localStorage.setItem("language", languageCode);
+                        dynamicActivate(languageCode);
                       }}
                       key={languageCode}
                     >

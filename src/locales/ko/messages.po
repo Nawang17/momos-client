@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2024-01-10 12:19-0500\n"
+"POT-Creation-Date: 2024-01-10 12:41-0500\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -9,8 +9,8 @@ msgstr ""
 
 #: src/Components/Hero.jsx:76
 msgid "Connect with people around the world"
-msgstr ""
+msgstr "전 세계 사람들과 연결"
 
 #: src/Components/Hero.jsx:64
 msgid "Welcome to"
-msgstr ""
+msgstr "에 오신 것을 환영합니다"

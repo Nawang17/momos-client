@@ -4,15 +4,19 @@ import "./index.css";
 import App from "./App";
 import { i18n } from "@lingui/core";
 import { I18nProvider } from "@lingui/react";
-import { defaultLocale, dynamicActivate } from "./i18n.js";
+
+import { dynamicActivate, defaultLocale } from "./i18n";
 import { useEffect } from "react";
 
 const I18nApp = () => {
   useEffect(() => {
     // With this method we dynamically load the catalogs
-    dynamicActivate(defaultLocale);
+    dynamicActivate(
+      localStorage?.getItem("language")
+        ? localStorage?.getItem("language")
+        : "en"
+    );
   }, []);
-
   return (
     <React.StrictMode>
       <I18nProvider i18n={i18n}>

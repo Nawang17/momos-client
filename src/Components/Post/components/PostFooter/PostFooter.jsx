@@ -16,6 +16,7 @@ import { useState } from "react";
 import { likePost } from "../../../../api/POST";
 import LikesUsersModal from "../PostModals/LikesUsersModal";
 import { handlebookmark } from "../../common/functions";
+import { useTranslation } from "react-i18next";
 
 const PostFooter = ({
   post,
@@ -31,6 +32,8 @@ const PostFooter = ({
   const showoverflow = useMediaQuery("(max-width: 390px)");
   const [likemodalstate, setlikemodalstate] = useState(false);
   const navigate = useNavigate();
+  const { t } = useTranslation();
+
   const handleLike = async () => {
     if (!UserInfo) {
       return showNotification({
@@ -343,7 +346,7 @@ const PostFooter = ({
           }
           variant="subtle"
         >
-          Like
+          {t("buttons.like")}
         </Button>
         {/* comment button  */}
         <Button
@@ -366,7 +369,7 @@ const PostFooter = ({
           leftIcon={<ChatCircle size={18} />}
           variant="subtle"
         >
-          Comment
+          {t("buttons.comment")}
         </Button>
         {/* repost button */}
         <Button
@@ -388,7 +391,7 @@ const PostFooter = ({
           leftIcon={<ArrowsClockwise size={18} />}
           variant="subtle"
         >
-          Repost
+          {t("buttons.repost")}
         </Button>
         {/* only show the save button if the screen width is >= 530px */}
         {bigScreen && (
@@ -411,7 +414,9 @@ const PostFooter = ({
             }
             variant="subtle"
           >
-            {bookmarkIds?.includes(post?.id) ? "Saved" : "Save"}
+            {bookmarkIds?.includes(post?.id)
+              ? t("buttons.saved")
+              : t("buttons.save")}
           </Button>
         )}
       </Flex>

@@ -1,0 +1,18 @@
+{
+  "translation": {
+    "hero": {
+      "part1a": "환영합니다 ",
+      "part1b": "momos",
+      "part2": "세계 각지의 사람들과 소통하세요"
+    },
+    "buttons": {
+      "login": "로그인",
+      "register": "회원가입",
+      "like": "좋아요",
+      "comment": "댓글",
+      "repost": "리포스트",
+      "saved": "저장됨",
+      "save": "저장"
+    }
+  }
+}

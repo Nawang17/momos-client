@@ -1,4 +1,5 @@
 import { createStyles, Title, Text, Button, Container } from "@mantine/core";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 const useStyles = createStyles((theme) => ({
@@ -55,15 +56,16 @@ const useStyles = createStyles((theme) => ({
 
 export function Hero({ darkmode }) {
   const { classes } = useStyles();
+  const { t } = useTranslation();
 
   return (
     <Container className={classes.wrapper} size={960}>
       <div className={classes.inner}>
         <Title className={classes.title}>
-          Welcome to{" "}
+          {t("hero.part1a")}
           <Text component="span" className={classes.highlight} inherit>
-            momos
-          </Text>{" "}
+            {t("hero.part1b")}
+          </Text>
         </Title>
 
         <Container p={0} size={600}>
@@ -72,18 +74,18 @@ export function Hero({ darkmode }) {
             size="lg"
             className={classes.description}
           >
-            Connect with people around the world
+            {t("hero.part2")}
           </Text>
         </Container>
 
         <div className={classes.controls}>
           <Link className={classes.control} to={"/Login"}>
             <Button size="sm" variant="default" color="gray">
-              Login
+              {t("buttons.login")}
             </Button>
           </Link>
           <Link className={classes.control} to={"/Register"}>
-            <Button size="sm">Register</Button>
+            <Button size="sm"> {t("buttons.register")}</Button>
           </Link>
         </div>
       </div>

@@ -1,0 +1,18 @@
+{
+  "translation": {
+    "hero": {
+      "part1a": "Welcome to ",
+      "part1b": "momos",
+      "part2": "Connect with people around the world"
+    },
+    "buttons": {
+      "login": "Login",
+      "register": "Register",
+      "like": "Like",
+      "comment": "Comment",
+      "repost": "Repost",
+      "saved": "Saved",
+      "save": "Save"
+    }
+  }
+}

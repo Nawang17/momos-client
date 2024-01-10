@@ -7,6 +7,7 @@ import {
   Text,
   ActionIcon,
   Alert,
+  Menu,
 } from "@mantine/core";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
@@ -15,13 +16,18 @@ import {
   MagnifyingGlass,
   MoonStars,
   Sun,
+  Translate,
   UsersThree,
 } from "@phosphor-icons/react";
 import { ProfileMenu } from "./ProfileMenu";
 import Notis from "../views/Notis/Notis";
 import { AuthContext } from "../context/Auth";
 import { useViewportSize } from "@mantine/hooks";
-
+import { useTranslation } from "react-i18next";
+const lngs = {
+  en: { nativeName: "English" },
+  ko: { nativeName: "Korean" },
+};
 const useStyles = createStyles((theme) => ({
   root: {
     position: "sticky",
@@ -77,6 +83,8 @@ export function Navbar({ socket }) {
   const { pathname } = useLocation();
   const [noti, setnoti] = useState(null);
   const { height, width } = useViewportSize();
+  const { i18n } = useTranslation();
+
   useEffect(() => {
     socket.on("newnotification", (data) => {
       setnoti(data);
@@ -164,6 +172,27 @@ export function Navbar({ socket }) {
         <Group spacing={5} className={classes.links}>
           {/* {items} */}
           <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+            <Menu shadow="md" width={200}>
+              <Menu.Target>
+                <ActionIcon>
+                  <Translate size={28} color={darkmode ? "white" : "black"} />
+                </ActionIcon>
+              </Menu.Target>
+
+              <Menu.Dropdown>
+                {Object.keys(lngs).map((languageCode) => (
+                  <Menu.Item
+                    onClick={() => {
+                      i18n.changeLanguage(languageCode);
+                    }}
+                    key={languageCode}
+                  >
+                    {lngs[languageCode].nativeName}
+                  </Menu.Item>
+                ))}
+              </Menu.Dropdown>
+            </Menu>
+
             {UserInfo && (
               <>
                 <ActionIcon

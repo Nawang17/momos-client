@@ -14,11 +14,11 @@ msgstr ""
 "X-Crowdin-File-ID: 14\n"
 "Project-Id-Version: momos\n"
 "Language-Team: Korean\n"
-"PO-Revision-Date: 2024-01-10 18:48\n"
+"PO-Revision-Date: 2024-01-10 21:11\n"
 
 #: src/Components/Hero.jsx:76
 msgid "Connect with people around the world"
-msgstr "test"
+msgstr "전 세계 사람들과 연결"
 
 #: src/Components/Hero.jsx:64
 msgid "Welcome to"

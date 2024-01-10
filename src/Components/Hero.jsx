@@ -61,8 +61,8 @@ export function Hero({ darkmode }) {
     <Container className={classes.wrapper} size={960}>
       <div className={classes.inner}>
         <Title className={classes.title}>
-          <Trans> Welcome to </Trans>
-          <Text component="span" className={classes.highlight} inherit>
+          Welcome to
+          <Text pl={7} component="span" className={classes.highlight} inherit>
             momos
           </Text>
         </Title>
@@ -73,7 +73,7 @@ export function Hero({ darkmode }) {
             size="lg"
             className={classes.description}
           >
-            <Trans>Connect with people around the world</Trans>
+           Connect with people around the world
           </Text>
         </Container>
 

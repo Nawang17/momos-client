@@ -1,6 +1,6 @@
 import { createStyles, Title, Text, Button, Container } from "@mantine/core";
-import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import { Trans } from "@lingui/macro";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -56,15 +56,14 @@ const useStyles = createStyles((theme) => ({
 
 export function Hero({ darkmode }) {
   const { classes } = useStyles();
-  const { t } = useTranslation();
 
   return (
     <Container className={classes.wrapper} size={960}>
       <div className={classes.inner}>
         <Title className={classes.title}>
-          {t("hero.part1a")}
+          <Trans> Welcome to </Trans>
           <Text component="span" className={classes.highlight} inherit>
-            {t("hero.part1b")}
+            momos
           </Text>
         </Title>
 
@@ -74,18 +73,18 @@ export function Hero({ darkmode }) {
             size="lg"
             className={classes.description}
           >
-            {t("hero.part2")}
+            <Trans>Connect with people around the world</Trans>
           </Text>
         </Container>
 
         <div className={classes.controls}>
           <Link className={classes.control} to={"/Login"}>
             <Button size="sm" variant="default" color="gray">
-              {t("buttons.login")}
+              Login
             </Button>
           </Link>
           <Link className={classes.control} to={"/Register"}>
-            <Button size="sm"> {t("buttons.register")}</Button>
+            <Button size="sm"> Register</Button>
           </Link>
         </div>
       </div>

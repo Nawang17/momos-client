@@ -23,7 +23,6 @@ import { ProfileMenu } from "./ProfileMenu";
 import Notis from "../views/Notis/Notis";
 import { AuthContext } from "../context/Auth";
 import { useViewportSize } from "@mantine/hooks";
-import { useTranslation } from "react-i18next";
 import { showNotification } from "@mantine/notifications";
 const lngs = {
   en: { nativeName: "English" },
@@ -84,7 +83,6 @@ export function Navbar({ socket }) {
   const { pathname } = useLocation();
   const [noti, setnoti] = useState(null);
   const { height, width } = useViewportSize();
-  const { i18n } = useTranslation();
 
   useEffect(() => {
     socket.on("newnotification", (data) => {
@@ -190,7 +188,7 @@ export function Navbar({ socket }) {
                           title: `Language changed to ${lngs[languageCode].nativeName}`,
                           color: "blue",
                         });
-                        i18n.changeLanguage(languageCode);
+                        // i18n.changeLanguage(languageCode);
                       }}
                       key={languageCode}
                     >

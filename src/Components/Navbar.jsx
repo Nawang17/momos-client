@@ -24,6 +24,7 @@ import Notis from "../views/Notis/Notis";
 import { AuthContext } from "../context/Auth";
 import { useViewportSize } from "@mantine/hooks";
 import { useTranslation } from "react-i18next";
+import { showNotification } from "@mantine/notifications";
 const lngs = {
   en: { nativeName: "English" },
   ko: { nativeName: "Korean" },
@@ -172,26 +173,33 @@ export function Navbar({ socket }) {
         <Group spacing={5} className={classes.links}>
           {/* {items} */}
           <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-            <Menu shadow="md" width={200}>
-              <Menu.Target>
-                <ActionIcon>
-                  <Translate size={28} color={darkmode ? "white" : "black"} />
-                </ActionIcon>
-              </Menu.Target>
+            {UserInfo?.username === "katoph" && (
+              <Menu shadow="md" width={200}>
+                <Menu.Target>
+                  <ActionIcon>
+                    <Translate size={28} color={darkmode ? "white" : "black"} />
+                  </ActionIcon>
+                </Menu.Target>
 
-              <Menu.Dropdown>
-                {Object.keys(lngs).map((languageCode) => (
-                  <Menu.Item
-                    onClick={() => {
-                      i18n.changeLanguage(languageCode);
-                    }}
-                    key={languageCode}
-                  >
-                    {lngs[languageCode].nativeName}
-                  </Menu.Item>
-                ))}
-              </Menu.Dropdown>
-            </Menu>
+                <Menu.Dropdown>
+                  {Object.keys(lngs).map((languageCode) => (
+                    <Menu.Item
+                      onClick={() => {
+                        showNotification({
+                          icon: <Translate size={18} />,
+                          title: `Language changed to ${lngs[languageCode].nativeName}`,
+                          color: "blue",
+                        });
+                        i18n.changeLanguage(languageCode);
+                      }}
+                      key={languageCode}
+                    >
+                      {lngs[languageCode].nativeName}
+                    </Menu.Item>
+                  ))}
+                </Menu.Dropdown>
+              </Menu>
+            )}
 
             {UserInfo && (
               <>

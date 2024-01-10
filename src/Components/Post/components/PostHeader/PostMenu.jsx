@@ -18,13 +18,9 @@ import { deletePost } from "../../../../api/DELETE";
 import { follow } from "../../../../api/POST";
 import { AuthContext } from "../../../../context/Auth";
 import { handlebookmark } from "../../common/functions";
+import { Trans } from "@lingui/macro";
 
-export function PostMenu({
-  postinfo,
-  setPosts,
-  bookmarkModalOpen,
-  setbookmarkModalOpen,
-}) {
+export function PostMenu({ postinfo, setPosts, setbookmarkModalOpen }) {
   const {
     UserInfo,
     followingdata,
@@ -153,7 +149,11 @@ export function PostMenu({
               />
             }
           >
-            {bookmarkIds.includes(postinfo?.id) ? "Unsave" : "Save"}
+            {bookmarkIds.includes(postinfo?.id) ? (
+              <Trans>Unsave</Trans>
+            ) : (
+              <Trans>Save</Trans>
+            )}
           </Menu.Item>
           {(UserInfo?.username === postinfo?.user.username ||
             UserInfo?.username === "katoph") && (
@@ -163,7 +163,7 @@ export function PostMenu({
               }}
               icon={<Trash size={14} />}
             >
-              Delete
+              <Trans>Delete</Trans>
             </Menu.Item>
           )}
           {UserInfo?.username !== postinfo?.user.username &&
@@ -174,7 +174,7 @@ export function PostMenu({
                 }}
                 icon={<UserMinus size={14} />}
               >
-                Unfollow {postinfo?.user.username}
+                <Trans>Unfollow {postinfo?.user.username}</Trans>
               </Menu.Item>
             ) : (
               <Menu.Item
@@ -183,7 +183,7 @@ export function PostMenu({
                 }}
                 icon={<UserPlus size={14} />}
               >
-                Follow {postinfo?.user.username}
+                <Trans>Follow {postinfo?.user.username}</Trans>
               </Menu.Item>
             ))}
 
@@ -194,14 +194,14 @@ export function PostMenu({
               );
               showNotification({
                 icon: <CopySimple size={18} />,
-                title: "Link copied to clipboard",
+                title: <Trans>Link copied to clipboard</Trans>,
                 autoClose: 3000,
                 color: "gray",
               });
             }}
             icon={<CopySimple size={14} />}
           >
-            Copy link to Post
+            <Trans>Copy link to Post</Trans>
           </Menu.Item>
           <Menu.Item
             onClick={() => {
@@ -214,7 +214,7 @@ export function PostMenu({
             }}
             icon={<Export size={14} />}
           >
-            Share Post via...
+            <Trans>Share Post via...</Trans>
           </Menu.Item>
         </Menu.Dropdown>
       </Menu>
@@ -228,10 +228,15 @@ export function PostMenu({
         onClose={() => setOpened(false)}
       >
         <div className="dpm">
-          <div className="dpm-header">Delete Post?</div>
+          <div className="dpm-header">
+            <Trans>Delete Post?</Trans>
+          </div>
           <div className="dpm-body">
-            This can’t be undone and it will be removed from your profile, the
-            timeline.
+            <Trans>
+              {" "}
+              This can’t be undone and it will be removed from your profile, the
+              timeline.
+            </Trans>
           </div>
           <div className="dpm-footer">
             <Button
@@ -241,7 +246,7 @@ export function PostMenu({
               radius="xl"
               color="red"
             >
-              Delete
+              <Trans>Delete</Trans>
             </Button>
             <Button
               onClick={() => setOpened(false)}
@@ -249,7 +254,7 @@ export function PostMenu({
               color="gray"
               radius="xl"
             >
-              Cancel
+              <Trans>Cancel</Trans>
             </Button>
           </div>
         </div>

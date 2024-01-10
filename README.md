@@ -16,5 +16,12 @@ To get started with the development of this project, you will need to have Node.
 3. Start the development server by running `npm start` or `yarn start` (However, ensure that your React client is already running on http://localhost:3000/. This connection is crucial for the client to communicate with the API. )
 4. Make sure to also check out the server-side repository for this project, which can be found at https://github.com/Nawang17/momos-server.
 
+## Contributing
 
-Please note that this project is for educational purposes and may have bugs or unfinished features. If you encounter any issues or have any suggestions, please feel free to reach out or submit a pull request.
+Thank you for contributing to Momos.
+
+Please note that this project is for educational purposes and may have bugs or unfinished features.
+
+If you encounter any issues or have any suggestions, please feel free to reach out or submit a pull request.
+
+You can submit translations through [Crowdin](https://crowdin.com/project/momos).

@@ -15,12 +15,105 @@ msgstr ""
 "Project-Id-Version: momos\n"
 "Language-Team: Korean\n"
 "PO-Revision-Date: 2024-01-10 18:48\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
 
-#: src/Components/Hero.jsx:76
+#: src/Components/ProfileMenu.jsx:132
+#: src/Components/ProfileMenu.jsx:171
+msgid "About momos"
+msgstr ""
+
+#: src/Components/ProfileMenu.jsx:119
+msgid "Admin"
+msgstr ""
+
+#: src/Components/ProfileMenu.jsx:82
+msgid "Bookmarks"
+msgstr ""
+
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:257
+msgid "Cancel"
+msgstr ""
+
+#: src/Components/Hero.jsx:78
 msgid "Connect with people around the world"
-msgstr "test"
+msgstr ""
+
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:204
+msgid "Copy link to Post"
+msgstr ""
+
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:166
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:249
+msgid "Delete"
+msgstr ""
+
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:232
+msgid "Delete Post?"
+msgstr ""
+
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:186
+msgid "Follow {0}"
+msgstr ""
+
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:197
+msgid "Link copied to clipboard"
+msgstr ""
+
+#: src/Components/ProfileMenu.jsx:141
+msgid "Log Out"
+msgstr ""
+
+#: src/Components/ProfileMenu.jsx:32
+msgid "Logged out"
+msgstr ""
+
+#: src/Components/Hero.jsx:85
+#: src/Components/ProfileMenu.jsx:153
+msgid "Login"
+msgstr ""
+
+#: src/Components/Hero.jsx:90
+#: src/Components/ProfileMenu.jsx:162
+msgid "Register"
+msgstr ""
+
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:155
+msgid "Save"
+msgstr ""
+
+#: src/Components/ProfileMenu.jsx:73
+msgid "Settings"
+msgstr ""
+
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:217
+msgid "Share Post via..."
+msgstr ""
+
+#: src/Components/ProfileMenu.jsx:106
+msgid "Switch to Dark Mode"
+msgstr ""
+
+#: src/Components/ProfileMenu.jsx:104
+msgid "Switch to Light Mode"
+msgstr ""
+
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:235
+msgid "This can’t be undone and it will be removed from your profile, the timeline."
+msgstr ""
+
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:177
+msgid "Unfollow {0}"
+msgstr ""
+
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:153
+msgid "Unsave"
+msgstr ""
+
+#: src/Components/ProfileMenu.jsx:64
+msgid "View profile"
+msgstr ""
 
 #: src/Components/Hero.jsx:64
-msgid "Welcome to"
-msgstr "에 오신 것을 환영합니다"
-
+msgid "Welcome to<0>momos</0>"
+msgstr ""

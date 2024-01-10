@@ -6,11 +6,109 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: en\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
 
-#: src/Components/Hero.jsx:76
+#: src/Components/ProfileMenu.jsx:132
+#: src/Components/ProfileMenu.jsx:171
+msgid "About momos"
+msgstr "About momos"
+
+#: src/Components/ProfileMenu.jsx:119
+msgid "Admin"
+msgstr "Admin"
+
+#: src/Components/ProfileMenu.jsx:82
+msgid "Bookmarks"
+msgstr "Bookmarks"
+
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:257
+msgid "Cancel"
+msgstr "Cancel"
+
+#: src/Components/Hero.jsx:78
 msgid "Connect with people around the world"
 msgstr "Connect with people around the world"
 
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:204
+msgid "Copy link to Post"
+msgstr "Copy link to Post"
+
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:166
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:249
+msgid "Delete"
+msgstr "Delete"
+
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:232
+msgid "Delete Post?"
+msgstr "Delete Post?"
+
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:186
+msgid "Follow {0}"
+msgstr "Follow {0}"
+
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:197
+msgid "Link copied to clipboard"
+msgstr "Link copied to clipboard"
+
+#: src/Components/ProfileMenu.jsx:141
+msgid "Log Out"
+msgstr "Log Out"
+
+#: src/Components/ProfileMenu.jsx:32
+msgid "Logged out"
+msgstr "Logged out"
+
+#: src/Components/Hero.jsx:85
+#: src/Components/ProfileMenu.jsx:153
+msgid "Login"
+msgstr "Login"
+
+#: src/Components/Hero.jsx:90
+#: src/Components/ProfileMenu.jsx:162
+msgid "Register"
+msgstr "Register"
+
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:155
+msgid "Save"
+msgstr "Save"
+
+#: src/Components/ProfileMenu.jsx:73
+msgid "Settings"
+msgstr "Settings"
+
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:217
+msgid "Share Post via..."
+msgstr "Share Post via..."
+
+#: src/Components/ProfileMenu.jsx:106
+msgid "Switch to Dark Mode"
+msgstr "Switch to Dark Mode"
+
+#: src/Components/ProfileMenu.jsx:104
+msgid "Switch to Light Mode"
+msgstr "Switch to Light Mode"
+
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:235
+msgid "This can’t be undone and it will be removed from your profile, the timeline."
+msgstr "This can’t be undone and it will be removed from your profile, the timeline."
+
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:177
+msgid "Unfollow {0}"
+msgstr "Unfollow {0}"
+
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:153
+msgid "Unsave"
+msgstr "Unsave"
+
+#: src/Components/ProfileMenu.jsx:64
+msgid "View profile"
+msgstr "View profile"
+
 #: src/Components/Hero.jsx:64
-msgid "Welcome to"
-msgstr "Welcome to"
+msgid "Welcome to<0>momos</0>"
+msgstr "Welcome to<0>momos</0>"

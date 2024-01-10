@@ -61,10 +61,12 @@ export function Hero({ darkmode }) {
     <Container className={classes.wrapper} size={960}>
       <div className={classes.inner}>
         <Title className={classes.title}>
-          <Trans>Welcome to </Trans>
-          <Text pl={7} component="span" className={classes.highlight} inherit>
-            momos
-          </Text>
+          <Trans>
+            Welcome to
+            <Text pl={7} component="span" className={classes.highlight} inherit>
+              momos
+            </Text>
+          </Trans>
         </Title>
 
         <Container p={0} size={600}>
@@ -80,11 +82,13 @@ export function Hero({ darkmode }) {
         <div className={classes.controls}>
           <Link className={classes.control} to={"/Login"}>
             <Button size="sm" variant="default" color="gray">
-              Login
+              <Trans>Login</Trans>
             </Button>
           </Link>
           <Link className={classes.control} to={"/Register"}>
-            <Button size="sm"> Register</Button>
+            <Button size="sm">
+              <Trans>Register</Trans>
+            </Button>
           </Link>
         </div>
       </div>

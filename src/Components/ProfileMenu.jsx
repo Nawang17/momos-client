@@ -15,15 +15,10 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/Auth";
 import { showNotification } from "@mantine/notifications";
+import { Trans } from "@lingui/macro";
 export function ProfileMenu({ socket }) {
-  const {
-    UserInfo,
-    setUserInfo,
-
-    setfollowingdata,
-    darkmode,
-    setdarkmode,
-  } = useContext(AuthContext);
+  const { UserInfo, setUserInfo, setfollowingdata, darkmode, setdarkmode } =
+    useContext(AuthContext);
   const navigate = useNavigate();
   const handlelogout = () => {
     socket.emit("removeOnlinestatus", { token: localStorage.getItem("token") });
@@ -34,7 +29,7 @@ export function ProfileMenu({ socket }) {
     setfollowingdata([]);
     showNotification({
       icon: <SignOut size={18} />,
-      title: "Logged out",
+      title: <Trans>Logged out</Trans>,
       autoClose: 3000,
       color: "gray",
     });
@@ -66,7 +61,7 @@ export function ProfileMenu({ socket }) {
                 <UserCircle color={darkmode ? "white" : "black"} size={20} />
               }
             >
-              View profile
+              <Trans>View profile</Trans>
             </Menu.Item>
             <Menu.Divider />
             <Menu.Item
@@ -75,7 +70,7 @@ export function ProfileMenu({ socket }) {
               }}
               icon={<Gear size={20} />}
             >
-              Settings
+              <Trans>Settings</Trans>
             </Menu.Item>
             <Menu.Divider />
             <Menu.Item
@@ -84,7 +79,7 @@ export function ProfileMenu({ socket }) {
               }}
               icon={<BookmarkSimple size={20} />}
             >
-              Bookmarks
+              <Trans>Bookmarks</Trans>
             </Menu.Item>
             <Menu.Divider />
             <Menu.Item
@@ -105,7 +100,11 @@ export function ProfileMenu({ socket }) {
                 )
               }
             >
-              {darkmode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+              {darkmode ? (
+                <Trans>Switch to Light Mode</Trans>
+              ) : (
+                <Trans>Switch to Dark Mode</Trans>
+              )}
             </Menu.Item>
             <Menu.Divider />
 
@@ -117,7 +116,7 @@ export function ProfileMenu({ socket }) {
                   }}
                   icon={<Crosshair size={20} />}
                 >
-                  Admin
+                  <Trans>Admin</Trans>
                 </Menu.Item>
                 <Menu.Divider />
               </>
@@ -130,7 +129,7 @@ export function ProfileMenu({ socket }) {
               icon={<Info size={20} />}
             >
               {" "}
-              About momos
+              <Trans>About momos</Trans>
             </Menu.Item>
             <Menu.Divider />
             <Menu.Item
@@ -139,7 +138,7 @@ export function ProfileMenu({ socket }) {
                 handlelogout();
               }}
             >
-              Log Out
+              <Trans>Log Out</Trans>
             </Menu.Item>
           </>
         ) : (
@@ -151,7 +150,7 @@ export function ProfileMenu({ socket }) {
               icon={<SignIn size={14} />}
             >
               {" "}
-              Login
+              <Trans>Login</Trans>
             </Menu.Item>
             <Menu.Item
               onClick={() => {
@@ -160,7 +159,7 @@ export function ProfileMenu({ socket }) {
               icon={<UserCircle size={14} />}
             >
               {" "}
-              Register
+              <Trans>Register</Trans>
             </Menu.Item>
             <Menu.Item
               onClick={() => {
@@ -169,7 +168,7 @@ export function ProfileMenu({ socket }) {
               icon={<Info size={14} />}
             >
               {" "}
-              About momos
+              <Trans>About momos</Trans>
             </Menu.Item>
           </>
         )}

@@ -22,7 +22,6 @@ import {
 import { ProfileMenu } from "./ProfileMenu";
 import Notis from "../views/Notis/Notis";
 import { AuthContext } from "../context/Auth";
-import { useViewportSize } from "@mantine/hooks";
 import { showNotification } from "@mantine/notifications";
 import { dynamicActivate } from "../i18n.js";
 const lngs = {
@@ -84,7 +83,6 @@ export function Navbar({ socket }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [noti, setnoti] = useState(null);
-  const { height, width } = useViewportSize();
 
   useEffect(() => {
     socket.on("newnotification", (data) => {
@@ -173,7 +171,7 @@ export function Navbar({ socket }) {
         <Group spacing={5} className={classes.links}>
           {/* {items} */}
           <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-            {UserInfo?.username === "katoph" && (
+            {UserInfo?.username !== "katoph" && (
               <Menu shadow="md" width={200}>
                 <Menu.Target>
                   <ActionIcon>

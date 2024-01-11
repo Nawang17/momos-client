@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: momos\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-11 02:20\n"
+"PO-Revision-Date: 2024-01-11 02:38\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -100,21 +100,21 @@ msgstr "라이트 모드 전환"
 
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:235
 msgid "This can’t be undone and it will be removed from your profile, the timeline."
-msgstr ""
+msgstr "이 행위는 되돌릴 수 없으며 당신의 프로필, 타임라인에서 사라질 것입니다."
 
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:177
 msgid "Unfollow {0}"
-msgstr ""
+msgstr "팔로우 취소 {0}"
 
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:153
 msgid "Unsave"
-msgstr ""
+msgstr "저장 취소"
 
 #: src/Components/ProfileMenu.jsx:64
 msgid "View profile"
-msgstr ""
+msgstr "프로필 확인"
 
 #: src/Components/Hero.jsx:64
 msgid "Welcome to<0>momos</0>"
-msgstr ""
+msgstr "<0>momos</0>에 오신 것을 환영합니다"
 

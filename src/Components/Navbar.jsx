@@ -8,6 +8,7 @@ import {
   ActionIcon,
   Alert,
   Menu,
+  Button,
 } from "@mantine/core";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
@@ -18,6 +19,7 @@ import {
   Sun,
   Translate,
   UsersThree,
+  CaretDown,
 } from "@phosphor-icons/react";
 import { ProfileMenu } from "./ProfileMenu";
 import Notis from "../views/Notis/Notis";
@@ -25,8 +27,8 @@ import { AuthContext } from "../context/Auth";
 import { showNotification } from "@mantine/notifications";
 import { dynamicActivate } from "../i18n.js";
 const lngs = {
-  en: { nativeName: "English" },
-  ko: { nativeName: "Korean" },
+  en: { nativeName: "English", flag: "https://flagsapi.com/US/shiny/16.png" },
+  ko: { nativeName: "Korean", flag: "https://flagsapi.com/KR/shiny/16.png" },
 };
 
 const useStyles = createStyles((theme) => ({
@@ -83,7 +85,9 @@ export function Navbar({ socket }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [noti, setnoti] = useState(null);
-
+  const [currentLng, setcurrentLng] = useState(
+    lngs[localStorage.getItem("language")]?.nativeName || "English"
+  );
   useEffect(() => {
     socket.on("newnotification", (data) => {
       setnoti(data);
@@ -171,35 +175,6 @@ export function Navbar({ socket }) {
         <Group spacing={5} className={classes.links}>
           {/* {items} */}
           <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-            {UserInfo?.username !== "katoph" && (
-              <Menu shadow="md" width={200}>
-                <Menu.Target>
-                  <ActionIcon>
-                    <Translate size={28} color={darkmode ? "white" : "black"} />
-                  </ActionIcon>
-                </Menu.Target>
-
-                <Menu.Dropdown>
-                  {Object.keys(lngs).map((languageCode) => (
-                    <Menu.Item
-                      onClick={() => {
-                        showNotification({
-                          icon: <Translate size={18} />,
-                          title: `Language changed to ${lngs[languageCode].nativeName}`,
-                          color: "blue",
-                        });
-                        window.localStorage.setItem("language", languageCode);
-                        dynamicActivate(languageCode);
-                      }}
-                      key={languageCode}
-                    >
-                      {lngs[languageCode].nativeName}
-                    </Menu.Item>
-                  ))}
-                </Menu.Dropdown>
-              </Menu>
-            )}
-
             {UserInfo && (
               <>
                 <ActionIcon
@@ -258,24 +233,60 @@ export function Navbar({ socket }) {
               </>
             )}
             {!UserInfo && (
-              <ActionIcon
-                variant="transparent"
-                onClick={() => {
-                  setdarkmode(!darkmode);
-                  if (darkmode) {
-                    document.body.style.backgroundColor = "#f0f2f5";
-                  } else {
-                    document.body.style.backgroundColor = "#101113";
-                  }
-                  localStorage.setItem("darkmode", !darkmode);
-                }}
-              >
-                {darkmode ? (
-                  <Sun color="#ffd43b" size={28} />
-                ) : (
-                  <MoonStars color="#228be6" size={28} />
-                )}
-              </ActionIcon>
+              <>
+                <Menu shadow="md" width={200}>
+                  <Menu.Target>
+                    <Button
+                      variant="default"
+                      size="xs"
+                      rightIcon={<CaretDown size={14} />}
+                      leftIcon={<Translate size={14} />}
+                    >
+                      {currentLng} {currentLng === "Korean" && " (Beta)"}
+                    </Button>
+                  </Menu.Target>
+
+                  <Menu.Dropdown>
+                    {Object.keys(lngs).map((languageCode) => (
+                      <Menu.Item
+                        icon={<img src={lngs[languageCode]?.flag} alt=""></img>}
+                        onClick={() => {
+                          showNotification({
+                            icon: <Translate size={18} />,
+                            title: `Language changed to ${lngs[languageCode].nativeName}`,
+                            color: "blue",
+                          });
+                          localStorage.setItem("language", languageCode);
+                          dynamicActivate(languageCode);
+                          setcurrentLng(lngs[languageCode].nativeName);
+                        }}
+                        key={languageCode}
+                      >
+                        {lngs[languageCode].nativeName}
+                        {languageCode === "ko" && " (Beta)"}
+                      </Menu.Item>
+                    ))}
+                  </Menu.Dropdown>
+                </Menu>{" "}
+                <ActionIcon
+                  variant="transparent"
+                  onClick={() => {
+                    setdarkmode(!darkmode);
+                    if (darkmode) {
+                      document.body.style.backgroundColor = "#f0f2f5";
+                    } else {
+                      document.body.style.backgroundColor = "#101113";
+                    }
+                    localStorage.setItem("darkmode", !darkmode);
+                  }}
+                >
+                  {darkmode ? (
+                    <Sun color="#ffd43b" size={28} />
+                  ) : (
+                    <MoonStars color="#228be6" size={28} />
+                  )}
+                </ActionIcon>
+              </>
             )}
 
             <ActionIcon>

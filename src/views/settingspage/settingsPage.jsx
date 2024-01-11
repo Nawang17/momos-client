@@ -4,14 +4,9 @@ import {
   createStyles,
   Divider,
   NavLink,
-
   Text,
 } from "@mantine/core";
-import {
-  ArrowLeft,
-  CaretRight,
-
-} from "@phosphor-icons/react";
+import { ArrowLeft, CaretRight } from "@phosphor-icons/react";
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Sidebar } from "../../Components/Sidebar";
@@ -22,6 +17,7 @@ import ChangeEmail from "./components/ChangeEmail";
 import { useState } from "react";
 import { getUserInfo } from "../../api/GET";
 import { format } from "date-fns";
+import Translation from "./components/Translation";
 const useStyles = createStyles(() => ({
   wrapper: {
     display: "flex",
@@ -44,8 +40,8 @@ const useStyles = createStyles(() => ({
 export const SettingsPage = ({ socket }) => {
   const { classes } = useStyles();
   const [usersettingsInfo, setUsersettingsInfo] = useState([]);
-  const { darkmode, UserInfo, } =
-    useContext(AuthContext);
+  const { darkmode, UserInfo } = useContext(AuthContext);
+
   const navigate = useNavigate();
   useEffect(() => {
     getUserInfo()
@@ -56,7 +52,7 @@ export const SettingsPage = ({ socket }) => {
         navigate("/");
       });
   }, [UserInfo]);
- 
+
   return (
     <Container px={0} className={classes.wrapper}>
       <div className={classes.leftWrapper}>
@@ -115,6 +111,8 @@ export const SettingsPage = ({ socket }) => {
             Other
           </Text>
           <Apperance />
+          <Translation />
+
           <NavLink
             description={
               usersettingsInfo?.createdAt &&
@@ -123,8 +121,6 @@ export const SettingsPage = ({ socket }) => {
             label="Account created"
           />
           {/* <DeleteAccount socket={socket} /> */}
-          
-    
         </div>
       </div>
 

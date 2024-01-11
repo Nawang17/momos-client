@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: momos\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-10 22:02\n"
+"PO-Revision-Date: 2024-01-11 02:20\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -21,19 +21,19 @@ msgstr ""
 #: src/Components/ProfileMenu.jsx:132
 #: src/Components/ProfileMenu.jsx:171
 msgid "About momos"
-msgstr ""
+msgstr "모모즈에 대하여"
 
 #: src/Components/ProfileMenu.jsx:119
 msgid "Admin"
-msgstr ""
+msgstr "관리자"
 
 #: src/Components/ProfileMenu.jsx:82
 msgid "Bookmarks"
-msgstr ""
+msgstr "북마크"
 
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:257
 msgid "Cancel"
-msgstr ""
+msgstr "취소"
 
 #: src/Components/Hero.jsx:78
 msgid "Connect with people around the world"
@@ -41,62 +41,62 @@ msgstr "전 세계 사람들과 연결"
 
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:204
 msgid "Copy link to Post"
-msgstr ""
+msgstr "링크 글에 복사하기"
 
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:166
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:249
 msgid "Delete"
-msgstr ""
+msgstr "삭제"
 
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:232
 msgid "Delete Post?"
-msgstr ""
+msgstr "글을 삭제하실건가요?"
 
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:186
 msgid "Follow {0}"
-msgstr ""
+msgstr "팔로우 {0}"
 
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:197
 msgid "Link copied to clipboard"
-msgstr ""
+msgstr "링크가 클립보드에 복사됨"
 
 #: src/Components/ProfileMenu.jsx:141
 msgid "Log Out"
-msgstr ""
+msgstr "로그아웃"
 
 #: src/Components/ProfileMenu.jsx:32
 msgid "Logged out"
-msgstr ""
+msgstr "로그아웃됨"
 
 #: src/Components/Hero.jsx:85
 #: src/Components/ProfileMenu.jsx:153
 msgid "Login"
-msgstr ""
+msgstr "로그인"
 
 #: src/Components/Hero.jsx:90
 #: src/Components/ProfileMenu.jsx:162
 msgid "Register"
-msgstr ""
+msgstr "회원가입"
 
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:155
 msgid "Save"
-msgstr ""
+msgstr "저장"
 
 #: src/Components/ProfileMenu.jsx:73
 msgid "Settings"
-msgstr ""
+msgstr "설정"
 
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:217
 msgid "Share Post via..."
-msgstr ""
+msgstr "글 외부 공유"
 
 #: src/Components/ProfileMenu.jsx:106
 msgid "Switch to Dark Mode"
-msgstr ""
+msgstr "다크모드 전환"
 
 #: src/Components/ProfileMenu.jsx:104
 msgid "Switch to Light Mode"
-msgstr ""
+msgstr "라이트 모드 전환"
 
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:235
 msgid "This can’t be undone and it will be removed from your profile, the timeline."

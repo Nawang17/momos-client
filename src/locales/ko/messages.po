@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: momos\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-10 18:48\n"
+"PO-Revision-Date: 2024-01-11 23:46\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -17,11 +17,6 @@ msgstr ""
 "X-Crowdin-Language: ko\n"
 "X-Crowdin-File: /main/src/locales/en/messages.po\n"
 "X-Crowdin-File-ID: 14\n"
-"Project-Id-Version: momos\n"
-"Language-Team: Korean\n"
-"PO-Revision-Date: 2024-01-10 18:48\n"
-"Report-Msgid-Bugs-To: \n"
-"Last-Translator: \n"
 
 #: src/Components/ProfileMenu.jsx:132
 #: src/Components/ProfileMenu.jsx:171
@@ -122,3 +117,4 @@ msgstr "프로필 확인"
 #: src/Components/Hero.jsx:64
 msgid "Welcome to<0>momos</0>"
 msgstr "<0>momos</0>에 오신 것을 환영합니다"
+

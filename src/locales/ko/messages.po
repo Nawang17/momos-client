@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: momos\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-14 04:44\n"
+"PO-Revision-Date: 2024-01-14 15:09\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -514,7 +514,7 @@ msgstr ""
 #: src/Components/Sidebar/Leaderboard.jsx:223
 #: src/views/Leaderboard/Leaderboard.jsx:140
 msgid "Leaderboard"
-msgstr ""
+msgstr "리더보드"
 
 #: src/views/communities/CommunityProfileMenu.jsx:150
 msgid "Leave Community"

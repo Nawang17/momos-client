@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: momos\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-11 23:46\n"
+"PO-Revision-Date: 2024-01-14 04:44\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -1235,3 +1235,4 @@ msgstr ""
 #: src/Components/Sidebar.jsx:258
 msgid "Your level is based on how many points you have."
 msgstr ""
+

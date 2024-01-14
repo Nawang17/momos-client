@@ -3,7 +3,6 @@ import { useDebouncedValue } from "@mantine/hooks";
 import { showNotification } from "@mantine/notifications";
 import {
   ArrowLeft,
-
   Lock,
   MagnifyingGlass,
   UserMinus,
@@ -20,6 +19,7 @@ import { PostFeed } from "../../Components/PostFeed";
 import { AuthContext } from "../../context/Auth";
 import Topuserbadge from "../../helper/Topuserbadge";
 import Verifiedbadge from "../../helper/VerifiedBadge";
+import { Trans } from "@lingui/macro";
 
 const UserSearch = () => {
   const navigate = useNavigate();
@@ -87,7 +87,7 @@ const UserSearch = () => {
       showNotification({
         icon: <Lock size={18} />,
         color: "red",
-        title: "Login required",
+        title: <Trans>Login required</Trans>,
         autoClose: 3000,
       });
     } else {
@@ -102,14 +102,14 @@ const UserSearch = () => {
             setbtndisabled("");
             showNotification({
               icon: <UserPlus size={18} />,
-              message: `You are now following ${username}`,
+              message: <Trans>You are now following {username}</Trans>,
               autoClose: 3000,
             });
           } else {
             setbtndisabled("");
             showNotification({
               icon: <UserMinus size={18} />,
-              message: `You are no longer following ${username}`,
+              message: <Trans>You are no longer following {username}</Trans>,
               autoClose: 3000,
             });
 
@@ -196,9 +196,15 @@ const UserSearch = () => {
               borderBottom: "none",
             }}
           >
-            <Tabs.Tab value="Top">Top</Tabs.Tab>
-            <Tabs.Tab value="Latest">Latest</Tabs.Tab>
-            <Tabs.Tab value="Accounts">Accounts</Tabs.Tab>
+            <Tabs.Tab value="Top">
+              <Trans>Top</Trans>
+            </Tabs.Tab>
+            <Tabs.Tab value="Latest">
+              <Trans>Latest</Trans>
+            </Tabs.Tab>
+            <Tabs.Tab value="Accounts">
+              <Trans>Accounts</Trans>
+            </Tabs.Tab>
           </Tabs.List>
 
           <Tabs.Panel value="Accounts">
@@ -283,10 +289,8 @@ const UserSearch = () => {
                         <Text size={"16px"} weight={"500"}>
                           {val.username}
                         </Text>
-                      
-                        {val.verified && (
-                         <Verifiedbadge />
-                        )}   {topUser === val.username && <Topuserbadge />}
+                        {val.verified && <Verifiedbadge />}{" "}
+                        {topUser === val.username && <Topuserbadge />}
                       </div>
                       {UserInfo?.username !== val.username &&
                         (!followingdata.includes(val.username) ? (
@@ -299,7 +303,7 @@ const UserSearch = () => {
                             size="xs"
                           >
                             {" "}
-                            follow
+                            <Trans>follow</Trans>
                           </Button>
                         ) : (
                           <Button
@@ -312,7 +316,7 @@ const UserSearch = () => {
                             size="xs"
                           >
                             {" "}
-                            unfollow
+                            <Trans>unfollow</Trans>
                           </Button>
                         ))}
                     </div>

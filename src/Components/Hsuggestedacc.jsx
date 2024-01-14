@@ -14,6 +14,7 @@ import { follow } from "../api/POST";
 import { AuthContext } from "../context/Auth";
 import Topuserbadge from "../helper/Topuserbadge";
 import Verifiedbadge from "../helper/VerifiedBadge";
+import { Trans } from "@lingui/macro";
 
 const Hsuggestedacc = () => {
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ const Hsuggestedacc = () => {
       showNotification({
         color: "red",
         icon: <Lock size={18} />,
-        title: "Login required",
+        title: <Trans>Login required</Trans>,
         autoClose: 3000,
       });
     } else {
@@ -52,14 +53,14 @@ const Hsuggestedacc = () => {
             setbtndisabled("");
             showNotification({
               icon: <UserPlus size={18} />,
-              message: `You are now following ${username}`,
+              message: <Trans>You are now following ${username}</Trans>,
               autoClose: 3000,
             });
           } else {
             setbtndisabled("");
             showNotification({
               icon: <UserMinus size={18} />,
-              message: `You are no longer following ${username}`,
+              message: <Trans>You are no longer following ${username}</Trans>,
               autoClose: 3000,
             });
 
@@ -140,11 +141,8 @@ const Hsuggestedacc = () => {
                 {" "}
                 {value.username}
               </Text>
-              {value.verified && (
-                <Verifiedbadge />
-              )}
+              {value.verified && <Verifiedbadge />}
               {topUser === value.username && <Topuserbadge />}
-             
             </div>
             {!followingdata.includes(value.username) ? (
               <Button
@@ -158,7 +156,7 @@ const Hsuggestedacc = () => {
                 }}
                 size="xs"
               >
-                Follow
+                <Trans>Follow</Trans>
               </Button>
             ) : (
               <Button
@@ -174,7 +172,7 @@ const Hsuggestedacc = () => {
                 }}
                 size="xs"
               >
-                Unfollow
+                <Trans>Unfollow</Trans>
               </Button>
             )}
           </div>
@@ -201,7 +199,7 @@ const Hsuggestedacc = () => {
         }}
       >
         <Text color="#1DA1F2" weight={"500"} size={"15px"}>
-          See all
+          <Trans>See all</Trans>
         </Text>
       </div>
     </div>

@@ -18,6 +18,7 @@ import { deleteComment } from "../api/DELETE";
 import { follow } from "../api/POST";
 import { AuthContext } from "../context/Auth";
 import NestedReplyModal from "./NestedReplyModal";
+import { Trans } from "@lingui/macro";
 export function CommentMenu({ commentinfo, setComments, replyingto }) {
   const { UserInfo, followingdata, setfollowingdata } = useContext(AuthContext);
   const [opened, setOpened] = useState(false);
@@ -31,7 +32,7 @@ export function CommentMenu({ commentinfo, setComments, replyingto }) {
         });
         showNotification({
           icon: <Trash size={18} />,
-          title: "Reply Deleted",
+          title: <Trans>Reply Deleted</Trans>,
           autoClose: 3000,
           color: "red",
         });
@@ -58,7 +59,7 @@ export function CommentMenu({ commentinfo, setComments, replyingto }) {
     if (!UserInfo) {
       showNotification({
         icon: <Lock size={18} />,
-        title: "Login required",
+        title: <Trans>Login required</Trans>,
         autoClose: 3000,
         color: "red",
       });
@@ -72,13 +73,21 @@ export function CommentMenu({ commentinfo, setComments, replyingto }) {
             ]);
             showNotification({
               icon: <UserPlus size={18} />,
-              message: `You are now following ${commentinfo?.user.username}`,
+              message: (
+                <Trans>
+                  You are now following {commentinfo?.user.username}
+                </Trans>
+              ),
               autoClose: 3000,
             });
           } else {
             showNotification({
               icon: <UserMinus size={18} />,
-              message: `You are no longer following ${commentinfo?.user.username}`,
+              message: (
+                <Trans>
+                  You are no longer following {commentinfo?.user.username}
+                </Trans>
+              ),
               autoClose: 3000,
             });
 
@@ -126,7 +135,7 @@ export function CommentMenu({ commentinfo, setComments, replyingto }) {
               }}
               icon={<Pencil size={14} />}
             >
-              Edit
+              <Trans>Edit</Trans>
             </Menu.Item>
           )}
           {UserInfo?.username !== commentinfo?.user.username &&
@@ -137,7 +146,7 @@ export function CommentMenu({ commentinfo, setComments, replyingto }) {
                 }}
                 icon={<UserMinus size={14} />}
               >
-                Unfollow {commentinfo?.user.username}
+                <Trans>Unfollow {commentinfo?.user.username}</Trans>
               </Menu.Item>
             ) : (
               <Menu.Item
@@ -146,7 +155,7 @@ export function CommentMenu({ commentinfo, setComments, replyingto }) {
                 }}
                 icon={<UserPlus size={14} />}
               >
-                Follow {commentinfo?.user.username}
+                <Trans>Follow {commentinfo?.user.username}</Trans>
               </Menu.Item>
             ))}
           <Menu.Item
@@ -154,14 +163,14 @@ export function CommentMenu({ commentinfo, setComments, replyingto }) {
               navigator.clipboard.writeText(window.location.href);
               showNotification({
                 icon: <CopySimple size={18} />,
-                title: "Link copied to clipboard",
+                title: <Trans>Link copied to clipboard</Trans>,
                 autoClose: 3000,
                 color: "gray",
               });
             }}
             icon={<CopySimple size={14} />}
           >
-            Copy link to comment
+            <Trans>Copy link to comment</Trans>
           </Menu.Item>
           <Menu.Item
             onClick={() => {
@@ -174,7 +183,7 @@ export function CommentMenu({ commentinfo, setComments, replyingto }) {
             }}
             icon={<Export size={14} />}
           >
-            Share comment via...
+            <Trans>Share comment via...</Trans>
           </Menu.Item>
           {(UserInfo?.username === commentinfo?.user.username ||
             UserInfo?.username === "katoph") && (
@@ -185,7 +194,7 @@ export function CommentMenu({ commentinfo, setComments, replyingto }) {
               color="red"
               icon={<Trash color="red" size={14} />}
             >
-              Delete
+              <Trans>Delete</Trans>
             </Menu.Item>
           )}
         </Menu.Dropdown>
@@ -200,10 +209,14 @@ export function CommentMenu({ commentinfo, setComments, replyingto }) {
         onClose={() => setOpened(false)}
       >
         <div className="dpm">
-          <div className="dpm-header">Delete reply?</div>
+          <div className="dpm-header">
+            <Trans>Delete reply?</Trans>
+          </div>
           <div className="dpm-body">
-            This can’t be undone and it will be removed from your profile, the
-            timeline.
+            <Trans>
+              This can’t be undone and it will be removed from your profile, the
+              timeline.
+            </Trans>
           </div>
           <div className="dpm-footer">
             <Button
@@ -213,7 +226,7 @@ export function CommentMenu({ commentinfo, setComments, replyingto }) {
               radius="xl"
               color="red"
             >
-              Delete
+              <Trans>Delete</Trans>
             </Button>
             <Button
               onClick={() => setOpened(false)}
@@ -221,7 +234,7 @@ export function CommentMenu({ commentinfo, setComments, replyingto }) {
               color="gray"
               radius="xl"
             >
-              Cancel
+              <Trans>Cancel</Trans>
             </Button>
           </div>
         </div>

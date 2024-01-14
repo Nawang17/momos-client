@@ -35,6 +35,7 @@ import { deleteChatmessage } from "../../api/DELETE";
 import Verifiedbadge from "../../helper/VerifiedBadge";
 import Topuserbadge from "../../helper/Topuserbadge";
 import { formatText } from "../../helper/FormatText";
+import { Trans } from "@lingui/macro";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -261,8 +262,7 @@ export const Chat = ({ socket }) => {
                   : chatinfo?.userone?.id
               ) && (
                 <Text color={"dimmed"} size={10}>
-                  {" "}
-                  Active now
+                  <Trans>Active now</Trans>
                 </Text>
               )}
             </div>
@@ -295,7 +295,7 @@ export const Chat = ({ socket }) => {
                 color={"gray"}
                 variant="subtle"
               >
-                Load older messages
+                <Trans>Load older messages</Trans>
               </Button>
             </div>
           )}
@@ -381,7 +381,7 @@ export const Chat = ({ socket }) => {
                                       }}
                                       icon={<Copy size={19} weight="fill" />}
                                     >
-                                      Copy message
+                                      <Trans>Copy message</Trans>
                                     </Menu.Item>
                                   )}
                                 </CopyButton>
@@ -454,7 +454,7 @@ export const Chat = ({ socket }) => {
                                       }}
                                       icon={<Copy size={19} weight="fill" />}
                                     >
-                                      Copy message
+                                      <Trans>Copy message</Trans>
                                     </Menu.Item>
                                   )}
                                 </CopyButton>
@@ -469,7 +469,7 @@ export const Chat = ({ socket }) => {
                                           )
                                         );
                                         showNotification({
-                                          title: "Message deleted",
+                                          title: <Trans>Message deleted</Trans>,
                                           autoClose: 3000,
                                         });
 
@@ -501,7 +501,7 @@ export const Chat = ({ socket }) => {
                                     />
                                   }
                                 >
-                                  Delete message
+                                  <Trans>Delete message</Trans>
                                 </Menu.Item>
                               </Menu.Dropdown>
                             </Menu>

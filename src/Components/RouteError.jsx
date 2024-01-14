@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import {
   createStyles,
   Title,
@@ -55,20 +56,26 @@ export function RouteError() {
   return (
     <Container className={classes.root}>
       <div className={classes.label}>404</div>
-      <Title className={classes.title}>You have found a secret place.</Title>
+      <Title className={classes.title}>
+        {" "}
+        <Trans>You have found a secret place.</Trans>
+      </Title>
       <Text
         color="dimmed"
         size="lg"
         align="center"
         className={classes.description}
       >
-        Unfortunately, this is only a 404 page. You may have mistyped the
-        address, or the page has been moved to another URL.
+        <Trans>
+          {" "}
+          Unfortunately, this is only a 404 page. You may have mistyped the
+          address, or the page has been moved to another URL.{" "}
+        </Trans>
       </Text>
       <Group position="center">
         <Button variant="subtle" size="md">
           <Link style={{ textDecoration: "none" }} to="/">
-            Take me back to home page
+            <Trans> Take me back to home page </Trans>
           </Link>
         </Button>
       </Group>

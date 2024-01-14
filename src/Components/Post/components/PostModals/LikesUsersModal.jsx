@@ -5,6 +5,7 @@ import { Avatar, Flex, Modal, Text } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../../context/Auth";
 import { useContext } from "react";
+import { Trans } from "@lingui/macro";
 
 const LikesUsersModal = ({ post, likemodalstate, setlikemodalstate }) => {
   const { topUser } = useContext(AuthContext);
@@ -14,7 +15,7 @@ const LikesUsersModal = ({ post, likemodalstate, setlikemodalstate }) => {
     <>
       <Modal
         zIndex={1000}
-        title={`Likes (${post?.likes?.length})`}
+        title={<Trans>{`Likes (${post?.likes?.length})`}</Trans>}
         overflow="inside"
         opened={likemodalstate}
         onClose={() => {

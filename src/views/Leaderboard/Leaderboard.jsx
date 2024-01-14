@@ -23,6 +23,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { showNotification } from "@mantine/notifications";
 import Topuserbadge from "../../helper/Topuserbadge";
 import Verifiedbadge from "../../helper/VerifiedBadge";
+import { Trans } from "@lingui/macro";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -136,7 +137,7 @@ export const Leaderboard = () => {
               <ArrowLeft size="20px" />
             </ActionIcon>
             <Text weight={"500"} size={"16px"}>
-              Leaderboard
+              <Trans> Leaderboard </Trans>
             </Text>
           </div>
           <Popover
@@ -156,17 +157,23 @@ export const Leaderboard = () => {
             </Popover.Target>
             <Popover.Dropdown>
               <Text size={"xs"}>
-                The leaderboard ranking is based on the total number of points
-                earned by the user.
+                <Trans>
+                  {" "}
+                  The leaderboard ranking is based on the total number of points
+                  earned by the user.{" "}
+                </Trans>
               </Text>
               <Divider my="xs" />
               <Text color={"#1DA1F2"} size={"sm"} weight={500}>
-                How to earn points?
+                <Trans> How to earn points? </Trans>
               </Text>
-              <Text size={"xs"}>+1 point for each like on your posts</Text>
+              <Text size={"xs"}>
+                {" "}
+                <Trans>+1 point for each like on your posts </Trans>
+              </Text>
 
               <Text size={"xs"} color="red">
-                *Self likes are not counted
+                <Trans> *Self likes are not counted </Trans>
               </Text>
             </Popover.Dropdown>
           </Popover>
@@ -212,7 +219,7 @@ export const Leaderboard = () => {
                 size="xs"
                 radius={"lg"}
               >
-                All-time
+                <Trans> All-time </Trans>
               </Button>
               <Button
                 onClick={() => settype("currentMonth")}
@@ -221,7 +228,7 @@ export const Leaderboard = () => {
                 size="xs"
                 radius={"lg"}
               >
-                Current Month
+                <Trans> Current Month </Trans>
               </Button>
 
               <Button
@@ -281,8 +288,7 @@ export const Leaderboard = () => {
                             alt=""
                           />
                           <div>{acc?.username}</div>
-                          {acc?.verified &&
-                               <Verifiedbadge />}
+                          {acc?.verified && <Verifiedbadge />}
                           {topUser === acc?.username && <Topuserbadge />}
                         </div>
                       }

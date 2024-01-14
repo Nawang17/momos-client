@@ -18,6 +18,7 @@ import { useState } from "react";
 import { getUserInfo } from "../../api/GET";
 import { format } from "date-fns";
 import Translation from "./components/Translation";
+import { Trans } from "@lingui/macro";
 const useStyles = createStyles(() => ({
   wrapper: {
     display: "flex",
@@ -70,7 +71,7 @@ export const SettingsPage = ({ socket }) => {
             <ArrowLeft size="20px" />
           </ActionIcon>
           <Text size={"1rem"} weight={700}>
-            Settings
+            <Trans> Settings</Trans>
           </Text>
         </div>
         <div
@@ -82,11 +83,11 @@ export const SettingsPage = ({ socket }) => {
           }}
         >
           <Text pl={13} py={10} weight={700}>
-            Account
+            <Trans>Account</Trans>
           </Text>
           <NavLink
             onClick={() => navigate("/editprofile")}
-            label="Edit profile"
+            label=<Trans>Edit profile</Trans>
             rightSection={<CaretRight size="0.8rem" stroke={1.5} />}
           />
           {!usersettingsInfo?.isGoogleAccount && (
@@ -108,7 +109,7 @@ export const SettingsPage = ({ socket }) => {
           <ChangePassword />
           <Divider my="sm" /> */}
           <Text pl={13} pb={5} weight={700}>
-            Other
+            <Trans>Other</Trans>
           </Text>
           <Apperance />
           <Translation />
@@ -118,7 +119,7 @@ export const SettingsPage = ({ socket }) => {
               usersettingsInfo?.createdAt &&
               format(new Date(usersettingsInfo?.createdAt), "PP h:mm a")
             }
-            label="Account created"
+            label=<Trans>Account created</Trans>
           />
           {/* <DeleteAccount socket={socket} /> */}
         </div>

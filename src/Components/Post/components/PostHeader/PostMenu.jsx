@@ -40,7 +40,7 @@ export function PostMenu({ postinfo, setPosts, setbookmarkModalOpen }) {
         });
         showNotification({
           icon: <Trash size={18} />,
-          title: "Post Deleted",
+          title: <Trans>Post Deleted</Trans>,
           autoClose: 3000,
           color: "red",
         });
@@ -55,7 +55,7 @@ export function PostMenu({ postinfo, setPosts, setbookmarkModalOpen }) {
           showNotification({
             icon: <WarningCircle size={18} />,
             color: "red",
-            title: "Internal Server Error",
+            title: <Trans>Internal Server Error</Trans>,
             autoClose: 4000,
           });
         } else {
@@ -72,7 +72,7 @@ export function PostMenu({ postinfo, setPosts, setbookmarkModalOpen }) {
     if (!UserInfo) {
       showNotification({
         icon: <Lock size={18} />,
-        title: "Login required",
+        title: <Trans>Login required</Trans>,
         autoClose: 3000,
         color: "red",
       });
@@ -86,13 +86,17 @@ export function PostMenu({ postinfo, setPosts, setbookmarkModalOpen }) {
             ]);
             showNotification({
               icon: <UserPlus size={18} />,
-              message: `You are now following ${postinfo?.user.username}`,
+              message: (
+                <Trans>{`You are now following ${postinfo?.user.username}`}</Trans>
+              ),
               autoClose: 3000,
             });
           } else {
             showNotification({
               icon: <UserMinus size={18} />,
-              message: `You are no longer following ${postinfo?.user.username}`,
+              message: (
+                <Trans>{`You are no longer following ${postinfo?.user.username}`}</Trans>
+              ),
               autoClose: 3000,
             });
 
@@ -106,7 +110,7 @@ export function PostMenu({ postinfo, setPosts, setbookmarkModalOpen }) {
             showNotification({
               icon: <WarningCircle size={18} />,
               color: "red",
-              title: "Internal Server Error",
+              title: <Trans>Internal Server Error</Trans>,
               autoClose: 4000,
             });
           } else {

@@ -22,6 +22,7 @@ import { ShieldCheck, User, WarningCircle } from "@phosphor-icons/react";
 import confetti from "canvas-confetti";
 import ReactGA from "react-ga4";
 import ForgotPasswordModal from "./ForgotPasswordModal";
+import { Trans } from "@lingui/macro";
 
 export function Login({ socket }) {
   const { setUserInfo, UserInfo, setfollowingdata, darkmode } =
@@ -59,8 +60,8 @@ export function Login({ socket }) {
         });
         showNotification({
           icon: <ShieldCheck size={18} />,
-          title: "Login Successful",
-          message: `Welcome back ${res.data.user.username}`,
+          title: <Trans>Login Successful</Trans>,
+          message: <Trans>Welcome back {res.data.user.username}</Trans>,
           autoClose: 3000,
         });
         await LoginStatus().then((resp) => {
@@ -94,8 +95,8 @@ export function Login({ socket }) {
         });
         showNotification({
           icon: <ShieldCheck size={18} />,
-          title: "Login Successful",
-          message: `Welcome back ${res.data.user.username}`,
+          title: <Trans>Login Successful</Trans>,
+          message: <Trans>Welcome back {res.data.user.username}</Trans>,
           autoClose: 3000,
         });
         await LoginStatus().then((resp) => {
@@ -135,7 +136,7 @@ export function Login({ socket }) {
           showNotification({
             icon: <ShieldCheck size={18} />,
             title: "Login Successful",
-            message: `Welcome back ${res.data.user.username}`,
+            message: <Trans>Welcome back {res.data.user.username}</Trans>,
             autoClose: 3000,
           });
           await LoginStatus().then((resp) => {
@@ -155,8 +156,8 @@ export function Login({ socket }) {
 
           showNotification({
             icon: <User size={18} />,
-            title: "Register Successful",
-            message: `Welcome to momos ${res.data.user.username} `,
+            title: <Trans>Register Successful</Trans>,
+            message: <Trans>Welcome to momos {res.data.user.username}</Trans>,
             autoClose: 3000,
           });
         }
@@ -193,10 +194,10 @@ export function Login({ socket }) {
             fontWeight: 700,
           })}
         >
-          Welcome to Momos
+          <Trans>Welcome to Momos</Trans>
         </Title>
         <Text color={"rgb(144, 146, 150)"} size="sm" align="center" mt={5}>
-          Do not have an account?{" "}
+          <Trans>Do not have an account? </Trans>
           <Link
             style={{
               textDecoration: "none",
@@ -204,7 +205,13 @@ export function Login({ socket }) {
             }}
             to="/Register"
           >
-            <span>Register</span>
+            <span
+              style={{
+                paddingLeft: "2px",
+              }}
+            >
+              <Trans>Register</Trans>
+            </span>
           </Link>
         </Text>
 
@@ -220,7 +227,7 @@ export function Login({ socket }) {
           >
             <TextInput
               onChange={(e) => setUsername(e.target.value)}
-              label="Username"
+              label=<Trans>Username</Trans>
               placeholder="Username"
               required
               autoComplete="username"
@@ -228,7 +235,7 @@ export function Login({ socket }) {
             />
             <PasswordInput
               onChange={(e) => setPassword(e.target.value)}
-              label="Password"
+              label=<Trans>Password</Trans>
               value={Password}
               placeholder="Password"
               required
@@ -244,11 +251,11 @@ export function Login({ socket }) {
               color="blue"
               onClick={() => setOpened(true)}
             >
-              I forgot my password
+              <Trans>I forgot my password</Trans>
             </Text>
             <ForgotPasswordModal opened={opened} setOpened={setOpened} />
             <Button loading={loading} type="submit" fullWidth mt="lg">
-              Login
+              <Trans>Login</Trans>
             </Button>
           </form>
 
@@ -278,7 +285,7 @@ export function Login({ socket }) {
                 variant="default"
                 color="gray"
               >
-                Continue with Google
+                <Trans>Continue with Google</Trans>
               </Button>
             )}
             onSuccess={(res) => googleSuccess(res)}
@@ -297,7 +304,7 @@ export function Login({ socket }) {
             fullWidth
             mt="xl"
           >
-            Try Demo account
+            <Trans>Try Demo account</Trans>
           </Button>
         </Paper>
       </Container>

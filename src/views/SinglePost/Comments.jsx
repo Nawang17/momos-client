@@ -32,6 +32,7 @@ import Topuserbadge from "../../helper/Topuserbadge";
 import { formatDistance } from "../../helper/DateFormat";
 import Verifiedbadge from "../../helper/VerifiedBadge";
 import { formatText } from "../../helper/FormatText";
+import { Trans } from "@lingui/macro";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -232,7 +233,7 @@ export const Comments = ({
       return showNotification({
         icon: <Lock size={18} />,
         color: "red",
-        title: "Login required",
+        title: <Trans>Login required</Trans>,
         autoClose: 3000,
       });
     }
@@ -314,7 +315,7 @@ export const Comments = ({
           showNotification({
             icon: <WarningCircle size={18} />,
             color: "red",
-            title: "Internal Server Error",
+            title: <Trans>Internal Server Error</Trans>,
             autoClose: 4000,
           });
         } else {
@@ -443,7 +444,7 @@ export const Comments = ({
                       </Text>
                       {comment.createdAt !== comment.updatedAt && (
                         <Text color="dimmed" size="13px">
-                          (edited)
+                          <Trans>(edited)</Trans>
                         </Text>
                       )}
                     </div>
@@ -543,7 +544,7 @@ export const Comments = ({
                     >
                       <ChatCircle color="gray" weight="light" size={18} />
                       <Text color="dimmed" weight={"500"} size="14px">
-                        Reply
+                        <Trans>Reply</Trans>
                       </Text>
                     </div>
                   </div>
@@ -568,7 +569,7 @@ export const Comments = ({
                       commentFoldState[comment.id] ? <CaretUp /> : <CaretDown />
                     }
                   >
-                    {comment.nestedcomments.length} replies
+                    <Trans>{comment.nestedcomments.length} replies</Trans>
                   </Button>
                 </div>
               )}
@@ -629,7 +630,9 @@ export const Comments = ({
                                   shadow="md"
                                 >
                                   <Popover.Target>
-                                    <Tooltip label="Original poster">
+                                    <Tooltip
+                                      label=<Trans>Original poster</Trans>
+                                    >
                                       <Badge
                                         onClick={() => {
                                           navigate(`/${data.user.username}`);
@@ -679,7 +682,7 @@ export const Comments = ({
                               </Text>
                               {data?.createdAt !== data?.updatedAt && (
                                 <Text color="dimmed" size="13px">
-                                  (edited)
+                                  <Trans>(edited)</Trans>
                                 </Text>
                               )}
                               <Flex align={"center"}>
@@ -815,7 +818,7 @@ export const Comments = ({
                           >
                             <ChatCircle color="gray" weight="light" size={18} />
                             <Text color="dimmed" weight={"500"} size="14px">
-                              Reply
+                              <Trans>Reply</Trans>
                             </Text>
                           </div>
                         </div>

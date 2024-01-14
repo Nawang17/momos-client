@@ -25,6 +25,7 @@ import { AuthContext } from "../../context/Auth";
 import Createnewcommunity from "./Createnewcommunity";
 import FindCommunity from "./FindCommunity";
 import { getallcommunities, getcommunities } from "../../api/GET";
+import { Trans } from "@lingui/macro";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -120,8 +121,12 @@ export const Communities = () => {
         >
           <Tabs value={activeTab} onTabChange={setActiveTab}>
             <Tabs.List grow>
-              <Tabs.Tab value="My communities">My communities</Tabs.Tab>
-              <Tabs.Tab value="Find communities">Find communities</Tabs.Tab>
+              <Tabs.Tab value="My communities">
+                <Trans>My communities</Trans>
+              </Tabs.Tab>
+              <Tabs.Tab value="Find communities">
+                <Trans>Find communities</Trans>
+              </Tabs.Tab>
             </Tabs.List>
 
             <Tabs.Panel value="My communities">
@@ -134,7 +139,7 @@ export const Communities = () => {
                 >
                   <UsersThree size={30} />
                   <Text size={"lg"} py={40} align="center">
-                    Login to see your communities
+                    <Trans>Login to see your communities</Trans>
                   </Text>
                 </Flex>
               ) : (
@@ -143,7 +148,7 @@ export const Communities = () => {
 
                   {myCommunities.length === 0 && !loading ? (
                     <Text align="center" size={"sm"}>
-                      You will see your joined communities here
+                      <Trans>You will see your joined communities here</Trans>
                     </Text>
                   ) : (
                     <>

@@ -8,16 +8,12 @@ import {
   Text,
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
-import {
-  CaretRight,
-
-  Crown,
-  Info,
-} from "@phosphor-icons/react";
+import { CaretRight, Crown, Info } from "@phosphor-icons/react";
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/Auth";
 import Verifiedbadge from "../helper/VerifiedBadge";
+import { Trans } from "@lingui/macro";
 const useStyles = createStyles(() => ({
   wrapper: {
     width: "100%",
@@ -68,7 +64,7 @@ const Leaderboardhorizontal = () => {
         >
           {" "}
           <Text weight={"500"} size={"14px"}>
-            Leaderboard
+            <Trans> Leaderboard</Trans>
           </Text>
           <Popover width={220} position="right" withArrow shadow="md">
             <Popover.Target>
@@ -81,17 +77,22 @@ const Leaderboardhorizontal = () => {
             </Popover.Target>
             <Popover.Dropdown>
               <Text size={"xs"}>
-                The leaderboard ranking is based on the total number of points
-                earned by the user.
+                <Trans>
+                  {" "}
+                  The leaderboard ranking is based on the total number of points
+                  earned by the user.
+                </Trans>
               </Text>
               <Divider my="xs" />
               <Text color={"#1DA1F2"} size={"sm"} weight={500}>
-                How to earn points?
+                <Trans> How to earn points?</Trans>
               </Text>
-              <Text size={"xs"}>+1 point for each like on your posts</Text>
-             
+              <Text size={"xs"}>
+                <Trans>+1 point for each like on your posts</Trans>
+              </Text>
+
               <Text size={"xs"} color="red">
-                *Self likes are not counted
+                <Trans>*Self likes are not counted</Trans>
               </Text>
             </Popover.Dropdown>
           </Popover>
@@ -113,7 +114,7 @@ const Leaderboardhorizontal = () => {
             size={"14px"}
           >
             {" "}
-            View all
+            <Trans>View all</Trans>
           </Text>
           <CaretRight size={15} />
         </div>
@@ -210,9 +211,7 @@ const Leaderboardhorizontal = () => {
                     <Text size={"sm"} color={darkmode ? "white" : "black"}>
                       {val.username}
                     </Text>
-                    {val.verified && (
-                    <Verifiedbadge />
-                    )}
+                    {val.verified && <Verifiedbadge />}
                   </div>
                   <Text size={"12px"} color={"dimmed"}>
                     {val.totalpoints}

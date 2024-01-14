@@ -2,9 +2,14 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
 import CreatePostModal from "./CreatePostModal";
+import { ActionIcon, Avatar, Flex, Indicator } from "@mantine/core";
+import { Gif, ChartBarHorizontal } from "@phosphor-icons/react";
+import { Trans } from "@lingui/macro";
 const CreatePost = ({ UserInfo, darkmode, communityName }) => {
   const [opened, setOpened] = useState(false);
   const navigate = useNavigate();
+  const [gif, setGif] = useState(false);
+  const [poll, setPoll] = useState(false);
   return (
     <>
       <div
@@ -16,25 +21,27 @@ const CreatePost = ({ UserInfo, darkmode, communityName }) => {
           backgroundColor: darkmode ? "#1A1B1E" : "white",
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            gap: "0.5rem",
-          }}
-        >
-          <img
-            onClick={() => {
-              navigate(`/${UserInfo?.username}`);
-            }}
-            style={{
-              width: "40px",
-              height: "40px",
-              borderRadius: "50%",
-              cursor: "pointer",
-            }}
-            src={UserInfo.avatar}
-            alt=""
-          />
+        <Flex align="center" gap="0.5rem">
+          <Indicator
+            disabled={false}
+            withBorder
+            inline
+            color="green"
+            size={9}
+            offset={7}
+            position="bottom-end"
+          >
+            <Avatar
+              className="addPointer"
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate(`/${UserInfo?.username}`);
+              }}
+              size="40px"
+              radius={"xl"}
+              src={UserInfo.avatar}
+            />
+          </Indicator>
 
           <div
             onClick={() => setOpened(true)}
@@ -49,11 +56,31 @@ const CreatePost = ({ UserInfo, darkmode, communityName }) => {
               color: "grey",
             }}
           >
-            What's on your mind, {UserInfo.username}?
+            <Trans>What's on your mind, {UserInfo.username}?</Trans>
           </div>
-        </div>
+          <Flex align="center" gap="0.5rem">
+            <ActionIcon
+              onClick={() => {
+                setGif(true);
+                setOpened(true);
+              }}
+            >
+              <Gif weight="fill" size={30} color="grey" />
+            </ActionIcon>
+            <ActionIcon
+              onClick={() => {
+                setPoll(true);
+                setOpened(true);
+              }}
+            >
+              <ChartBarHorizontal size={30} color="grey" />
+            </ActionIcon>
+          </Flex>
+        </Flex>
       </div>
       <CreatePostModal
+        gifOpen={gif}
+        pollOpen={poll}
         opened={opened}
         setOpened={setOpened}
         UserInfo={UserInfo}

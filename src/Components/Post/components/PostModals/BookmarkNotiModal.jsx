@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import { Button, Flex, Modal, Text } from "@mantine/core";
 import { BookmarkSimple } from "@phosphor-icons/react";
 import React from "react";
@@ -29,7 +30,7 @@ const BookmarkNotiModal = ({ bookmarkModalOpen, setbookmarkModalOpen }) => {
         <Flex pb={15} gap={10} align={"center"}>
           <BookmarkSimple color="yellow" weight={"fill"} size={20} />
           <Text color="white" size={15}>
-            Post added to Bookmarks
+            <Trans>Post added to Bookmarks</Trans>
           </Text>
         </Flex>
 
@@ -41,7 +42,7 @@ const BookmarkNotiModal = ({ bookmarkModalOpen, setbookmarkModalOpen }) => {
           radius={"lg"}
           fullWidth
         >
-          View all Bookmarks
+          <Trans>View all Bookmarks</Trans>
         </Button>
       </Flex>
     </Modal>

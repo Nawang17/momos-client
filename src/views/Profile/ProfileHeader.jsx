@@ -36,6 +36,7 @@ import { calculateLevelAndProgress } from "../../helper/helperfunctions";
 import { getRankInfo } from "../../helper/RankInfo";
 import Verifiedbadge from "../../helper/VerifiedBadge";
 import { formatText } from "../../helper/FormatText";
+import { Trans } from "@lingui/macro";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -115,7 +116,7 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
       setbtndisabled(false);
       showNotification({
         icon: <Lock size={18} />,
-        title: "Login required",
+        title: <Trans>Login required</Trans>,
         autoClose: 3000,
         color: "red",
       });
@@ -136,13 +137,19 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
             setbtndisabled(false);
             showNotification({
               icon: <UserPlus size={18} />,
-              message: `You are now following ${profileInfo.username}`,
+              message: (
+                <Trans>You are now following {profileInfo.username}</Trans>
+              ),
               autoClose: 3000,
             });
           } else {
             showNotification({
               icon: <UserMinus size={18} />,
-              message: `You are no longer following ${profileInfo.username}`,
+              message: (
+                <Trans>
+                  You are no longer following {profileInfo.username}
+                </Trans>
+              ),
               autoClose: 3000,
             });
             setfollowers((prev) => {
@@ -334,14 +341,19 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
             {!onlineusers.includes(profileInfo?.id) &&
               profileInfo?.lastseen && (
                 <Text color="dimmed" size="xs">
-                  Active{" "}
-                  {formatDistanceToNowStrict(new Date(profileInfo?.lastseen), {
-                    locale: {
-                      ...locale,
-                      formatDistance,
-                    },
-                  })}{" "}
-                  ago
+                  <Trans>
+                    Active{" "}
+                    {formatDistanceToNowStrict(
+                      new Date(profileInfo?.lastseen),
+                      {
+                        locale: {
+                          ...locale,
+                          formatDistance,
+                        },
+                      }
+                    )}{" "}
+                    ago
+                  </Trans>
                 </Text>
               )}
           </div>
@@ -469,7 +481,7 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                     color={"gray"}
                     fullWidth
                   >
-                    Edit profile
+                    <Trans>Edit profile</Trans>
                   </Button>
                   <Button
                     size="xs"
@@ -485,7 +497,7 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                     color={"gray"}
                     fullWidth
                   >
-                    Share profile
+                    <Trans>Share profile</Trans>
                   </Button>
                 </>
               ) : followingdata?.includes(profileInfo?.username) ? (
@@ -499,14 +511,14 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                       setunfollowconfirm(true);
                     }}
                   >
-                    Following
+                    <Trans>Following</Trans>
                   </Button>
                   <Button
                     onClick={async () => {
                       if (!UserInfo) {
                         showNotification({
                           icon: <Lock size={18} />,
-                          title: "Login required",
+                          title: <Trans>Login required</Trans>,
                           autoClose: 3000,
                           color: "red",
                         });
@@ -523,7 +535,7 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                     color={"gray"}
                     fullWidth
                   >
-                    Message
+                    <Trans>Message</Trans>
                   </Button>
                 </>
               ) : (
@@ -536,9 +548,11 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                     }}
                     fullWidth
                   >
-                    {followingArr.includes(UserInfo?.username)
-                      ? "Follow back"
-                      : "Follow"}
+                    {followingArr.includes(UserInfo?.username) ? (
+                      <Trans>Follow back</Trans>
+                    ) : (
+                      <Trans>Follow</Trans>
+                    )}
                   </Button>
                   <Button
                     size="xs"
@@ -546,7 +560,7 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                       if (!UserInfo) {
                         showNotification({
                           icon: <Lock size={18} />,
-                          title: "Login required",
+                          title: <Trans>Login required</Trans>,
                           autoClose: 3000,
                           color: "red",
                         });
@@ -562,7 +576,7 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                     color={"gray"}
                     fullWidth
                   >
-                    Message
+                    <Trans>Message</Trans>
                   </Button>
                 </>
               )}
@@ -589,11 +603,18 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
               >
                 <CalendarBlank color={"#71767b"} size={18} />
                 <Text color={"#71767b"} weight={"400"}>
-                  Joined{" "}
-                  {new Date(profileInfo?.createdAt).toLocaleString("default", {
-                    month: "long",
-                    year: "numeric",
-                  })}
+                  <Trans>
+                    <Text component="span" pr={3}>
+                      Joined
+                    </Text>
+                    {new Date(profileInfo?.createdAt).toLocaleString(
+                      "default",
+                      {
+                        month: "long",
+                        year: "numeric",
+                      }
+                    )}
+                  </Trans>
                 </Text>
               </div>
             )}
@@ -625,7 +646,7 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                 >
                   {following.length}{" "}
                   <Text color={"#71767b"} weight={"400"} component="span">
-                    Following
+                    <Trans>Following</Trans>
                   </Text>
                 </Text>
                 <Text
@@ -641,7 +662,7 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                 >
                   {followers.length}{" "}
                   <Text color={"#71767b"} weight={"400"} component="span">
-                    Followers
+                    <Trans>Followers</Trans>
                   </Text>
                 </Text>
               </div>
@@ -721,15 +742,20 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                   size="sm"
                   weight={600}
                 >
-                  Level {calculateLevelAndProgress(totalPoints).level}
+                  <Trans>
+                    Level {calculateLevelAndProgress(totalPoints).level}
+                  </Trans>
                 </Text>
                 <Text pt={5} size="xs" weight={500}>
-                  <Text component="span">
-                    {calculateLevelAndProgress(totalPoints).totalPointsInLevel -
-                      calculateLevelAndProgress(totalPoints).progress}{" "}
-                    points to
-                  </Text>{" "}
-                  Level {calculateLevelAndProgress(totalPoints).level + 1}
+                  <Trans>
+                    <Text component="span">
+                      {calculateLevelAndProgress(totalPoints)
+                        .totalPointsInLevel -
+                        calculateLevelAndProgress(totalPoints).progress}{" "}
+                      points to
+                    </Text>{" "}
+                    Level {calculateLevelAndProgress(totalPoints).level + 1}
+                  </Trans>
                 </Text>
               </div>
             </div>
@@ -870,10 +896,14 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
         onClose={() => setunfollowconfirm(false)}
       >
         <div className="dpm">
-          <div className="dpm-header">Unfollow {userprofile}?</div>
+          <div className="dpm-header">
+            <Trans>Unfollow {userprofile}?</Trans>
+          </div>
           <div className="dpm-body">
-            This can’t be undone and this user will be removed from your
-            following.
+            <Trans>
+              This can’t be undone and this user will be removed from your
+              following.
+            </Trans>
           </div>
           <div className="dpm-footer">
             <Button
@@ -885,7 +915,7 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
               }}
               radius="xl"
             >
-              Unfollow
+              <Trans>Unfollow</Trans>
             </Button>
             <Button
               onClick={() => setunfollowconfirm(false)}
@@ -893,7 +923,7 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
               color="gray"
               radius="xl"
             >
-              Cancel
+              <Trans>Cancel</Trans>
             </Button>
           </div>
         </div>

@@ -13,6 +13,7 @@ import { showNotification } from "@mantine/notifications";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { WarningCircle } from "@phosphor-icons/react";
 import Leaderboardhorizontal from "../../Components/Leaderboardhorizontal";
+import { Trans } from "@lingui/macro";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -236,7 +237,7 @@ export const Home = () => {
                 radius={"xl"}
                 color={"gray"}
               >
-                Latest
+                <Trans>Latest</Trans>
               </Button>
               <Button
                 // leftIcon={<Sparkle size={20} />}
@@ -246,7 +247,7 @@ export const Home = () => {
                 radius={"xl"}
                 color={"gray"}
               >
-                Popular
+                <Trans>Popular</Trans>
               </Button>
 
               <Button
@@ -257,7 +258,7 @@ export const Home = () => {
                 radius={"xl"}
                 color={"gray"}
               >
-                Following
+                <Trans>Following</Trans>
               </Button>
               <Button
                 // leftIcon={<UsersThree size={20} />}
@@ -267,7 +268,7 @@ export const Home = () => {
                 radius={"xl"}
                 color={"gray"}
               >
-                Community
+                <Trans>Community</Trans>
               </Button>
             </div>
           )}
@@ -299,7 +300,10 @@ export const Home = () => {
                     align="center"
                     color={"dimmed"}
                   >
-                    You have seen it all &#x1F60A; Come back later for more!
+                    {" "}
+                    <Trans>
+                      You have seen it all &#x1F60A; Come back later for more!
+                    </Trans>
                   </Text>
                 )}
               </>

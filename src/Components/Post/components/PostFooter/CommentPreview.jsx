@@ -9,6 +9,7 @@ import Verifiedbadge from "../../../../helper/VerifiedBadge";
 import Topuserbadge from "../../../../helper/Topuserbadge";
 import { formatDistance } from "../../../../helper/DateFormat";
 import { formatText } from "../../../../helper/FormatText";
+import { Trans } from "@lingui/macro";
 
 const CommentPreview = ({ post, comments }) => {
   const { pathname } = useLocation();
@@ -166,15 +167,17 @@ const CommentPreview = ({ post, comments }) => {
                 cursor: "pointer",
               }}
             >
-              See all{" "}
-              {comments
-                ? `${comments?.reduce((acc, curr) => {
-                    return acc + curr.nestedcomments?.length;
-                  }, comments.length)}`
-                : `${post.comments?.reduce((acc, curr) => {
-                    return acc + curr.nestedcomments?.length;
-                  }, post.comments.length)}`}{" "}
-              comments
+              <Trans>
+                See all{" "}
+                {comments
+                  ? `${comments?.reduce((acc, curr) => {
+                      return acc + curr.nestedcomments?.length;
+                    }, comments.length)}`
+                  : `${post.comments?.reduce((acc, curr) => {
+                      return acc + curr.nestedcomments?.length;
+                    }, post.comments.length)}`}{" "}
+                comments
+              </Trans>
             </Text>
           </>
         )}

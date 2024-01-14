@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import { Popover, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { Crown } from "@phosphor-icons/react";
@@ -20,7 +21,9 @@ const Topuserbadge = () => {
       </Popover.Target>
 
       <Popover.Dropdown Dropdown sx={{ pointerEvents: "none" }}>
-        <Text size="sm">Top User badge</Text>
+        <Text size="sm">
+          <Trans>Top User badge</Trans>
+        </Text>
       </Popover.Dropdown>
     </Popover>
   );

@@ -27,6 +27,7 @@ import { ModalsProvider } from "@mantine/modals";
 
 import { routes } from "./routes";
 import { Darkmodecheck } from "./helper/Darkmodecheck";
+import { Trans } from "@lingui/macro";
 ReactGA.initialize("G-YJSVSC17CL");
 
 const socket = io(process.env.REACT_APP_SERVER_URL);
@@ -54,7 +55,7 @@ function App() {
         setfollowingdata(res.data.userfollowingarr);
         showNotification({
           icon: <HandWaving size={18} />,
-          title: `Welcome back, ${res.data.user.username}`,
+          title: <Trans>Welcome back, {res.data.user.username}</Trans>,
 
           autoClose: 3000,
         });
@@ -190,7 +191,7 @@ function App() {
                     style={transitionStyles}
                     onClick={() => scrollTo({ y: 0 })}
                   >
-                    Scroll to top
+                    <Trans>Scroll to top</Trans>
                   </Button>
                 )}
               </Transition>

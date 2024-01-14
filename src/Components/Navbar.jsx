@@ -26,6 +26,7 @@ import Notis from "../views/Notis/Notis";
 import { AuthContext } from "../context/Auth";
 import { showNotification } from "@mantine/notifications";
 import { dynamicActivate } from "../i18n.js";
+import { Trans } from "@lingui/macro";
 const lngs = {
   en: { nativeName: "English", flag: "https://flagsapi.com/US/shiny/16.png" },
   ko: { nativeName: "Korean", flag: "https://flagsapi.com/KR/shiny/16.png" },
@@ -251,9 +252,16 @@ export function Navbar({ socket }) {
                       <Menu.Item
                         icon={<img src={lngs[languageCode]?.flag} alt=""></img>}
                         onClick={() => {
+                          if (currentLng === lngs[languageCode].nativeName)
+                            return;
                           showNotification({
                             icon: <Translate size={18} />,
-                            title: `Language changed to ${lngs[languageCode].nativeName}`,
+                            title: (
+                              <Trans>
+                                Language changed to{" "}
+                                {lngs[languageCode].nativeName}
+                              </Trans>
+                            ),
                             color: "blue",
                           });
                           localStorage.setItem("language", languageCode);

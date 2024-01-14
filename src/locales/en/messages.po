@@ -13,47 +13,552 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: src/Components/RepliesFeed.jsx:195
+#: src/views/singlecommunitypost/Comments.jsx:437
+#: src/views/singlecommunitypost/Comments.jsx:647
+#: src/views/SinglePost/Comments.jsx:447
+#: src/views/SinglePost/Comments.jsx:685
+msgid "(edited)"
+msgstr "(edited)"
+
+#: src/Components/About.jsx:221
+msgid "(feel free to reach out)"
+msgstr "(feel free to reach out)"
+
+#: src/Components/PostPolls.jsx:270
+msgid "{0} {1}"
+msgstr "{0} {1}"
+
+#: src/views/bookmark/Bookmarks.jsx:81
+msgid "{0} Bookmarks"
+msgstr "{0} Bookmarks"
+
+#: src/Components/Post/components/PostFooter/PostFooter.jsx:272
+msgid "{0} comments"
+msgstr "{0} comments"
+
+#: src/Components/PostPolls.jsx:289
+msgid "{0} left"
+msgstr "{0} left"
+
+#: src/Components/Post/components/PostFooter/PostFooter.jsx:231
+#: src/Components/Post/components/PostFooter/PostFooter.jsx:243
+msgid "{0} likes"
+msgstr "{0} likes"
+
+#: src/Components/Sidebar/Leaderboard.jsx:158
+msgid "{0} points"
+msgstr "{0} points"
+
+#: src/views/Discover/Discover.jsx:119
+msgid "{0} posts"
+msgstr "{0} posts"
+
+#: src/Components/Sidebar.jsx:327
+msgid "{0} pts to Level {1}"
+msgstr "{0} pts to Level {1}"
+
+#: src/Components/Sidebar.jsx:286
+msgid "{0} Rank - {1} points"
+msgstr "{0} Rank - {1} points"
+
+#: src/views/SinglePost/Comments.jsx:572
+msgid "{0} replies"
+msgstr "{0} replies"
+
+#: src/Components/Post/components/PostFooter/PostFooter.jsx:294
+#: src/views/Reposts/Reposts.jsx:76
+msgid "{0} reposts"
+msgstr "{0} reposts"
+
+#: src/Components/Leaderboardhorizontal.jsx:95
+#: src/Components/Sidebar/Leaderboard.jsx:90
+#: src/Components/Sidebar/Leaderboard.jsx:251
+#: src/views/Leaderboard/Leaderboard.jsx:176
+msgid "*Self likes are not counted"
+msgstr "*Self likes are not counted"
+
+#: src/Components/PostPolls.jsx:307
+msgid "`Poll Votes (${0})`"
+msgstr "`Poll Votes (${0})`"
+
+#: src/Components/Leaderboardhorizontal.jsx:91
+#: src/Components/Sidebar/Leaderboard.jsx:247
+#: src/views/Leaderboard/Leaderboard.jsx:172
+msgid "+1 point for each like on your posts"
+msgstr "+1 point for each like on your posts"
+
+#: src/views/Profile/ProfileHeader.jsx:750
+msgid "<0>{0} points to</0> Level {1}"
+msgstr "<0>{0} points to</0> Level {1}"
+
+#: src/views/Profile/Profile.jsx:252
+msgid "<0>@{0} hasn't liked any posts</0><1>When they do, you'll see them here.</1>"
+msgstr "<0>@{0} hasn't liked any posts</0><1>When they do, you'll see them here.</1>"
+
+#: src/views/Profile/Profile.jsx:155
+msgid "<0>@{0} hasn't posted anything yet</0><1>When they do, you'll see them here.</1>"
+msgstr "<0>@{0} hasn't posted anything yet</0><1>When they do, you'll see them here.</1>"
+
+#: src/views/Profile/Profile.jsx:198
+msgid "<0>@{0} hasn't replied to anything yet</0><1>When they do, you'll see them here.</1>"
+msgstr "<0>@{0} hasn't replied to anything yet</0><1>When they do, you'll see them here.</1>"
+
+#: src/views/Profile/ProfileHeader.jsx:606
+msgid "<0>Joined</0>{0}"
+msgstr "<0>Joined</0>{0}"
+
+#: src/Components/Sidebar.jsx:447
+msgid "About"
+msgstr "About"
+
+#: src/Components/About.jsx:81
 #: src/Components/ProfileMenu.jsx:132
 #: src/Components/ProfileMenu.jsx:171
 msgid "About momos"
 msgstr "About momos"
 
+#: src/views/Notis/Notis.jsx:485
+msgid "Accept"
+msgstr "Accept"
+
+#: src/views/settingspage/settingsPage.jsx:86
+msgid "Account"
+msgstr "Account"
+
+#: src/views/settingspage/settingsPage.jsx:122
+msgid "Account created"
+msgstr "Account created"
+
+#: src/views/Search/UserSearch.jsx:206
+msgid "Accounts"
+msgstr "Accounts"
+
+#: src/views/Profile/ProfileHeader.jsx:344
+msgid "Active {0} ago"
+msgstr "Active {0} ago"
+
+#: src/views/Chat/Chat.jsx:265
+msgid "Active now"
+msgstr "Active now"
+
+#: src/views/singlecommunitypost/Reply.jsx:117
+#: src/views/SinglePost/Reply.jsx:117
+msgid "Add a comment..."
+msgstr "Add a comment..."
+
 #: src/Components/ProfileMenu.jsx:119
+#: src/views/communities/CommunityProfile.jsx:417
 msgid "Admin"
 msgstr "Admin"
+
+#: src/views/Notis/Notis.jsx:124
+msgid "All activity"
+msgstr "All activity"
+
+#: src/views/communities/CommunityProfileMenu.jsx:76
+msgid "All posts and members of this community will be deleted forever. This action cannot be undone."
+msgstr "All posts and members of this community will be deleted forever. This action cannot be undone."
+
+#: src/views/Leaderboard/Leaderboard.jsx:222
+msgid "All-time"
+msgstr "All-time"
+
+#: src/views/Register/Register.jsx:161
+msgid "Already have an account?"
+msgstr "Already have an account?"
+
+#: src/views/communities/CommunityProfileMenu.jsx:73
+msgid "Are you sure you want to delete this community?"
+msgstr "Are you sure you want to delete this community?"
+
+#: src/views/Register/Register.jsx:213
+msgid "At least 6 characters"
+msgstr "At least 6 characters"
+
+#: src/views/singlecommunitypost/SinglePostFeed.jsx:93
+#: src/views/SinglePost/SinglePostFeed.jsx:92
+msgid "Be the first to share what you think!"
+msgstr "Be the first to share what you think!"
+
+#: src/views/UserSettings/Editprofile.jsx:450
+msgid "Bio"
+msgstr "Bio"
 
 #: src/Components/ProfileMenu.jsx:82
 msgid "Bookmarks"
 msgstr "Bookmarks"
 
-#: src/Components/Post/components/PostHeader/PostMenu.jsx:257
+#: src/Components/CommentMenu.jsx:237
+#: src/Components/NestedCommentMenu.jsx:254
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:261
+#: src/views/Profile/ProfileHeader.jsx:926
 msgid "Cancel"
 msgstr "Cancel"
+
+#: src/views/settingspage/components/ChangeEmail.jsx:53
+#: src/views/settingspage/components/ChangeEmail.jsx:72
+msgid "Change email"
+msgstr "Change email"
+
+#: src/views/settingspage/components/ChangePassword.jsx:56
+#: src/views/settingspage/components/ChangePassword.jsx:62
+msgid "Change password"
+msgstr "Change password"
+
+#: src/views/Chat/Chatrooms.jsx:296
+msgid "Chat closed successfully"
+msgstr "Chat closed successfully"
+
+#: src/views/Chat/Chatrooms.jsx:384
+msgid "Chat with other users in private"
+msgstr "Chat with other users in private"
+
+#: src/views/Chat/Chatrooms.jsx:137
+msgid "Chats"
+msgstr "Chats"
+
+#: src/Components/CreatePostModal.jsx:605
+msgid "Choice 1"
+msgstr "Choice 1"
+
+#: src/Components/CreatePostModal.jsx:613
+msgid "Choice 2"
+msgstr "Choice 2"
+
+#: src/Components/CreatePostModal.jsx:623
+msgid "Choice 3(optional)"
+msgstr "Choice 3(optional)"
+
+#: src/Components/CreatePostModal.jsx:631
+msgid "Choice 4(optional)"
+msgstr "Choice 4(optional)"
+
+#: src/views/Login/ForgotPasswordUpdate.jsx:118
+msgid "Choose a new password"
+msgstr "Choose a new password"
+
+#: src/views/Chat/Chatrooms.jsx:318
+msgid "Close DM"
+msgstr "Close DM"
+
+#: src/Components/Post/components/PostFooter/PostFooter.jsx:375
+msgid "Comment"
+msgstr "Comment"
+
+#: src/Components/NestedReplyModal.jsx:93
+msgid "Comment updated successfully"
+msgstr "Comment updated successfully"
+
+#: src/views/Notis/Notis.jsx:142
+#: src/views/singlecommunitypost/Reply.jsx:35
+#: src/views/SinglePost/Reply.jsx:35
+msgid "Comments"
+msgstr "Comments"
+
+#: src/views/Notis/Notis.jsx:228
+msgid "Comments and replies"
+msgstr "Comments and replies"
+
+#: src/views/Home/Home.jsx:271
+msgid "Community"
+msgstr "Community"
+
+#: src/views/Notis/Notis.jsx:278
+msgid "Community Join Requests"
+msgstr "Community Join Requests"
+
+#: src/views/communities/Createnewcommunity.jsx:139
+msgid "Community name"
+msgstr "Community name"
+
+#: src/views/settingspage/components/ChangePassword.jsx:93
+msgid "Confirm New Password"
+msgstr "Confirm New Password"
 
 #: src/Components/Hero.jsx:78
 msgid "Connect with people around the world"
 msgstr "Connect with people around the world"
 
-#: src/Components/Post/components/PostHeader/PostMenu.jsx:204
+#: src/views/communities/CommunityProfile.jsx:323
+msgid "Content is only visible to community members"
+msgstr "Content is only visible to community members"
+
+#: src/views/Login/Login.jsx:288
+#: src/views/Register/Register.jsx:252
+msgid "Continue with Google"
+msgstr "Continue with Google"
+
+#: src/Components/CommentMenu.jsx:173
+msgid "Copy link to comment"
+msgstr "Copy link to comment"
+
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:208
 msgid "Copy link to Post"
 msgstr "Copy link to Post"
 
-#: src/Components/Post/components/PostHeader/PostMenu.jsx:166
-#: src/Components/Post/components/PostHeader/PostMenu.jsx:249
+#: src/Components/NestedCommentMenu.jsx:190
+msgid "Copy link to reply"
+msgstr "Copy link to reply"
+
+#: src/views/Chat/Chat.jsx:384
+#: src/views/Chat/Chat.jsx:457
+msgid "Copy message"
+msgstr "Copy message"
+
+#: src/views/communities/Createnewcommunity.jsx:87
+msgid "Create community"
+msgstr "Create community"
+
+#: src/views/communities/Createnewcommunity.jsx:94
+#: src/views/communities/Createnewcommunity.jsx:190
+msgid "Create Community"
+msgstr "Create Community"
+
+#: src/views/Leaderboard/Leaderboard.jsx:231
+msgid "Current Month"
+msgstr "Current Month"
+
+#: src/views/settingspage/components/ChangePassword.jsx:82
+msgid "Current Password"
+msgstr "Current Password"
+
+#: src/views/settingspage/components/Apperance.jsx:26
+#: src/views/settingspage/components/Apperance.jsx:69
+msgid "Dark"
+msgstr "Dark"
+
+#: src/Components/CreatePostModal.jsx:669
+msgid "Days"
+msgstr "Days"
+
+#: src/views/Notis/Notis.jsx:495
+msgid "Decline"
+msgstr "Decline"
+
+#: src/Components/CreatePostModal.jsx:781
+msgid "Default poll duration: 1 day if no selection made."
+msgstr "Default poll duration: 1 day if no selection made."
+
+#: src/Components/CommentMenu.jsx:197
+#: src/Components/CommentMenu.jsx:229
+#: src/Components/NestedCommentMenu.jsx:214
+#: src/Components/NestedCommentMenu.jsx:246
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:170
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:253
 msgid "Delete"
 msgstr "Delete"
 
-#: src/Components/Post/components/PostHeader/PostMenu.jsx:232
+#: src/views/communities/CommunityProfileMenu.jsx:160
+msgid "Delete Community"
+msgstr "Delete Community"
+
+#: src/views/Chat/Chat.jsx:504
+msgid "Delete message"
+msgstr "Delete message"
+
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:236
 msgid "Delete Post?"
 msgstr "Delete Post?"
 
-#: src/Components/Post/components/PostHeader/PostMenu.jsx:186
+#: src/Components/NestedCommentMenu.jsx:230
+msgid "Delete reply"
+msgstr "Delete reply"
+
+#: src/Components/CommentMenu.jsx:213
+msgid "Delete reply?"
+msgstr "Delete reply?"
+
+#: src/views/communities/Createnewcommunity.jsx:156
+msgid "Description"
+msgstr "Description"
+
+#: src/views/settingspage/components/Apperance.jsx:16
+msgid "Display theme"
+msgstr "Display theme"
+
+#: src/views/Login/Login.jsx:200
+msgid "Do not have an account?"
+msgstr "Do not have an account?"
+
+#: src/Components/CommentMenu.jsx:138
+#: src/Components/NestedCommentMenu.jsx:154
+msgid "Edit"
+msgstr "Edit"
+
+#: src/views/Profile/ProfileHeader.jsx:484
+#: src/views/settingspage/settingsPage.jsx:90
+#: src/views/UserSettings/Editprofile.jsx:185
+msgid "Edit profile"
+msgstr "Edit profile"
+
+#: src/views/Register/Register.jsx:186
+msgid "Email (optional)"
+msgstr "Email (optional)"
+
+#: src/views/settingspage/components/ChangeEmail.jsx:39
+msgid "Email updated"
+msgstr "Email updated"
+
+#: src/views/Login/ForgotPasswordModal.jsx:77
+msgid "Enter your email address, and you will recieve a password reset email."
+msgstr "Enter your email address, and you will recieve a password reset email."
+
+#: src/views/communities/Communities.jsx:128
+msgid "Find communities"
+msgstr "Find communities"
+
+#: src/views/Search/UserSearch.jsx:306
+#: src/views/SuggestedAccounts/SuggestedAccs.jsx:247
+msgid "follow"
+msgstr "follow"
+
+#: src/Components/Hsuggestedacc.jsx:159
+#: src/views/Profile/ProfileHeader.jsx:554
+msgid "Follow"
+msgstr "Follow"
+
+#: src/Components/CommentMenu.jsx:158
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:190
 msgid "Follow {0}"
 msgstr "Follow {0}"
 
-#: src/Components/Post/components/PostHeader/PostMenu.jsx:197
+#: src/Components/NestedCommentMenu.jsx:175
+msgid "Follow {commentuser}"
+msgstr "Follow {commentuser}"
+
+#: src/views/Profile/ProfileHeader.jsx:552
+msgid "Follow back"
+msgstr "Follow back"
+
+#: src/views/Notis/Notis.jsx:160
+#: src/views/Profile/ProfileHeader.jsx:665
+msgid "Followers"
+msgstr "Followers"
+
+#: src/views/Home/Home.jsx:261
+#: src/views/Profile/ProfileHeader.jsx:514
+#: src/views/Profile/ProfileHeader.jsx:649
+msgid "Following"
+msgstr "Following"
+
+#: src/Components/PostFeed.jsx:135
+msgid "found nothing"
+msgstr "found nothing"
+
+#: src/views/communities/CommunityProfile.jsx:369
+msgid "Get the conversation started. Be the first to post in this community."
+msgstr "Get the conversation started. Be the first to post in this community."
+
+#: src/Components/CreatePostModal.jsx:682
+msgid "Hours"
+msgstr "Hours"
+
+#: src/Components/Sidebar.jsx:252
+msgid "How does levels work?"
+msgstr "How does levels work?"
+
+#: src/Components/Leaderboardhorizontal.jsx:88
+#: src/Components/Sidebar/Leaderboard.jsx:84
+#: src/Components/Sidebar/Leaderboard.jsx:243
+#: src/views/Leaderboard/Leaderboard.jsx:168
+msgid "How to earn points?"
+msgstr "How to earn points?"
+
+#: src/views/Login/Login.jsx:254
+msgid "I forgot my password"
+msgstr "I forgot my password"
+
+#: src/views/Login/ForgotPasswordModal.jsx:43
+msgid "If an account matches<0>{email}</0>, you should receive an email with instructions on how to reset your password shortly."
+msgstr "If an account matches<0>{email}</0>, you should receive an email with instructions on how to reset your password shortly."
+
+#: src/Components/CreatePostModal.jsx:110
+msgid "Image size is too big. Max allowed size is 9MB"
+msgstr "Image size is too big. Max allowed size is 9MB"
+
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:58
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:113
+#: src/Components/PostPolls.jsx:76
+#: src/views/SinglePost/Comments.jsx:318
+msgid "Internal Server Error"
+msgstr "Internal Server Error"
+
+#: src/views/communities/CommunityProfile.jsx:223
+msgid "Join"
+msgstr "Join"
+
+#: src/views/settingspage/components/Translation.jsx:23
+msgid "Language"
+msgstr "Language"
+
+#: src/Components/Navbar.jsx:260
+#: src/views/settingspage/components/Translation.jsx:64
+msgid "Language changed to {0}"
+msgstr "Language changed to {0}"
+
+#: src/views/Home/Home.jsx:240
+#: src/views/Search/UserSearch.jsx:203
+#: src/views/singlecommunitypost/Reply.jsx:64
+#: src/views/SinglePost/Reply.jsx:53
+msgid "Latest"
+msgstr "Latest"
+
+#: src/Components/Leaderboardhorizontal.jsx:67
+#: src/Components/Sidebar/Leaderboard.jsx:64
+#: src/Components/Sidebar/Leaderboard.jsx:223
+#: src/views/Leaderboard/Leaderboard.jsx:140
+msgid "Leaderboard"
+msgstr "Leaderboard"
+
+#: src/views/communities/CommunityProfileMenu.jsx:150
+msgid "Leave Community"
+msgstr "Leave Community"
+
+#: src/Components/Sidebar.jsx:318
+#: src/views/Profile/ProfileHeader.jsx:745
+msgid "Level {0}"
+msgstr "Level {0}"
+
+#: src/Components/Sidebar.jsx:264
+msgid "Leveling becomes more challenging with each new level."
+msgstr "Leveling becomes more challenging with each new level."
+
+#: src/views/settingspage/components/Apperance.jsx:26
+#: src/views/settingspage/components/Apperance.jsx:55
+msgid "Light"
+msgstr "Light"
+
+#: src/Components/Post/components/PostFooter/PostFooter.jsx:352
+msgid "Like"
+msgstr "Like"
+
+#: src/Components/Post/components/PostFooter/PostFooter.jsx:209
+msgid "Liked by <0>{0} </0> and <1>{1} others</1>"
+msgstr "Liked by <0>{0} </0> and <1>{1} others</1>"
+
+#: src/views/Notis/Notis.jsx:133
+#: src/views/Profile/Profile.jsx:144
+msgid "Likes"
+msgstr "Likes"
+
+#: src/Components/Post/components/PostModals/LikesUsersModal.jsx:18
+msgid "Likes ({0})"
+msgstr "Likes ({0})"
+
+#: src/views/Notis/Notis.jsx:201
+msgid "Likes on your posts and comments"
+msgstr "Likes on your posts and comments"
+
+#: src/Components/CommentMenu.jsx:166
+#: src/Components/NestedCommentMenu.jsx:183
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:201
 msgid "Link copied to clipboard"
 msgstr "Link copied to clipboard"
+
+#: src/views/Chat/Chat.jsx:298
+msgid "Load older messages"
+msgstr "Load older messages"
 
 #: src/Components/ProfileMenu.jsx:141
 msgid "Log Out"
@@ -65,25 +570,385 @@ msgstr "Logged out"
 
 #: src/Components/Hero.jsx:85
 #: src/Components/ProfileMenu.jsx:153
+#: src/views/Login/ForgotPasswordUpdate.jsx:184
+#: src/views/Login/Login.jsx:258
+#: src/views/Register/Register.jsx:174
 msgid "Login"
 msgstr "Login"
 
+#: src/Components/CommentMenu.jsx:62
+#: src/Components/Hsuggestedacc.jsx:41
+#: src/Components/NestedCommentMenu.jsx:87
+#: src/Components/Post/common/functions.js:16
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:75
+#: src/Components/PostPolls.jsx:34
+#: src/views/Chat/Chatrooms.jsx:437
+#: src/views/Profile/ProfileHeader.jsx:119
+#: src/views/Profile/ProfileHeader.jsx:521
+#: src/views/Profile/ProfileHeader.jsx:563
+#: src/views/Search/UserSearch.jsx:90
+#: src/views/singlecommunitypost/Comments.jsx:515
+#: src/views/singlecommunitypost/Comments.jsx:754
+#: src/views/singlecommunitypost/Reply.jsx:104
+#: src/views/SinglePost/Comments.jsx:236
+#: src/views/SinglePost/Reply.jsx:104
+#: src/views/SuggestedAccounts/SuggestedAccs.jsx:96
+msgid "Login required"
+msgstr "Login required"
+
+#: src/views/Login/Login.jsx:63
+#: src/views/Login/Login.jsx:98
+msgid "Login Successful"
+msgstr "Login Successful"
+
+#: src/views/communities/Communities.jsx:142
+msgid "Login to see your communities"
+msgstr "Login to see your communities"
+
+#: src/views/Login/ForgotPasswordModal.jsx:53
+msgid "Make sure to also check your spam folder if you don't see the email in your inbox."
+msgstr "Make sure to also check your spam folder if you don't see the email in your inbox."
+
+#: src/views/communities/CommunityProfile.jsx:289
+msgid "Members"
+msgstr "Members"
+
+#: src/views/Notis/Notis.jsx:151
+msgid "Mentions"
+msgstr "Mentions"
+
+#: src/views/Notis/Notis.jsx:252
+msgid "Mentions of You"
+msgstr "Mentions of You"
+
+#: src/views/Profile/ProfileHeader.jsx:538
+#: src/views/Profile/ProfileHeader.jsx:579
+msgid "Message"
+msgstr "Message"
+
+#: src/views/Chat/Chat.jsx:472
+msgid "Message deleted"
+msgstr "Message deleted"
+
+#: src/Components/CreatePostModal.jsx:715
+msgid "Minutes"
+msgstr "Minutes"
+
+#: src/Components/About.jsx:87
+msgid "Momos is a social network webapp where you can connect with people around the world. I built this project to learn more about full stack development and to improve my skills as a developer. The project is still in development and new features are being added regularly."
+msgstr "Momos is a social network webapp where you can connect with people around the world. I built this project to learn more about full stack development and to improve my skills as a developer. The project is still in development and new features are being added regularly."
+
+#: src/views/communities/Communities.jsx:125
+msgid "My communities"
+msgstr "My communities"
+
+#: src/views/Register/Register.jsx:191
+msgid "Never shown to the public"
+msgstr "Never shown to the public"
+
+#: src/views/settingspage/components/ChangeEmail.jsx:88
+msgid "New Email Address"
+msgstr "New Email Address"
+
+#: src/views/Notis/Notis.jsx:302
+msgid "New Followers"
+msgstr "New Followers"
+
+#: src/views/settingspage/components/ChangePassword.jsx:88
+msgid "New Password"
+msgstr "New Password"
+
+#: src/views/settingspage/components/ChangePassword.jsx:101
+msgid "New Password must be minimum 6 Character"
+msgstr "New Password must be minimum 6 Character"
+
+#: src/views/singlecommunitypost/SinglePostFeed.jsx:90
+#: src/views/SinglePost/SinglePostFeed.jsx:89
+msgid "No comments yet"
+msgstr "No comments yet"
+
+#: src/views/Chat/Chatrooms.jsx:244
+msgid "No messages yet"
+msgstr "No messages yet"
+
+#: src/views/communities/CommunityProfileMenu.jsx:84
+msgid "No, don't delete it"
+msgstr "No, don't delete it"
+
+#: src/views/Notis/Notis.jsx:114
+msgid "Notifications"
+msgstr "Notifications"
+
+#: src/views/Login/ForgotPasswordModal.jsx:65
+msgid "OK"
+msgstr "OK"
+
+#: src/views/singlecommunitypost/Reply.jsx:75
+#: src/views/SinglePost/Reply.jsx:75
+msgid "Oldest"
+msgstr "Oldest"
+
+#: src/Components/Sidebar.jsx:367
+msgid "Online - {0}"
+msgstr "Online - {0}"
+
+#: src/views/Login/ForgotPasswordUpdate.jsx:174
+msgid "Oops! The link you used no longer works."
+msgstr "Oops! The link you used no longer works."
+
+#: src/views/singlecommunitypost/Comments.jsx:411
+#: src/views/singlecommunitypost/Comments.jsx:621
+msgid "OP"
+msgstr "OP"
+
+#: src/views/singlecommunitypost/Comments.jsx:418
+#: src/views/singlecommunitypost/Comments.jsx:628
+#: src/views/SinglePost/Comments.jsx:634
+msgid "Original poster"
+msgstr "Original poster"
+
+#: src/views/settingspage/settingsPage.jsx:112
+msgid "Other"
+msgstr "Other"
+
+#: src/Components/About.jsx:207
+msgid "Other links"
+msgstr "Other links"
+
+#: src/views/communities/CommunityProfile.jsx:253
+msgid "Owner"
+msgstr "Owner"
+
+#: src/views/Login/Login.jsx:238
+#: src/views/settingspage/components/ChangeEmail.jsx:100
+msgid "Password"
+msgstr "Password"
+
+#: src/views/settingspage/components/ChangePassword.jsx:42
+msgid "Password Updated"
+msgstr "Password Updated"
+
+#: src/Components/About.jsx:130
+msgid "Please note that this project is for educational purposes and may have bugs or unfinished features. If you encounter any issues or have any suggestions, please feel free to reach out or submit a pull request."
+msgstr "Please note that this project is for educational purposes and may have bugs or unfinished features. If you encounter any issues or have any suggestions, please feel free to reach out or submit a pull request."
+
+#: src/Components/PostPolls.jsx:285
+msgid "Poll closed"
+msgstr "Poll closed"
+
+#: src/Components/CreatePostModal.jsx:655
+msgid "Poll duration"
+msgstr "Poll duration"
+
+#: src/views/Home/Home.jsx:250
+msgid "Popular"
+msgstr "Popular"
+
+#: src/Components/CreatePostModal.jsx:915
+msgid "Post"
+msgstr "Post"
+
+#: src/Components/Post/components/PostModals/BookmarkNotiModal.jsx:33
+msgid "Post added to Bookmarks"
+msgstr "Post added to Bookmarks"
+
+#: src/Components/CreatePostModal.jsx:172
+#: src/Components/CreatePostModal.jsx:207
+#: src/Components/CreatePostModal.jsx:237
+#: src/Components/CreatePostModal.jsx:263
+msgid "Post Created Successfully"
+msgstr "Post Created Successfully"
+
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:43
+msgid "Post Deleted"
+msgstr "Post Deleted"
+
+#: src/Components/Post/common/functions.js:38
+msgid "Post unsaved successfully"
+msgstr "Post unsaved successfully"
+
+#: src/Components/CreatePostModal.jsx:924
+msgid "Posting"
+msgstr "Posting"
+
+#: src/views/communities/CommunityProfile.jsx:286
+#: src/views/Profile/Profile.jsx:138
+msgid "Posts"
+msgstr "Posts"
+
+#: src/views/communities/Createnewcommunity.jsx:160
+msgid "Privacy setting"
+msgstr "Privacy setting"
+
+#: src/views/communities/Createnewcommunity.jsx:182
+msgid "Private (Owner approval required)"
+msgstr "Private (Owner approval required)"
+
+#: src/views/Chat/Chatrooms.jsx:286
+msgid "Profile"
+msgstr "Profile"
+
+#: src/views/UserSettings/Editprofile.jsx:100
+msgid "Profile updated successfully"
+msgstr "Profile updated successfully"
+
+#: src/views/communities/Createnewcommunity.jsx:176
+msgid "Public (Anyone can join)"
+msgstr "Public (Anyone can join)"
+
 #: src/Components/Hero.jsx:90
 #: src/Components/ProfileMenu.jsx:162
+#: src/views/Login/ForgotPasswordUpdate.jsx:194
+#: src/views/Login/Login.jsx:213
+#: src/views/Register/Register.jsx:217
 msgid "Register"
 msgstr "Register"
 
-#: src/Components/Post/components/PostHeader/PostMenu.jsx:155
+#: src/views/Login/Login.jsx:159
+msgid "Register Successful"
+msgstr "Register Successful"
+
+#: src/Components/CreatePostModal.jsx:794
+msgid "Remove Poll"
+msgstr "Remove Poll"
+
+#: src/views/Profile/Profile.jsx:141
+msgid "Replies"
+msgstr "Replies"
+
+#: src/Components/NestedReplyModal.jsx:384
+#: src/views/singlecommunitypost/Comments.jsx:537
+#: src/views/singlecommunitypost/Comments.jsx:776
+#: src/views/SinglePost/Comments.jsx:547
+#: src/views/SinglePost/Comments.jsx:821
+msgid "Reply"
+msgstr "Reply"
+
+#: src/Components/NestedReplyModal.jsx:58
+#: src/Components/NestedReplyModal.jsx:170
+msgid "Reply added"
+msgstr "Reply added"
+
+#: src/Components/CommentMenu.jsx:35
+#: src/Components/NestedCommentMenu.jsx:60
+msgid "Reply Deleted"
+msgstr "Reply Deleted"
+
+#: src/Components/NestedReplyModal.jsx:136
+msgid "reply updated successfully"
+msgstr "reply updated successfully"
+
+#: src/Components/RepliesFeed.jsx:222
+msgid "Replying to <0>@{0}</0>"
+msgstr "Replying to <0>@{0}</0>"
+
+#: src/Components/NestedReplyModal.jsx:213
+msgid "Replying to<0>{0}{1}{2}</0>"
+msgstr "Replying to<0>{0}{1}{2}</0>"
+
+#: src/Components/Post/components/PostFooter/PostFooter.jsx:397
+msgid "Repost"
+msgstr "Repost"
+
+#: src/views/Notis/Notis.jsx:171
+msgid "Requests"
+msgstr "Requests"
+
+#: src/views/Login/ForgotPasswordModal.jsx:101
+msgid "Reset Password"
+msgstr "Reset Password"
+
+#: src/Components/About.jsx:178
+msgid "Rules"
+msgstr "Rules"
+
+#: src/Components/Post/components/PostFooter/PostFooter.jsx:423
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:159
 msgid "Save"
 msgstr "Save"
 
+#: src/Components/NestedReplyModal.jsx:355
+#: src/views/settingspage/components/ChangeEmail.jsx:115
+#: src/views/settingspage/components/ChangePassword.jsx:115
+msgid "Save changes"
+msgstr "Save changes"
+
+#: src/Components/NestedReplyModal.jsx:371
+#: src/views/UserSettings/Editprofile.jsx:469
+msgid "Save Changes"
+msgstr "Save Changes"
+
+#: src/Components/Post/components/PostFooter/PostFooter.jsx:421
+msgid "Saved"
+msgstr "Saved"
+
+#: src/App.js:194
+msgid "Scroll to top"
+msgstr "Scroll to top"
+
+#: src/Components/Sidebar.jsx:494
+msgid "Search"
+msgstr "Search"
+
+#: src/views/Discover/Discover.jsx:81
+msgid "Search momos"
+msgstr "Search momos"
+
+#: src/Components/Hsuggestedacc.jsx:202
+#: src/Components/PostFeed.jsx:80
+msgid "See all"
+msgstr "See all"
+
+#: src/Components/Post/components/PostFooter/CommentPreview.jsx:170
+msgid "See all {0} comments"
+msgstr "See all {0} comments"
+
+#: src/views/Login/ForgotPasswordUpdate.jsx:144
+msgid "Set Password"
+msgstr "Set Password"
+
 #: src/Components/ProfileMenu.jsx:73
+#: src/views/settingspage/settingsPage.jsx:74
 msgid "Settings"
 msgstr "Settings"
 
-#: src/Components/Post/components/PostHeader/PostMenu.jsx:217
+#: src/views/communities/CommunityProfileMenu.jsx:141
+msgid "Share"
+msgstr "Share"
+
+#: src/Components/CommentMenu.jsx:186
+msgid "Share comment via..."
+msgstr "Share comment via..."
+
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:221
 msgid "Share Post via..."
 msgstr "Share Post via..."
+
+#: src/views/Profile/ProfileHeader.jsx:500
+msgid "Share profile"
+msgstr "Share profile"
+
+#: src/Components/NestedCommentMenu.jsx:203
+msgid "Share reply via..."
+msgstr "Share reply via..."
+
+#: src/views/Chat/Chatrooms.jsx:391
+#: src/views/Chat/Chatrooms.jsx:420
+msgid "Start a new chat"
+msgstr "Start a new chat"
+
+#: src/views/Chat/Chatrooms.jsx:294
+msgid "Success"
+msgstr "Success"
+
+#: src/views/Discover/Discover.jsx:156
+#: src/views/SuggestedAccounts/SuggestedAccs.jsx:164
+msgid "Suggested Accounts"
+msgstr "Suggested Accounts"
+
+#: src/Components/PostFeed.jsx:68
+msgid "Suggested for you"
+msgstr "Suggested for you"
 
 #: src/Components/ProfileMenu.jsx:106
 msgid "Switch to Dark Mode"
@@ -93,22 +958,275 @@ msgstr "Switch to Dark Mode"
 msgid "Switch to Light Mode"
 msgstr "Switch to Light Mode"
 
-#: src/Components/Post/components/PostHeader/PostMenu.jsx:235
+#: src/Components/RouteError.jsx:78
+msgid "Take me back to home page"
+msgstr "Take me back to home page"
+
+#: src/Components/About.jsx:103
+msgid "Technologies"
+msgstr "Technologies"
+
+#: src/Components/Leaderboardhorizontal.jsx:80
+#: src/Components/Sidebar/Leaderboard.jsx:77
+#: src/Components/Sidebar/Leaderboard.jsx:236
+#: src/views/Leaderboard/Leaderboard.jsx:160
+msgid "The leaderboard ranking is based on the total number of points earned by the user."
+msgstr "The leaderboard ranking is based on the total number of points earned by the user."
+
+#: src/Components/CommentMenu.jsx:216
+#: src/Components/NestedCommentMenu.jsx:233
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:239
 msgid "This can’t be undone and it will be removed from your profile, the timeline."
 msgstr "This can’t be undone and it will be removed from your profile, the timeline."
 
-#: src/Components/Post/components/PostHeader/PostMenu.jsx:177
+#: src/views/Profile/ProfileHeader.jsx:903
+msgid "This can’t be undone and this user will be removed from your following."
+msgstr "This can’t be undone and this user will be removed from your following."
+
+#: src/views/communities/Createnewcommunity.jsx:140
+msgid "This cannot be changed later"
+msgstr "This cannot be changed later"
+
+#: src/Components/Post/Post.jsx:553
+msgid "This post was deleted by the author."
+msgstr "This post was deleted by the author."
+
+#: src/views/settingspage/components/ChangeEmail.jsx:103
+msgid "To confirm your new email, enter your current password."
+msgstr "To confirm your new email, enter your current password."
+
+#: src/views/Search/UserSearch.jsx:200
+#: src/views/singlecommunitypost/Reply.jsx:53
+#: src/views/SinglePost/Reply.jsx:64
+msgid "Top"
+msgstr "Top"
+
+#: src/Components/Sidebar/News.jsx:62
+#: src/Components/Sidebar/News.jsx:164
+msgid "Top News"
+msgstr "Top News"
+
+#: src/helper/Topuserbadge.js:25
+msgid "Top User badge"
+msgstr "Top User badge"
+
+#: src/views/Discover/Discover.jsx:92
+msgid "Trending Topics"
+msgstr "Trending Topics"
+
+#: src/views/Login/Login.jsx:307
+msgid "Try Demo account"
+msgstr "Try Demo account"
+
+#: src/views/UserSettings/Editprofile.jsx:479
+msgid "Undo all Changes"
+msgstr "Undo all Changes"
+
+#: src/views/Search/UserSearch.jsx:319
+#: src/views/SuggestedAccounts/SuggestedAccs.jsx:261
+msgid "unfollow"
+msgstr "unfollow"
+
+#: src/Components/Hsuggestedacc.jsx:175
+#: src/views/Profile/ProfileHeader.jsx:918
+msgid "Unfollow"
+msgstr "Unfollow"
+
+#: src/Components/CommentMenu.jsx:149
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:181
 msgid "Unfollow {0}"
 msgstr "Unfollow {0}"
 
-#: src/Components/Post/components/PostHeader/PostMenu.jsx:153
+#: src/Components/NestedCommentMenu.jsx:166
+msgid "Unfollow {commentuser}"
+msgstr "Unfollow {commentuser}"
+
+#: src/views/Profile/ProfileHeader.jsx:900
+msgid "Unfollow {userprofile}?"
+msgstr "Unfollow {userprofile}?"
+
+#: src/Components/RouteError.jsx:69
+msgid "Unfortunately, this is only a 404 page. You may have mistyped the address, or the page has been moved to another URL."
+msgstr "Unfortunately, this is only a 404 page. You may have mistyped the address, or the page has been moved to another URL."
+
+#: src/views/Register/Register.jsx:202
+msgid "Unique, no spaces, short"
+msgstr "Unique, no spaces, short"
+
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:157
 msgid "Unsave"
 msgstr "Unsave"
+
+#: src/views/communities/Createnewcommunity.jsx:117
+msgid "Upload photo"
+msgstr "Upload photo"
+
+#: src/views/Login/Login.jsx:230
+#: src/views/Register/Register.jsx:196
+#: src/views/UserSettings/Editprofile.jsx:428
+msgid "Username"
+msgstr "Username"
+
+#: src/Components/CreatePostModal.jsx:120
+msgid "Video size is too big. Max allowed size is 95MB"
+msgstr "Video size is too big. Max allowed size is 95MB"
+
+#: src/Components/Leaderboardhorizontal.jsx:117
+#: src/Components/Sidebar/Leaderboard.jsx:202
+msgid "View all"
+msgstr "View all"
+
+#: src/Components/Post/components/PostModals/BookmarkNotiModal.jsx:45
+msgid "View all Bookmarks"
+msgstr "View all Bookmarks"
 
 #: src/Components/ProfileMenu.jsx:64
 msgid "View profile"
 msgstr "View profile"
 
+#: src/views/Login/ForgotPasswordUpdate.jsx:89
+#: src/views/Login/Login.jsx:64
+#: src/views/Login/Login.jsx:99
+#: src/views/Login/Login.jsx:139
+#: src/views/Register/Register.jsx:100
+msgid "Welcome back {0}"
+msgstr "Welcome back {0}"
+
+#: src/App.js:58
+msgid "Welcome back, {0}"
+msgstr "Welcome back, {0}"
+
+#: src/views/Login/Login.jsx:197
+#: src/views/Register/Register.jsx:158
+msgid "Welcome to Momos"
+msgstr "Welcome to Momos"
+
+#: src/views/Login/Login.jsx:160
+#: src/views/Register/Register.jsx:63
+#: src/views/Register/Register.jsx:121
+msgid "Welcome to momos {0}"
+msgstr "Welcome to momos {0}"
+
+#: src/views/Chat/Chatrooms.jsx:381
+msgid "Welcome to your inbox!"
+msgstr "Welcome to your inbox!"
+
 #: src/Components/Hero.jsx:64
 msgid "Welcome to<0>momos</0>"
 msgstr "Welcome to<0>momos</0>"
+
+#: src/Components/CreatePost.jsx:59
+msgid "What's on your mind, {0}?"
+msgstr "What's on your mind, {0}?"
+
+#: src/views/Notis/Notis.jsx:231
+msgid "When someone comments on your post or replies to you, you'll see it here"
+msgstr "When someone comments on your post or replies to you, you'll see it here"
+
+#: src/views/Notis/Notis.jsx:305
+msgid "When someone follows you, you'll see it here"
+msgstr "When someone follows you, you'll see it here"
+
+#: src/views/Notis/Notis.jsx:204
+msgid "When someone likes your post or comment, you'll see it here"
+msgstr "When someone likes your post or comment, you'll see it here"
+
+#: src/views/Notis/Notis.jsx:255
+msgid "When someone mentions you, you'll see it here"
+msgstr "When someone mentions you, you'll see it here"
+
+#: src/views/Notis/Notis.jsx:281
+msgid "When someone requests to join your community, you'll see it here"
+msgstr "When someone requests to join your community, you'll see it here"
+
+#: src/views/communities/CommunityProfileMenu.jsx:83
+msgid "Yes, delete it"
+msgstr "Yes, delete it"
+
+#: src/views/communities/FindCommunity.jsx:21
+msgid "You are already a member of all communities"
+msgstr "You are already a member of all communities"
+
+#: src/Components/CommentMenu.jsx:87
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:98
+#: src/views/Profile/ProfileHeader.jsx:149
+msgid "You are no longer following {0}"
+msgstr "You are no longer following {0}"
+
+#: src/Components/NestedCommentMenu.jsx:107
+msgid "You are no longer following {commentuser}"
+msgstr "You are no longer following {commentuser}"
+
+#: src/views/Search/UserSearch.jsx:112
+#: src/views/SuggestedAccounts/SuggestedAccs.jsx:118
+msgid "You are no longer following {username}"
+msgstr "You are no longer following {username}"
+
+#: src/Components/Hsuggestedacc.jsx:63
+msgid "You are no longer following ${username}"
+msgstr "You are no longer following ${username}"
+
+#: src/Components/CommentMenu.jsx:77
+#: src/Components/Post/components/PostHeader/PostMenu.jsx:90
+#: src/views/Profile/ProfileHeader.jsx:141
+msgid "You are now following {0}"
+msgstr "You are now following {0}"
+
+#: src/Components/NestedCommentMenu.jsx:101
+msgid "You are now following {commentuser}"
+msgstr "You are now following {commentuser}"
+
+#: src/views/Search/UserSearch.jsx:105
+#: src/views/SuggestedAccounts/SuggestedAccs.jsx:111
+msgid "You are now following {username}"
+msgstr "You are now following {username}"
+
+#: src/Components/Hsuggestedacc.jsx:56
+msgid "You are now following ${username}"
+msgstr "You are now following ${username}"
+
+#: src/Components/Sidebar.jsx:271
+msgid "You can earn points by gaining likes on your content."
+msgstr "You can earn points by gaining likes on your content."
+
+#: src/views/communities/CommunityProfileMenu.jsx:96
+msgid "You have deleted the community"
+msgstr "You have deleted the community"
+
+#: src/Components/RouteError.jsx:61
+msgid "You have found a secret place."
+msgstr "You have found a secret place."
+
+#: src/views/communities/CommunityProfileMenu.jsx:45
+msgid "You have left the community"
+msgstr "You have left the community"
+
+#: src/views/Home/Home.jsx:304
+msgid "You have seen it all 😊 Come back later for more!"
+msgstr "You have seen it all 😊 Come back later for more!"
+
+#: src/views/Login/ForgotPasswordUpdate.jsx:156
+msgid "You successfully changed your password and will now be logged in shortly."
+msgstr "You successfully changed your password and will now be logged in shortly."
+
+#: src/views/communities/CommunityProfileMenu.jsx:29
+msgid "You will no longer be able to post or comment in this community. You can rejoin at any time."
+msgstr "You will no longer be able to post or comment in this community. You can rejoin at any time."
+
+#: src/views/Notis/Notis.jsx:184
+msgid "You will see all your notifications here"
+msgstr "You will see all your notifications here"
+
+#: src/views/communities/Communities.jsx:151
+msgid "You will see your joined communities here"
+msgstr "You will see your joined communities here"
+
+#: src/Components/CreatePostModal.jsx:406
+#: src/Components/CreatePostModal.jsx:565
+#: src/Components/Post/Post.jsx:505
+msgid "Your browser does not support the video tag."
+msgstr "Your browser does not support the video tag."
+
+#: src/Components/Sidebar.jsx:258
+msgid "Your level is based on how many points you have."
+msgstr "Your level is based on how many points you have."

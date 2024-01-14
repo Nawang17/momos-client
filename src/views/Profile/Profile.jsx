@@ -20,6 +20,7 @@ import { showNotification } from "@mantine/notifications";
 import { AuthContext } from "../../context/Auth";
 import InfiniteScroll from "react-infinite-scroll-component";
 import RepliesFeed from "../../Components/RepliesFeed";
+import { Trans } from "@lingui/macro";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -134,13 +135,13 @@ export const Profile = () => {
             }}
           >
             <Tabs.Tab value="posts" icon={<Note size={14} />}>
-              Posts
+              <Trans>Posts</Trans>
             </Tabs.Tab>
             <Tabs.Tab value="replies" icon={<ChatTeardrop size={14} />}>
-              Replies
+              <Trans>Replies</Trans>
             </Tabs.Tab>
             <Tabs.Tab value="likedposts" icon={<Heart size={14} />}>
-              Likes
+              <Trans>Likes</Trans>
             </Tabs.Tab>
           </Tabs.List>
 
@@ -151,17 +152,19 @@ export const Profile = () => {
                   padding: "1rem",
                 }}
               >
-                <Text
-                  color={darkmode ? "white" : "dark"}
-                  weight="bold"
-                  size="xl"
-                  align="center"
-                >
-                  @{profileInfo?.username} hasn't posted anything yet
-                </Text>
-                <Text align="center" size={"sm"} color={"dimmed"}>
-                  When they do, you'll see them here.
-                </Text>
+                <Trans>
+                  <Text
+                    color={darkmode ? "white" : "dark"}
+                    weight="bold"
+                    size="xl"
+                    align="center"
+                  >
+                    @{profileInfo?.username} hasn't posted anything yet
+                  </Text>
+                  <Text align="center" size={"sm"} color={"dimmed"}>
+                    When they do, you'll see them here.
+                  </Text>
+                </Trans>
               </div>
             ) : (
               <InfiniteScroll
@@ -192,17 +195,19 @@ export const Profile = () => {
                   padding: "1rem",
                 }}
               >
-                <Text
-                  color={darkmode ? "white" : "dark"}
-                  weight="bold"
-                  size="xl"
-                  align="center"
-                >
-                  @{profileInfo?.username} hasn't replied to anything yet
-                </Text>
-                <Text align="center" size={"sm"} color={"dimmed"}>
-                  When they do, you'll see them here.
-                </Text>
+                <Trans>
+                  <Text
+                    color={darkmode ? "white" : "dark"}
+                    weight="bold"
+                    size="xl"
+                    align="center"
+                  >
+                    @{profileInfo?.username} hasn't replied to anything yet
+                  </Text>
+                  <Text align="center" size={"sm"} color={"dimmed"}>
+                    When they do, you'll see them here.
+                  </Text>
+                </Trans>
               </div>
             ) : (
               <RepliesFeed
@@ -244,17 +249,19 @@ export const Profile = () => {
                   padding: "1rem",
                 }}
               >
-                <Text
-                  color={darkmode ? "white" : "dark"}
-                  weight="bold"
-                  size="xl"
-                  align="center"
-                >
-                  @{profileInfo?.username} hasn't liked any posts
-                </Text>
-                <Text align="center" size={"sm"} color={"dimmed"}>
-                  When they do, you'll see them here.
-                </Text>
+                <Trans>
+                  <Text
+                    color={darkmode ? "white" : "dark"}
+                    weight="bold"
+                    size="xl"
+                    align="center"
+                  >
+                    @{profileInfo?.username} hasn't liked any posts
+                  </Text>
+                  <Text align="center" size={"sm"} color={"dimmed"}>
+                    When they do, you'll see them here.
+                  </Text>
+                </Trans>
               </div>
             )}
           </Tabs.Panel>

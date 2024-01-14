@@ -4,6 +4,7 @@ import { Lock } from "@phosphor-icons/react";
 import { AuthContext } from "../../context/Auth";
 import { showNotification } from "@mantine/notifications";
 import NestedReplyModal from "../../Components/NestedReplyModal";
+import { Trans } from "@lingui/macro";
 
 const Reply = ({
   singlePostData,
@@ -31,7 +32,7 @@ const Reply = ({
         size={"15px"}
         weight={700}
       >
-        Comments
+        <Trans>Comments</Trans>
       </Text>
       <div
         style={{
@@ -49,7 +50,7 @@ const Reply = ({
           radius={"xl"}
           color={"gray"}
         >
-          Latest
+          <Trans>Latest</Trans>
         </Button>
         <Button
           onClick={() => {
@@ -60,7 +61,7 @@ const Reply = ({
           radius={"xl"}
           color={"gray"}
         >
-          Top
+          <Trans>Top</Trans>
         </Button>
         <Button
           onClick={() => {
@@ -71,7 +72,7 @@ const Reply = ({
           radius={"xl"}
           color={"gray"}
         >
-          Oldest
+          <Trans>Oldest</Trans>
         </Button>
       </div>
 
@@ -100,7 +101,7 @@ const Reply = ({
               showNotification({
                 color: "red",
                 icon: <Lock size={18} />,
-                title: "Login required",
+                title: <Trans>Login required</Trans>,
                 autoClose: 3000,
               });
             } else {
@@ -113,7 +114,7 @@ const Reply = ({
             cursor: "pointer ",
           }}
         >
-          Add a comment...
+          <Trans>Add a comment...</Trans>
         </Input>
       </div>
       <NestedReplyModal

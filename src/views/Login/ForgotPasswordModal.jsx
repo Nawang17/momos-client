@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Input, Modal, Text } from "@mantine/core";
 import { forgotPassword } from "../../api/UPDATE";
+import { Trans } from "@lingui/macro";
 
 const ForgotPasswordModal = ({ opened, setOpened }) => {
   const [email, setEmail] = useState("");
@@ -39,16 +40,20 @@ const ForgotPasswordModal = ({ opened, setOpened }) => {
         {emailSent ? (
           <>
             <Text size={"sm"}>
-              If an account matches{" "}
-              <Text component="span" weight={"bold"}>
-                {email}
-              </Text>
-              , you should receive an email with instructions on how to reset
-              your password shortly.
+              <Trans>
+                If an account matches
+                <Text component="span" pl={5} weight={"bold"}>
+                  {email}
+                </Text>
+                , you should receive an email with instructions on how to reset
+                your password shortly.
+              </Trans>
             </Text>
             <Text pt={5} italic size={"sm"}>
-              Make sure to also check your spam folder if you don't see the
-              email in your inbox.
+              <Trans>
+                Make sure to also check your spam folder if you don't see the
+                email in your inbox.
+              </Trans>
             </Text>
 
             <Button
@@ -57,7 +62,7 @@ const ForgotPasswordModal = ({ opened, setOpened }) => {
               }}
               mt={"lg"}
             >
-              OK
+              <Trans>OK</Trans>
             </Button>
           </>
         ) : (
@@ -69,8 +74,10 @@ const ForgotPasswordModal = ({ opened, setOpened }) => {
             )}
 
             <Text size={"sm"}>
-              Enter your email address, and you will recieve a password reset
-              email.
+              <Trans>
+                Enter your email address, and you will recieve a password reset
+                email.
+              </Trans>
             </Text>
             <Input
               mt={"md"}
@@ -91,7 +98,7 @@ const ForgotPasswordModal = ({ opened, setOpened }) => {
               }
               mt={"lg"}
             >
-              Reset Password
+              <Trans>Reset Password</Trans>
             </Button>
           </>
         )}

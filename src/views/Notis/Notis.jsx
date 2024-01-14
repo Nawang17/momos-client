@@ -29,6 +29,7 @@ import { notis } from "../../api/GET";
 import { acceptCommunityrequest } from "../../api/POST";
 import { showNotification } from "@mantine/notifications";
 import { formatDistance } from "../../helper/DateFormat";
+import { Trans } from "@lingui/macro";
 export default function Notis({ darkmode }) {
   const [opened, setOpened] = useState(false);
   const [Notis, setnotis] = useState([]);
@@ -110,7 +111,7 @@ export default function Notis({ darkmode }) {
         >
           <div>
             <Text size={"xl"} weight="bold">
-              Notifications
+              <Trans>Notifications</Trans>
             </Text>
             <Flex py={5} wrap={"wrap"} align={"center"} gap={"xs"}>
               <Button
@@ -120,7 +121,7 @@ export default function Notis({ darkmode }) {
                 size="xs"
                 radius="xl"
               >
-                All activity
+                <Trans> All activity</Trans>
               </Button>
               <Button
                 onClick={() => setnotitype("Likes")}
@@ -129,7 +130,7 @@ export default function Notis({ darkmode }) {
                 size="xs"
                 radius="xl"
               >
-                Likes
+                <Trans>Likes</Trans>
               </Button>
               <Button
                 onClick={() => setnotitype("Comments")}
@@ -138,7 +139,7 @@ export default function Notis({ darkmode }) {
                 size="xs"
                 radius="xl"
               >
-                Comments
+                <Trans>Comments</Trans>
               </Button>
               <Button
                 onClick={() => setnotitype("Mentions")}
@@ -147,7 +148,7 @@ export default function Notis({ darkmode }) {
                 size="xs"
                 radius="xl"
               >
-                Mentions
+                <Trans>Mentions</Trans>
               </Button>
               <Button
                 onClick={() => setnotitype("Followers")}
@@ -156,7 +157,7 @@ export default function Notis({ darkmode }) {
                 size="xs"
                 radius="xl"
               >
-                Followers
+                <Trans>Followers</Trans>
               </Button>
               <Button
                 onClick={() => setnotitype("COMMUNITY_JOIN_REQUEST")}
@@ -167,7 +168,7 @@ export default function Notis({ darkmode }) {
                 size="xs"
                 radius="xl"
               >
-                Requests
+                <Trans>Requests</Trans>
               </Button>
             </Flex>
             {!loading && notitype === "All activity" && Notis.length === 0 && (
@@ -180,7 +181,7 @@ export default function Notis({ darkmode }) {
                 <BellRinging size={50} color={darkmode ? "white" : "black"} />
 
                 <Text pt={10} align="center" size={"sm"}>
-                  You will see all your notifications here
+                  <Trans>You will see all your notifications here</Trans>
                 </Text>
               </Flex>
             )}
@@ -197,10 +198,14 @@ export default function Notis({ darkmode }) {
                 >
                   <Heart size={50} color={darkmode ? "white" : "black"} />
                   <Text weight={700} size={"sm"}>
-                    Likes on your posts and comments
+                    <Trans>Likes on your posts and comments</Trans>
                   </Text>
                   <Text pt={10} align="center" size={"sm"}>
-                    When someone likes your post or comment, you'll see it here
+                    <Trans>
+                      {" "}
+                      When someone likes your post or comment, you'll see it
+                      here
+                    </Trans>{" "}
                   </Text>
                 </Flex>
               )}
@@ -220,11 +225,14 @@ export default function Notis({ darkmode }) {
                     color={darkmode ? "white" : "black"}
                   />
                   <Text weight={700} size={"sm"}>
-                    Comments and replies
+                    <Trans> Comments and replies</Trans>
                   </Text>
                   <Text pt={10} align="center" size={"sm"}>
-                    When someone comments on your post or replies to you, you'll
-                    see it here
+                    <Trans>
+                      {" "}
+                      When someone comments on your post or replies to you,
+                      you'll see it here
+                    </Trans>
                   </Text>
                 </Flex>
               )}
@@ -241,10 +249,13 @@ export default function Notis({ darkmode }) {
                 >
                   <At size={50} color={darkmode ? "white" : "black"} />
                   <Text weight={700} size={"sm"}>
-                    Mentions of You
+                    <Trans> Mentions of You</Trans>
                   </Text>
                   <Text pt={10} align="center" size={"sm"}>
-                    When someone mentions you, you'll see it here
+                    <Trans>
+                      {" "}
+                      When someone mentions you, you'll see it here
+                    </Trans>
                   </Text>
                 </Flex>
               )}
@@ -264,11 +275,14 @@ export default function Notis({ darkmode }) {
                     color={darkmode ? "white" : "black"}
                   />
                   <Text weight={700} size={"sm"}>
-                    Community Join Requests
+                    <Trans> Community Join Requests</Trans>
                   </Text>
                   <Text pt={10} align="center" size={"sm"}>
-                    When someone requests to join your community, you'll see it
-                    here
+                    <Trans>
+                      {" "}
+                      When someone requests to join your community, you'll see
+                      it here
+                    </Trans>
                   </Text>
                 </Flex>
               )}
@@ -285,10 +299,10 @@ export default function Notis({ darkmode }) {
                 >
                   <User size={50} color={darkmode ? "white" : "black"} />
                   <Text weight={700} size={"sm"}>
-                    New Followers
+                    <Trans> New Followers</Trans>
                   </Text>
                   <Text pt={10} align="center" size={"sm"}>
-                    When someone follows you, you'll see it here
+                    <Trans> When someone follows you, you'll see it here</Trans>
                   </Text>
                 </Flex>
               )}
@@ -468,7 +482,7 @@ export default function Notis({ darkmode }) {
                                   compact
                                   size="xs"
                                 >
-                                  Accept
+                                  <Trans>Accept</Trans>
                                 </Button>
                                 <Button
                                   onClick={() => {
@@ -478,7 +492,7 @@ export default function Notis({ darkmode }) {
                                   compact
                                   size="xs"
                                 >
-                                  Decline
+                                  <Trans>Decline</Trans>
                                 </Button>
                               </Flex>
                             </>

@@ -16,6 +16,7 @@ import ReactGA from "react-ga4";
 import { showNotification } from "@mantine/notifications";
 import { ShieldCheck } from "@phosphor-icons/react";
 import { LoginStatus } from "../../api/AUTH";
+import { Trans } from "@lingui/macro";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -85,7 +86,7 @@ export const ForgotPasswordUpdate = ({ socket }) => {
           showNotification({
             icon: <ShieldCheck size={18} />,
             title: "Login Successful",
-            message: `Welcome back ${res.data.user.username}`,
+            message: <Trans>Welcome back {res.data.user.username}</Trans>,
             autoClose: 3000,
           });
           LoginStatus().then((resp) => {
@@ -114,7 +115,7 @@ export const ForgotPasswordUpdate = ({ socket }) => {
                 {error}
               </Text>
               <Text size="md" weight={700}>
-                Choose a new password
+                <Trans>Choose a new password </Trans>
               </Text>{" "}
               <PasswordInput
                 mt={10}
@@ -140,7 +141,7 @@ export const ForgotPasswordUpdate = ({ socket }) => {
                 disabled={NewPassword.length < 6}
                 mt={10}
               >
-                Set Password
+                <Trans> Set Password</Trans>
               </Button>
             </div>
           ) : (
@@ -152,8 +153,10 @@ export const ForgotPasswordUpdate = ({ socket }) => {
               }}
             >
               <Text size="md">
-                You successfully changed your password and will now be logged in
-                shortly.
+                <Trans>
+                  You successfully changed your password and will now be logged
+                  in shortly.
+                </Trans>
               </Text>
             </div>
           )}
@@ -167,7 +170,9 @@ export const ForgotPasswordUpdate = ({ socket }) => {
               padding: "1rem 0rem 0.5rem 1rem",
             }}
           >
-            <Text size="lg">Oops! The link you used no longer works.</Text>
+            <Text size="lg">
+              <Trans>Oops! The link you used no longer works.</Trans>
+            </Text>
             <Text
               onClick={() => navigate("/login")}
               style={{
@@ -176,7 +181,7 @@ export const ForgotPasswordUpdate = ({ socket }) => {
               pt={10}
               color="blue"
             >
-              Login
+              <Trans>Login</Trans>
             </Text>
             <Text
               onClick={() => navigate("/Register")}
@@ -186,7 +191,7 @@ export const ForgotPasswordUpdate = ({ socket }) => {
               pt={5}
               color="blue"
             >
-              Register
+              <Trans>Register</Trans>
             </Text>
           </div>
         </div>

@@ -15,6 +15,7 @@ import { gettrending } from "../../api/GET";
 import { Sidebar } from "../../Components/Sidebar";
 import { AuthContext } from "../../context/Auth";
 import Topuserbadge from "../../helper/Topuserbadge";
+import { Trans } from "@lingui/macro";
 const useStyles = createStyles(() => ({
   wrapper: {
     display: "flex",
@@ -77,7 +78,7 @@ export const Discover = () => {
             component="div"
             icon={<MagnifyingGlass />}
           >
-            Search momos
+            <Trans>Search momos </Trans>
           </Input>
           <div
             style={{
@@ -88,7 +89,7 @@ export const Discover = () => {
             }}
           >
             <Text size={"xl"} weight={700}>
-              Trending Topics
+              <Trans>Trending Topics</Trans>
             </Text>
             <TrendUp size={20} />
           </div>
@@ -115,7 +116,7 @@ export const Discover = () => {
                 >
                   <Text weight={700}>{trends?.hashtag}</Text>
                   <Text color={"dimmed"} size={"xs"}>
-                    {trends?.count} posts
+                    <Trans> {trends?.count} posts</Trans>
                   </Text>
                 </div>
               ))}
@@ -152,7 +153,7 @@ export const Discover = () => {
             }}
           >
             <Text pl={"1rem"} pb={10} size={"xl"} weight={700}>
-              Suggested Accounts
+              <Trans>Suggested Accounts</Trans>
             </Text>
 
             <div>

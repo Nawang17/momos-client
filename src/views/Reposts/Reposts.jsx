@@ -6,6 +6,7 @@ import { getreposts } from "../../api/GET";
 import { PostFeed } from "../../Components/PostFeed";
 import { Sidebar } from "../../Components/Sidebar";
 import { AuthContext } from "../../context/Auth";
+import { Trans } from "@lingui/macro";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -72,7 +73,7 @@ export const Reposts = () => {
           size="sm"
           weight={700}
         >
-          {reposts.length} reposts
+          <Trans>{reposts.length} reposts</Trans>
         </Text>
         {reposts.length !== 0 && !loading && (
           <PostFeed setPosts={setreposts} posts={reposts} loading={loading} />

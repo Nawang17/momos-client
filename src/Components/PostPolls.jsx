@@ -12,6 +12,7 @@ import { formatDistance } from "../helper/DateFormat";
 import Verifiedbadge from "../helper/VerifiedBadge";
 import Topuserbadge from "../helper/Topuserbadge";
 import { formatText } from "../helper/FormatText";
+import { Trans } from "@lingui/macro";
 const PostPolls = ({ post }) => {
   const [poll, setpoll] = useState(post);
 
@@ -30,7 +31,7 @@ const PostPolls = ({ post }) => {
       return showNotification({
         icon: <Lock size={18} />,
         color: "red",
-        title: "Login required",
+        title: <Trans>Login required </Trans>,
         autoClose: 3000,
       });
     } else {
@@ -72,7 +73,7 @@ const PostPolls = ({ post }) => {
             showNotification({
               icon: <WarningCircle size={18} />,
               color: "red",
-              title: "Internal Server Error",
+              title: <Trans>Internal Server Error</Trans>,
               autoClose: 4000,
             });
           } else {
@@ -266,28 +267,34 @@ const PostPolls = ({ post }) => {
               }}
               color="dimmed"
             >
-              {poll?.poll?.pollchoices?.reduce((acc, val) => {
-                return acc + val?.pollvotes?.length;
-              }, 0)}{" "}
-              {poll?.poll?.pollchoices?.reduce((acc, val) => {
-                return acc + val?.pollvotes?.length;
-              }, 0) > 1
-                ? "Votes"
-                : "Vote"}
+              <Trans>
+                {poll?.poll?.pollchoices?.reduce((acc, val) => {
+                  return acc + val?.pollvotes?.length;
+                }, 0)}{" "}
+                {poll?.poll?.pollchoices?.reduce((acc, val) => {
+                  return acc + val?.pollvotes?.length;
+                }, 0) > 1
+                  ? "Votes"
+                  : "Vote"}
+              </Trans>
             </Text>
             <Text color="dimmed"> &#183; </Text>
             <Text color="dimmed">
               {new Date() > new Date(post?.poll?.duration) ? (
-                <Text color="dimmed"> Poll closed </Text>
+                <Text color="dimmed">
+                  <Trans>Poll closed</Trans>
+                </Text>
               ) : (
                 <Text>
-                  {formatDistanceToNowStrict(new Date(post?.poll?.duration), {
-                    locale: {
-                      ...locale,
-                      formatDistance,
-                    },
-                  })}{" "}
-                  left{" "}
+                  <Trans>
+                    {formatDistanceToNowStrict(new Date(post?.poll?.duration), {
+                      locale: {
+                        ...locale,
+                        formatDistance,
+                      },
+                    })}{" "}
+                    left{" "}
+                  </Trans>
                 </Text>
               )}
             </Text>
@@ -296,9 +303,15 @@ const PostPolls = ({ post }) => {
       </div>
       <Modal
         zIndex={1000}
-        title={`Poll Votes (${poll?.poll?.pollchoices?.reduce((acc, val) => {
-          return acc + val?.pollvotes?.length;
-        }, 0)})`}
+        title={
+          <Trans>
+            `Poll Votes ($
+            {poll?.poll?.pollchoices?.reduce((acc, val) => {
+              return acc + val?.pollvotes?.length;
+            }, 0)}
+            )`
+          </Trans>
+        }
         overflow="inside"
         opened={votemodal}
         onClose={() => {

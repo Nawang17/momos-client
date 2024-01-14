@@ -18,6 +18,7 @@ import { deleteNestedComment } from "../api/DELETE";
 import { follow } from "../api/POST";
 import { AuthContext } from "../context/Auth";
 import NestedReplyModal from "./NestedReplyModal";
+import { Trans } from "@lingui/macro";
 export function NestedCommentMenu({
   commentuser,
   setComments,
@@ -56,7 +57,7 @@ export function NestedCommentMenu({
 
         showNotification({
           icon: <Trash size={18} />,
-          title: "Reply Deleted",
+          title: <Trans>Reply Deleted</Trans>,
           autoClose: 3000,
           color: "red",
         });
@@ -83,7 +84,7 @@ export function NestedCommentMenu({
     if (!UserInfo) {
       showNotification({
         icon: <Lock size={18} />,
-        title: "Login required",
+        title: <Trans>Login required</Trans>,
         autoClose: 3000,
         color: "red",
       });
@@ -97,13 +98,13 @@ export function NestedCommentMenu({
             ]);
             showNotification({
               icon: <UserPlus size={18} />,
-              message: `You are now following ${commentuser}`,
+              message: <Trans>You are now following {commentuser}</Trans>,
               autoClose: 3000,
             });
           } else {
             showNotification({
               icon: <UserMinus size={18} />,
-              message: `You are no longer following ${commentuser}`,
+              message: <Trans>You are no longer following {commentuser}</Trans>,
               autoClose: 3000,
             });
 
@@ -150,7 +151,7 @@ export function NestedCommentMenu({
               }}
               icon={<Pencil size={14} />}
             >
-              Edit
+              <Trans>Edit</Trans>
             </Menu.Item>
           )}
 
@@ -162,7 +163,7 @@ export function NestedCommentMenu({
                 }}
                 icon={<UserMinus size={14} />}
               >
-                Unfollow {commentuser}
+                <Trans>Unfollow {commentuser}</Trans>
               </Menu.Item>
             ) : (
               <Menu.Item
@@ -171,7 +172,7 @@ export function NestedCommentMenu({
                 }}
                 icon={<UserPlus size={14} />}
               >
-                Follow {commentuser}
+                <Trans>Follow {commentuser}</Trans>
               </Menu.Item>
             ))}
           <Menu.Item
@@ -179,14 +180,14 @@ export function NestedCommentMenu({
               navigator.clipboard.writeText(window.location.href);
               showNotification({
                 icon: <CopySimple size={18} />,
-                title: "Link copied to clipboard",
+                title: <Trans>Link copied to clipboard</Trans>,
                 autoClose: 3000,
                 color: "gray",
               });
             }}
             icon={<CopySimple size={14} />}
           >
-            Copy link to reply
+            <Trans>Copy link to reply</Trans>
           </Menu.Item>
           <Menu.Item
             onClick={() => {
@@ -199,7 +200,7 @@ export function NestedCommentMenu({
             }}
             icon={<Export size={14} />}
           >
-            Share reply via...
+            <Trans>Share reply via...</Trans>
           </Menu.Item>
           {(UserInfo?.username === commentuser ||
             UserInfo?.username === "katoph") && (
@@ -210,7 +211,7 @@ export function NestedCommentMenu({
               color="red"
               icon={<Trash color="red" size={14} />}
             >
-              Delete
+              <Trans>Delete</Trans>
             </Menu.Item>
           )}
         </Menu.Dropdown>
@@ -225,10 +226,14 @@ export function NestedCommentMenu({
         onClose={() => setOpened(false)}
       >
         <div className="dpm">
-          <div className="dpm-header">Delete reply?</div>
+          <div className="dpm-header">
+            <Trans>Delete reply</Trans>
+          </div>
           <div className="dpm-body">
-            This can’t be undone and it will be removed from your profile, the
-            timeline.
+            <Trans>
+              This can’t be undone and it will be removed from your profile, the
+              timeline.
+            </Trans>
           </div>
           <div className="dpm-footer">
             <Button
@@ -238,7 +243,7 @@ export function NestedCommentMenu({
               radius="xl"
               color="red"
             >
-              Delete
+              <Trans>Delete</Trans>
             </Button>
             <Button
               onClick={() => setOpened(false)}
@@ -246,7 +251,7 @@ export function NestedCommentMenu({
               color="gray"
               radius="xl"
             >
-              Cancel
+              <Trans>Cancel</Trans>
             </Button>
           </div>
         </div>

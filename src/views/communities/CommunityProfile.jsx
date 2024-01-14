@@ -33,6 +33,7 @@ import { showNotification } from "@mantine/notifications";
 
 import { CommunityProfileMenu } from "./CommunityProfileMenu";
 import { JoinCommunity } from "../../api/POST";
+import { Trans } from "@lingui/macro";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -219,7 +220,7 @@ export const CommunityProfile = () => {
                         handleJoinCommunity();
                       }}
                     >
-                      Join
+                      <Trans> Join</Trans>
                     </Button>
                   )}
                 </Flex>
@@ -249,7 +250,7 @@ export const CommunityProfile = () => {
                         <Crown size={15} weight="light" />
 
                         <Text size={"sm"} color="dimmed">
-                          Owner
+                          <Trans> Owner</Trans>
                         </Text>
                       </Flex>
                     )}
@@ -281,8 +282,12 @@ export const CommunityProfile = () => {
 
             <Tabs defaultValue="Posts">
               <Tabs.List grow>
-                <Tabs.Tab value="Posts">Posts</Tabs.Tab>
-                <Tabs.Tab value="Members">Members</Tabs.Tab>
+                <Tabs.Tab value="Posts">
+                  <Trans> Posts</Trans>
+                </Tabs.Tab>
+                <Tabs.Tab value="Members">
+                  <Trans> Members</Trans>
+                </Tabs.Tab>
               </Tabs.List>
 
               <Tabs.Panel
@@ -315,7 +320,9 @@ export const CommunityProfile = () => {
                     >
                       <EyeSlash size={50} weight="light" />
                       <Text size={"lg"} color="dimmed">
-                        Content is only visible to community members
+                        <Trans>
+                          Content is only visible to community members
+                        </Trans>
                       </Text>
                       <Button
                         mt={10}
@@ -359,8 +366,10 @@ export const CommunityProfile = () => {
                       >
                         <Note color="gray" size={30} />
                         <Text size={"sm"} color="dimmed">
-                          Get the conversation started. Be the first to post in
-                          this community.
+                          <Trans>
+                            Get the conversation started. Be the first to post
+                            in this community.
+                          </Trans>
                         </Text>
                       </Flex>
                     )}
@@ -404,7 +413,9 @@ export const CommunityProfile = () => {
 
                       {member?.isOwner && <Badge color="green">Owner</Badge>}
                       {member?.isadmin && !member?.isOwner && (
-                        <Badge>Admin</Badge>
+                        <Badge>
+                          <Trans>Admin</Trans>
+                        </Badge>
                       )}
                     </Flex>
                   ))}

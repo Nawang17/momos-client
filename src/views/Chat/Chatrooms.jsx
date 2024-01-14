@@ -35,6 +35,7 @@ import { AuthContext } from "../../context/Auth";
 import { updateChatroomStatus } from "../../api/UPDATE";
 import Verifiedbadge from "../../helper/VerifiedBadge";
 import Topuserbadge from "../../helper/Topuserbadge";
+import { Trans } from "@lingui/macro";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -57,7 +58,7 @@ const useStyles = createStyles(() => ({
 
 export const Chatrooms = () => {
   const { classes } = useStyles();
-  const { darkmode, UserInfo, onlineusers,topUser } = useContext(AuthContext);
+  const { darkmode, UserInfo, onlineusers, topUser } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const [chatrooms, setChatrooms] = useState([]);
@@ -84,11 +85,7 @@ export const Chatrooms = () => {
       searchuser();
     }
   }, [debouncedSearch]);
-  // useEffect(() => {
-  //   if (!UserInfo) {
-  //     navigate("/");
-  //   }
-  // }, [UserInfo]);
+
   useEffect(() => {
     async function getchatroomsfunc() {
       await getchatrooms()
@@ -137,7 +134,7 @@ export const Chatrooms = () => {
                 fontWeight: "700",
               }}
             >
-              Chats
+              <Trans>Chats</Trans>
             </Text>
           </div>
           <ActionIcon onClick={() => setOpened(true)}>
@@ -195,38 +192,57 @@ export const Chatrooms = () => {
                     }}
                     label={
                       <>
-                      {rooms?.userone?.username !== UserInfo?.username
-                        ?  <div
-                        style={{
-                          display:'flex',
-                          alignItems:"center",
-                          gap:'4px'
-                        }}
-                        ><Text>{rooms?.userone?.username} </Text> {rooms?.userone?.verified && <Verifiedbadge />}
-                        {topUser === rooms?.userone?.username && <Topuserbadge />}
-                       </div>
-                        :  <div
-                        style={{
-                          display:'flex',
-                          alignItems:"center",
-                          gap:'4px'
-                        }}
-                        ><Text>{rooms?.usertwo?.username} </Text> {rooms?.usertwo?.verified && <Verifiedbadge />}    {topUser === rooms?.usertwo?.username && <Topuserbadge />}</div>} </>
+                        {rooms?.userone?.username !== UserInfo?.username ? (
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "4px",
+                            }}
+                          >
+                            <Text>{rooms?.userone?.username} </Text>{" "}
+                            {rooms?.userone?.verified && <Verifiedbadge />}
+                            {topUser === rooms?.userone?.username && (
+                              <Topuserbadge />
+                            )}
+                          </div>
+                        ) : (
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "4px",
+                            }}
+                          >
+                            <Text>{rooms?.usertwo?.username} </Text>{" "}
+                            {rooms?.usertwo?.verified && <Verifiedbadge />}{" "}
+                            {topUser === rooms?.usertwo?.username && (
+                              <Topuserbadge />
+                            )}
+                          </div>
+                        )}{" "}
+                      </>
                     }
                     description={
-                      rooms?.chats[0]?.message
-                        ? rooms?.chats[0]?.message.length > 80
-                          ? rooms?.chats[0]?.user.username ===
-                            UserInfo?.username
-                            ? "You: " +
-                              rooms?.chats[0]?.message.substring(0, 80) +
-                              "..."
-                            : rooms?.chats[0]?.message.substring(0, 80) + "..."
-                          : rooms?.chats[0]?.user.username ===
-                            UserInfo?.username
-                          ? "You: " + rooms?.chats[0]?.message
-                          : rooms?.chats[0]?.message
-                        : "No messages yet"
+                      rooms?.chats[0]?.message ? (
+                        rooms?.chats[0]?.message.length > 80 ? (
+                          rooms?.chats[0]?.user.username ===
+                          UserInfo?.username ? (
+                            "You: " +
+                            rooms?.chats[0]?.message.substring(0, 80) +
+                            "..."
+                          ) : (
+                            rooms?.chats[0]?.message.substring(0, 80) + "..."
+                          )
+                        ) : rooms?.chats[0]?.user.username ===
+                          UserInfo?.username ? (
+                          "You: " + rooms?.chats[0]?.message
+                        ) : (
+                          rooms?.chats[0]?.message
+                        )
+                      ) : (
+                        <Trans>No messages yet</Trans>
+                      )
                     }
                     rightSection={
                       <div
@@ -267,7 +283,7 @@ export const Chatrooms = () => {
                               }}
                               icon={<UserCircle size={18} weight="fill" />}
                             >
-                              Profile
+                              <Trans>Profile</Trans>
                             </Menu.Item>
                             <Menu.Item
                               onClick={(e) => {
@@ -275,8 +291,10 @@ export const Chatrooms = () => {
                                 updateChatroomStatus(rooms?.roomid)
                                   .then((res) => {
                                     showNotification({
-                                      title: "Success",
-                                      message: "Chat closed successfully",
+                                      title: <Trans>Success</Trans>,
+                                      message: (
+                                        <Trans>Chat closed successfully</Trans>
+                                      ),
                                       color: "green",
                                       autoClose: 3000,
                                     });
@@ -297,7 +315,7 @@ export const Chatrooms = () => {
                               }}
                               icon={<MinusSquare size={18} weight="fill" />}
                             >
-                              Close DM
+                              <Trans>Close DM</Trans>
                             </Menu.Item>
                           </Menu.Dropdown>
                         </Menu>
@@ -360,17 +378,17 @@ export const Chatrooms = () => {
                 }}
               >
                 <Text weight={700} size={25}>
-                  Welcome to your inbox!
+                  <Trans>Welcome to your inbox!</Trans>
                 </Text>
                 <Text mt={5} color={"dimmed"}>
-                  Chat with other users in private
+                  <Trans>Chat with other users in private</Trans>
                 </Text>
                 <Button
                   mt={20}
                   leftIcon={<ChatCircleDots />}
                   onClick={() => setOpened(true)}
                 >
-                  Start a new chat
+                  <Trans>Start a new chat</Trans>
                 </Button>
               </div>
             )
@@ -399,7 +417,7 @@ export const Chatrooms = () => {
             setSearchuser("");
             setSearchresults([]);
           }}
-          title="Start a new chat"
+          title=<Trans>Start a new chat</Trans>
         >
           <>
             <Input
@@ -416,7 +434,7 @@ export const Chatrooms = () => {
                       if (!UserInfo) {
                         showNotification({
                           icon: <Lock size={18} />,
-                          title: "Login required",
+                          title: <Trans>Login required</Trans>,
                           autoClose: 3000,
                           color: "red",
                         });

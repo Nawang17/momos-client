@@ -1,6 +1,7 @@
 import { showNotification } from "@mantine/notifications";
 import { BookmarkSimple, Lock } from "@phosphor-icons/react";
 import { bookmarkPost } from "../../../api/POST";
+import { Trans } from "@lingui/macro";
 
 export const handlebookmark = async (
   UserInfo,
@@ -12,7 +13,7 @@ export const handlebookmark = async (
     return showNotification({
       icon: <Lock size={18} />,
       color: "red",
-      title: "Login required",
+      title: <Trans>Login required</Trans>,
       autoClose: 3000,
     });
   }
@@ -34,7 +35,7 @@ export const handlebookmark = async (
       showNotification({
         color: "gray",
         icon: <BookmarkSimple size={18} />,
-        message: "Post unsaved successfully",
+        message: <Trans>Post unsaved successfully</Trans>,
         autoClose: 3000,
       });
     }

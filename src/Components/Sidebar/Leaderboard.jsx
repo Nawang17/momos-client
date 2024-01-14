@@ -12,6 +12,7 @@ import Topuserbadge from "../../helper/Topuserbadge";
 import { AuthContext } from "../../context/Auth";
 import { useNavigate } from "react-router-dom";
 import Verifiedbadge from "../../helper/VerifiedBadge";
+import { Trans } from "@lingui/macro";
 const useStyles = createStyles(() => ({
   accounts: {
     paddingTop: "0.5rem",
@@ -60,7 +61,7 @@ const Leaderboard = () => {
             }}
           >
             <Text weight={700} size={12}>
-              Leaderboard
+              <Trans>Leaderboard</Trans>
             </Text>{" "}
             <Popover width={220} position="bottom" withArrow shadow="md">
               <Popover.Target>
@@ -73,18 +74,20 @@ const Leaderboard = () => {
               </Popover.Target>
               <Popover.Dropdown>
                 <Text size={"xs"}>
-                  The leaderboard ranking is based on the total number of points
-                  earned by the user.
+                  <Trans>
+                    The leaderboard ranking is based on the total number of
+                    points earned by the user.
+                  </Trans>
                 </Text>
                 <Divider my="xs" />
                 <Text color={"#1DA1F2"} size={"sm"} weight={500}>
-                  How to earn points?
+                  <Trans> How to earn points? </Trans>
                 </Text>
 
                 <Text size={"xs"}>+1 point for each like on your posts</Text>
 
                 <Text size={"xs"} color="red">
-                  *Self likes are not counted
+                  <Trans>*Self likes are not counted</Trans>
                 </Text>
               </Popover.Dropdown>
             </Popover>
@@ -148,13 +151,11 @@ const Leaderboard = () => {
                               size="12px"
                             >
                               {val.username}
-                            </Text>{val.verified &&
-                            <Verifiedbadge />}
+                            </Text>
+                            {val.verified && <Verifiedbadge />}
                             {topUser === val?.username && <Topuserbadge />}
-
-                            
                           </div>
-                          {val.totalpoints} points
+                          <Trans>{val.totalpoints} points</Trans>
                         </Text>
                       </div>
                     </div>
@@ -198,7 +199,7 @@ const Leaderboard = () => {
             size={"12px"}
           >
             {" "}
-            View all
+            <Trans>View all</Trans>
           </Text>
         </div>
       ) : (
@@ -219,7 +220,7 @@ const Leaderboard = () => {
             }}
           >
             <Text weight={700} size={12}>
-              Leaderboard
+              <Trans>Leaderboard</Trans>
             </Text>{" "}
             <Popover width={220} position="bottom" withArrow shadow="md">
               <Popover.Target>
@@ -232,18 +233,22 @@ const Leaderboard = () => {
               </Popover.Target>
               <Popover.Dropdown>
                 <Text size={"xs"}>
-                  The leaderboard ranking is based on the total number of points
-                  earned by the user.
+                  <Trans>
+                    The leaderboard ranking is based on the total number of
+                    points earned by the user.
+                  </Trans>
                 </Text>
                 <Divider my="xs" />
                 <Text color={"#1DA1F2"} size={"sm"} weight={500}>
-                  How to earn points?
+                  <Trans> How to earn points?</Trans>
                 </Text>
 
-                <Text size={"xs"}>+1 point for each like on your posts</Text>
+                <Text size={"xs"}>
+                  <Trans>+1 point for each like on your posts</Trans>
+                </Text>
 
                 <Text size={"xs"} color="red">
-                  *Self likes are not counted
+                  <Trans>*Self likes are not counted</Trans>
                 </Text>
               </Popover.Dropdown>
             </Popover>

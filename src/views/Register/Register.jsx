@@ -18,6 +18,7 @@ import { AuthContext } from "../../context/Auth";
 import GoogleLogin from "@leecheuk/react-google-login";
 import { ShieldCheck, User, WarningCircle } from "@phosphor-icons/react";
 import ReactGA from "react-ga4";
+import { Trans } from "@lingui/macro";
 
 export function Register({ socket }) {
   const navigate = useNavigate();
@@ -59,7 +60,7 @@ export function Register({ socket }) {
         showNotification({
           icon: <User size={18} />,
           title: "Register Successful",
-          message: `Welcome to momos ${res.data.user.username} `,
+          message: <Trans>Welcome to momos {res.data.user.username}</Trans>,
           autoClose: 3000,
         });
       })
@@ -96,7 +97,7 @@ export function Register({ socket }) {
           showNotification({
             icon: <ShieldCheck size={18} />,
             title: "Login Successful",
-            message: `Welcome back ${res.data.user.username}`,
+            message: <Trans>Welcome back {res.data.user.username}</Trans>,
             autoClose: 3000,
           });
           await LoginStatus().then((resp) => {
@@ -117,7 +118,7 @@ export function Register({ socket }) {
           showNotification({
             icon: <User size={18} />,
             title: "Register Successful",
-            message: `Welcome to momos ${res.data.user.username} `,
+            message: <Trans>Welcome to momos {res.data.user.username}</Trans>,
             autoClose: 3000,
           });
         }
@@ -154,10 +155,10 @@ export function Register({ socket }) {
             fontWeight: 700,
           })}
         >
-          Welcome to Momos
+          <Trans>Welcome to Momos</Trans>
         </Title>
         <Text color={"rgb(144, 146, 150)"} size="sm" align="center" mt={5}>
-          Already have an account?{" "}
+          <Trans>Already have an account?</Trans>
           <Link
             style={{
               textDecoration: "none",
@@ -165,7 +166,13 @@ export function Register({ socket }) {
             }}
             to="/Login"
           >
-            <span>Login</span>
+            <span
+              style={{
+                paddingLeft: "2px",
+              }}
+            >
+              <Trans>Login</Trans>
+            </span>
           </Link>
         </Text>
 
@@ -176,23 +183,23 @@ export function Register({ socket }) {
           <form onSubmit={(e) => handleRegister(e)}>
             <TextInput
               onChange={(e) => setEmail(e.target.value)}
-              label="Email (optional)"
+              label=<Trans>Email (optional)</Trans>
               placeholder="you@youremail.com"
               value={email}
             />
             <Text pt={1} size={13} color="dimmed">
-              Never shown to the public
+              <Trans>Never shown to the public</Trans>
             </Text>
             <TextInput
               value={Username}
               onChange={(e) => setUsername(e.target.value)}
-              label="Username"
+              label=<Trans>Username</Trans>
               placeholder="Username"
               required
               mt="xs"
             />
             <Text pt={1} size={13} color="dimmed">
-              Unique, no spaces, short
+              <Trans>Unique, no spaces, short</Trans>
             </Text>
             <PasswordInput
               value={Password}
@@ -203,11 +210,11 @@ export function Register({ socket }) {
               mt="xs"
             />
             <Text pt={1} size={13} color="dimmed">
-              At least 6 characters
+              <Trans>At least 6 characters</Trans>
             </Text>
 
             <Button loading={loading} type="submit" fullWidth mt="xl">
-              Register
+              <Trans>Register</Trans>
             </Button>
           </form>
           <Divider
@@ -242,7 +249,7 @@ export function Register({ socket }) {
                   variant="default"
                   color="gray"
                 >
-                  Continue with Google
+                  <Trans>Continue with Google</Trans>
                 </Button>
               )}
               onSuccess={(res) => googleSuccess(res)}

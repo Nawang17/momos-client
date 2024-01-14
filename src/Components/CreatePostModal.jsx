@@ -33,6 +33,7 @@ import { useNavigate } from "react-router-dom";
 import GifPicker from "gif-picker-react";
 import ReactGA from "react-ga4";
 import { formatDistance } from "../helper/DateFormat";
+import { Trans } from "@lingui/macro";
 export default function CreatePostModal({
   opened,
   setOpened,
@@ -40,6 +41,8 @@ export default function CreatePostModal({
   UserInfo,
   quotepostinfo,
   communityName,
+  gifOpen,
+  pollOpen,
 }) {
   const [flieInputState, setFileInputState] = useState("");
   const [previewSource, setPreviewSource] = useState("");
@@ -49,7 +52,7 @@ export default function CreatePostModal({
   const [loading, setloading] = useState(false);
   const [filetype, setfiletype] = useState("");
   const [media, setmedia] = useState(null);
-  const [poll, setpoll] = useState(false);
+  const [poll, setpoll] = useState(pollOpen);
   const [choice1, setchoice1] = useState("");
   const [choice2, setchoice2] = useState("");
   const [choice3, setchoice3] = useState("");
@@ -58,7 +61,7 @@ export default function CreatePostModal({
   const [pollhours, setpollhours] = useState("0");
   const [pollminutes, setpollminutes] = useState("0");
   const [pollquestion, setpollquestion] = useState("");
-  const [gifstatus, setgifstatus] = useState(false);
+  const [gifstatus, setgifstatus] = useState(gifOpen);
   const [gifpreview, setgifpreview] = useState("");
   const imgsizelimit = 9437184; //9mb
   const videosizelimit = 52428800; //50 mb
@@ -104,7 +107,7 @@ export default function CreatePostModal({
     const file = e.target.files[0];
     if (file.type.match("image.*")) {
       if (file.size > imgsizelimit) {
-        setError("Image size is too big. Max allowed size is 9MB");
+        setError(<Trans>Image size is too big. Max allowed size is 9MB</Trans>);
       } else {
         setfiletype("image");
         previewFile(file);
@@ -113,7 +116,9 @@ export default function CreatePostModal({
     }
     if (file.type.match("video.*")) {
       if (file.size > videosizelimit) {
-        setError("Video size is too big. Max allowed size is 95MB");
+        setError(
+          <Trans>Video size is too big. Max allowed size is 95MB</Trans>
+        );
       } else {
         setfiletype("video");
 
@@ -164,7 +169,7 @@ export default function CreatePostModal({
             showNotification({
               color: "teal",
               icon: <Lightning size={18} />,
-              title: "Post Created Successfully",
+              title: <Trans>Post Created Successfully</Trans>,
               autoClose: 3000,
             });
           })
@@ -199,7 +204,7 @@ export default function CreatePostModal({
             showNotification({
               color: "teal",
               icon: <Lightning size={18} />,
-              title: "Post Created Successfully",
+              title: <Trans>Post Created Successfully</Trans>,
               autoClose: 3000,
             });
           })
@@ -229,7 +234,7 @@ export default function CreatePostModal({
             showNotification({
               color: "teal",
               icon: <Lightning size={18} />,
-              title: "Post Created Successfully",
+              title: <Trans>Post Created Successfully</Trans>,
               autoClose: 3000,
             });
           })
@@ -255,7 +260,7 @@ export default function CreatePostModal({
             showNotification({
               color: "teal",
               icon: <Lightning size={18} />,
-              title: "Post Created Successfully",
+              title: <Trans>Post Created Successfully</Trans>,
               autoClose: 3000,
             });
           })
@@ -331,7 +336,7 @@ export default function CreatePostModal({
                 placeholder={
                   !poll
                     ? `What's on your mind, ${UserInfo?.username}?`
-                    : "What's your question?"
+                    : `What's your question?`
                 }
                 autosize
                 minRows={2}
@@ -398,7 +403,9 @@ export default function CreatePostModal({
                         controls
                       >
                         <source src={previewSource} type="video/mp4" />
-                        Your browser does not support the video tag.
+                        <Trans>
+                          Your browser does not support the video tag.
+                        </Trans>
                       </video>
                     </>
                   )}
@@ -555,7 +562,9 @@ export default function CreatePostModal({
                           controls
                         >
                           <source src={quotepostinfo?.image} type="video/mp4" />
-                          Your browser does not support the video tag.
+                          <Trans>
+                            Your browser does not support the video tag.
+                          </Trans>
                         </video>
                       )}
                     </>
@@ -593,15 +602,15 @@ export default function CreatePostModal({
                       gap: "10px",
                     }}
                   >
-                    <Input.Wrapper label="Choice 1" required>
+                    <Input.Wrapper label=<Trans>Choice 1</Trans> required>
                       <Input
                         value={choice1}
                         onChange={(e) => setchoice1(e.target.value)}
                         maxLength={25}
-                        placeholder="Choice 1"
+                        placeholder="Choice "
                       />
                     </Input.Wrapper>
-                    <Input.Wrapper label="Choice 2" required>
+                    <Input.Wrapper label=<Trans>Choice 2</Trans> required>
                       <Input
                         value={choice2}
                         onChange={(e) => setchoice2(e.target.value)}
@@ -611,7 +620,7 @@ export default function CreatePostModal({
                     </Input.Wrapper>{" "}
                     <Input.Wrapper
                       onChange={(e) => setchoice3(e.target.value)}
-                      label="Choice 3 (optional)"
+                      label=<Trans>Choice 3(optional)</Trans>
                     >
                       <Input
                         value={choice3}
@@ -619,7 +628,7 @@ export default function CreatePostModal({
                         placeholder="Choice 3"
                       />
                     </Input.Wrapper>{" "}
-                    <Input.Wrapper label="Choice 4 (optional)">
+                    <Input.Wrapper label=<Trans>Choice 4(optional)</Trans>>
                       <Input
                         value={choice4}
                         maxLength={25}
@@ -643,7 +652,7 @@ export default function CreatePostModal({
                   >
                     <Alarm weight="fill" />
                     <Text weight={600} size="14px">
-                      Poll duration
+                      <Trans>Poll duration</Trans>
                     </Text>
                   </div>{" "}
                   <div
@@ -657,7 +666,7 @@ export default function CreatePostModal({
                     <Select
                       value={polldays}
                       onChange={setpolldays}
-                      label="Days"
+                      label=<Trans>Days</Trans>
                       data={[
                         { value: "0", label: "0" },
                         { value: "1", label: "1" },
@@ -670,7 +679,7 @@ export default function CreatePostModal({
                       ]}
                     />
                     <Select
-                      label="Hours"
+                      label=<Trans>Hours</Trans>
                       value={pollhours}
                       onChange={setpollhours}
                       data={[
@@ -703,7 +712,7 @@ export default function CreatePostModal({
                     <Select
                       value={pollminutes}
                       onChange={setpollminutes}
-                      label="Minutes"
+                      label=<Trans>Minutes</Trans>
                       data={[
                         { value: "0", label: "0" },
                         { value: "1", label: "1" },
@@ -769,7 +778,9 @@ export default function CreatePostModal({
                     />
                   </div>
                   <Text color="dimmed" pt={10} size={"xs"} pb={10}>
-                    Default poll duration: 1 day if no selection made.
+                    <Trans>
+                      Default poll duration: 1 day if no selection made.
+                    </Trans>
                   </Text>
                   <Button
                     onClick={() => {
@@ -780,7 +791,7 @@ export default function CreatePostModal({
                     fullWidth
                     color="red"
                   >
-                    Remove Poll
+                    <Trans>Remove Poll</Trans>
                   </Button>
                 </div>
               )}
@@ -901,7 +912,7 @@ export default function CreatePostModal({
                       radius={"xl"}
                       size="xs"
                     >
-                      Post
+                      <Trans> Post</Trans>
                     </Button>
                   ) : (
                     <Button
@@ -910,7 +921,7 @@ export default function CreatePostModal({
                       radius={"xl"}
                       size="xs"
                     >
-                      Posting
+                      <Trans>Posting</Trans>
                     </Button>
                   )}
                 </div>

@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useMediaQuery } from "@mantine/hooks";
 import { AuthContext } from "../context/Auth";
 import { SmileySad } from "@phosphor-icons/react";
+import { Trans } from "@lingui/macro";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -64,7 +65,7 @@ export const PostFeed = ({ setPosts, posts, loading }) => {
                             }}
                           >
                             <Text weight={"500"} size={"14px"}>
-                              Suggested for you
+                              <Trans>Suggested for you</Trans>
                             </Text>
                             <Text
                               style={{ cursor: "pointer" }}
@@ -76,7 +77,7 @@ export const PostFeed = ({ setPosts, posts, loading }) => {
                               size={"14px"}
                             >
                               {" "}
-                              See all
+                              <Trans>See all</Trans>
                             </Text>
                           </div>
                           <ScrollArea
@@ -131,7 +132,7 @@ export const PostFeed = ({ setPosts, posts, loading }) => {
         >
           <SmileySad weight="bold" size={18} color={"#868e96"} />
           <Text weight={500} color={"#868e96"} align="center" fontSize="13px">
-            found nothing
+            <Trans>found nothing</Trans>
           </Text>
         </div>
       )}

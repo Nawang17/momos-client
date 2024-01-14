@@ -5,6 +5,7 @@ import { useState } from "react";
 
 import { dynamicActivate } from "../../../i18n";
 import { showNotification } from "@mantine/notifications";
+import { Trans } from "@lingui/macro";
 const lngs = {
   en: { nativeName: "English", flag: "https://flagsapi.com/US/shiny/24.png" },
   ko: { nativeName: "Korean", flag: "https://flagsapi.com/KR/shiny/24.png" },
@@ -19,7 +20,7 @@ const Translation = () => {
     <>
       <NavLink
         onClick={() => setOpened(true)}
-        label="Language"
+        label=<Trans>Language</Trans>
         rightSection={
           <div
             style={{
@@ -53,9 +54,17 @@ const Translation = () => {
             <NavLink
               key={languageCode}
               onClick={() => {
+                if (currentLng === lngs[languageCode].nativeName) {
+                  setOpened(false);
+                  return;
+                }
                 showNotification({
                   icon: <Translate size={18} />,
-                  title: `Language changed to ${lngs[languageCode].nativeName}`,
+                  title: (
+                    <Trans>
+                      Language changed to {lngs[languageCode].nativeName}
+                    </Trans>
+                  ),
                   color: "blue",
                 });
                 localStorage.setItem("language", languageCode);

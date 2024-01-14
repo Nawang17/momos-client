@@ -63,7 +63,7 @@ export function Hero({ darkmode }) {
         <Title className={classes.title}>
           <Trans>
             Welcome to
-            <Text pl={7} component="span" className={classes.highlight} inherit>
+            <Text px={7} component="span" className={classes.highlight} inherit>
               momos
             </Text>
           </Trans>

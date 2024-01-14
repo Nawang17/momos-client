@@ -4,6 +4,7 @@ import React from "react";
 import { useContext } from "react";
 import { useState } from "react";
 import { AuthContext } from "../../../context/Auth";
+import { Trans } from "@lingui/macro";
 
 const Apperance = () => {
   const [opened, setOpened] = useState(false);
@@ -12,7 +13,7 @@ const Apperance = () => {
     <>
       <NavLink
         onClick={() => setOpened(true)}
-        label="Display theme"
+        label=<Trans>Display theme</Trans>
         rightSection={
           <div
             style={{
@@ -22,7 +23,7 @@ const Apperance = () => {
             }}
           >
             <Text color="dimmed" size={13}>
-              {darkmode ? "Dark" : "Light"}
+              {darkmode ? <Trans>Dark</Trans> : <Trans>Light</Trans>}
             </Text>
             <CaretRight size="0.8rem" stroke={1.5} />
           </div>
@@ -51,7 +52,7 @@ const Apperance = () => {
               }
               localStorage.setItem("darkmode", !darkmode);
             }}
-            label="Light"
+            label=<Trans>Light</Trans>
             icon={<Sun color="gold" size="1.5rem" weight="fill" />}
             rightSection={!darkmode && <Check size="1.2rem" />}
           />
@@ -65,7 +66,7 @@ const Apperance = () => {
               }
               localStorage.setItem("darkmode", !darkmode);
             }}
-            label="Dark"
+            label=<Trans>Dark</Trans>
             icon={<MoonStars color="skyblue" size="1.5rem" weight="fill" />}
             rightSection={darkmode && <Check size="1.2em" />}
           />

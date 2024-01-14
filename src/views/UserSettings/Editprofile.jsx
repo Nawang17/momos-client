@@ -25,6 +25,7 @@ import { editprofileinfo } from "../../api/GET";
 import { updateprofileinfo } from "../../api/UPDATE";
 import { useContext } from "react";
 import { AuthContext } from "../../context/Auth";
+import { Trans } from "@lingui/macro";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -96,7 +97,7 @@ export const Editprofile = () => {
         setUserInfo(res.data.newUserInfo);
         showNotification({
           icon: <Pencil size={18} />,
-          message: "Profile updated successfully",
+          message: <Trans>Profile updated successfully</Trans>,
           color: "teal",
         });
         navigate(`/${res.data.newUserInfo.username}`);
@@ -179,7 +180,10 @@ export const Editprofile = () => {
           <ActionIcon onClick={() => navigate(-1)}>
             <ArrowLeft size="20px" />
           </ActionIcon>
-          <Text weight={"500"}>Edit profile</Text>
+          <Text weight={"500"}>
+            {" "}
+            <Trans>Edit profile </Trans>
+          </Text>
           <div></div>
         </div>
         {loading ? (
@@ -421,7 +425,7 @@ export const Editprofile = () => {
                 paddingTop: UserInfo?.username === "Demo" ? "3rem" : "1rem",
               }}
             >
-              <Input.Wrapper label="Username">
+              <Input.Wrapper label=<Trans>Username</Trans>>
                 <Input
                   disabled={UserInfo?.username === "Demo"}
                   value={username}
@@ -443,7 +447,7 @@ export const Editprofile = () => {
                   }}
                   minRows={3}
                   maxRows={4}
-                  label="Bio"
+                  label=<Trans>Bio</Trans>
                   maxLength={160}
                 />
                 <Text
@@ -462,7 +466,7 @@ export const Editprofile = () => {
                 }}
               >
                 <Button onClick={handleSave} disabled={btndisabled} radius="sm">
-                  Save Changes
+                  <Trans>Save Changes </Trans>
                 </Button>
                 <Button
                   onClick={() => {
@@ -472,7 +476,7 @@ export const Editprofile = () => {
                   radius="sm"
                   color={"red"}
                 >
-                  Undo all Changes
+                  <Trans> Undo all Changes </Trans>
                 </Button>
               </div>
             </div>

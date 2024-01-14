@@ -13,6 +13,7 @@ import {
   WarningCircle,
 } from "@phosphor-icons/react";
 import { deleteCommunity, leaveCommunity } from "../../api/DELETE";
+import { Trans } from "@lingui/macro";
 
 export const CommunityProfileMenu = ({ profiledata }) => {
   const { UserInfo } = useContext(AuthContext);
@@ -25,8 +26,10 @@ export const CommunityProfileMenu = ({ profiledata }) => {
       title: "Are you sure you want to leave this community?",
       children: (
         <Text size="sm">
-          You will no longer be able to post or comment in this community. You
-          can rejoin at any time.
+          <Trans>
+            You will no longer be able to post or comment in this community. You
+            can rejoin at any time.
+          </Trans>
         </Text>
       ),
       labels: { confirm: "Confirm", cancel: "Cancel" },
@@ -39,7 +42,7 @@ export const CommunityProfileMenu = ({ profiledata }) => {
             showNotification({
               icon: <SignOut size={18} />,
               color: "blue",
-              title: "You have left the community",
+              title: <Trans>You have left the community </Trans>,
               autoClose: 4000,
             });
             navigate(-1);
@@ -67,14 +70,19 @@ export const CommunityProfileMenu = ({ profiledata }) => {
   const handledeleteCommunity = () => {
     openConfirmModal({
       centered: true,
-      title: "Are you sure you want to delete this community?",
+      title: <Trans>Are you sure you want to delete this community? </Trans>,
       children: (
         <Text size="sm">
-          All posts and members of this community will be deleted forever. This
-          action cannot be undone.
+          <Trans>
+            All posts and members of this community will be deleted forever.
+            This action cannot be undone.
+          </Trans>
         </Text>
       ),
-      labels: { confirm: "Yes, delete it", cancel: "No, don't delete it" },
+      labels: {
+        confirm: <Trans>Yes, delete it </Trans>,
+        cancel: <Trans>No, don't delete it </Trans>,
+      },
       confirmProps: { color: "red" },
       onCancel: () => {
         return;
@@ -85,7 +93,7 @@ export const CommunityProfileMenu = ({ profiledata }) => {
             showNotification({
               icon: <Trash size={18} />,
               color: "blue",
-              title: "You have deleted the community",
+              title: <Trans>You have deleted the community </Trans>,
               autoClose: 4000,
             });
             navigate(-1);
@@ -130,7 +138,7 @@ export const CommunityProfileMenu = ({ profiledata }) => {
             }
           }}
         >
-          Share
+          <Trans>Share</Trans>
         </Menu.Item>
         {profiledata?.communitymembers?.some(
           (obj) => !obj.isOwner && obj.user.username === UserInfo.username
@@ -139,7 +147,7 @@ export const CommunityProfileMenu = ({ profiledata }) => {
             icon={<SignOut size={14} />}
             onClick={() => handleLeaveCommunity()}
           >
-            Leave Community
+            <Trans> Leave Community </Trans>
           </Menu.Item>
         ) : (
           <Menu.Item
@@ -149,7 +157,7 @@ export const CommunityProfileMenu = ({ profiledata }) => {
               handledeleteCommunity();
             }}
           >
-            Delete Community
+            <Trans> Delete Community </Trans>
           </Menu.Item>
         )}
       </Menu.Dropdown>

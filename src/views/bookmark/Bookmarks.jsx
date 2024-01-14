@@ -6,6 +6,7 @@ import { getbookmarks } from "../../api/GET";
 import { PostFeed } from "../../Components/PostFeed";
 import { Sidebar } from "../../Components/Sidebar";
 import { AuthContext } from "../../context/Auth";
+import { Trans } from "@lingui/macro";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -77,7 +78,7 @@ export const Bookmarks = () => {
           size="sm"
           weight={700}
         >
-          {bookmarkposts.length} Bookmarks
+          <Trans>{bookmarkposts.length} Bookmarks </Trans>
         </Text>
         {bookmarkposts.length !== 0 && !loading && (
           <PostFeed

@@ -29,6 +29,7 @@ import Topuserbadge from "../../helper/Topuserbadge";
 import { formatDistance } from "../../helper/DateFormat";
 import Verifiedbadge from "../../helper/VerifiedBadge";
 import { formatText } from "../../helper/FormatText";
+import { Trans } from "@lingui/macro";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -407,12 +408,15 @@ export const Comments = ({
                                 variant="filled"
                                 size="xs"
                               >
-                                OP
+                                <Trans> OP </Trans>
                               </Badge>
                             </Tooltip>
                           </Popover.Target>
                           <Popover.Dropdown>
-                            <Text size="sm">Original poster</Text>
+                            <Text size="sm">
+                              {" "}
+                              <Trans>Original poster </Trans>
+                            </Text>
                           </Popover.Dropdown>
                         </Popover>
                       )}
@@ -430,7 +434,7 @@ export const Comments = ({
                       </Text>
                       {comment.createdAt !== comment.updatedAt && (
                         <Text color="dimmed" size="13px">
-                          (edited)
+                          <Trans> (edited) </Trans>
                         </Text>
                       )}
                     </div>
@@ -508,7 +512,7 @@ export const Comments = ({
                           showNotification({
                             icon: <Lock size={18} />,
                             color: "red",
-                            title: "Login required",
+                            title: <Trans>Login required </Trans>,
                             autoClose: 3000,
                           });
                         } else {
@@ -530,7 +534,7 @@ export const Comments = ({
                     >
                       <ChatCircle color="gray" weight="light" size={18} />
                       <Text color="dimmed" weight={"500"} size="14px">
-                        Reply
+                        <Trans>Reply </Trans>
                       </Text>
                     </div>
                   </div>
@@ -614,12 +618,15 @@ export const Comments = ({
                                       variant="filled"
                                       size="xs"
                                     >
-                                      OP
+                                      <Trans> OP </Trans>
                                     </Badge>
                                   </Tooltip>
                                 </Popover.Target>
                                 <Popover.Dropdown>
-                                  <Text size="sm">Original poster</Text>
+                                  <Text size="sm">
+                                    {" "}
+                                    <Trans>Original poster </Trans>
+                                  </Text>
                                 </Popover.Dropdown>
                               </Popover>
                             )}
@@ -637,7 +644,7 @@ export const Comments = ({
                             </Text>
                             {data?.createdAt !== data?.updatedAt && (
                               <Text color="dimmed" size="13px">
-                                (edited)
+                                <Trans> (edited) </Trans>
                               </Text>
                             )}
                             <Flex align={"center"}>
@@ -744,7 +751,7 @@ export const Comments = ({
                               showNotification({
                                 color: "red",
                                 icon: <Lock size={18} />,
-                                title: "Login required",
+                                title: <Trans>Login required </Trans>,
                                 autoClose: 3000,
                               });
                             } else {
@@ -766,7 +773,7 @@ export const Comments = ({
                         >
                           <ChatCircle color="gray" weight="light" size={18} />
                           <Text color="dimmed" weight={"500"} size="14px">
-                            Reply
+                            <Trans>Reply </Trans>
                           </Text>
                         </div>
                       </div>

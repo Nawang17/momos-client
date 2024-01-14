@@ -8,6 +8,7 @@ import locale from "date-fns/locale/en-US";
 import { formatDistance } from "../helper/DateFormat";
 import Topuserbadge from "../helper/Topuserbadge";
 import Verifiedbadge from "../helper/VerifiedBadge";
+import { Trans } from "@lingui/macro";
 const useStyles = createStyles(() => ({
   wrapper: {
     padding: "1rem 0rem 1rem 0rem",
@@ -166,7 +167,7 @@ const RepliesFeed = ({ replies, loading, setreplies }) => {
                           >
                             {reply?.user?.username}
                           </Text>
-                         {reply?.user?.verified && <Verifiedbadge />} 
+                          {reply?.user?.verified && <Verifiedbadge />}
                           {topUser === reply?.user?.username && (
                             <Topuserbadge />
                           )}
@@ -191,7 +192,7 @@ const RepliesFeed = ({ replies, loading, setreplies }) => {
                           </Text>
                           {reply?.createdAt !== reply?.updatedAt && (
                             <Text color="dimmed" size="12px">
-                              (edited)
+                              <Trans> (edited) </Trans>
                             </Text>
                           )}
                         </div>
@@ -218,30 +219,33 @@ const RepliesFeed = ({ replies, loading, setreplies }) => {
                         </div>
                       </div>
                       <Text color="dimmed" size={"15px"}>
-                        Replying to{" "}
-                        <span
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            navigate(
-                              `/${
-                                reply?.repliedtouser
-                                  ? reply?.repliedtouser?.username
-                                  : reply?.post?.user?.username
-                              }`
-                            );
-                          }}
-                          style={{
-                            cursor: "pointer",
-                            fontSize: "15px",
-                            fontWeight: 500,
-                            color: "rgb(29, 161, 242)",
-                          }}
-                        >
-                          @
-                          {reply?.repliedtouser
-                            ? reply?.repliedtouser?.username
-                            : reply?.post?.user?.username}
-                        </span>
+                        <Trans>
+                          {" "}
+                          Replying to{" "}
+                          <span
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              navigate(
+                                `/${
+                                  reply?.repliedtouser
+                                    ? reply?.repliedtouser?.username
+                                    : reply?.post?.user?.username
+                                }`
+                              );
+                            }}
+                            style={{
+                              cursor: "pointer",
+                              fontSize: "15px",
+                              fontWeight: 500,
+                              color: "rgb(29, 161, 242)",
+                            }}
+                          >
+                            @
+                            {reply?.repliedtouser
+                              ? reply?.repliedtouser?.username
+                              : reply?.post?.user?.username}
+                          </span>{" "}
+                        </Trans>
                       </Text>
                       {reply?.text && (
                         <div

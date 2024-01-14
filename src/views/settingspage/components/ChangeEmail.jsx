@@ -10,6 +10,7 @@ import { CaretRight, Envelope } from "@phosphor-icons/react";
 import React, { useState } from "react";
 import { updateUserEmail } from "../../../api/UPDATE";
 import { showNotification } from "@mantine/notifications";
+import { Trans } from "@lingui/macro";
 
 const ChangeEmail = ({ usersettingsInfo, setUsersettingsInfo }) => {
   const [opened, setOpened] = useState(false);
@@ -35,7 +36,7 @@ const ChangeEmail = ({ usersettingsInfo, setUsersettingsInfo }) => {
         showNotification({
           color: "teal",
           icon: <Envelope size={18} />,
-          title: "Email updated",
+          title: <Trans>Email updated</Trans>,
           autoClose: 3000,
         });
         setLoading(false);
@@ -49,7 +50,7 @@ const ChangeEmail = ({ usersettingsInfo, setUsersettingsInfo }) => {
     <>
       <NavLink
         onClick={() => setOpened(true)}
-        label="Change email"
+        label=<Trans>Change email</Trans>
         rightSection={
           <div
             style={{
@@ -68,7 +69,7 @@ const ChangeEmail = ({ usersettingsInfo, setUsersettingsInfo }) => {
       <Modal
         closeOnClickOutside={false}
         onClose={() => onmodalclose()}
-        title="Change email"
+        title=<Trans>Change email</Trans>
         zIndex={1000}
         opened={opened}
       >
@@ -84,7 +85,7 @@ const ChangeEmail = ({ usersettingsInfo, setUsersettingsInfo }) => {
             gap: "1rem",
           }}
         >
-          <Input.Wrapper label="New Email Address">
+          <Input.Wrapper label=<Trans>New Email Address</Trans>>
             <Input
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -96,10 +97,12 @@ const ChangeEmail = ({ usersettingsInfo, setUsersettingsInfo }) => {
           <PasswordInput
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            label="Password"
+            label=<Trans>Password</Trans>
           />
           <Text color="dimmed" size={13}>
-            To confirm your new email, enter your current password.
+            <Trans>
+              To confirm your new email, enter your current password.
+            </Trans>
           </Text>
           <Button
             loading={loading}
@@ -109,7 +112,7 @@ const ChangeEmail = ({ usersettingsInfo, setUsersettingsInfo }) => {
             }}
             color="blue"
           >
-            Save changes
+            <Trans>Save changes</Trans>
           </Button>
         </div>
       </Modal>

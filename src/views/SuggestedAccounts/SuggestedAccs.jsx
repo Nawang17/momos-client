@@ -23,6 +23,7 @@ import { follow } from "../../api/POST";
 import * as DOMPurify from "dompurify";
 import Topuserbadge from "../../helper/Topuserbadge";
 import Verifiedbadge from "../../helper/VerifiedBadge";
+import { Trans } from "@lingui/macro";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -92,7 +93,7 @@ export const SuggestedAccs = () => {
       showNotification({
         icon: <Lock size={18} />,
         color: "red",
-        title: "Login required",
+        title: <Trans>Login required </Trans>,
         autoClose: 3000,
       });
     } else {
@@ -107,14 +108,14 @@ export const SuggestedAccs = () => {
             setbtndisabled("");
             showNotification({
               icon: <UserPlus size={18} />,
-              message: `You are now following ${username}`,
+              message: <Trans>You are now following {username} </Trans>,
               autoClose: 3000,
             });
           } else {
             setbtndisabled("");
             showNotification({
               icon: <UserMinus size={18} />,
-              message: `You are no longer following ${username}`,
+              message: <Trans>You are no longer following {username} </Trans>,
               autoClose: 3000,
             });
 
@@ -160,7 +161,7 @@ export const SuggestedAccs = () => {
             <ArrowLeft size="20px" />
           </ActionIcon>
           <Text weight={"500"} size={"16px"}>
-            Suggested Accounts
+            <Trans> Suggested Accounts </Trans>
           </Text>
         </div>
 
@@ -230,10 +231,7 @@ export const SuggestedAccs = () => {
                         {acc?.username}
                       </Text>
 
-                    
-                      {acc?.verified && (
-                        <Verifiedbadge  />
-                      )}  
+                      {acc?.verified && <Verifiedbadge />}
                       {topUser === acc?.username && <Topuserbadge />}
                     </div>
                     {!followingdata.includes(acc?.username) ? (
@@ -246,8 +244,7 @@ export const SuggestedAccs = () => {
                         radius="sm"
                         size="xs"
                       >
-                        {" "}
-                        follow
+                        <Trans> follow </Trans>
                       </Button>
                     ) : (
                       <Button
@@ -261,8 +258,7 @@ export const SuggestedAccs = () => {
                         radius="sm"
                         size="xs"
                       >
-                        {" "}
-                        unfollow
+                        <Trans>unfollow</Trans>
                       </Button>
                     )}
                   </div>

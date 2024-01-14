@@ -19,6 +19,7 @@ import Leaderboard from "./Sidebar/Leaderboard";
 import News from "./Sidebar/News";
 import { calculateLevelAndProgress } from "../helper/helperfunctions";
 import Verifiedbadge from "../helper/VerifiedBadge";
+import { Trans } from "@lingui/macro";
 const useStyles = createStyles(() => ({
   wrapper: {
     width: "100%",
@@ -225,7 +226,7 @@ export const Sidebar = () => {
                     >
                       {userlevelinfo?.username}
                     </Text>
-                   {userlevelinfo?.verified && <Verifiedbadge />}
+                    {userlevelinfo?.verified && <Verifiedbadge />}
                     {topUser === userlevelinfo?.username && <Topuserbadge />}
                     <Popover
                       zIndex={1000}
@@ -248,20 +249,29 @@ export const Sidebar = () => {
                           weight={700}
                           size={"xs"}
                         >
-                          How does levels work?
+                          <Trans>How does levels work?</Trans>
                         </Text>
                         <Text size={"xs"}></Text>
 
                         <Text pt={5} size={"xs"}>
-                          🏆 Your level is based on how many points you have.
+                          🏆{" "}
+                          <Trans>
+                            Your level is based on how many points you have.
+                          </Trans>
                         </Text>
                         <Text pt={5} size={"xs"}>
-                          🎢 Leveling becomes more challenging with each new
-                          level.
+                          🎢{" "}
+                          <Trans>
+                            Leveling becomes more challenging with each new
+                            level.
+                          </Trans>
                         </Text>
                         <Text pt={5} size={"xs"}>
-                          📈 You can earn points by gaining likes on your
-                          content.
+                          📈{" "}
+                          <Trans>
+                            You can earn points by gaining likes on your
+                            content.
+                          </Trans>
                         </Text>
                       </Popover.Dropdown>
                     </Popover>
@@ -273,8 +283,10 @@ export const Sidebar = () => {
                     size={12}
                     weight={500}
                   >
-                    {getRankInfo().rankName} Rank - {userlevelinfo?.totalpoints}{" "}
-                    points
+                    <Trans>
+                      {getRankInfo().rankName} Rank -{" "}
+                      {userlevelinfo?.totalpoints} points
+                    </Trans>
                   </Text>
 
                   <Progress
@@ -303,20 +315,22 @@ export const Sidebar = () => {
                       size={12}
                       weight={500}
                     >
-                      {" "}
-                      Level {calculateLevelAndProgress(totalPoints).level}
+                      <Trans>
+                        Level {calculateLevelAndProgress(totalPoints).level}
+                      </Trans>
                     </Text>
                     <Text
                       color={darkmode ? "#c1c2c5" : "#000000"}
                       size={12}
                       weight={500}
                     >
-                      {" "}
-                      {calculateLevelAndProgress(totalPoints)
-                        .totalPointsInLevel -
-                        calculateLevelAndProgress(totalPoints).progress}{" "}
-                      pts to Level{" "}
-                      {calculateLevelAndProgress(totalPoints).level + 1}
+                      <Trans>
+                        {calculateLevelAndProgress(totalPoints)
+                          .totalPointsInLevel -
+                          calculateLevelAndProgress(totalPoints).progress}{" "}
+                        pts to Level{" "}
+                        {calculateLevelAndProgress(totalPoints).level + 1}
+                      </Trans>
                     </Text>
                   </div>
                 </div>
@@ -350,7 +364,7 @@ export const Sidebar = () => {
               }}
             >
               <Text weight={700} size={12}>
-                Online - {onlinelist.length}
+                <Trans>Online - {onlinelist.length}</Trans>
               </Text>
             </div>
 
@@ -375,8 +389,7 @@ export const Sidebar = () => {
                         }}
                       >
                         <Text>{val.username}</Text>
-                        {val?.verified && <Verifiedbadge/>
-                        }
+                        {val?.verified && <Verifiedbadge />}
 
                         {topUser === val.username && <Topuserbadge />}
                       </div>
@@ -430,7 +443,9 @@ export const Sidebar = () => {
                 gap: "0.3rem",
               }}
             >
-              <Text>About</Text>
+              <Text>
+                <Trans>About</Trans>
+              </Text>
             </div>
             <div
               className="hoveru"
@@ -475,7 +490,9 @@ export const Sidebar = () => {
                 gap: "0.3rem",
               }}
             >
-              <Text>Search</Text>
+              <Text>
+                <Trans>Search</Trans>
+              </Text>
             </div>
           </div>
           <Text

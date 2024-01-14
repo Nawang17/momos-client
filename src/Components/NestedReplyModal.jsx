@@ -7,6 +7,7 @@ import { AuthContext } from "../context/Auth";
 import GifPicker from "gif-picker-react";
 import { useParams } from "react-router-dom";
 import { updatecomment, updatenestedcomment } from "../api/UPDATE";
+import { Trans } from "@lingui/macro";
 
 export default function NestedReplyModal({
   opened,
@@ -54,7 +55,7 @@ export default function NestedReplyModal({
           setComments((prev) => [...prev, res.data.comment]);
           showNotification({
             icon: <Lightning size={18} />,
-            title: "Reply added",
+            title: <Trans>Reply added</Trans>,
             autoClose: 3000,
             color: "green",
           });
@@ -89,7 +90,7 @@ export default function NestedReplyModal({
           showNotification({
             icon: <Pencil size={18} />,
             color: "green",
-            title: "Comment updated successfully",
+            title: <Trans>Comment updated successfully</Trans>,
             autoClose: 3000,
           });
         })
@@ -132,7 +133,7 @@ export default function NestedReplyModal({
           showNotification({
             icon: <Pencil size={18} />,
             color: "green",
-            title: "reply updated successfully",
+            title: <Trans>reply updated successfully</Trans>,
             autoClose: 3000,
           });
         })
@@ -166,7 +167,7 @@ export default function NestedReplyModal({
           showNotification({
             icon: <Lightning size={18} />,
             color: "green",
-            title: "Reply added",
+            title: <Trans>Reply added</Trans>,
             autoClose: 3000,
           });
         })
@@ -209,20 +210,22 @@ export default function NestedReplyModal({
             <div></div>
             <div>
               <div style={{ fontSize: "16px", color: "gray" }}>
-                Replying to
-                <span
-                  style={{
-                    cursor: "pointer",
-                    paddingLeft: "5px",
-                    color: "#1DA1F2",
-                    fontWeight: "500",
-                  }}
-                >
-                  {postUser ? postUser : replypost?.replyingto}
-                  {editcommentinfo && editreplyingto}
-                  {editnestedcommentinfo &&
-                    editnestedcommentinfo?.repliedtouser?.username}
-                </span>
+                <Trans>
+                  Replying to
+                  <span
+                    style={{
+                      cursor: "pointer",
+                      paddingLeft: "5px",
+                      color: "#1DA1F2",
+                      fontWeight: "500",
+                    }}
+                  >
+                    {postUser ? postUser : replypost?.replyingto}
+                    {editcommentinfo && editreplyingto}
+                    {editnestedcommentinfo &&
+                      editnestedcommentinfo?.repliedtouser?.username}
+                  </span>
+                </Trans>
               </div>
               {error && (
                 <div>
@@ -349,7 +352,7 @@ export default function NestedReplyModal({
                       radius={"xl"}
                       size="xs"
                     >
-                      Save changes
+                      <Trans>Save changes</Trans>
                     </Button>
                   )}
                   {editcommentinfo && (
@@ -365,7 +368,7 @@ export default function NestedReplyModal({
                       radius={"xl"}
                       size="xs"
                     >
-                      Save Changes
+                      <Trans>Save Changes</Trans>
                     </Button>
                   )}
                   {!editcommentinfo && !editnestedcommentinfo && (
@@ -378,11 +381,11 @@ export default function NestedReplyModal({
                       radius={"xl"}
                       size="xs"
                     >
-                      Reply
+                      <Trans>Reply</Trans>
                     </Button>
                   )}
                 </div>
-              </div>{" "}
+              </div>
             </div>
           </div>
         </div>

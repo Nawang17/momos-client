@@ -11,6 +11,7 @@ import React from "react";
 import { useState } from "react";
 import { updateUserPassword } from "../../../api/UPDATE";
 import { showNotification } from "@mantine/notifications";
+import { Trans } from "@lingui/macro";
 
 const ChangePassword = () => {
   const [opened, setOpened] = useState(false);
@@ -38,7 +39,7 @@ const ChangePassword = () => {
         showNotification({
           color: "teal",
           icon: <Lock size={18} />,
-          title: "Password Updated",
+          title: <Trans>Password Updated</Trans>,
           autoClose: 3000,
         });
         setLoading(false);
@@ -52,13 +53,13 @@ const ChangePassword = () => {
     <>
       <NavLink
         onClick={() => setOpened(true)}
-        label="Change password"
+        label=<Trans>Change password</Trans>
         rightSection={<CaretRight size="0.8rem" stroke={1.5} />}
       />
       <Modal
         closeOnClickOutside={false}
         onClose={() => onmodalclose()}
-        title="Change Password"
+        title=<Trans>Change password</Trans>
         zIndex={1000}
         opened={opened}
       >
@@ -78,18 +79,18 @@ const ChangePassword = () => {
           <PasswordInput
             value={CurrentPassword}
             onChange={(e) => setCurrentPassword(e.target.value)}
-            label="Current Password"
+            label=<Trans>Current Password</Trans>
           />
 
           <PasswordInput
             value={NewPassword}
             onChange={(e) => setNewPassword(e.target.value)}
-            label="New Password"
+            label=<Trans>New Password</Trans>
           />
           <PasswordInput
             value={ConfirmNewPassword}
             onChange={(e) => setConfirmNewPassword(e.target.value)}
-            label="Confirm New Password"
+            label=<Trans>Confirm New Password</Trans>
           />
           <Checkbox
             size="xs"
@@ -97,7 +98,7 @@ const ChangePassword = () => {
             checked={
               NewPassword.length >= 6 && NewPassword === ConfirmNewPassword
             }
-            label="New Password must be minimum 6 Characters"
+            label=<Trans>New Password must be minimum 6 Character</Trans>
             radius="xl"
           />
           <Button
@@ -111,7 +112,7 @@ const ChangePassword = () => {
             onClick={() => handleupdatePassword()}
             color="blue"
           >
-            Save changes
+            <Trans>Save changes</Trans>
           </Button>
         </div>
       </Modal>

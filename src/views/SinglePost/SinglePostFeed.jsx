@@ -7,6 +7,7 @@ import { Comments } from "../SinglePost/Comments";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/Auth";
 import { useState } from "react";
+import { Trans } from "@lingui/macro";
 
 const useStyles = createStyles(() => ({
   wrapper: {
@@ -85,11 +86,10 @@ export const SinglePostFeed = ({
         >
           <ChatCircleDots weight="fill" color={"#868e96"} size={60} />
           <Text weight={"500"} size={"15px"}>
-            {" "}
-            No comments yet
+            <Trans>No comments yet</Trans>
           </Text>
           <Text weight={"500"} size={"15px"}>
-            Be the first to share what you think!
+            <Trans>Be the first to share what you think!</Trans>
           </Text>
         </div>
       ) : (

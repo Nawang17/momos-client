@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Sidebar } from "../Components/Sidebar";
 import { AuthContext } from "../context/Auth";
+import { Trans } from "@lingui/macro";
 const useStyles = createStyles(() => ({
   wrapper: {
     display: "flex",
@@ -77,17 +78,20 @@ export const About = () => {
           }}
         >
           <Text size={"44px"} weight={900} color={darkmode ? "white" : "black"}>
-            About momos
+            <Trans> About momos </Trans>
           </Text>
           <Text
             color={darkmode ? "#a6a7ab" : "#343a40"}
             style={{ marginTop: "1rem" }}
           >
-            Momos is a social network webapp where you can connect with people
-            around the world. I built this project to learn more about full
-            stack development and to improve my skills as a developer. The
-            project is still in development and new features are being added
-            regularly.
+            <Trans>
+              {" "}
+              Momos is a social network webapp where you can connect with people
+              around the world. I built this project to learn more about full
+              stack development and to improve my skills as a developer. The
+              project is still in development and new features are being added
+              regularly.{" "}
+            </Trans>
           </Text>
 
           <Text
@@ -96,7 +100,7 @@ export const About = () => {
             size={"26px"}
             weight={600}
           >
-            👨‍💻 Technologies
+            👨‍💻 <Trans>Technologies </Trans>
           </Text>
 
           <Text
@@ -123,10 +127,13 @@ export const About = () => {
             color={darkmode ? "#a6a7ab" : "#343a40"}
             style={{ marginTop: "1rem" }}
           >
-            Please note that this project is for educational purposes and may
-            have bugs or unfinished features. If you encounter any issues or
-            have any suggestions, please feel free to reach out or submit a pull
-            request.
+            <Trans>
+              {" "}
+              Please note that this project is for educational purposes and may
+              have bugs or unfinished features. If you encounter any issues or
+              have any suggestions, please feel free to reach out or submit a
+              pull request.{" "}
+            </Trans>
           </Text>
 
           <Text
@@ -168,7 +175,7 @@ export const About = () => {
             size={"26px"}
             weight={600}
           >
-            ⭐ Rules
+            ⭐ <Trans>Rules </Trans>
           </Text>
           <Text
             color={darkmode ? "#a6a7ab" : "#343a40"}
@@ -197,7 +204,7 @@ export const About = () => {
             size={"26px"}
             weight={600}
           >
-            Other links
+            <Trans>Other links </Trans>
           </Text>
           <Text
             color={darkmode ? "#a6a7ab" : "#343a40"}
@@ -211,7 +218,7 @@ export const About = () => {
             >
               katoph#1868
             </span>{" "}
-            (feel free to reach out)
+            <Trans>(feel free to reach out) </Trans>
           </Text>
           <Text
             color={darkmode ? "#a6a7ab" : "#343a40"}

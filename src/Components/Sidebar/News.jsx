@@ -5,6 +5,7 @@ import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import locale from "date-fns/locale/en-US";
 import { getTopNews } from "../../api/GET";
 import { formatDistance } from "../../helper/DateFormat";
+import { Trans } from "@lingui/macro";
 const useStyles = createStyles(() => ({
   accounts: {
     paddingTop: "0.5rem",
@@ -58,7 +59,7 @@ const News = () => {
             }}
           >
             <Text weight={700} size={12}>
-              Top News
+              <Trans>Top News</Trans>
             </Text>{" "}
           </div>
           <div
@@ -160,7 +161,7 @@ const News = () => {
             }}
           >
             <Text weight={700} size={12}>
-              Top News
+              <Trans>Top News</Trans>
             </Text>{" "}
           </div>
           <div

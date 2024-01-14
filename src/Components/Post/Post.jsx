@@ -25,6 +25,7 @@ import PostHeader from "./components/PostHeader/PostHeader";
 import PostFooter from "./components/PostFooter/PostFooter";
 import CommentPreview from "./components/PostFooter/CommentPreview";
 import { formatText } from "../../helper/FormatText";
+import { Trans } from "@lingui/macro";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -501,7 +502,9 @@ export const Post = ({ post, setPosts, comments }) => {
                         controls
                       >
                         <source src={post?.post.image} type="video/mp4" />
-                        Your browser does not support the video tag.
+                        <Trans>
+                          Your browser does not support the video tag.
+                        </Trans>
                       </video>
                     )}
                   </>
@@ -547,7 +550,7 @@ export const Post = ({ post, setPosts, comments }) => {
               >
                 <Text color={"dimmed"}>
                   {" "}
-                  This post was deleted by the author.{" "}
+                  <Trans>This post was deleted by the author. </Trans>
                 </Text>
               </div>
             </div>

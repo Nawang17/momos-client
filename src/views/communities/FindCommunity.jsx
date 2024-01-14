@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Flex, Text, Image, Input, Loader } from "@mantine/core";
 import { Globe, LockLaminated, Users } from "@phosphor-icons/react";
 import { useNavigate } from "react-router-dom";
+import { Trans } from "@lingui/macro";
 const FindCommunity = ({ findCommunities, loading }) => {
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ const FindCommunity = ({ findCommunities, loading }) => {
       />
       {findCommunities.length === 0 && !loading && (
         <Text py={20} align="center" size="sm" color="dimmed">
-          You are already a member of all communities
+          <Trans> You are already a member of all communities</Trans>
         </Text>
       )}
       {loading && (

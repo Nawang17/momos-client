@@ -17,6 +17,7 @@ import { set } from "date-fns";
 import { AddNewCommunity } from "../../api/POST";
 import { getcommunities } from "../../api/GET";
 import { useNavigate } from "react-router-dom";
+import { Trans } from "@lingui/macro";
 const Createnewcommunity = () => {
   const { darkmode, UserInfo } = useContext(AuthContext);
   const [communityname, setCommunityname] = useState("");
@@ -83,14 +84,14 @@ const Createnewcommunity = () => {
         fullWidth
         color="gray"
       >
-        Create community
+        <Trans> Create community</Trans>
       </Button>
 
       <Modal
         zIndex={1000}
         opened={opened}
         onClose={onmodalclose}
-        title="Create Community"
+        title=<Trans>Create Community</Trans>
       >
         <Flex gap={15} direction={"column"}>
           <div
@@ -112,7 +113,9 @@ const Createnewcommunity = () => {
                 <span>
                   <Flex align={"center"} gap={5}>
                     <Image size={30} />
-                    <div>Upload photo</div>
+                    <div>
+                      <Trans>Upload photo</Trans>
+                    </div>
                   </Flex>
                 </span>
               </div>
@@ -133,8 +136,8 @@ const Createnewcommunity = () => {
 
           <Input.Wrapper
             id="Community-name"
-            label="Community name"
-            description="This cannot be changed later"
+            label=<Trans>Community name</Trans>
+            description=<Trans> This cannot be changed later</Trans>
             error=""
           >
             <Input
@@ -150,10 +153,12 @@ const Createnewcommunity = () => {
             onChange={(event) => setDescription(event.currentTarget.value)}
             maxLength={160}
             placeholder="Description"
-            label="Description"
+            label=<Trans>Description</Trans>
             minRows={3}
           />
-          <Text>Privacy setting</Text>
+          <Text>
+            <Trans>Privacy setting</Trans>
+          </Text>
           <div
             style={{
               backgroundColor: darkmode ? "#1A1B1E" : "white",
@@ -168,13 +173,13 @@ const Createnewcommunity = () => {
               <Radio
                 onChange={() => setChecked("Public")}
                 checked={checked === "Public"}
-                label="Public (Anyone can join)"
+                label=<Trans> Public (Anyone can join)</Trans>
               />
             </Flex>
             <Radio
               onChange={() => setChecked("Private")}
               checked={checked === "Private"}
-              label="Private (Owner approval required)"
+              label=<Trans> Private (Owner approval required)</Trans>
             />
           </div>
           <Button
@@ -182,7 +187,7 @@ const Createnewcommunity = () => {
             disabled={communityname === "" || description === ""}
             onClick={handleCreateCommunity}
           >
-            Create Community
+            <Trans>Create Community</Trans>
           </Button>
         </Flex>
       </Modal>

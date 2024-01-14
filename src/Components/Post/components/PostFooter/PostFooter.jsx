@@ -16,6 +16,7 @@ import { useState } from "react";
 import { likePost } from "../../../../api/POST";
 import LikesUsersModal from "../PostModals/LikesUsersModal";
 import { handlebookmark } from "../../common/functions";
+import { Trans } from "@lingui/macro";
 
 const PostFooter = ({
   post,
@@ -205,14 +206,16 @@ const PostFooter = ({
                   setlikemodalstate(true);
                 }}
               >
-                Liked by{" "}
-                <Text weight={500} component="span">
-                  {post?.likes[post?.likes?.length - 1]?.user?.username}{" "}
-                </Text>{" "}
-                and{" "}
-                <Text weight={500} component="span">
-                  {post.likes.length - 1} others
-                </Text>
+                <Trans>
+                  Liked by{" "}
+                  <Text weight={500} component="span">
+                    {post?.likes[post?.likes?.length - 1]?.user?.username}{" "}
+                  </Text>{" "}
+                  and{" "}
+                  <Text weight={500} component="span">
+                    {post.likes.length - 1} others
+                  </Text>
+                </Trans>
               </Text>
             </Flex>
           ) : (
@@ -225,7 +228,7 @@ const PostFooter = ({
                 setlikemodalstate(true);
               }}
             >
-              {post?.likes?.length} likes
+              <Trans>{post?.likes?.length} likes</Trans>
             </Text>
           )
         ) : (
@@ -237,7 +240,7 @@ const PostFooter = ({
               setlikemodalstate(true);
             }}
           >
-            {post?.likes?.length} likes
+            <Trans>{post?.likes?.length} likes</Trans>
           </Text>
         )}
 
@@ -266,14 +269,16 @@ const PostFooter = ({
             }}
           >
             {/* count comments total by adding both comments and nested comments total length */}
-            {comments
-              ? `${comments?.reduce((acc, curr) => {
-                  return acc + curr.nestedcomments?.length;
-                }, comments.length)}`
-              : `${post.comments?.reduce((acc, curr) => {
-                  return acc + curr.nestedcomments?.length;
-                }, post.comments.length)}`}{" "}
-            comments
+            <Trans>
+              {comments
+                ? `${comments?.reduce((acc, curr) => {
+                    return acc + curr.nestedcomments?.length;
+                  }, comments.length)}`
+                : `${post.comments?.reduce((acc, curr) => {
+                    return acc + curr.nestedcomments?.length;
+                  }, post.comments.length)}`}{" "}
+              comments
+            </Trans>
           </Text>
           <Text>·</Text>
           {/* Total post repost count */}
@@ -286,7 +291,7 @@ const PostFooter = ({
               }
             }}
           >
-            {post?.postquotesCount} reposts
+            <Trans>{post?.postquotesCount} reposts</Trans>
           </Text>
         </Flex>
       </Flex>
@@ -344,7 +349,7 @@ const PostFooter = ({
           }
           variant="subtle"
         >
-          Like
+          <Trans>Like</Trans>
         </Button>
         {/* comment button  */}
         <Button
@@ -367,7 +372,7 @@ const PostFooter = ({
           leftIcon={<ChatCircle size={18} />}
           variant="subtle"
         >
-          Comment
+          <Trans>Comment</Trans>
         </Button>
         {/* repost button */}
         <Button
@@ -389,7 +394,7 @@ const PostFooter = ({
           leftIcon={<ArrowsClockwise size={18} />}
           variant="subtle"
         >
-          Repost
+          <Trans>Repost</Trans>
         </Button>
         {/* only show the save button if the screen width is >= 530px */}
         {bigScreen && (
@@ -412,7 +417,11 @@ const PostFooter = ({
             }
             variant="subtle"
           >
-            {bookmarkIds?.includes(post?.id) ? "Saved" : "Save"}
+            {bookmarkIds?.includes(post?.id) ? (
+              <Trans>Saved</Trans>
+            ) : (
+              <Trans>Save</Trans>
+            )}
           </Button>
         )}
       </Flex>

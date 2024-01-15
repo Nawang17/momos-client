@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: momos\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-15 06:07\n"
+"PO-Revision-Date: 2024-01-15 07:36\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -337,7 +337,7 @@ msgstr ""
 #: src/views/settingspage/components/Apperance.jsx:26
 #: src/views/settingspage/components/Apperance.jsx:69
 msgid "Dark Mode"
-msgstr ""
+msgstr "어두운 모드"
 
 #: src/Components/CreatePostModal.jsx:669
 msgid "Days"
@@ -545,7 +545,7 @@ msgstr ""
 #: src/views/settingspage/components/Apperance.jsx:26
 #: src/views/settingspage/components/Apperance.jsx:55
 msgid "Light Mode"
-msgstr ""
+msgstr "라이트 모드"
 
 #: src/Components/Post/components/PostFooter/PostFooter.jsx:352
 msgid "Like"

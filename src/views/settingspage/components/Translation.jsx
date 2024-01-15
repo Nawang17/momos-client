@@ -1,21 +1,18 @@
-import { Modal, NavLink, Text } from "@mantine/core";
-import { CaretRight, Check, Translate } from "@phosphor-icons/react";
-import React from "react";
+import { Modal, NavLink, Radio, Text } from "@mantine/core";
+import { CaretRight, Check, Globe } from "@phosphor-icons/react";
+import React, { useContext } from "react";
 import { useState } from "react";
 
 import { dynamicActivate } from "../../../i18n";
 import { showNotification } from "@mantine/notifications";
 import { Trans } from "@lingui/macro";
-const lngs = {
-  en: { nativeName: "English", flag: "https://flagsapi.com/US/shiny/24.png" },
-  ko: { nativeName: "Korean", flag: "https://flagsapi.com/KR/shiny/24.png" },
-};
-
+import { AuthContext } from "../../../context/Auth";
+import { lngs } from "../../../i18n";
 const Translation = () => {
+  const { currentLng, setcurrentLng } = useContext(AuthContext);
+
   const [opened, setOpened] = useState(false);
-  const [currentLng, setcurrentLng] = useState(
-    lngs[localStorage.getItem("language")]?.nativeName || "English"
-  );
+
   return (
     <>
       <NavLink
@@ -29,6 +26,12 @@ const Translation = () => {
               gap: "0.5rem",
             }}
           >
+            <img
+              src={lngs[localStorage.getItem("language")]?.flag}
+              alt=""
+              loading="lazy"
+            />
+
             <Text color="dimmed" size={13}>
               {currentLng}
               {currentLng === "Korean" && " (Beta)"}
@@ -59,7 +62,7 @@ const Translation = () => {
                   return;
                 }
                 showNotification({
-                  icon: <Translate size={18} />,
+                  icon: <Globe size={18} />,
                   title: (
                     <Trans>
                       Language changed to {lngs[languageCode].nativeName}
@@ -78,11 +81,17 @@ const Translation = () => {
                   {languageCode === "ko" && " (Beta)"}
                 </>
               }
-              icon={<img src={lngs[languageCode]?.flag} alt=""></img>}
+              icon={
+                <img src={lngs[languageCode]?.flag} alt="" loading="lazy" />
+              }
               rightSection={
-                currentLng === lngs[languageCode].nativeName && (
-                  <Check size="1.2em" />
-                )
+                <Radio
+                  checked={
+                    currentLng === lngs[languageCode].nativeName && (
+                      <Check size="1.2em" />
+                    )
+                  }
+                />
               }
             />
           ))}

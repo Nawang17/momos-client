@@ -113,8 +113,8 @@ msgid "About"
 msgstr "About"
 
 #: src/Components/About.jsx:81
-#: src/Components/ProfileMenu.jsx:132
-#: src/Components/ProfileMenu.jsx:171
+#: src/Components/ProfileMenu.jsx:148
+#: src/Components/ProfileMenu.jsx:187
 msgid "About momos"
 msgstr "About momos"
 
@@ -147,7 +147,7 @@ msgstr "Active now"
 msgid "Add a comment..."
 msgstr "Add a comment..."
 
-#: src/Components/ProfileMenu.jsx:119
+#: src/Components/ProfileMenu.jsx:135
 #: src/views/communities/CommunityProfile.jsx:417
 msgid "Admin"
 msgstr "Admin"
@@ -185,7 +185,7 @@ msgstr "Be the first to share what you think!"
 msgid "Bio"
 msgstr "Bio"
 
-#: src/Components/ProfileMenu.jsx:82
+#: src/Components/ProfileMenu.jsx:87
 msgid "Bookmarks"
 msgstr "Bookmarks"
 
@@ -327,6 +327,10 @@ msgstr "Current Password"
 #: src/views/settingspage/components/Apperance.jsx:69
 msgid "Dark"
 msgstr "Dark"
+
+#: src/Components/ProfileMenu.jsx:114
+msgid "Dark Mode"
+msgstr "Dark Mode"
 
 #: src/Components/CreatePostModal.jsx:669
 msgid "Days"
@@ -488,12 +492,13 @@ msgstr "Internal Server Error"
 msgid "Join"
 msgstr "Join"
 
-#: src/views/settingspage/components/Translation.jsx:23
+#: src/views/settingspage/components/Translation.jsx:20
 msgid "Language"
 msgstr "Language"
 
-#: src/Components/Navbar.jsx:260
-#: src/views/settingspage/components/Translation.jsx:64
+#: src/Components/Navbar.jsx:261
+#: src/Components/ProfileMenu.jsx:216
+#: src/views/settingspage/components/Translation.jsx:67
 msgid "Language changed to {0}"
 msgstr "Language changed to {0}"
 
@@ -529,6 +534,10 @@ msgstr "Leveling becomes more challenging with each new level."
 msgid "Light"
 msgstr "Light"
 
+#: src/Components/ProfileMenu.jsx:112
+msgid "Light Mode"
+msgstr "Light Mode"
+
 #: src/Components/Post/components/PostFooter/PostFooter.jsx:352
 msgid "Like"
 msgstr "Like"
@@ -560,16 +569,16 @@ msgstr "Link copied to clipboard"
 msgid "Load older messages"
 msgstr "Load older messages"
 
-#: src/Components/ProfileMenu.jsx:141
+#: src/Components/ProfileMenu.jsx:157
 msgid "Log Out"
 msgstr "Log Out"
 
-#: src/Components/ProfileMenu.jsx:32
+#: src/Components/ProfileMenu.jsx:46
 msgid "Logged out"
 msgstr "Logged out"
 
 #: src/Components/Hero.jsx:85
-#: src/Components/ProfileMenu.jsx:153
+#: src/Components/ProfileMenu.jsx:169
 #: src/views/Login/ForgotPasswordUpdate.jsx:184
 #: src/views/Login/Login.jsx:258
 #: src/views/Register/Register.jsx:174
@@ -797,7 +806,7 @@ msgid "Public (Anyone can join)"
 msgstr "Public (Anyone can join)"
 
 #: src/Components/Hero.jsx:90
-#: src/Components/ProfileMenu.jsx:162
+#: src/Components/ProfileMenu.jsx:178
 #: src/views/Login/ForgotPasswordUpdate.jsx:194
 #: src/views/Login/Login.jsx:213
 #: src/views/Register/Register.jsx:217
@@ -882,7 +891,7 @@ msgstr "Save Changes"
 msgid "Saved"
 msgstr "Saved"
 
-#: src/App.js:194
+#: src/App.js:197
 msgid "Scroll to top"
 msgstr "Scroll to top"
 
@@ -907,7 +916,7 @@ msgstr "See all {0} comments"
 msgid "Set Password"
 msgstr "Set Password"
 
-#: src/Components/ProfileMenu.jsx:73
+#: src/Components/ProfileMenu.jsx:95
 #: src/views/settingspage/settingsPage.jsx:74
 msgid "Settings"
 msgstr "Settings"
@@ -951,12 +960,12 @@ msgid "Suggested for you"
 msgstr "Suggested for you"
 
 #: src/Components/ProfileMenu.jsx:106
-msgid "Switch to Dark Mode"
-msgstr "Switch to Dark Mode"
+#~ msgid "Switch to Dark Mode"
+#~ msgstr "Switch to Dark Mode"
 
 #: src/Components/ProfileMenu.jsx:104
-msgid "Switch to Light Mode"
-msgstr "Switch to Light Mode"
+#~ msgid "Switch to Light Mode"
+#~ msgstr "Switch to Light Mode"
 
 #: src/Components/RouteError.jsx:78
 msgid "Take me back to home page"
@@ -1080,7 +1089,7 @@ msgstr "View all"
 msgid "View all Bookmarks"
 msgstr "View all Bookmarks"
 
-#: src/Components/ProfileMenu.jsx:64
+#: src/Components/ProfileMenu.jsx:79
 msgid "View profile"
 msgstr "View profile"
 
@@ -1092,7 +1101,7 @@ msgstr "View profile"
 msgid "Welcome back {0}"
 msgstr "Welcome back {0}"
 
-#: src/App.js:58
+#: src/App.js:61
 msgid "Welcome back, {0}"
 msgstr "Welcome back, {0}"
 

@@ -24,7 +24,7 @@ import { io } from "socket.io-client";
 import ReactGA from "react-ga4";
 
 import { ModalsProvider } from "@mantine/modals";
-
+import { lngs } from "./i18n";
 import { routes } from "./routes";
 import { Darkmodecheck } from "./helper/Darkmodecheck";
 import { Trans } from "@lingui/macro";
@@ -48,6 +48,9 @@ function App() {
   const [onlineusers, setonlineusers] = useState([]);
   const [onlinelist, setonlinelist] = useState([]);
   const [bookmarkIds, setbookmarkIds] = useState([]);
+  const [currentLng, setcurrentLng] = useState(
+    lngs[localStorage.getItem("language")]?.nativeName || "English"
+  );
   function getloginstatus() {
     LoginStatus()
       .then((res) => {
@@ -218,6 +221,8 @@ function App() {
                 socket,
                 bookmarkIds,
                 setbookmarkIds,
+                currentLng,
+                setcurrentLng,
               }}
             >
               <RouterProvider

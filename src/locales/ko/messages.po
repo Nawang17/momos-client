@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: momos\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-14 15:09\n"
+"PO-Revision-Date: 2024-01-15 06:07\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -118,12 +118,12 @@ msgid "About"
 msgstr ""
 
 #: src/Components/About.jsx:81
-#: src/Components/ProfileMenu.jsx:132
-#: src/Components/ProfileMenu.jsx:171
+#: src/Components/ProfileMenu.jsx:148
+#: src/Components/ProfileMenu.jsx:187
 msgid "About momos"
 msgstr "모모즈에 대하여"
 
-#: src/views/Notis/Notis.jsx:485
+#: src/views/Notis/Notis.jsx:521
 msgid "Accept"
 msgstr ""
 
@@ -152,12 +152,12 @@ msgstr ""
 msgid "Add a comment..."
 msgstr ""
 
-#: src/Components/ProfileMenu.jsx:119
+#: src/Components/ProfileMenu.jsx:135
 #: src/views/communities/CommunityProfile.jsx:417
 msgid "Admin"
 msgstr "관리자"
 
-#: src/views/Notis/Notis.jsx:124
+#: src/views/Notis/Notis.jsx:160
 msgid "All activity"
 msgstr ""
 
@@ -190,7 +190,7 @@ msgstr ""
 msgid "Bio"
 msgstr ""
 
-#: src/Components/ProfileMenu.jsx:82
+#: src/Components/ProfileMenu.jsx:87
 msgid "Bookmarks"
 msgstr "북마크"
 
@@ -255,13 +255,13 @@ msgstr ""
 msgid "Comment updated successfully"
 msgstr ""
 
-#: src/views/Notis/Notis.jsx:142
+#: src/views/Notis/Notis.jsx:178
 #: src/views/singlecommunitypost/Reply.jsx:35
 #: src/views/SinglePost/Reply.jsx:35
 msgid "Comments"
 msgstr ""
 
-#: src/views/Notis/Notis.jsx:228
+#: src/views/Notis/Notis.jsx:264
 msgid "Comments and replies"
 msgstr ""
 
@@ -269,7 +269,7 @@ msgstr ""
 msgid "Community"
 msgstr ""
 
-#: src/views/Notis/Notis.jsx:278
+#: src/views/Notis/Notis.jsx:314
 msgid "Community Join Requests"
 msgstr ""
 
@@ -330,14 +330,20 @@ msgstr ""
 
 #: src/views/settingspage/components/Apperance.jsx:26
 #: src/views/settingspage/components/Apperance.jsx:69
-msgid "Dark"
+#~ msgid "Dark"
+#~ msgstr "Dark"
+
+#: src/Components/ProfileMenu.jsx:114
+#: src/views/settingspage/components/Apperance.jsx:26
+#: src/views/settingspage/components/Apperance.jsx:69
+msgid "Dark Mode"
 msgstr ""
 
 #: src/Components/CreatePostModal.jsx:669
 msgid "Days"
 msgstr ""
 
-#: src/views/Notis/Notis.jsx:495
+#: src/views/Notis/Notis.jsx:531
 msgid "Decline"
 msgstr ""
 
@@ -436,7 +442,7 @@ msgstr ""
 msgid "Follow back"
 msgstr ""
 
-#: src/views/Notis/Notis.jsx:160
+#: src/views/Notis/Notis.jsx:196
 #: src/views/Profile/ProfileHeader.jsx:665
 msgid "Followers"
 msgstr ""
@@ -493,12 +499,13 @@ msgstr ""
 msgid "Join"
 msgstr ""
 
-#: src/views/settingspage/components/Translation.jsx:23
+#: src/views/settingspage/components/Translation.jsx:20
 msgid "Language"
 msgstr ""
 
-#: src/Components/Navbar.jsx:260
-#: src/views/settingspage/components/Translation.jsx:64
+#: src/Components/Navbar.jsx:274
+#: src/Components/ProfileMenu.jsx:216
+#: src/views/settingspage/components/Translation.jsx:67
 msgid "Language changed to {0}"
 msgstr ""
 
@@ -531,7 +538,13 @@ msgstr ""
 
 #: src/views/settingspage/components/Apperance.jsx:26
 #: src/views/settingspage/components/Apperance.jsx:55
-msgid "Light"
+#~ msgid "Light"
+#~ msgstr "Light"
+
+#: src/Components/ProfileMenu.jsx:112
+#: src/views/settingspage/components/Apperance.jsx:26
+#: src/views/settingspage/components/Apperance.jsx:55
+msgid "Light Mode"
 msgstr ""
 
 #: src/Components/Post/components/PostFooter/PostFooter.jsx:352
@@ -542,7 +555,7 @@ msgstr ""
 msgid "Liked by <0>{0} </0> and <1>{1} others</1>"
 msgstr ""
 
-#: src/views/Notis/Notis.jsx:133
+#: src/views/Notis/Notis.jsx:169
 #: src/views/Profile/Profile.jsx:144
 msgid "Likes"
 msgstr ""
@@ -551,7 +564,7 @@ msgstr ""
 msgid "Likes ({0})"
 msgstr ""
 
-#: src/views/Notis/Notis.jsx:201
+#: src/views/Notis/Notis.jsx:237
 msgid "Likes on your posts and comments"
 msgstr ""
 
@@ -565,16 +578,16 @@ msgstr "링크가 클립보드에 복사됨"
 msgid "Load older messages"
 msgstr ""
 
-#: src/Components/ProfileMenu.jsx:141
+#: src/Components/ProfileMenu.jsx:157
 msgid "Log Out"
 msgstr "로그아웃"
 
-#: src/Components/ProfileMenu.jsx:32
+#: src/Components/ProfileMenu.jsx:46
 msgid "Logged out"
 msgstr "로그아웃됨"
 
 #: src/Components/Hero.jsx:85
-#: src/Components/ProfileMenu.jsx:153
+#: src/Components/ProfileMenu.jsx:169
 #: src/views/Login/ForgotPasswordUpdate.jsx:184
 #: src/views/Login/Login.jsx:258
 #: src/views/Register/Register.jsx:174
@@ -618,11 +631,11 @@ msgstr ""
 msgid "Members"
 msgstr ""
 
-#: src/views/Notis/Notis.jsx:151
+#: src/views/Notis/Notis.jsx:187
 msgid "Mentions"
 msgstr ""
 
-#: src/views/Notis/Notis.jsx:252
+#: src/views/Notis/Notis.jsx:288
 msgid "Mentions of You"
 msgstr ""
 
@@ -655,7 +668,7 @@ msgstr ""
 msgid "New Email Address"
 msgstr ""
 
-#: src/views/Notis/Notis.jsx:302
+#: src/views/Notis/Notis.jsx:338
 msgid "New Followers"
 msgstr ""
 
@@ -680,7 +693,7 @@ msgstr ""
 msgid "No, don't delete it"
 msgstr ""
 
-#: src/views/Notis/Notis.jsx:114
+#: src/views/Notis/Notis.jsx:150
 msgid "Notifications"
 msgstr ""
 
@@ -802,7 +815,7 @@ msgid "Public (Anyone can join)"
 msgstr ""
 
 #: src/Components/Hero.jsx:90
-#: src/Components/ProfileMenu.jsx:162
+#: src/Components/ProfileMenu.jsx:178
 #: src/views/Login/ForgotPasswordUpdate.jsx:194
 #: src/views/Login/Login.jsx:213
 #: src/views/Register/Register.jsx:217
@@ -855,7 +868,7 @@ msgstr ""
 msgid "Repost"
 msgstr ""
 
-#: src/views/Notis/Notis.jsx:171
+#: src/views/Notis/Notis.jsx:207
 msgid "Requests"
 msgstr ""
 
@@ -887,7 +900,7 @@ msgstr ""
 msgid "Saved"
 msgstr ""
 
-#: src/App.js:194
+#: src/App.js:220
 msgid "Scroll to top"
 msgstr ""
 
@@ -912,7 +925,7 @@ msgstr ""
 msgid "Set Password"
 msgstr ""
 
-#: src/Components/ProfileMenu.jsx:73
+#: src/Components/ProfileMenu.jsx:95
 #: src/views/settingspage/settingsPage.jsx:74
 msgid "Settings"
 msgstr "설정"
@@ -956,12 +969,12 @@ msgid "Suggested for you"
 msgstr ""
 
 #: src/Components/ProfileMenu.jsx:106
-msgid "Switch to Dark Mode"
-msgstr "다크모드 전환"
+#~ msgid "Switch to Dark Mode"
+#~ msgstr "Switch to Dark Mode"
 
 #: src/Components/ProfileMenu.jsx:104
-msgid "Switch to Light Mode"
-msgstr "라이트 모드 전환"
+#~ msgid "Switch to Light Mode"
+#~ msgstr "Switch to Light Mode"
 
 #: src/Components/RouteError.jsx:78
 msgid "Take me back to home page"
@@ -1085,7 +1098,7 @@ msgstr ""
 msgid "View all Bookmarks"
 msgstr ""
 
-#: src/Components/ProfileMenu.jsx:64
+#: src/Components/ProfileMenu.jsx:79
 msgid "View profile"
 msgstr "프로필 확인"
 
@@ -1097,7 +1110,7 @@ msgstr "프로필 확인"
 msgid "Welcome back {0}"
 msgstr ""
 
-#: src/App.js:58
+#: src/App.js:63
 msgid "Welcome back, {0}"
 msgstr ""
 
@@ -1124,23 +1137,23 @@ msgstr "<0>momos</0>에 오신 것을 환영합니다"
 msgid "What's on your mind, {0}?"
 msgstr ""
 
-#: src/views/Notis/Notis.jsx:231
+#: src/views/Notis/Notis.jsx:267
 msgid "When someone comments on your post or replies to you, you'll see it here"
 msgstr ""
 
-#: src/views/Notis/Notis.jsx:305
+#: src/views/Notis/Notis.jsx:341
 msgid "When someone follows you, you'll see it here"
 msgstr ""
 
-#: src/views/Notis/Notis.jsx:204
+#: src/views/Notis/Notis.jsx:240
 msgid "When someone likes your post or comment, you'll see it here"
 msgstr ""
 
-#: src/views/Notis/Notis.jsx:255
+#: src/views/Notis/Notis.jsx:291
 msgid "When someone mentions you, you'll see it here"
 msgstr ""
 
-#: src/views/Notis/Notis.jsx:281
+#: src/views/Notis/Notis.jsx:317
 msgid "When someone requests to join your community, you'll see it here"
 msgstr ""
 
@@ -1218,7 +1231,7 @@ msgstr ""
 msgid "You will no longer be able to post or comment in this community. You can rejoin at any time."
 msgstr ""
 
-#: src/views/Notis/Notis.jsx:184
+#: src/views/Notis/Notis.jsx:220
 msgid "You will see all your notifications here"
 msgstr ""
 

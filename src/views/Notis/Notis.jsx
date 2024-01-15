@@ -499,6 +499,7 @@ export default function Notis() {
                           style={{
                             width: "200px",
                             wordBreak: "break-word",
+                            color: !data.seen && "#1DA1F2",
                           }}
                         >
                           {data.type === "COMMUNITY_JOIN_REQUEST" && (
@@ -607,35 +608,23 @@ export default function Notis() {
                             </Text>
                           )}
                         </div>
-                        <Flex align={"center"} gap="0.5rem">
-                          <div>
-                            <Text
-                              weight={data.seen ? "normal" : "bold"}
-                              color={data.seen ? "dimmed" : "#1DA1F2"}
-                              size="13px"
-                            >
-                              {formatDistanceToNowStrict(
-                                new Date(data.createdAt),
-                                {
-                                  locale: {
-                                    ...locale,
-                                    formatDistance,
-                                  },
-                                }
-                              )}
-                            </Text>
-                          </div>{" "}
-                          {!data.seen && (
-                            <div
-                              style={{
-                                width: "10px",
-                                height: "10px",
-                                backgroundColor: "#1DA1F2",
-                                borderRadius: "50%",
-                              }}
-                            ></div>
-                          )}
-                        </Flex>
+
+                        <div>
+                          <Text
+                            color={data.seen ? "dimmed" : "#1DA1F2"}
+                            size="13px"
+                          >
+                            {formatDistanceToNowStrict(
+                              new Date(data.createdAt),
+                              {
+                                locale: {
+                                  ...locale,
+                                  formatDistance,
+                                },
+                              }
+                            )}
+                          </Text>
+                        </div>
                       </div>
                     </div>
                   );

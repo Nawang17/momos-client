@@ -77,21 +77,34 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export function Navbar({ socket }) {
-  const { UserInfo, setdarkmode, darkmode, currentLng, setcurrentLng } =
-    useContext(AuthContext);
+  const {
+    UserInfo,
+    setdarkmode,
+    darkmode,
+    currentLng,
+    setcurrentLng,
+    setunseennotiCount,
+  } = useContext(AuthContext);
   const { classes } = useStyles();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [noti, setnoti] = useState(null);
 
   useEffect(() => {
-    socket.on("newnotification", (data) => {
+    const handleNewNotification = (data) => {
       setnoti(data);
-
+      setunseennotiCount((prev) => prev + 1);
       setTimeout(() => {
         setnoti(null);
       }, 4000);
-    });
+    };
+
+    socket.on("newnotification", handleNewNotification);
+
+    return () => {
+      // Clean up the event listener when the component unmounts
+      socket.off("newnotification", handleNewNotification);
+    };
   }, []);
   return (
     <Header

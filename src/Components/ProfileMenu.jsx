@@ -1,4 +1,4 @@
-import { Avatar, Menu, Modal, NavLink, Radio } from "@mantine/core";
+import { Avatar, Indicator, Menu, Modal, NavLink, Radio } from "@mantine/core";
 
 import {
   BookmarkSimple,
@@ -30,6 +30,7 @@ export function ProfileMenu({ socket }) {
     setdarkmode,
     currentLng,
     setcurrentLng,
+    onlinelist,
   } = useContext(AuthContext);
   const navigate = useNavigate();
   const [opened, setOpened] = useState(false);
@@ -55,13 +56,23 @@ export function ProfileMenu({ socket }) {
           {!UserInfo ? (
             <UserCircle size={28} color={darkmode ? "white" : "black"} />
           ) : (
-            <Avatar
-              size="28px"
-              radius={"xl"}
-              src={UserInfo?.avatar}
-              alt=""
-              loading="lazy"
-            />
+            <Indicator
+              disabled={!onlinelist?.includes(UserInfo?.username)}
+              withBorder
+              inline
+              color="green"
+              size={9}
+              offset={5}
+              position="bottom-end"
+            >
+              <Avatar
+                size="28px"
+                radius={"xl"}
+                src={UserInfo?.avatar}
+                alt=""
+                loading="lazy"
+              />
+            </Indicator>
           )}
         </Menu.Target>
 

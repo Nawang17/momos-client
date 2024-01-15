@@ -118,7 +118,7 @@ msgstr "About"
 msgid "About momos"
 msgstr "About momos"
 
-#: src/views/Notis/Notis.jsx:485
+#: src/views/Notis/Notis.jsx:521
 msgid "Accept"
 msgstr "Accept"
 
@@ -152,7 +152,7 @@ msgstr "Add a comment..."
 msgid "Admin"
 msgstr "Admin"
 
-#: src/views/Notis/Notis.jsx:124
+#: src/views/Notis/Notis.jsx:160
 msgid "All activity"
 msgstr "All activity"
 
@@ -250,13 +250,13 @@ msgstr "Comment"
 msgid "Comment updated successfully"
 msgstr "Comment updated successfully"
 
-#: src/views/Notis/Notis.jsx:142
+#: src/views/Notis/Notis.jsx:178
 #: src/views/singlecommunitypost/Reply.jsx:35
 #: src/views/SinglePost/Reply.jsx:35
 msgid "Comments"
 msgstr "Comments"
 
-#: src/views/Notis/Notis.jsx:228
+#: src/views/Notis/Notis.jsx:264
 msgid "Comments and replies"
 msgstr "Comments and replies"
 
@@ -264,7 +264,7 @@ msgstr "Comments and replies"
 msgid "Community"
 msgstr "Community"
 
-#: src/views/Notis/Notis.jsx:278
+#: src/views/Notis/Notis.jsx:314
 msgid "Community Join Requests"
 msgstr "Community Join Requests"
 
@@ -325,10 +325,12 @@ msgstr "Current Password"
 
 #: src/views/settingspage/components/Apperance.jsx:26
 #: src/views/settingspage/components/Apperance.jsx:69
-msgid "Dark"
-msgstr "Dark"
+#~ msgid "Dark"
+#~ msgstr "Dark"
 
 #: src/Components/ProfileMenu.jsx:114
+#: src/views/settingspage/components/Apperance.jsx:26
+#: src/views/settingspage/components/Apperance.jsx:69
 msgid "Dark Mode"
 msgstr "Dark Mode"
 
@@ -336,7 +338,7 @@ msgstr "Dark Mode"
 msgid "Days"
 msgstr "Days"
 
-#: src/views/Notis/Notis.jsx:495
+#: src/views/Notis/Notis.jsx:531
 msgid "Decline"
 msgstr "Decline"
 
@@ -435,7 +437,7 @@ msgstr "Follow {commentuser}"
 msgid "Follow back"
 msgstr "Follow back"
 
-#: src/views/Notis/Notis.jsx:160
+#: src/views/Notis/Notis.jsx:196
 #: src/views/Profile/ProfileHeader.jsx:665
 msgid "Followers"
 msgstr "Followers"
@@ -496,7 +498,7 @@ msgstr "Join"
 msgid "Language"
 msgstr "Language"
 
-#: src/Components/Navbar.jsx:261
+#: src/Components/Navbar.jsx:274
 #: src/Components/ProfileMenu.jsx:216
 #: src/views/settingspage/components/Translation.jsx:67
 msgid "Language changed to {0}"
@@ -531,10 +533,12 @@ msgstr "Leveling becomes more challenging with each new level."
 
 #: src/views/settingspage/components/Apperance.jsx:26
 #: src/views/settingspage/components/Apperance.jsx:55
-msgid "Light"
-msgstr "Light"
+#~ msgid "Light"
+#~ msgstr "Light"
 
 #: src/Components/ProfileMenu.jsx:112
+#: src/views/settingspage/components/Apperance.jsx:26
+#: src/views/settingspage/components/Apperance.jsx:55
 msgid "Light Mode"
 msgstr "Light Mode"
 
@@ -546,7 +550,7 @@ msgstr "Like"
 msgid "Liked by <0>{0} </0> and <1>{1} others</1>"
 msgstr "Liked by <0>{0} </0> and <1>{1} others</1>"
 
-#: src/views/Notis/Notis.jsx:133
+#: src/views/Notis/Notis.jsx:169
 #: src/views/Profile/Profile.jsx:144
 msgid "Likes"
 msgstr "Likes"
@@ -555,7 +559,7 @@ msgstr "Likes"
 msgid "Likes ({0})"
 msgstr "Likes ({0})"
 
-#: src/views/Notis/Notis.jsx:201
+#: src/views/Notis/Notis.jsx:237
 msgid "Likes on your posts and comments"
 msgstr "Likes on your posts and comments"
 
@@ -622,11 +626,11 @@ msgstr "Make sure to also check your spam folder if you don't see the email in y
 msgid "Members"
 msgstr "Members"
 
-#: src/views/Notis/Notis.jsx:151
+#: src/views/Notis/Notis.jsx:187
 msgid "Mentions"
 msgstr "Mentions"
 
-#: src/views/Notis/Notis.jsx:252
+#: src/views/Notis/Notis.jsx:288
 msgid "Mentions of You"
 msgstr "Mentions of You"
 
@@ -659,7 +663,7 @@ msgstr "Never shown to the public"
 msgid "New Email Address"
 msgstr "New Email Address"
 
-#: src/views/Notis/Notis.jsx:302
+#: src/views/Notis/Notis.jsx:338
 msgid "New Followers"
 msgstr "New Followers"
 
@@ -684,7 +688,7 @@ msgstr "No messages yet"
 msgid "No, don't delete it"
 msgstr "No, don't delete it"
 
-#: src/views/Notis/Notis.jsx:114
+#: src/views/Notis/Notis.jsx:150
 msgid "Notifications"
 msgstr "Notifications"
 
@@ -859,7 +863,7 @@ msgstr "Replying to<0>{0}{1}{2}</0>"
 msgid "Repost"
 msgstr "Repost"
 
-#: src/views/Notis/Notis.jsx:171
+#: src/views/Notis/Notis.jsx:207
 msgid "Requests"
 msgstr "Requests"
 
@@ -891,7 +895,7 @@ msgstr "Save Changes"
 msgid "Saved"
 msgstr "Saved"
 
-#: src/App.js:197
+#: src/App.js:220
 msgid "Scroll to top"
 msgstr "Scroll to top"
 
@@ -1101,7 +1105,7 @@ msgstr "View profile"
 msgid "Welcome back {0}"
 msgstr "Welcome back {0}"
 
-#: src/App.js:61
+#: src/App.js:63
 msgid "Welcome back, {0}"
 msgstr "Welcome back, {0}"
 
@@ -1128,23 +1132,23 @@ msgstr "Welcome to<0>momos</0>"
 msgid "What's on your mind, {0}?"
 msgstr "What's on your mind, {0}?"
 
-#: src/views/Notis/Notis.jsx:231
+#: src/views/Notis/Notis.jsx:267
 msgid "When someone comments on your post or replies to you, you'll see it here"
 msgstr "When someone comments on your post or replies to you, you'll see it here"
 
-#: src/views/Notis/Notis.jsx:305
+#: src/views/Notis/Notis.jsx:341
 msgid "When someone follows you, you'll see it here"
 msgstr "When someone follows you, you'll see it here"
 
-#: src/views/Notis/Notis.jsx:204
+#: src/views/Notis/Notis.jsx:240
 msgid "When someone likes your post or comment, you'll see it here"
 msgstr "When someone likes your post or comment, you'll see it here"
 
-#: src/views/Notis/Notis.jsx:255
+#: src/views/Notis/Notis.jsx:291
 msgid "When someone mentions you, you'll see it here"
 msgstr "When someone mentions you, you'll see it here"
 
-#: src/views/Notis/Notis.jsx:281
+#: src/views/Notis/Notis.jsx:317
 msgid "When someone requests to join your community, you'll see it here"
 msgstr "When someone requests to join your community, you'll see it here"
 
@@ -1222,7 +1226,7 @@ msgstr "You successfully changed your password and will now be logged in shortly
 msgid "You will no longer be able to post or comment in this community. You can rejoin at any time."
 msgstr "You will no longer be able to post or comment in this community. You can rejoin at any time."
 
-#: src/views/Notis/Notis.jsx:184
+#: src/views/Notis/Notis.jsx:220
 msgid "You will see all your notifications here"
 msgstr "You will see all your notifications here"
 

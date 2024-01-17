@@ -171,7 +171,7 @@ const PostQuote = ({ post }) => {
             )}
             {!post?.post?.gif &&
               !post?.post?.image &&
-              post?.post?.poll &&
+              !post?.post?.poll &&
               videoId && (
                 <AspectRatio ratio={16 / 9}>
                   <iframe

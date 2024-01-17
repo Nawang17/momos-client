@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Topuserbadge from "../../../../../helper/Topuserbadge";
-import { Avatar, Flex, Indicator, Text } from "@mantine/core";
+import { AspectRatio, Avatar, Flex, Indicator, Text } from "@mantine/core";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import locale from "date-fns/locale/en-US";
 import Verifiedbadge from "../../../../../helper/VerifiedBadge";
@@ -14,6 +14,18 @@ const PostQuote = ({ post }) => {
   const navigate = useNavigate();
 
   const { darkmode, onlineusers, topUser } = useContext(AuthContext);
+  const extractVideoId = (text) => {
+    // Define a regular expression to match YouTube video URLs
+    const youtubeRegex =
+      /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+
+    // Use the regular expression to find the video ID in the text
+    const match = text?.match(youtubeRegex);
+
+    // Check if a match is found and return the video ID
+    return match && match[1];
+  };
+  const videoId = extractVideoId(post?.post?.text);
   return (
     <>
       {/* if post has quote show this */}
@@ -27,7 +39,11 @@ const PostQuote = ({ post }) => {
             className="addPointer"
             direction="column"
             gap="0.5rem"
-            pb={!post?.post?.image && !post?.post?.gif ? "0.7rem" : "0"}
+            pb={
+              !post?.post?.image && !post?.post?.gif && !videoId
+                ? "0.7rem"
+                : "0"
+            }
             style={{
               fontSize: "0.9rem",
               border: darkmode ? "1px solid #2f3136" : "1px solid #e6ecf0",
@@ -153,6 +169,23 @@ const PostQuote = ({ post }) => {
                 />
               </>
             )}
+            {!post?.post?.gif &&
+              !post?.post?.image &&
+              post?.post?.poll &&
+              videoId && (
+                <AspectRatio ratio={16 / 9}>
+                  <iframe
+                    style={{
+                      border: 0,
+                      borderRadius: "0 0 0.5rem 0.5rem",
+                    }}
+                    src={`https://www.youtube.com/embed/${videoId}`}
+                    title="YouTube video player"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </AspectRatio>
+              )}
           </Flex>
         </div>
       )}

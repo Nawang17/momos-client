@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import {
+  AspectRatio,
   Avatar,
   Badge,
   Button,
@@ -335,6 +336,17 @@ export const Comments = ({
       [commentId]: !prevState[commentId], // Toggle the fold state
     }));
   };
+  const extractVideoId = (text) => {
+    // Define a regular expression to match YouTube video URLs
+    const youtubeRegex =
+      /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+
+    // Use the regular expression to find the video ID in the text
+    const match = text?.match(youtubeRegex);
+
+    // Check if a match is found and return the video ID
+    return match && match[1];
+  };
   return (
     <>
       {/* commentfeed */}
@@ -477,6 +489,28 @@ export const Comments = ({
                         src={comment?.gif}
                         alt=""
                       />
+                    </div>
+                  )}
+                  {!comment?.gif && extractVideoId(comment?.text) && (
+                    <div
+                      style={{
+                        padding: "0.3rem 0",
+                      }}
+                    >
+                      <AspectRatio ratio={16 / 9}>
+                        <iframe
+                          style={{
+                            border: 0,
+                            borderRadius: "4px",
+                          }}
+                          src={`https://www.youtube.com/embed/${extractVideoId(
+                            comment?.text
+                          )}`}
+                          title="YouTube video player"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        ></iframe>
+                      </AspectRatio>
                     </div>
                   )}
                   <div style={{ display: "flex", gap: "0.8rem" }}>
@@ -743,6 +777,28 @@ export const Comments = ({
                               src={data?.gif}
                               alt=""
                             />
+                          </div>
+                        )}
+                        {!data?.gif && extractVideoId(data?.text) && (
+                          <div
+                            style={{
+                              padding: "0.3rem 0",
+                            }}
+                          >
+                            <AspectRatio ratio={16 / 9}>
+                              <iframe
+                                style={{
+                                  border: 0,
+                                  borderRadius: "4px",
+                                }}
+                                src={`https://www.youtube.com/embed/${extractVideoId(
+                                  data?.text
+                                )}`}
+                                title="YouTube video player"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                              ></iframe>
+                            </AspectRatio>
                           </div>
                         )}
 

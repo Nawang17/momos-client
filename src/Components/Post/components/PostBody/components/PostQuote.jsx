@@ -9,6 +9,7 @@ import { formatDistance } from "../../../../../helper/DateFormat";
 import { useContext } from "react";
 import { AuthContext } from "../../../../../context/Auth";
 import { Trans } from "@lingui/macro";
+import { formatText } from "../../../../../helper/FormatText";
 const PostQuote = ({ post }) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -111,7 +112,7 @@ const PostQuote = ({ post }) => {
                   padding: "0 0.7rem 0 0.7rem",
                 }}
               >
-                {post?.post.text}
+                {formatText(post?.post?.text, navigate)}
               </Text>
             )}
 

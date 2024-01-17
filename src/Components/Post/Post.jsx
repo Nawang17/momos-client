@@ -1,19 +1,15 @@
-import { createStyles, Text } from "@mantine/core";
+import { createStyles } from "@mantine/core";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../../context/Auth";
 import { useState } from "react";
 import CreatePostModal from "../CreatePostModal";
-import PostPolls from "./components/PostBody/PostPolls";
 import BookmarkNotiModal from "./components/PostModals/BookmarkNotiModal";
 import PostHeader from "./components/PostHeader/PostHeader";
 import PostFooter from "./components/PostFooter/PostFooter";
 import CommentPreview from "./components/PostFooter/CommentPreview";
-import { formatText } from "../../helper/FormatText";
-import PostQuote from "./components/PostBody/PostQuote";
-import PostMedia from "./components/PostBody/PostMedia";
-import LinkPreview from "./components/PostBody/LinkPreviews/LinkPreview";
-import CommunityLink from "./components/PostBody/LinkPreviews/CommunityLink";
+
+import PostBody from "./components/PostBody/PostBody";
 const useStyles = createStyles(() => ({
   wrapper: {
     background: "white",
@@ -30,12 +26,6 @@ const useStyles = createStyles(() => ({
     flexDirection: "column",
     gap: "0.3rem",
     width: "100%",
-  },
-
-  body: {
-    wordBreak: "break-word",
-    whiteSpace: "pre-wrap",
-    paddingTop: "0.5rem",
   },
 }));
 export const Post = ({ post, setPosts, comments }) => {
@@ -74,49 +64,8 @@ export const Post = ({ post, setPosts, comments }) => {
             bookmarkModalOpen={bookmarkModalOpen}
             setbookmarkModalOpen={setbookmarkModalOpen}
           />
-
-          {/* if post has text value and no poll */}
-
-          {post?.text && !post?.poll && (
-            <div
-              style={{
-                cursor: "pointer",
-                padding: "0rem 1rem 0rem 1rem",
-              }}
-              onClick={() => {
-                if (
-                  pathname.substring(0, pathname.indexOf("/", 1)) ===
-                    "/community" ||
-                  post?.community?.name
-                ) {
-                  navigate(`/communitypost/${post.id}`);
-                } else {
-                  navigate(`/post/${post.id}`);
-                }
-              }}
-              className={classes.body}
-            >
-              <Text size="15px">{formatText(post?.text, navigate)}</Text>
-            </div>
-          )}
-          {/* image, video and gif display */}
-          <PostMedia post={post} />
-
-          {/* post poll display */}
-
-          <PostPolls post={post} />
-
-          {/* link preview  */}
-
-          <LinkPreview post={post} darkmode={darkmode} />
-
-          {/* community link preview */}
-
-          <CommunityLink post={post} />
-
-          {/*Post quote */}
-
-          <PostQuote post={post} />
+          {/* Post body (text, media, polls) */}
+          <PostBody post={post} darkmode={darkmode} />
 
           {/* Post footer */}
           <PostFooter
@@ -127,6 +76,7 @@ export const Post = ({ post, setPosts, comments }) => {
             bookmarkModalOpen={bookmarkModalOpen}
             setbookmarkModalOpen={setbookmarkModalOpen}
           />
+          {/* post's comment preview  */}
           <CommentPreview post={post} comments={comments} />
         </div>
       </div>

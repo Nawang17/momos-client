@@ -1,17 +1,17 @@
 import React, { useContext, useState } from "react";
 import { Button, Modal, Progress, Text } from "@mantine/core";
-import { AuthContext } from "../../../../context/Auth";
+import { AuthContext } from "../../../../../context/Auth";
 import { useNavigate } from "react-router-dom";
 
 import { formatDistanceToNowStrict } from "date-fns";
 import locale from "date-fns/locale/en-US";
-import { pollvote } from "../../../../api/POST";
+import { pollvote } from "../../../../../api/POST";
 import { showNotification } from "@mantine/notifications";
 import { CheckCircle, Lock, WarningCircle } from "@phosphor-icons/react";
-import { formatDistance } from "../../../../helper/DateFormat";
-import Verifiedbadge from "../../../../helper/VerifiedBadge";
-import Topuserbadge from "../../../../helper/Topuserbadge";
-import { formatText } from "../../../../helper/FormatText";
+import { formatDistance } from "../../../../../helper/DateFormat";
+import Verifiedbadge from "../../../../../helper/VerifiedBadge";
+import Topuserbadge from "../../../../../helper/Topuserbadge";
+import { formatText } from "../../../../../helper/FormatText";
 import { Trans } from "@lingui/macro";
 const PostPolls = ({ post }) => {
   const [poll, setpoll] = useState(post);

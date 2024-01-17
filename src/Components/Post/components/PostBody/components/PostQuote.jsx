@@ -1,13 +1,13 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import Topuserbadge from "../../../../helper/Topuserbadge";
-import { Avatar, Container, Flex, Indicator, Text } from "@mantine/core";
+import Topuserbadge from "../../../../../helper/Topuserbadge";
+import { Avatar, Flex, Indicator, Text } from "@mantine/core";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import locale from "date-fns/locale/en-US";
-import Verifiedbadge from "../../../../helper/VerifiedBadge";
-import { formatDistance } from "../../../../helper/DateFormat";
+import Verifiedbadge from "../../../../../helper/VerifiedBadge";
+import { formatDistance } from "../../../../../helper/DateFormat";
 import { useContext } from "react";
-import { AuthContext } from "../../../../context/Auth";
+import { AuthContext } from "../../../../../context/Auth";
 import { Trans } from "@lingui/macro";
 const PostQuote = ({ post }) => {
   const { pathname } = useLocation();

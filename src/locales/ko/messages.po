@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: momos\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-15 07:36\n"
+"PO-Revision-Date: 2024-01-20 07:25\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -24,78 +24,78 @@ msgstr ""
 #: src/views/SinglePost/Comments.jsx:447
 #: src/views/SinglePost/Comments.jsx:685
 msgid "(edited)"
-msgstr ""
+msgstr "(수정됨)"
 
 #: src/Components/About.jsx:221
 msgid "(feel free to reach out)"
 msgstr ""
 
-#: src/Components/PostPolls.jsx:270
+#: src/Components/Post/components/PostBody/PostPolls.jsx:271
 msgid "{0} {1}"
-msgstr ""
+msgstr "{0} {1}"
 
 #: src/views/bookmark/Bookmarks.jsx:81
 msgid "{0} Bookmarks"
-msgstr ""
+msgstr "{0} 북마크"
 
 #: src/Components/Post/components/PostFooter/PostFooter.jsx:272
 msgid "{0} comments"
-msgstr ""
+msgstr "{0} 댓글"
 
-#: src/Components/PostPolls.jsx:289
+#: src/Components/Post/components/PostBody/PostPolls.jsx:290
 msgid "{0} left"
 msgstr ""
 
 #: src/Components/Post/components/PostFooter/PostFooter.jsx:231
 #: src/Components/Post/components/PostFooter/PostFooter.jsx:243
 msgid "{0} likes"
-msgstr ""
+msgstr "{0} 좋아요"
 
-#: src/Components/Sidebar/Leaderboard.jsx:158
+#: src/Components/Sidebar/components/Leaderboard.jsx:158
 msgid "{0} points"
-msgstr ""
+msgstr "{0} 포인트"
 
 #: src/views/Discover/Discover.jsx:119
 msgid "{0} posts"
-msgstr ""
+msgstr "{0} 게시글"
 
 #: src/Components/Sidebar.jsx:327
 msgid "{0} pts to Level {1}"
-msgstr ""
+msgstr "레벨 {1} 까지 {0} 포인트"
 
 #: src/Components/Sidebar.jsx:286
 msgid "{0} Rank - {1} points"
-msgstr ""
+msgstr "{0} 위 - {1} 포인트"
 
 #: src/views/SinglePost/Comments.jsx:572
 msgid "{0} replies"
-msgstr ""
+msgstr "{0} 답글"
 
 #: src/Components/Post/components/PostFooter/PostFooter.jsx:294
 #: src/views/Reposts/Reposts.jsx:76
 msgid "{0} reposts"
-msgstr ""
+msgstr "{0} 리포스트"
 
 #: src/Components/Leaderboardhorizontal.jsx:95
-#: src/Components/Sidebar/Leaderboard.jsx:90
-#: src/Components/Sidebar/Leaderboard.jsx:251
+#: src/Components/Sidebar/components/Leaderboard.jsx:90
+#: src/Components/Sidebar/components/Leaderboard.jsx:251
 #: src/views/Leaderboard/Leaderboard.jsx:176
 msgid "*Self likes are not counted"
-msgstr ""
+msgstr "자신의 글에 한 좋아요는 계산되지 않습니다."
 
-#: src/Components/PostPolls.jsx:307
+#: src/Components/Post/components/PostBody/PostPolls.jsx:313
 msgid "`Poll Votes (${0})`"
 msgstr ""
 
 #: src/Components/Leaderboardhorizontal.jsx:91
-#: src/Components/Sidebar/Leaderboard.jsx:247
+#: src/Components/Sidebar/components/Leaderboard.jsx:247
 #: src/views/Leaderboard/Leaderboard.jsx:172
 msgid "+1 point for each like on your posts"
-msgstr ""
+msgstr "글에 받은 좋아요 당 +1 포인트"
 
 #: src/views/Profile/ProfileHeader.jsx:750
 msgid "<0>{0} points to</0> Level {1}"
-msgstr ""
+msgstr "레벨 {1} 까지<0>{0} 포인트</0>"
 
 #: src/views/Profile/Profile.jsx:252
 msgid "<0>@{0} hasn't liked any posts</0><1>When they do, you'll see them here.</1>"
@@ -111,33 +111,33 @@ msgstr ""
 
 #: src/views/Profile/ProfileHeader.jsx:606
 msgid "<0>Joined</0>{0}"
-msgstr ""
+msgstr "{0}<0>가입함</0>"
 
 #: src/Components/Sidebar.jsx:447
 msgid "About"
-msgstr ""
+msgstr "정보"
 
 #: src/Components/About.jsx:81
-#: src/Components/ProfileMenu.jsx:148
-#: src/Components/ProfileMenu.jsx:187
+#: src/Components/ProfileMenu.jsx:159
+#: src/Components/ProfileMenu.jsx:198
 msgid "About momos"
 msgstr "모모즈에 대하여"
 
-#: src/views/Notis/Notis.jsx:521
+#: src/views/Notis/Notis.jsx:522
 msgid "Accept"
-msgstr ""
+msgstr "확인"
 
 #: src/views/settingspage/settingsPage.jsx:86
 msgid "Account"
-msgstr ""
+msgstr "계정"
 
 #: src/views/settingspage/settingsPage.jsx:122
 msgid "Account created"
-msgstr ""
+msgstr "계정 생성됨"
 
 #: src/views/Search/UserSearch.jsx:206
 msgid "Accounts"
-msgstr ""
+msgstr "계정 목록"
 
 #: src/views/Profile/ProfileHeader.jsx:344
 msgid "Active {0} ago"
@@ -145,41 +145,41 @@ msgstr ""
 
 #: src/views/Chat/Chat.jsx:265
 msgid "Active now"
-msgstr ""
+msgstr "지금 활성화하기"
 
 #: src/views/singlecommunitypost/Reply.jsx:117
 #: src/views/SinglePost/Reply.jsx:117
 msgid "Add a comment..."
-msgstr ""
+msgstr "댓글 달기"
 
-#: src/Components/ProfileMenu.jsx:135
+#: src/Components/ProfileMenu.jsx:146
 #: src/views/communities/CommunityProfile.jsx:417
 msgid "Admin"
 msgstr "관리자"
 
 #: src/views/Notis/Notis.jsx:160
 msgid "All activity"
-msgstr ""
+msgstr "모든 활동"
 
 #: src/views/communities/CommunityProfileMenu.jsx:76
 msgid "All posts and members of this community will be deleted forever. This action cannot be undone."
-msgstr ""
+msgstr "이 커뮤니티에 있는 모든 글들과 멤버들이 영구삭제될 것입니다. 다시 복구할 수 없습니다."
 
 #: src/views/Leaderboard/Leaderboard.jsx:222
 msgid "All-time"
-msgstr ""
+msgstr "전체 기간"
 
 #: src/views/Register/Register.jsx:161
 msgid "Already have an account?"
-msgstr ""
+msgstr "이미 계정이 있으신가요?"
 
 #: src/views/communities/CommunityProfileMenu.jsx:73
 msgid "Are you sure you want to delete this community?"
-msgstr ""
+msgstr "이 커뮤니티를 삭제하시려는게 맞나요?"
 
 #: src/views/Register/Register.jsx:213
 msgid "At least 6 characters"
-msgstr ""
+msgstr "최소 6글자 이상"
 
 #: src/views/singlecommunitypost/SinglePostFeed.jsx:93
 #: src/views/SinglePost/SinglePostFeed.jsx:92
@@ -190,7 +190,7 @@ msgstr ""
 msgid "Bio"
 msgstr ""
 
-#: src/Components/ProfileMenu.jsx:87
+#: src/Components/ProfileMenu.jsx:98
 msgid "Bookmarks"
 msgstr "북마크"
 
@@ -333,7 +333,7 @@ msgstr ""
 #~ msgid "Dark"
 #~ msgstr "Dark"
 
-#: src/Components/ProfileMenu.jsx:114
+#: src/Components/ProfileMenu.jsx:125
 #: src/views/settingspage/components/Apperance.jsx:26
 #: src/views/settingspage/components/Apperance.jsx:69
 msgid "Dark Mode"
@@ -343,7 +343,7 @@ msgstr "어두운 모드"
 msgid "Days"
 msgstr ""
 
-#: src/views/Notis/Notis.jsx:531
+#: src/views/Notis/Notis.jsx:532
 msgid "Decline"
 msgstr ""
 
@@ -470,8 +470,8 @@ msgid "How does levels work?"
 msgstr ""
 
 #: src/Components/Leaderboardhorizontal.jsx:88
-#: src/Components/Sidebar/Leaderboard.jsx:84
-#: src/Components/Sidebar/Leaderboard.jsx:243
+#: src/Components/Sidebar/components/Leaderboard.jsx:84
+#: src/Components/Sidebar/components/Leaderboard.jsx:243
 #: src/views/Leaderboard/Leaderboard.jsx:168
 msgid "How to earn points?"
 msgstr ""
@@ -488,9 +488,9 @@ msgstr ""
 msgid "Image size is too big. Max allowed size is 9MB"
 msgstr ""
 
+#: src/Components/Post/components/PostBody/PostPolls.jsx:76
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:58
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:113
-#: src/Components/PostPolls.jsx:76
 #: src/views/SinglePost/Comments.jsx:318
 msgid "Internal Server Error"
 msgstr ""
@@ -504,7 +504,7 @@ msgid "Language"
 msgstr ""
 
 #: src/Components/Navbar.jsx:274
-#: src/Components/ProfileMenu.jsx:216
+#: src/Components/ProfileMenu.jsx:227
 #: src/views/settingspage/components/Translation.jsx:67
 msgid "Language changed to {0}"
 msgstr ""
@@ -517,8 +517,8 @@ msgid "Latest"
 msgstr ""
 
 #: src/Components/Leaderboardhorizontal.jsx:67
-#: src/Components/Sidebar/Leaderboard.jsx:64
-#: src/Components/Sidebar/Leaderboard.jsx:223
+#: src/Components/Sidebar/components/Leaderboard.jsx:64
+#: src/Components/Sidebar/components/Leaderboard.jsx:223
 #: src/views/Leaderboard/Leaderboard.jsx:140
 msgid "Leaderboard"
 msgstr "리더보드"
@@ -541,7 +541,7 @@ msgstr ""
 #~ msgid "Light"
 #~ msgstr "Light"
 
-#: src/Components/ProfileMenu.jsx:112
+#: src/Components/ProfileMenu.jsx:123
 #: src/views/settingspage/components/Apperance.jsx:26
 #: src/views/settingspage/components/Apperance.jsx:55
 msgid "Light Mode"
@@ -578,16 +578,16 @@ msgstr "링크가 클립보드에 복사됨"
 msgid "Load older messages"
 msgstr ""
 
-#: src/Components/ProfileMenu.jsx:157
+#: src/Components/ProfileMenu.jsx:168
 msgid "Log Out"
 msgstr "로그아웃"
 
-#: src/Components/ProfileMenu.jsx:46
+#: src/Components/ProfileMenu.jsx:47
 msgid "Logged out"
 msgstr "로그아웃됨"
 
 #: src/Components/Hero.jsx:85
-#: src/Components/ProfileMenu.jsx:169
+#: src/Components/ProfileMenu.jsx:180
 #: src/views/Login/ForgotPasswordUpdate.jsx:184
 #: src/views/Login/Login.jsx:258
 #: src/views/Register/Register.jsx:174
@@ -598,8 +598,8 @@ msgstr "로그인"
 #: src/Components/Hsuggestedacc.jsx:41
 #: src/Components/NestedCommentMenu.jsx:87
 #: src/Components/Post/common/functions.js:16
+#: src/Components/Post/components/PostBody/PostPolls.jsx:34
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:75
-#: src/Components/PostPolls.jsx:34
 #: src/views/Chat/Chatrooms.jsx:437
 #: src/views/Profile/ProfileHeader.jsx:119
 #: src/views/Profile/ProfileHeader.jsx:521
@@ -750,7 +750,7 @@ msgstr ""
 msgid "Please note that this project is for educational purposes and may have bugs or unfinished features. If you encounter any issues or have any suggestions, please feel free to reach out or submit a pull request."
 msgstr ""
 
-#: src/Components/PostPolls.jsx:285
+#: src/Components/Post/components/PostBody/PostPolls.jsx:286
 msgid "Poll closed"
 msgstr ""
 
@@ -815,7 +815,7 @@ msgid "Public (Anyone can join)"
 msgstr ""
 
 #: src/Components/Hero.jsx:90
-#: src/Components/ProfileMenu.jsx:178
+#: src/Components/ProfileMenu.jsx:189
 #: src/views/Login/ForgotPasswordUpdate.jsx:194
 #: src/views/Login/Login.jsx:213
 #: src/views/Register/Register.jsx:217
@@ -925,7 +925,7 @@ msgstr ""
 msgid "Set Password"
 msgstr ""
 
-#: src/Components/ProfileMenu.jsx:95
+#: src/Components/ProfileMenu.jsx:106
 #: src/views/settingspage/settingsPage.jsx:74
 msgid "Settings"
 msgstr "설정"
@@ -985,8 +985,8 @@ msgid "Technologies"
 msgstr ""
 
 #: src/Components/Leaderboardhorizontal.jsx:80
-#: src/Components/Sidebar/Leaderboard.jsx:77
-#: src/Components/Sidebar/Leaderboard.jsx:236
+#: src/Components/Sidebar/components/Leaderboard.jsx:77
+#: src/Components/Sidebar/components/Leaderboard.jsx:236
 #: src/views/Leaderboard/Leaderboard.jsx:160
 msgid "The leaderboard ranking is based on the total number of points earned by the user."
 msgstr ""
@@ -1005,7 +1005,7 @@ msgstr ""
 msgid "This cannot be changed later"
 msgstr ""
 
-#: src/Components/Post/Post.jsx:553
+#: src/Components/Post/components/PostBody/PostQuote.jsx:178
 msgid "This post was deleted by the author."
 msgstr ""
 
@@ -1019,8 +1019,8 @@ msgstr ""
 msgid "Top"
 msgstr ""
 
-#: src/Components/Sidebar/News.jsx:62
-#: src/Components/Sidebar/News.jsx:164
+#: src/Components/Sidebar/components/News.jsx:62
+#: src/Components/Sidebar/components/News.jsx:164
 msgid "Top News"
 msgstr ""
 
@@ -1090,7 +1090,7 @@ msgid "Video size is too big. Max allowed size is 95MB"
 msgstr ""
 
 #: src/Components/Leaderboardhorizontal.jsx:117
-#: src/Components/Sidebar/Leaderboard.jsx:202
+#: src/Components/Sidebar/components/Leaderboard.jsx:202
 msgid "View all"
 msgstr ""
 
@@ -1098,7 +1098,7 @@ msgstr ""
 msgid "View all Bookmarks"
 msgstr ""
 
-#: src/Components/ProfileMenu.jsx:79
+#: src/Components/ProfileMenu.jsx:90
 msgid "View profile"
 msgstr "프로필 확인"
 
@@ -1133,7 +1133,7 @@ msgstr ""
 msgid "Welcome to<0>momos</0>"
 msgstr "<0>momos</0>에 오신 것을 환영합니다"
 
-#: src/Components/CreatePost.jsx:59
+#: src/Components/CreatePost.jsx:49
 msgid "What's on your mind, {0}?"
 msgstr ""
 
@@ -1241,7 +1241,8 @@ msgstr ""
 
 #: src/Components/CreatePostModal.jsx:406
 #: src/Components/CreatePostModal.jsx:565
-#: src/Components/Post/Post.jsx:505
+#: src/Components/Post/components/PostBody/PostMedia.jsx:62
+#: src/Components/Post/components/PostBody/PostQuote.jsx:134
 msgid "Your browser does not support the video tag."
 msgstr ""
 

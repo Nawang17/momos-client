@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: momos\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-20 14:40\n"
+"PO-Revision-Date: 2024-01-20 14:59\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -727,7 +727,7 @@ msgstr "OP"
 #: src/views/singlecommunitypost/Comments.jsx:628
 #: src/views/SinglePost/Comments.jsx:668
 msgid "Original poster"
-msgstr ""
+msgstr "원저자"
 
 #: src/views/settingspage/settingsPage.jsx:112
 msgid "Other"

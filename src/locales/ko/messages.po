@@ -76,10 +76,6 @@ msgstr "{0} 답글"
 msgid "{0} reposts"
 msgstr "{0} 리포스트"
 
-#: src/Components/Post/components/PostBody/PostPolls.jsx:271
-#~ msgid "{0} votes"
-#~ msgstr ""
-
 #: src/Components/Leaderboardhorizontal.jsx:95
 #: src/Components/Sidebar/components/Leaderboard.jsx:90
 #: src/Components/Sidebar/components/Leaderboard.jsx:251

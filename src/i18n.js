@@ -1,8 +1,8 @@
 import { i18n } from "@lingui/core";
 
-export const locales = {
-  en: "English",
-  ko: "Korean",
+export const lngs = {
+  en: { nativeName: "English", flag: "https://flagsapi.com/US/shiny/16.png" },
+  ko: { nativeName: "Korean", flag: "https://flagsapi.com/KR/shiny/16.png" },
 };
 export const defaultLocale = "en";
 

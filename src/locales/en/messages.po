@@ -25,7 +25,7 @@ msgstr "(edited)"
 msgid "(feel free to reach out)"
 msgstr "(feel free to reach out)"
 
-#: src/Components/PostPolls.jsx:270
+#: src/Components/Post/components/PostBody/PostPolls.jsx:271
 msgid "{0} {1}"
 msgstr "{0} {1}"
 
@@ -37,7 +37,7 @@ msgstr "{0} Bookmarks"
 msgid "{0} comments"
 msgstr "{0} comments"
 
-#: src/Components/PostPolls.jsx:289
+#: src/Components/Post/components/PostBody/PostPolls.jsx:290
 msgid "{0} left"
 msgstr "{0} left"
 
@@ -46,7 +46,7 @@ msgstr "{0} left"
 msgid "{0} likes"
 msgstr "{0} likes"
 
-#: src/Components/Sidebar/Leaderboard.jsx:158
+#: src/Components/Sidebar/components/Leaderboard.jsx:158
 msgid "{0} points"
 msgstr "{0} points"
 
@@ -72,18 +72,18 @@ msgid "{0} reposts"
 msgstr "{0} reposts"
 
 #: src/Components/Leaderboardhorizontal.jsx:95
-#: src/Components/Sidebar/Leaderboard.jsx:90
-#: src/Components/Sidebar/Leaderboard.jsx:251
+#: src/Components/Sidebar/components/Leaderboard.jsx:90
+#: src/Components/Sidebar/components/Leaderboard.jsx:251
 #: src/views/Leaderboard/Leaderboard.jsx:176
 msgid "*Self likes are not counted"
 msgstr "*Self likes are not counted"
 
-#: src/Components/PostPolls.jsx:307
+#: src/Components/Post/components/PostBody/PostPolls.jsx:313
 msgid "`Poll Votes (${0})`"
 msgstr "`Poll Votes (${0})`"
 
 #: src/Components/Leaderboardhorizontal.jsx:91
-#: src/Components/Sidebar/Leaderboard.jsx:247
+#: src/Components/Sidebar/components/Leaderboard.jsx:247
 #: src/views/Leaderboard/Leaderboard.jsx:172
 msgid "+1 point for each like on your posts"
 msgstr "+1 point for each like on your posts"
@@ -113,12 +113,12 @@ msgid "About"
 msgstr "About"
 
 #: src/Components/About.jsx:81
-#: src/Components/ProfileMenu.jsx:132
-#: src/Components/ProfileMenu.jsx:171
+#: src/Components/ProfileMenu.jsx:159
+#: src/Components/ProfileMenu.jsx:198
 msgid "About momos"
 msgstr "About momos"
 
-#: src/views/Notis/Notis.jsx:485
+#: src/views/Notis/Notis.jsx:522
 msgid "Accept"
 msgstr "Accept"
 
@@ -147,12 +147,12 @@ msgstr "Active now"
 msgid "Add a comment..."
 msgstr "Add a comment..."
 
-#: src/Components/ProfileMenu.jsx:119
+#: src/Components/ProfileMenu.jsx:146
 #: src/views/communities/CommunityProfile.jsx:417
 msgid "Admin"
 msgstr "Admin"
 
-#: src/views/Notis/Notis.jsx:124
+#: src/views/Notis/Notis.jsx:160
 msgid "All activity"
 msgstr "All activity"
 
@@ -185,7 +185,7 @@ msgstr "Be the first to share what you think!"
 msgid "Bio"
 msgstr "Bio"
 
-#: src/Components/ProfileMenu.jsx:82
+#: src/Components/ProfileMenu.jsx:98
 msgid "Bookmarks"
 msgstr "Bookmarks"
 
@@ -250,13 +250,13 @@ msgstr "Comment"
 msgid "Comment updated successfully"
 msgstr "Comment updated successfully"
 
-#: src/views/Notis/Notis.jsx:142
+#: src/views/Notis/Notis.jsx:178
 #: src/views/singlecommunitypost/Reply.jsx:35
 #: src/views/SinglePost/Reply.jsx:35
 msgid "Comments"
 msgstr "Comments"
 
-#: src/views/Notis/Notis.jsx:228
+#: src/views/Notis/Notis.jsx:264
 msgid "Comments and replies"
 msgstr "Comments and replies"
 
@@ -264,7 +264,7 @@ msgstr "Comments and replies"
 msgid "Community"
 msgstr "Community"
 
-#: src/views/Notis/Notis.jsx:278
+#: src/views/Notis/Notis.jsx:314
 msgid "Community Join Requests"
 msgstr "Community Join Requests"
 
@@ -325,14 +325,20 @@ msgstr "Current Password"
 
 #: src/views/settingspage/components/Apperance.jsx:26
 #: src/views/settingspage/components/Apperance.jsx:69
-msgid "Dark"
-msgstr "Dark"
+#~ msgid "Dark"
+#~ msgstr "Dark"
+
+#: src/Components/ProfileMenu.jsx:125
+#: src/views/settingspage/components/Apperance.jsx:26
+#: src/views/settingspage/components/Apperance.jsx:69
+msgid "Dark Mode"
+msgstr "Dark Mode"
 
 #: src/Components/CreatePostModal.jsx:669
 msgid "Days"
 msgstr "Days"
 
-#: src/views/Notis/Notis.jsx:495
+#: src/views/Notis/Notis.jsx:532
 msgid "Decline"
 msgstr "Decline"
 
@@ -431,7 +437,7 @@ msgstr "Follow {commentuser}"
 msgid "Follow back"
 msgstr "Follow back"
 
-#: src/views/Notis/Notis.jsx:160
+#: src/views/Notis/Notis.jsx:196
 #: src/views/Profile/ProfileHeader.jsx:665
 msgid "Followers"
 msgstr "Followers"
@@ -459,8 +465,8 @@ msgid "How does levels work?"
 msgstr "How does levels work?"
 
 #: src/Components/Leaderboardhorizontal.jsx:88
-#: src/Components/Sidebar/Leaderboard.jsx:84
-#: src/Components/Sidebar/Leaderboard.jsx:243
+#: src/Components/Sidebar/components/Leaderboard.jsx:84
+#: src/Components/Sidebar/components/Leaderboard.jsx:243
 #: src/views/Leaderboard/Leaderboard.jsx:168
 msgid "How to earn points?"
 msgstr "How to earn points?"
@@ -477,9 +483,9 @@ msgstr "If an account matches<0>{email}</0>, you should receive an email with in
 msgid "Image size is too big. Max allowed size is 9MB"
 msgstr "Image size is too big. Max allowed size is 9MB"
 
+#: src/Components/Post/components/PostBody/PostPolls.jsx:76
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:58
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:113
-#: src/Components/PostPolls.jsx:76
 #: src/views/SinglePost/Comments.jsx:318
 msgid "Internal Server Error"
 msgstr "Internal Server Error"
@@ -488,12 +494,13 @@ msgstr "Internal Server Error"
 msgid "Join"
 msgstr "Join"
 
-#: src/views/settingspage/components/Translation.jsx:23
+#: src/views/settingspage/components/Translation.jsx:20
 msgid "Language"
 msgstr "Language"
 
-#: src/Components/Navbar.jsx:260
-#: src/views/settingspage/components/Translation.jsx:64
+#: src/Components/Navbar.jsx:274
+#: src/Components/ProfileMenu.jsx:227
+#: src/views/settingspage/components/Translation.jsx:67
 msgid "Language changed to {0}"
 msgstr "Language changed to {0}"
 
@@ -505,8 +512,8 @@ msgid "Latest"
 msgstr "Latest"
 
 #: src/Components/Leaderboardhorizontal.jsx:67
-#: src/Components/Sidebar/Leaderboard.jsx:64
-#: src/Components/Sidebar/Leaderboard.jsx:223
+#: src/Components/Sidebar/components/Leaderboard.jsx:64
+#: src/Components/Sidebar/components/Leaderboard.jsx:223
 #: src/views/Leaderboard/Leaderboard.jsx:140
 msgid "Leaderboard"
 msgstr "Leaderboard"
@@ -526,8 +533,14 @@ msgstr "Leveling becomes more challenging with each new level."
 
 #: src/views/settingspage/components/Apperance.jsx:26
 #: src/views/settingspage/components/Apperance.jsx:55
-msgid "Light"
-msgstr "Light"
+#~ msgid "Light"
+#~ msgstr "Light"
+
+#: src/Components/ProfileMenu.jsx:123
+#: src/views/settingspage/components/Apperance.jsx:26
+#: src/views/settingspage/components/Apperance.jsx:55
+msgid "Light Mode"
+msgstr "Light Mode"
 
 #: src/Components/Post/components/PostFooter/PostFooter.jsx:352
 msgid "Like"
@@ -537,7 +550,7 @@ msgstr "Like"
 msgid "Liked by <0>{0} </0> and <1>{1} others</1>"
 msgstr "Liked by <0>{0} </0> and <1>{1} others</1>"
 
-#: src/views/Notis/Notis.jsx:133
+#: src/views/Notis/Notis.jsx:169
 #: src/views/Profile/Profile.jsx:144
 msgid "Likes"
 msgstr "Likes"
@@ -546,7 +559,7 @@ msgstr "Likes"
 msgid "Likes ({0})"
 msgstr "Likes ({0})"
 
-#: src/views/Notis/Notis.jsx:201
+#: src/views/Notis/Notis.jsx:237
 msgid "Likes on your posts and comments"
 msgstr "Likes on your posts and comments"
 
@@ -560,16 +573,16 @@ msgstr "Link copied to clipboard"
 msgid "Load older messages"
 msgstr "Load older messages"
 
-#: src/Components/ProfileMenu.jsx:141
+#: src/Components/ProfileMenu.jsx:168
 msgid "Log Out"
 msgstr "Log Out"
 
-#: src/Components/ProfileMenu.jsx:32
+#: src/Components/ProfileMenu.jsx:47
 msgid "Logged out"
 msgstr "Logged out"
 
 #: src/Components/Hero.jsx:85
-#: src/Components/ProfileMenu.jsx:153
+#: src/Components/ProfileMenu.jsx:180
 #: src/views/Login/ForgotPasswordUpdate.jsx:184
 #: src/views/Login/Login.jsx:258
 #: src/views/Register/Register.jsx:174
@@ -580,8 +593,8 @@ msgstr "Login"
 #: src/Components/Hsuggestedacc.jsx:41
 #: src/Components/NestedCommentMenu.jsx:87
 #: src/Components/Post/common/functions.js:16
+#: src/Components/Post/components/PostBody/PostPolls.jsx:34
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:75
-#: src/Components/PostPolls.jsx:34
 #: src/views/Chat/Chatrooms.jsx:437
 #: src/views/Profile/ProfileHeader.jsx:119
 #: src/views/Profile/ProfileHeader.jsx:521
@@ -613,11 +626,11 @@ msgstr "Make sure to also check your spam folder if you don't see the email in y
 msgid "Members"
 msgstr "Members"
 
-#: src/views/Notis/Notis.jsx:151
+#: src/views/Notis/Notis.jsx:187
 msgid "Mentions"
 msgstr "Mentions"
 
-#: src/views/Notis/Notis.jsx:252
+#: src/views/Notis/Notis.jsx:288
 msgid "Mentions of You"
 msgstr "Mentions of You"
 
@@ -650,7 +663,7 @@ msgstr "Never shown to the public"
 msgid "New Email Address"
 msgstr "New Email Address"
 
-#: src/views/Notis/Notis.jsx:302
+#: src/views/Notis/Notis.jsx:338
 msgid "New Followers"
 msgstr "New Followers"
 
@@ -675,7 +688,7 @@ msgstr "No messages yet"
 msgid "No, don't delete it"
 msgstr "No, don't delete it"
 
-#: src/views/Notis/Notis.jsx:114
+#: src/views/Notis/Notis.jsx:150
 msgid "Notifications"
 msgstr "Notifications"
 
@@ -732,7 +745,7 @@ msgstr "Password Updated"
 msgid "Please note that this project is for educational purposes and may have bugs or unfinished features. If you encounter any issues or have any suggestions, please feel free to reach out or submit a pull request."
 msgstr "Please note that this project is for educational purposes and may have bugs or unfinished features. If you encounter any issues or have any suggestions, please feel free to reach out or submit a pull request."
 
-#: src/Components/PostPolls.jsx:285
+#: src/Components/Post/components/PostBody/PostPolls.jsx:286
 msgid "Poll closed"
 msgstr "Poll closed"
 
@@ -797,7 +810,7 @@ msgid "Public (Anyone can join)"
 msgstr "Public (Anyone can join)"
 
 #: src/Components/Hero.jsx:90
-#: src/Components/ProfileMenu.jsx:162
+#: src/Components/ProfileMenu.jsx:189
 #: src/views/Login/ForgotPasswordUpdate.jsx:194
 #: src/views/Login/Login.jsx:213
 #: src/views/Register/Register.jsx:217
@@ -850,7 +863,7 @@ msgstr "Replying to<0>{0}{1}{2}</0>"
 msgid "Repost"
 msgstr "Repost"
 
-#: src/views/Notis/Notis.jsx:171
+#: src/views/Notis/Notis.jsx:207
 msgid "Requests"
 msgstr "Requests"
 
@@ -882,7 +895,7 @@ msgstr "Save Changes"
 msgid "Saved"
 msgstr "Saved"
 
-#: src/App.js:194
+#: src/App.js:220
 msgid "Scroll to top"
 msgstr "Scroll to top"
 
@@ -907,7 +920,7 @@ msgstr "See all {0} comments"
 msgid "Set Password"
 msgstr "Set Password"
 
-#: src/Components/ProfileMenu.jsx:73
+#: src/Components/ProfileMenu.jsx:106
 #: src/views/settingspage/settingsPage.jsx:74
 msgid "Settings"
 msgstr "Settings"
@@ -951,12 +964,12 @@ msgid "Suggested for you"
 msgstr "Suggested for you"
 
 #: src/Components/ProfileMenu.jsx:106
-msgid "Switch to Dark Mode"
-msgstr "Switch to Dark Mode"
+#~ msgid "Switch to Dark Mode"
+#~ msgstr "Switch to Dark Mode"
 
 #: src/Components/ProfileMenu.jsx:104
-msgid "Switch to Light Mode"
-msgstr "Switch to Light Mode"
+#~ msgid "Switch to Light Mode"
+#~ msgstr "Switch to Light Mode"
 
 #: src/Components/RouteError.jsx:78
 msgid "Take me back to home page"
@@ -967,8 +980,8 @@ msgid "Technologies"
 msgstr "Technologies"
 
 #: src/Components/Leaderboardhorizontal.jsx:80
-#: src/Components/Sidebar/Leaderboard.jsx:77
-#: src/Components/Sidebar/Leaderboard.jsx:236
+#: src/Components/Sidebar/components/Leaderboard.jsx:77
+#: src/Components/Sidebar/components/Leaderboard.jsx:236
 #: src/views/Leaderboard/Leaderboard.jsx:160
 msgid "The leaderboard ranking is based on the total number of points earned by the user."
 msgstr "The leaderboard ranking is based on the total number of points earned by the user."
@@ -987,7 +1000,7 @@ msgstr "This can’t be undone and this user will be removed from your following
 msgid "This cannot be changed later"
 msgstr "This cannot be changed later"
 
-#: src/Components/Post/Post.jsx:553
+#: src/Components/Post/components/PostBody/PostQuote.jsx:178
 msgid "This post was deleted by the author."
 msgstr "This post was deleted by the author."
 
@@ -1001,8 +1014,8 @@ msgstr "To confirm your new email, enter your current password."
 msgid "Top"
 msgstr "Top"
 
-#: src/Components/Sidebar/News.jsx:62
-#: src/Components/Sidebar/News.jsx:164
+#: src/Components/Sidebar/components/News.jsx:62
+#: src/Components/Sidebar/components/News.jsx:164
 msgid "Top News"
 msgstr "Top News"
 
@@ -1072,7 +1085,7 @@ msgid "Video size is too big. Max allowed size is 95MB"
 msgstr "Video size is too big. Max allowed size is 95MB"
 
 #: src/Components/Leaderboardhorizontal.jsx:117
-#: src/Components/Sidebar/Leaderboard.jsx:202
+#: src/Components/Sidebar/components/Leaderboard.jsx:202
 msgid "View all"
 msgstr "View all"
 
@@ -1080,7 +1093,7 @@ msgstr "View all"
 msgid "View all Bookmarks"
 msgstr "View all Bookmarks"
 
-#: src/Components/ProfileMenu.jsx:64
+#: src/Components/ProfileMenu.jsx:90
 msgid "View profile"
 msgstr "View profile"
 
@@ -1092,7 +1105,7 @@ msgstr "View profile"
 msgid "Welcome back {0}"
 msgstr "Welcome back {0}"
 
-#: src/App.js:58
+#: src/App.js:63
 msgid "Welcome back, {0}"
 msgstr "Welcome back, {0}"
 
@@ -1115,27 +1128,27 @@ msgstr "Welcome to your inbox!"
 msgid "Welcome to<0>momos</0>"
 msgstr "Welcome to<0>momos</0>"
 
-#: src/Components/CreatePost.jsx:59
+#: src/Components/CreatePost.jsx:49
 msgid "What's on your mind, {0}?"
 msgstr "What's on your mind, {0}?"
 
-#: src/views/Notis/Notis.jsx:231
+#: src/views/Notis/Notis.jsx:267
 msgid "When someone comments on your post or replies to you, you'll see it here"
 msgstr "When someone comments on your post or replies to you, you'll see it here"
 
-#: src/views/Notis/Notis.jsx:305
+#: src/views/Notis/Notis.jsx:341
 msgid "When someone follows you, you'll see it here"
 msgstr "When someone follows you, you'll see it here"
 
-#: src/views/Notis/Notis.jsx:204
+#: src/views/Notis/Notis.jsx:240
 msgid "When someone likes your post or comment, you'll see it here"
 msgstr "When someone likes your post or comment, you'll see it here"
 
-#: src/views/Notis/Notis.jsx:255
+#: src/views/Notis/Notis.jsx:291
 msgid "When someone mentions you, you'll see it here"
 msgstr "When someone mentions you, you'll see it here"
 
-#: src/views/Notis/Notis.jsx:281
+#: src/views/Notis/Notis.jsx:317
 msgid "When someone requests to join your community, you'll see it here"
 msgstr "When someone requests to join your community, you'll see it here"
 
@@ -1213,7 +1226,7 @@ msgstr "You successfully changed your password and will now be logged in shortly
 msgid "You will no longer be able to post or comment in this community. You can rejoin at any time."
 msgstr "You will no longer be able to post or comment in this community. You can rejoin at any time."
 
-#: src/views/Notis/Notis.jsx:184
+#: src/views/Notis/Notis.jsx:220
 msgid "You will see all your notifications here"
 msgstr "You will see all your notifications here"
 
@@ -1223,7 +1236,8 @@ msgstr "You will see your joined communities here"
 
 #: src/Components/CreatePostModal.jsx:406
 #: src/Components/CreatePostModal.jsx:565
-#: src/Components/Post/Post.jsx:505
+#: src/Components/Post/components/PostBody/PostMedia.jsx:62
+#: src/Components/Post/components/PostBody/PostQuote.jsx:134
 msgid "Your browser does not support the video tag."
 msgstr "Your browser does not support the video tag."
 

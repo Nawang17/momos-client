@@ -8,6 +8,7 @@ import {
   Text,
   Input,
   Select,
+  AspectRatio,
 } from "@mantine/core";
 import {
   Alarm,
@@ -34,6 +35,7 @@ import GifPicker from "gif-picker-react";
 import ReactGA from "react-ga4";
 import { formatDistance } from "../helper/DateFormat";
 import { Trans } from "@lingui/macro";
+
 export default function CreatePostModal({
   opened,
   setOpened,
@@ -276,6 +278,18 @@ export default function CreatePostModal({
     }
   };
   const { darkmode } = useContext(AuthContext);
+  const extractVideoId = (text) => {
+    // Define a regular expression to match YouTube video URLs
+    const youtubeRegex =
+      /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+
+    // Use the regular expression to find the video ID in the text
+    const match = text?.match(youtubeRegex);
+
+    // Check if a match is found and return the video ID
+    return match && match[1];
+  };
+  const videoId = extractVideoId(text);
   return (
     <>
       <Modal
@@ -447,6 +461,21 @@ export default function CreatePostModal({
                   )}
                 </div>
               )}
+              {!gifpreview && !previewSource && !poll && videoId && (
+                <AspectRatio ratio={16 / 9}>
+                  <iframe
+                    style={{
+                      border: 0,
+                      borderRadius: "4px",
+                    }}
+                    src={`https://www.youtube.com/embed/${videoId}`}
+                    title="YouTube video player"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </AspectRatio>
+              )}
+
               {quotepostinfo && (
                 <div
                   style={{
@@ -795,12 +824,10 @@ export default function CreatePostModal({
                   </Button>
                 </div>
               )}
-
               <Divider
                 my="xs"
                 color={darkmode ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)"}
               />
-
               <div
                 style={{
                   display: "flex",

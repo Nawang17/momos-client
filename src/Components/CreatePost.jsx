@@ -5,7 +5,7 @@ import CreatePostModal from "./CreatePostModal";
 import { ActionIcon, Avatar, Flex, Indicator } from "@mantine/core";
 import { Gif, ChartBarHorizontal } from "@phosphor-icons/react";
 import { Trans } from "@lingui/macro";
-const CreatePost = ({ UserInfo, darkmode, communityName }) => {
+const CreatePost = ({ UserInfo, darkmode, communityName, onlinelist }) => {
   const [opened, setOpened] = useState(false);
   const navigate = useNavigate();
   const [gif, setGif] = useState(false);
@@ -22,26 +22,16 @@ const CreatePost = ({ UserInfo, darkmode, communityName }) => {
         }}
       >
         <Flex align="center" gap="0.5rem">
-          <Indicator
-            disabled={false}
-            withBorder
-            inline
-            color="green"
-            size={9}
-            offset={7}
-            position="bottom-end"
-          >
-            <Avatar
-              className="addPointer"
-              onClick={(e) => {
-                e.stopPropagation();
-                navigate(`/${UserInfo?.username}`);
-              }}
-              size="40px"
-              radius={"xl"}
-              src={UserInfo.avatar}
-            />
-          </Indicator>
+          <Avatar
+            className="addPointer"
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/${UserInfo?.username}`);
+            }}
+            size="40px"
+            radius={"xl"}
+            src={UserInfo.avatar}
+          />
 
           <div
             onClick={() => setOpened(true)}

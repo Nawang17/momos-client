@@ -331,7 +331,8 @@ msgstr "현재 비밀번호"
 #: src/views/settingspage/components/Apperance.jsx:26
 #: src/views/settingspage/components/Apperance.jsx:69
 #~ msgid "Dark"
-#~ msgstr "Dark"
+#~ msgstr ""
+
 
 #: src/Components/ProfileMenu.jsx:125
 #: src/views/settingspage/components/Apperance.jsx:26
@@ -539,7 +540,8 @@ msgstr "새로운 레벨이 추가될 때마다 레벨링이 더 어려워집니
 #: src/views/settingspage/components/Apperance.jsx:26
 #: src/views/settingspage/components/Apperance.jsx:55
 #~ msgid "Light"
-#~ msgstr "Light"
+#~ msgstr ""
+
 
 #: src/Components/ProfileMenu.jsx:123
 #: src/views/settingspage/components/Apperance.jsx:26
@@ -970,11 +972,12 @@ msgstr "당신을 위한 추천"
 
 #: src/Components/ProfileMenu.jsx:106
 #~ msgid "Switch to Dark Mode"
-#~ msgstr "Switch to Dark Mode"
+#~ msgstr "다크모드 전환"
 
 #: src/Components/ProfileMenu.jsx:104
 #~ msgid "Switch to Light Mode"
-#~ msgstr "Switch to Light Mode"
+#~ msgstr "라이트 모드 전환"
+
 
 #: src/Components/RouteError.jsx:78
 msgid "Take me back to home page"
@@ -1249,4 +1252,3 @@ msgstr "사용중인 브라우저가 비디오 태그를 지원하지 않습니�
 #: src/Components/Sidebar.jsx:258
 msgid "Your level is based on how many points you have."
 msgstr "당신의 레벨은 당신이 얼마나 많은 포인트를 가졌냐에 따라 결정됩니다"
-

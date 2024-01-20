@@ -10,6 +10,7 @@ import {
 import {
   getTopuser,
   getbookmarksid,
+  notiCount,
   suggestedusersreq,
   userlevel,
 } from "./api/GET";
@@ -24,7 +25,7 @@ import { io } from "socket.io-client";
 import ReactGA from "react-ga4";
 
 import { ModalsProvider } from "@mantine/modals";
-
+import { lngs } from "./i18n";
 import { routes } from "./routes";
 import { Darkmodecheck } from "./helper/Darkmodecheck";
 import { Trans } from "@lingui/macro";
@@ -48,6 +49,10 @@ function App() {
   const [onlineusers, setonlineusers] = useState([]);
   const [onlinelist, setonlinelist] = useState([]);
   const [bookmarkIds, setbookmarkIds] = useState([]);
+  const [currentLng, setcurrentLng] = useState(
+    lngs[localStorage.getItem("language")]?.nativeName || "English"
+  );
+  const [unseennotiCount, setunseennotiCount] = useState(0);
   function getloginstatus() {
     LoginStatus()
       .then((res) => {
@@ -73,6 +78,11 @@ function App() {
       setSuggestedusers(res.data.suggestedusers);
     });
   }
+  function unseennotiCountfunc() {
+    notiCount().then((res) => {
+      setunseennotiCount(res.data.count);
+    });
+  }
   function getuserlevel() {
     userlevel()
       .then((res) => {
@@ -95,47 +105,62 @@ function App() {
   }
 
   //socket connection intialization
-  useEffect(() => {
-    socket.on("connect", () => {
-      setIsConnected(true);
-    });
 
+  useEffect(() => {
+    const handleConnect = () => {
+      setIsConnected(true);
+    };
+
+    const handleDisconnect = () => {
+      setIsConnected(false);
+    };
+
+    const handleOnlineUsers = (data) => {
+      setonlinelist(data);
+      setonlineusers(data.map((user) => user?.userid));
+    };
+
+    // Add event listeners
+    socket.on("connect", handleConnect);
+    socket.on("disconnect", handleDisconnect);
+    socket.on("onlineusers", handleOnlineUsers);
+
+    // Emit onlinestatus event
     socket.emit("onlinestatus", {
       token: localStorage.getItem("token"),
     });
 
-    socket.on("onlineusers", (data) => {
-      setonlinelist(data);
-      setonlineusers(
-        data.map((user) => {
-          return user?.userid;
-        })
-      );
-    });
-    socket.on("disconnect", () => {
-      setIsConnected(false);
-    });
-
+    // Cleanup function
     return () => {
-      socket.off("connect");
-      socket.off("disconnect");
+      // Remove event listeners
+      socket.off("connect", handleConnect);
+      socket.off("disconnect", handleDisconnect);
+      socket.off("onlineusers", handleOnlineUsers);
     };
   }, []);
 
   //socket connection on idle event
   useEffect(() => {
-    socket.on("connect", () => {
+    const handleConnect = () => {
       setIsConnected(true);
-    });
-    if (!idle) {
-      socket.emit("onlinestatus", {
-        token: localStorage.getItem("token"),
-      });
-    } else {
-      socket.emit("removeOnlinestatus", {
-        token: localStorage.getItem("token"),
-      });
-    }
+
+      if (!idle) {
+        socket.emit("onlinestatus", {
+          token: localStorage.getItem("token"),
+        });
+      } else {
+        socket.emit("removeOnlinestatus", {
+          token: localStorage.getItem("token"),
+        });
+      }
+    };
+
+    socket.on("connect", handleConnect);
+
+    return () => {
+      socket.off("connect", handleConnect);
+      // You might also want to clean up other event listeners here
+    };
   }, [idle]);
 
   useEffect(() => {
@@ -164,6 +189,7 @@ function App() {
     if (UserInfo) {
       getuserbookmarkids();
       getuserlevel();
+      unseennotiCountfunc();
     } else {
       setUserlevelinfo(null);
       setbookmarkIds([]);
@@ -218,6 +244,10 @@ function App() {
                 socket,
                 bookmarkIds,
                 setbookmarkIds,
+                currentLng,
+                setcurrentLng,
+                unseennotiCount,
+                setunseennotiCount,
               }}
             >
               <RouterProvider

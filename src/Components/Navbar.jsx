@@ -17,9 +17,9 @@ import {
   MagnifyingGlass,
   MoonStars,
   Sun,
-  Translate,
   UsersThree,
   CaretDown,
+  Globe,
 } from "@phosphor-icons/react";
 import { ProfileMenu } from "./ProfileMenu";
 import Notis from "../views/Notis/Notis";
@@ -27,11 +27,7 @@ import { AuthContext } from "../context/Auth";
 import { showNotification } from "@mantine/notifications";
 import { dynamicActivate } from "../i18n.js";
 import { Trans } from "@lingui/macro";
-const lngs = {
-  en: { nativeName: "English", flag: "https://flagsapi.com/US/shiny/16.png" },
-  ko: { nativeName: "Korean", flag: "https://flagsapi.com/KR/shiny/16.png" },
-};
-
+import { lngs } from "../i18n.js";
 const useStyles = createStyles((theme) => ({
   root: {
     position: "sticky",
@@ -81,22 +77,34 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export function Navbar({ socket }) {
-  const { UserInfo, setdarkmode, darkmode } = useContext(AuthContext);
-  const { classes, cx } = useStyles();
+  const {
+    UserInfo,
+    setdarkmode,
+    darkmode,
+    currentLng,
+    setcurrentLng,
+    setunseennotiCount,
+  } = useContext(AuthContext);
+  const { classes } = useStyles();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [noti, setnoti] = useState(null);
-  const [currentLng, setcurrentLng] = useState(
-    lngs[localStorage.getItem("language")]?.nativeName || "English"
-  );
-  useEffect(() => {
-    socket.on("newnotification", (data) => {
-      setnoti(data);
 
+  useEffect(() => {
+    const handleNewNotification = (data) => {
+      setnoti(data);
+      setunseennotiCount((prev) => prev + 1);
       setTimeout(() => {
         setnoti(null);
       }, 4000);
-    });
+    };
+
+    socket.on("newnotification", handleNewNotification);
+
+    return () => {
+      // Clean up the event listener when the component unmounts
+      socket.off("newnotification", handleNewNotification);
+    };
   }, []);
   return (
     <Header
@@ -240,8 +248,8 @@ export function Navbar({ socket }) {
                     <Button
                       variant="default"
                       size="xs"
-                      rightIcon={<CaretDown size={14} />}
-                      leftIcon={<Translate size={14} />}
+                      rightIcon={<CaretDown size={18} />}
+                      leftIcon={<Globe size={18} />}
                     >
                       {currentLng} {currentLng === "Korean" && " (Beta)"}
                     </Button>
@@ -250,12 +258,18 @@ export function Navbar({ socket }) {
                   <Menu.Dropdown>
                     {Object.keys(lngs).map((languageCode) => (
                       <Menu.Item
-                        icon={<img src={lngs[languageCode]?.flag} alt=""></img>}
+                        icon={
+                          <img
+                            src={lngs[languageCode]?.flag}
+                            alt=""
+                            loading="lazy"
+                          />
+                        }
                         onClick={() => {
                           if (currentLng === lngs[languageCode].nativeName)
                             return;
                           showNotification({
-                            icon: <Translate size={18} />,
+                            icon: <Globe size={18} />,
                             title: (
                               <Trans>
                                 Language changed to{" "}

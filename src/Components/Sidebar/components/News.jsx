@@ -1,10 +1,10 @@
 import { Skeleton, Text, createStyles } from "@mantine/core";
 import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../context/Auth";
+import { AuthContext } from "../../../context/Auth";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import locale from "date-fns/locale/en-US";
-import { getTopNews } from "../../api/GET";
-import { formatDistance } from "../../helper/DateFormat";
+import { getTopNews } from "../../../api/GET";
+import { formatDistance } from "../../../helper/DateFormat";
 import { Trans } from "@lingui/macro";
 const useStyles = createStyles(() => ({
   accounts: {

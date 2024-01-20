@@ -23,7 +23,7 @@ const Apperance = () => {
             }}
           >
             <Text color="dimmed" size={13}>
-              {darkmode ? <Trans>Dark</Trans> : <Trans>Light</Trans>}
+              {darkmode ? <Trans>Dark Mode</Trans> : <Trans>Light Mode</Trans>}
             </Text>
             <CaretRight size="0.8rem" stroke={1.5} />
           </div>
@@ -52,7 +52,7 @@ const Apperance = () => {
               }
               localStorage.setItem("darkmode", !darkmode);
             }}
-            label=<Trans>Light</Trans>
+            label=<Trans>Light Mode</Trans>
             icon={<Sun color="gold" size="1.5rem" weight="fill" />}
             rightSection={!darkmode && <Check size="1.2rem" />}
           />
@@ -66,7 +66,7 @@ const Apperance = () => {
               }
               localStorage.setItem("darkmode", !darkmode);
             }}
-            label=<Trans>Dark</Trans>
+            label=<Trans>Dark Mode</Trans>
             icon={<MoonStars color="skyblue" size="1.5rem" weight="fill" />}
             rightSection={darkmode && <Check size="1.2em" />}
           />

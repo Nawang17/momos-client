@@ -10,6 +10,7 @@ import {
   Indicator,
   BackgroundImage,
   Progress,
+  Flex,
 } from "@mantine/core";
 import {
   ArrowLeft,
@@ -19,6 +20,7 @@ import {
   UserMinus,
   CalendarBlank,
   UsersThree,
+  Link,
 } from "@phosphor-icons/react";
 import { useNavigate } from "react-router-dom";
 import { follow } from "../../api/POST";
@@ -592,6 +594,22 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                 <Text>{formatText(profileInfo?.description, navigate)}</Text>
               </div>
             )}
+
+            {/* users link  */}
+            {profileInfo?.link && (
+              <Flex gap="0.4rem" align="center">
+                <Link color={"#71767b"} size={18} />
+                <div
+                  style={{
+                    wordBreak: "break-word",
+                    whiteSpace: "pre-wrap",
+                  }}
+                >
+                  <Text>{formatText(profileInfo?.link, navigate)}</Text>
+                </div>
+              </Flex>
+            )}
+
             {/* joined date */}
             {profileInfo?.createdAt && (
               <div

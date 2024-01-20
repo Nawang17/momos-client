@@ -22,7 +22,7 @@ import {
   User,
   WarningCircle,
 } from "@phosphor-icons/react";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { notis } from "../../api/GET";
@@ -30,7 +30,10 @@ import { acceptCommunityrequest } from "../../api/POST";
 import { showNotification } from "@mantine/notifications";
 import { formatDistance } from "../../helper/DateFormat";
 import { Trans } from "@lingui/macro";
-export default function Notis({ darkmode }) {
+import { AuthContext } from "../../context/Auth";
+export default function Notis() {
+  const { unseennotiCount, setunseennotiCount, darkmode } =
+    useContext(AuthContext);
   const [opened, setOpened] = useState(false);
   const [Notis, setnotis] = useState([]);
   const navigate = useNavigate();
@@ -70,6 +73,7 @@ export default function Notis({ darkmode }) {
         .then((res) => {
           setnotis(res?.data?.notis);
           setloading(false);
+          setunseennotiCount(0);
         })
         .catch((err) => {
           setloading(true);
@@ -92,12 +96,44 @@ export default function Notis({ darkmode }) {
       shadow="md"
     >
       <Popover.Target>
-        <ActionIcon variant="transparent" onClick={() => setOpened((o) => !o)}>
+        <ActionIcon
+          style={{
+            position: "relative",
+          }}
+          variant="transparent"
+          onClick={() => setOpened((o) => !o)}
+        >
           <Bell
             weight={opened ? "fill" : "regular"}
             size={28}
             color={darkmode ? "white" : "black"}
           />
+          {unseennotiCount > 0 && (
+            <div
+              style={{
+                background: "#ff4500",
+                borderRadius: "12px",
+                boxShadow: darkmode ? "0 0 0 2px #25262b" : "0 0 0 2px #fff",
+                boxSizing: "border-box",
+                color: "#fff",
+                fontSize: "10px",
+                fontWeight: 700,
+                height: "16px",
+                left: 15,
+                lineHeight: "16px",
+                padding: "0 4px",
+                position: "absolute",
+                textAlign: "center",
+                top: -4,
+                verticalAlign: "middle",
+                minWidth: "16px",
+                width: "auto",
+                zIndex: 1,
+              }}
+            >
+              {unseennotiCount}
+            </div>
+          )}
         </ActionIcon>
       </Popover.Target>
 
@@ -463,6 +499,7 @@ export default function Notis({ darkmode }) {
                           style={{
                             width: "200px",
                             wordBreak: "break-word",
+                            color: !data.seen && "#1DA1F2",
                           }}
                         >
                           {data.type === "COMMUNITY_JOIN_REQUEST" && (
@@ -573,7 +610,10 @@ export default function Notis({ darkmode }) {
                         </div>
 
                         <div>
-                          <Text color={"dimmed"} size="13px">
+                          <Text
+                            color={data.seen ? "dimmed" : "#1DA1F2"}
+                            size="13px"
+                          >
                             {formatDistanceToNowStrict(
                               new Date(data.createdAt),
                               {

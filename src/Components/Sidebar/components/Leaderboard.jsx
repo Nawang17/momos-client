@@ -8,10 +8,10 @@ import {
 } from "@mantine/core";
 import { Info } from "@phosphor-icons/react";
 import React, { useContext } from "react";
-import Topuserbadge from "../../helper/Topuserbadge";
-import { AuthContext } from "../../context/Auth";
+import Topuserbadge from "../../../helper/Topuserbadge";
+import { AuthContext } from "../../../context/Auth";
 import { useNavigate } from "react-router-dom";
-import Verifiedbadge from "../../helper/VerifiedBadge";
+import Verifiedbadge from "../../../helper/VerifiedBadge";
 import { Trans } from "@lingui/macro";
 const useStyles = createStyles(() => ({
   accounts: {

@@ -1,6 +1,8 @@
 # Momos
 
-Welcome to the Momos client-side repository! Momos is a social network webapp i created to improve my full stack development skills. This repository contains the code for the client side of the webapp, which is built using React and mantine. You can see a live demo of the webapp at https://momosz.com/
+Welcome to the Momos client-side repository! Momos is a social network webapp i created to improve my full stack development skills. This repository contains the code for the client side, built using React and Mantine UI library. 
+
+You can see a live demo of the webapp at https://momosz.com/
 
 ## 👨‍💻 Technologies
 
@@ -18,10 +20,10 @@ To get started with the development of this project, you will need to have Node.
 
 ## Contributing
 
-Thank you for contributing to Momos.
+Thank you for contributing to Momos! This project is for educational purposes and may have bugs or unfinished features. 
 
-Please note that this project is for educational purposes and may have bugs or unfinished features.
+If you encounter issues or have suggestions, feel free to reach out or submit a pull request.
 
-If you encounter any issues or have any suggestions, please feel free to reach out or submit a pull request.
+Translations can be submitted through [Crowdin](https://crowdin.com/project/momos). 
 
-You can submit translations through [Crowdin](https://crowdin.com/project/momos).
+Special thanks to [altertnative](https://github.com/alternative00) for Korean translations.

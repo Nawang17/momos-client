@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: momos\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-20 14:59\n"
+"PO-Revision-Date: 2024-01-20 15:59\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -31,6 +31,7 @@ msgid "(feel free to reach out)"
 msgstr "(언제든지 문의하세요)"
 
 #: src/Components/Post/components/PostBody/components/PostPolls.jsx:271
+msgctxt "{1} is votes"
 msgid "{0} {1}"
 msgstr ""
 
@@ -1250,3 +1251,4 @@ msgstr "사용중인 브라우저가 비디오 태그를 지원하지 않습니�
 #: src/Components/Sidebar.jsx:258
 msgid "Your level is based on how many points you have."
 msgstr "당신의 레벨은 당신이 얼마나 많은 포인트를 가졌냐에 따라 결정됩니다"
+

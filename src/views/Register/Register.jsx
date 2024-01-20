@@ -204,7 +204,7 @@ export function Register({ socket }) {
             <PasswordInput
               value={Password}
               onChange={(e) => setPassword(e.target.value)}
-              label="Password"
+              label=<Trans>Password</Trans>
               placeholder="Password"
               required
               mt="xs"

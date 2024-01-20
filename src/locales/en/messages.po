@@ -16,8 +16,8 @@ msgstr ""
 #: src/Components/RepliesFeed.jsx:195
 #: src/views/singlecommunitypost/Comments.jsx:437
 #: src/views/singlecommunitypost/Comments.jsx:647
-#: src/views/SinglePost/Comments.jsx:447
-#: src/views/SinglePost/Comments.jsx:685
+#: src/views/SinglePost/Comments.jsx:459
+#: src/views/SinglePost/Comments.jsx:719
 msgid "(edited)"
 msgstr "(edited)"
 
@@ -25,7 +25,7 @@ msgstr "(edited)"
 msgid "(feel free to reach out)"
 msgstr "(feel free to reach out)"
 
-#: src/Components/Post/components/PostBody/PostPolls.jsx:271
+#: src/Components/Post/components/PostBody/components/PostPolls.jsx:271
 msgid "{0} {1}"
 msgstr "{0} {1}"
 
@@ -37,7 +37,7 @@ msgstr "{0} Bookmarks"
 msgid "{0} comments"
 msgstr "{0} comments"
 
-#: src/Components/Post/components/PostBody/PostPolls.jsx:290
+#: src/Components/Post/components/PostBody/components/PostPolls.jsx:290
 msgid "{0} left"
 msgstr "{0} left"
 
@@ -62,7 +62,7 @@ msgstr "{0} pts to Level {1}"
 msgid "{0} Rank - {1} points"
 msgstr "{0} Rank - {1} points"
 
-#: src/views/SinglePost/Comments.jsx:572
+#: src/views/SinglePost/Comments.jsx:606
 msgid "{0} replies"
 msgstr "{0} replies"
 
@@ -78,7 +78,7 @@ msgstr "{0} reposts"
 msgid "*Self likes are not counted"
 msgstr "*Self likes are not counted"
 
-#: src/Components/Post/components/PostBody/PostPolls.jsx:313
+#: src/Components/Post/components/PostBody/components/PostPolls.jsx:313
 msgid "`Poll Votes (${0})`"
 msgstr "`Poll Votes (${0})`"
 
@@ -88,7 +88,7 @@ msgstr "`Poll Votes (${0})`"
 msgid "+1 point for each like on your posts"
 msgstr "+1 point for each like on your posts"
 
-#: src/views/Profile/ProfileHeader.jsx:750
+#: src/views/Profile/ProfileHeader.jsx:768
 msgid "<0>{0} points to</0> Level {1}"
 msgstr "<0>{0} points to</0> Level {1}"
 
@@ -104,7 +104,7 @@ msgstr "<0>@{0} hasn't posted anything yet</0><1>When they do, you'll see them h
 msgid "<0>@{0} hasn't replied to anything yet</0><1>When they do, you'll see them here.</1>"
 msgstr "<0>@{0} hasn't replied to anything yet</0><1>When they do, you'll see them here.</1>"
 
-#: src/views/Profile/ProfileHeader.jsx:606
+#: src/views/Profile/ProfileHeader.jsx:624
 msgid "<0>Joined</0>{0}"
 msgstr "<0>Joined</0>{0}"
 
@@ -134,7 +134,7 @@ msgstr "Account created"
 msgid "Accounts"
 msgstr "Accounts"
 
-#: src/views/Profile/ProfileHeader.jsx:344
+#: src/views/Profile/ProfileHeader.jsx:346
 msgid "Active {0} ago"
 msgstr "Active {0} ago"
 
@@ -192,7 +192,7 @@ msgstr "Bookmarks"
 #: src/Components/CommentMenu.jsx:237
 #: src/Components/NestedCommentMenu.jsx:254
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:261
-#: src/views/Profile/ProfileHeader.jsx:926
+#: src/views/Profile/ProfileHeader.jsx:944
 msgid "Cancel"
 msgstr "Cancel"
 
@@ -218,19 +218,19 @@ msgstr "Chat with other users in private"
 msgid "Chats"
 msgstr "Chats"
 
-#: src/Components/CreatePostModal.jsx:605
+#: src/Components/CreatePostModal.jsx:634
 msgid "Choice 1"
 msgstr "Choice 1"
 
-#: src/Components/CreatePostModal.jsx:613
+#: src/Components/CreatePostModal.jsx:642
 msgid "Choice 2"
 msgstr "Choice 2"
 
-#: src/Components/CreatePostModal.jsx:623
+#: src/Components/CreatePostModal.jsx:652
 msgid "Choice 3(optional)"
 msgstr "Choice 3(optional)"
 
-#: src/Components/CreatePostModal.jsx:631
+#: src/Components/CreatePostModal.jsx:660
 msgid "Choice 4(optional)"
 msgstr "Choice 4(optional)"
 
@@ -334,7 +334,7 @@ msgstr "Current Password"
 msgid "Dark Mode"
 msgstr "Dark Mode"
 
-#: src/Components/CreatePostModal.jsx:669
+#: src/Components/CreatePostModal.jsx:698
 msgid "Days"
 msgstr "Days"
 
@@ -342,7 +342,7 @@ msgstr "Days"
 msgid "Decline"
 msgstr "Decline"
 
-#: src/Components/CreatePostModal.jsx:781
+#: src/Components/CreatePostModal.jsx:810
 msgid "Default poll duration: 1 day if no selection made."
 msgstr "Default poll duration: 1 day if no selection made."
 
@@ -392,7 +392,7 @@ msgstr "Do not have an account?"
 msgid "Edit"
 msgstr "Edit"
 
-#: src/views/Profile/ProfileHeader.jsx:484
+#: src/views/Profile/ProfileHeader.jsx:486
 #: src/views/settingspage/settingsPage.jsx:90
 #: src/views/UserSettings/Editprofile.jsx:185
 msgid "Edit profile"
@@ -420,7 +420,7 @@ msgid "follow"
 msgstr "follow"
 
 #: src/Components/Hsuggestedacc.jsx:159
-#: src/views/Profile/ProfileHeader.jsx:554
+#: src/views/Profile/ProfileHeader.jsx:556
 msgid "Follow"
 msgstr "Follow"
 
@@ -433,18 +433,18 @@ msgstr "Follow {0}"
 msgid "Follow {commentuser}"
 msgstr "Follow {commentuser}"
 
-#: src/views/Profile/ProfileHeader.jsx:552
+#: src/views/Profile/ProfileHeader.jsx:554
 msgid "Follow back"
 msgstr "Follow back"
 
 #: src/views/Notis/Notis.jsx:196
-#: src/views/Profile/ProfileHeader.jsx:665
+#: src/views/Profile/ProfileHeader.jsx:683
 msgid "Followers"
 msgstr "Followers"
 
 #: src/views/Home/Home.jsx:261
-#: src/views/Profile/ProfileHeader.jsx:514
-#: src/views/Profile/ProfileHeader.jsx:649
+#: src/views/Profile/ProfileHeader.jsx:516
+#: src/views/Profile/ProfileHeader.jsx:667
 msgid "Following"
 msgstr "Following"
 
@@ -456,7 +456,7 @@ msgstr "found nothing"
 msgid "Get the conversation started. Be the first to post in this community."
 msgstr "Get the conversation started. Be the first to post in this community."
 
-#: src/Components/CreatePostModal.jsx:682
+#: src/Components/CreatePostModal.jsx:711
 msgid "Hours"
 msgstr "Hours"
 
@@ -479,14 +479,14 @@ msgstr "I forgot my password"
 msgid "If an account matches<0>{email}</0>, you should receive an email with instructions on how to reset your password shortly."
 msgstr "If an account matches<0>{email}</0>, you should receive an email with instructions on how to reset your password shortly."
 
-#: src/Components/CreatePostModal.jsx:110
+#: src/Components/CreatePostModal.jsx:112
 msgid "Image size is too big. Max allowed size is 9MB"
 msgstr "Image size is too big. Max allowed size is 9MB"
 
-#: src/Components/Post/components/PostBody/PostPolls.jsx:76
+#: src/Components/Post/components/PostBody/components/PostPolls.jsx:76
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:58
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:113
-#: src/views/SinglePost/Comments.jsx:318
+#: src/views/SinglePost/Comments.jsx:319
 msgid "Internal Server Error"
 msgstr "Internal Server Error"
 
@@ -523,7 +523,7 @@ msgid "Leave Community"
 msgstr "Leave Community"
 
 #: src/Components/Sidebar.jsx:318
-#: src/views/Profile/ProfileHeader.jsx:745
+#: src/views/Profile/ProfileHeader.jsx:763
 msgid "Level {0}"
 msgstr "Level {0}"
 
@@ -593,17 +593,17 @@ msgstr "Login"
 #: src/Components/Hsuggestedacc.jsx:41
 #: src/Components/NestedCommentMenu.jsx:87
 #: src/Components/Post/common/functions.js:16
-#: src/Components/Post/components/PostBody/PostPolls.jsx:34
+#: src/Components/Post/components/PostBody/components/PostPolls.jsx:34
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:75
 #: src/views/Chat/Chatrooms.jsx:437
-#: src/views/Profile/ProfileHeader.jsx:119
-#: src/views/Profile/ProfileHeader.jsx:521
-#: src/views/Profile/ProfileHeader.jsx:563
+#: src/views/Profile/ProfileHeader.jsx:121
+#: src/views/Profile/ProfileHeader.jsx:523
+#: src/views/Profile/ProfileHeader.jsx:565
 #: src/views/Search/UserSearch.jsx:90
 #: src/views/singlecommunitypost/Comments.jsx:515
 #: src/views/singlecommunitypost/Comments.jsx:754
 #: src/views/singlecommunitypost/Reply.jsx:104
-#: src/views/SinglePost/Comments.jsx:236
+#: src/views/SinglePost/Comments.jsx:237
 #: src/views/SinglePost/Reply.jsx:104
 #: src/views/SuggestedAccounts/SuggestedAccs.jsx:96
 msgid "Login required"
@@ -634,8 +634,8 @@ msgstr "Mentions"
 msgid "Mentions of You"
 msgstr "Mentions of You"
 
-#: src/views/Profile/ProfileHeader.jsx:538
-#: src/views/Profile/ProfileHeader.jsx:579
+#: src/views/Profile/ProfileHeader.jsx:540
+#: src/views/Profile/ProfileHeader.jsx:581
 msgid "Message"
 msgstr "Message"
 
@@ -643,7 +643,7 @@ msgstr "Message"
 msgid "Message deleted"
 msgstr "Message deleted"
 
-#: src/Components/CreatePostModal.jsx:715
+#: src/Components/CreatePostModal.jsx:744
 msgid "Minutes"
 msgstr "Minutes"
 
@@ -716,7 +716,7 @@ msgstr "OP"
 
 #: src/views/singlecommunitypost/Comments.jsx:418
 #: src/views/singlecommunitypost/Comments.jsx:628
-#: src/views/SinglePost/Comments.jsx:634
+#: src/views/SinglePost/Comments.jsx:668
 msgid "Original poster"
 msgstr "Original poster"
 
@@ -733,6 +733,7 @@ msgid "Owner"
 msgstr "Owner"
 
 #: src/views/Login/Login.jsx:238
+#: src/views/Register/Register.jsx:207
 #: src/views/settingspage/components/ChangeEmail.jsx:100
 msgid "Password"
 msgstr "Password"
@@ -745,11 +746,11 @@ msgstr "Password Updated"
 msgid "Please note that this project is for educational purposes and may have bugs or unfinished features. If you encounter any issues or have any suggestions, please feel free to reach out or submit a pull request."
 msgstr "Please note that this project is for educational purposes and may have bugs or unfinished features. If you encounter any issues or have any suggestions, please feel free to reach out or submit a pull request."
 
-#: src/Components/Post/components/PostBody/PostPolls.jsx:286
+#: src/Components/Post/components/PostBody/components/PostPolls.jsx:286
 msgid "Poll closed"
 msgstr "Poll closed"
 
-#: src/Components/CreatePostModal.jsx:655
+#: src/Components/CreatePostModal.jsx:684
 msgid "Poll duration"
 msgstr "Poll duration"
 
@@ -757,7 +758,7 @@ msgstr "Poll duration"
 msgid "Popular"
 msgstr "Popular"
 
-#: src/Components/CreatePostModal.jsx:915
+#: src/Components/CreatePostModal.jsx:942
 msgid "Post"
 msgstr "Post"
 
@@ -765,10 +766,10 @@ msgstr "Post"
 msgid "Post added to Bookmarks"
 msgstr "Post added to Bookmarks"
 
-#: src/Components/CreatePostModal.jsx:172
-#: src/Components/CreatePostModal.jsx:207
-#: src/Components/CreatePostModal.jsx:237
-#: src/Components/CreatePostModal.jsx:263
+#: src/Components/CreatePostModal.jsx:174
+#: src/Components/CreatePostModal.jsx:209
+#: src/Components/CreatePostModal.jsx:239
+#: src/Components/CreatePostModal.jsx:265
 msgid "Post Created Successfully"
 msgstr "Post Created Successfully"
 
@@ -780,7 +781,7 @@ msgstr "Post Deleted"
 msgid "Post unsaved successfully"
 msgstr "Post unsaved successfully"
 
-#: src/Components/CreatePostModal.jsx:924
+#: src/Components/CreatePostModal.jsx:951
 msgid "Posting"
 msgstr "Posting"
 
@@ -821,7 +822,7 @@ msgstr "Register"
 msgid "Register Successful"
 msgstr "Register Successful"
 
-#: src/Components/CreatePostModal.jsx:794
+#: src/Components/CreatePostModal.jsx:823
 msgid "Remove Poll"
 msgstr "Remove Poll"
 
@@ -832,8 +833,8 @@ msgstr "Replies"
 #: src/Components/NestedReplyModal.jsx:384
 #: src/views/singlecommunitypost/Comments.jsx:537
 #: src/views/singlecommunitypost/Comments.jsx:776
-#: src/views/SinglePost/Comments.jsx:547
-#: src/views/SinglePost/Comments.jsx:821
+#: src/views/SinglePost/Comments.jsx:581
+#: src/views/SinglePost/Comments.jsx:877
 msgid "Reply"
 msgstr "Reply"
 
@@ -937,7 +938,7 @@ msgstr "Share comment via..."
 msgid "Share Post via..."
 msgstr "Share Post via..."
 
-#: src/views/Profile/ProfileHeader.jsx:500
+#: src/views/Profile/ProfileHeader.jsx:502
 msgid "Share profile"
 msgstr "Share profile"
 
@@ -992,7 +993,7 @@ msgstr "The leaderboard ranking is based on the total number of points earned by
 msgid "This can’t be undone and it will be removed from your profile, the timeline."
 msgstr "This can’t be undone and it will be removed from your profile, the timeline."
 
-#: src/views/Profile/ProfileHeader.jsx:903
+#: src/views/Profile/ProfileHeader.jsx:921
 msgid "This can’t be undone and this user will be removed from your following."
 msgstr "This can’t be undone and this user will be removed from your following."
 
@@ -1000,7 +1001,7 @@ msgstr "This can’t be undone and this user will be removed from your following
 msgid "This cannot be changed later"
 msgstr "This cannot be changed later"
 
-#: src/Components/Post/components/PostBody/PostQuote.jsx:178
+#: src/Components/Post/components/PostBody/components/PostQuote.jsx:212
 msgid "This post was deleted by the author."
 msgstr "This post was deleted by the author."
 
@@ -1041,7 +1042,7 @@ msgid "unfollow"
 msgstr "unfollow"
 
 #: src/Components/Hsuggestedacc.jsx:175
-#: src/views/Profile/ProfileHeader.jsx:918
+#: src/views/Profile/ProfileHeader.jsx:936
 msgid "Unfollow"
 msgstr "Unfollow"
 
@@ -1054,7 +1055,7 @@ msgstr "Unfollow {0}"
 msgid "Unfollow {commentuser}"
 msgstr "Unfollow {commentuser}"
 
-#: src/views/Profile/ProfileHeader.jsx:900
+#: src/views/Profile/ProfileHeader.jsx:918
 msgid "Unfollow {userprofile}?"
 msgstr "Unfollow {userprofile}?"
 
@@ -1080,7 +1081,7 @@ msgstr "Upload photo"
 msgid "Username"
 msgstr "Username"
 
-#: src/Components/CreatePostModal.jsx:120
+#: src/Components/CreatePostModal.jsx:122
 msgid "Video size is too big. Max allowed size is 95MB"
 msgstr "Video size is too big. Max allowed size is 95MB"
 
@@ -1162,7 +1163,7 @@ msgstr "You are already a member of all communities"
 
 #: src/Components/CommentMenu.jsx:87
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:98
-#: src/views/Profile/ProfileHeader.jsx:149
+#: src/views/Profile/ProfileHeader.jsx:151
 msgid "You are no longer following {0}"
 msgstr "You are no longer following {0}"
 
@@ -1181,7 +1182,7 @@ msgstr "You are no longer following ${username}"
 
 #: src/Components/CommentMenu.jsx:77
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:90
-#: src/views/Profile/ProfileHeader.jsx:141
+#: src/views/Profile/ProfileHeader.jsx:143
 msgid "You are now following {0}"
 msgstr "You are now following {0}"
 
@@ -1234,10 +1235,10 @@ msgstr "You will see all your notifications here"
 msgid "You will see your joined communities here"
 msgstr "You will see your joined communities here"
 
-#: src/Components/CreatePostModal.jsx:406
-#: src/Components/CreatePostModal.jsx:565
-#: src/Components/Post/components/PostBody/PostMedia.jsx:62
-#: src/Components/Post/components/PostBody/PostQuote.jsx:134
+#: src/Components/CreatePostModal.jsx:420
+#: src/Components/CreatePostModal.jsx:594
+#: src/Components/Post/components/PostBody/components/PostMedia.jsx:62
+#: src/Components/Post/components/PostBody/components/PostQuote.jsx:151
 msgid "Your browser does not support the video tag."
 msgstr "Your browser does not support the video tag."
 

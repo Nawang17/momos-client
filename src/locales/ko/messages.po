@@ -21,8 +21,8 @@ msgstr ""
 #: src/Components/RepliesFeed.jsx:195
 #: src/views/singlecommunitypost/Comments.jsx:437
 #: src/views/singlecommunitypost/Comments.jsx:647
-#: src/views/SinglePost/Comments.jsx:447
-#: src/views/SinglePost/Comments.jsx:685
+#: src/views/SinglePost/Comments.jsx:459
+#: src/views/SinglePost/Comments.jsx:719
 msgid "(edited)"
 msgstr "(수정됨)"
 
@@ -30,8 +30,8 @@ msgstr "(수정됨)"
 msgid "(feel free to reach out)"
 msgstr "(언제든지 문의하세요)"
 
-#: src/Components/Post/components/PostBody/PostPolls.jsx:271
-msgid "{0} votes"
+#: src/Components/Post/components/PostBody/components/PostPolls.jsx:271
+msgid "{0} {1}"
 msgstr ""
 
 #: src/views/bookmark/Bookmarks.jsx:81
@@ -42,7 +42,7 @@ msgstr "{0} 북마크"
 msgid "{0} comments"
 msgstr "{0} 댓글"
 
-#: src/Components/Post/components/PostBody/PostPolls.jsx:290
+#: src/Components/Post/components/PostBody/components/PostPolls.jsx:290
 msgid "{0} left"
 msgstr "{0} 떠남"
 
@@ -67,7 +67,7 @@ msgstr "레벨 {1} 까지 {0} 포인트"
 msgid "{0} Rank - {1} points"
 msgstr "{0} 위 - {1} 포인트"
 
-#: src/views/SinglePost/Comments.jsx:572
+#: src/views/SinglePost/Comments.jsx:606
 msgid "{0} replies"
 msgstr "{0} 답글"
 
@@ -76,6 +76,10 @@ msgstr "{0} 답글"
 msgid "{0} reposts"
 msgstr "{0} 리포스트"
 
+#: src/Components/Post/components/PostBody/PostPolls.jsx:271
+#~ msgid "{0} votes"
+#~ msgstr ""
+
 #: src/Components/Leaderboardhorizontal.jsx:95
 #: src/Components/Sidebar/components/Leaderboard.jsx:90
 #: src/Components/Sidebar/components/Leaderboard.jsx:251
@@ -83,7 +87,7 @@ msgstr "{0} 리포스트"
 msgid "*Self likes are not counted"
 msgstr "자신의 글에 한 좋아요는 계산되지 않습니다."
 
-#: src/Components/Post/components/PostBody/PostPolls.jsx:313
+#: src/Components/Post/components/PostBody/components/PostPolls.jsx:313
 msgid "`Poll Votes (${0})`"
 msgstr "`설문조사 투표 (${0})`"
 
@@ -93,7 +97,7 @@ msgstr "`설문조사 투표 (${0})`"
 msgid "+1 point for each like on your posts"
 msgstr "글에 받은 좋아요 당 +1 포인트"
 
-#: src/views/Profile/ProfileHeader.jsx:750
+#: src/views/Profile/ProfileHeader.jsx:768
 msgid "<0>{0} points to</0> Level {1}"
 msgstr "레벨 {1} 까지<0>{0} 포인트</0>"
 
@@ -109,7 +113,7 @@ msgstr ""
 msgid "<0>@{0} hasn't replied to anything yet</0><1>When they do, you'll see them here.</1>"
 msgstr ""
 
-#: src/views/Profile/ProfileHeader.jsx:606
+#: src/views/Profile/ProfileHeader.jsx:624
 msgid "<0>Joined</0>{0}"
 msgstr "{0}<0>가입함</0>"
 
@@ -139,7 +143,7 @@ msgstr "계정 생성됨"
 msgid "Accounts"
 msgstr "계정 목록"
 
-#: src/views/Profile/ProfileHeader.jsx:344
+#: src/views/Profile/ProfileHeader.jsx:346
 msgid "Active {0} ago"
 msgstr "{0} 전에 활성화됨"
 
@@ -197,7 +201,7 @@ msgstr "북마크"
 #: src/Components/CommentMenu.jsx:237
 #: src/Components/NestedCommentMenu.jsx:254
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:261
-#: src/views/Profile/ProfileHeader.jsx:926
+#: src/views/Profile/ProfileHeader.jsx:944
 msgid "Cancel"
 msgstr "취소"
 
@@ -223,19 +227,19 @@ msgstr "다른 유저와 비밀 채팅 하기"
 msgid "Chats"
 msgstr "채팅"
 
-#: src/Components/CreatePostModal.jsx:605
+#: src/Components/CreatePostModal.jsx:634
 msgid "Choice 1"
 msgstr "항목 1"
 
-#: src/Components/CreatePostModal.jsx:613
+#: src/Components/CreatePostModal.jsx:642
 msgid "Choice 2"
 msgstr "항목 2"
 
-#: src/Components/CreatePostModal.jsx:623
+#: src/Components/CreatePostModal.jsx:652
 msgid "Choice 3(optional)"
 msgstr "항목 3(다른 선택 항목 추가)"
 
-#: src/Components/CreatePostModal.jsx:631
+#: src/Components/CreatePostModal.jsx:660
 msgid "Choice 4(optional)"
 msgstr "항목 4(다른 선택 항목 추가)"
 
@@ -339,7 +343,7 @@ msgstr "현재 비밀번호"
 msgid "Dark Mode"
 msgstr "어두운 모드"
 
-#: src/Components/CreatePostModal.jsx:669
+#: src/Components/CreatePostModal.jsx:698
 msgid "Days"
 msgstr "일"
 
@@ -347,7 +351,7 @@ msgstr "일"
 msgid "Decline"
 msgstr "거부"
 
-#: src/Components/CreatePostModal.jsx:781
+#: src/Components/CreatePostModal.jsx:810
 msgid "Default poll duration: 1 day if no selection made."
 msgstr "기본 투표 기간: 선택되지 않은 경우 1일"
 
@@ -397,7 +401,7 @@ msgstr "계정이 없으신가요?"
 msgid "Edit"
 msgstr "수정"
 
-#: src/views/Profile/ProfileHeader.jsx:484
+#: src/views/Profile/ProfileHeader.jsx:486
 #: src/views/settingspage/settingsPage.jsx:90
 #: src/views/UserSettings/Editprofile.jsx:185
 msgid "Edit profile"
@@ -425,7 +429,7 @@ msgid "follow"
 msgstr "팔로우"
 
 #: src/Components/Hsuggestedacc.jsx:159
-#: src/views/Profile/ProfileHeader.jsx:554
+#: src/views/Profile/ProfileHeader.jsx:556
 msgid "Follow"
 msgstr "팔로우"
 
@@ -438,18 +442,18 @@ msgstr "팔로우 {0}"
 msgid "Follow {commentuser}"
 msgstr "{commentuser} 팔로우"
 
-#: src/views/Profile/ProfileHeader.jsx:552
+#: src/views/Profile/ProfileHeader.jsx:554
 msgid "Follow back"
 msgstr "맞팔로우"
 
 #: src/views/Notis/Notis.jsx:196
-#: src/views/Profile/ProfileHeader.jsx:665
+#: src/views/Profile/ProfileHeader.jsx:683
 msgid "Followers"
 msgstr "팔로워"
 
 #: src/views/Home/Home.jsx:261
-#: src/views/Profile/ProfileHeader.jsx:514
-#: src/views/Profile/ProfileHeader.jsx:649
+#: src/views/Profile/ProfileHeader.jsx:516
+#: src/views/Profile/ProfileHeader.jsx:667
 msgid "Following"
 msgstr "팔로잉"
 
@@ -461,7 +465,7 @@ msgstr "아무것도 찾지 못함"
 msgid "Get the conversation started. Be the first to post in this community."
 msgstr "대화를 시작하세요. 이 커뮤니티에 가장 먼저 글을 올려보세요"
 
-#: src/Components/CreatePostModal.jsx:682
+#: src/Components/CreatePostModal.jsx:711
 msgid "Hours"
 msgstr "시간"
 
@@ -484,14 +488,14 @@ msgstr "비밀번호를 잊어버렸습니다"
 msgid "If an account matches<0>{email}</0>, you should receive an email with instructions on how to reset your password shortly."
 msgstr "만약 당신의 계정이 <0>{email}</0>라면, 당신은 비밀번호를 재설정하는 방법이 포함된 이메일을 곧 받게 될 것입니다."
 
-#: src/Components/CreatePostModal.jsx:110
+#: src/Components/CreatePostModal.jsx:112
 msgid "Image size is too big. Max allowed size is 9MB"
 msgstr "이미지의 사이즈가 너무 큽니다. 최대 사이즈는 9MB입니다."
 
-#: src/Components/Post/components/PostBody/PostPolls.jsx:76
+#: src/Components/Post/components/PostBody/components/PostPolls.jsx:76
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:58
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:113
-#: src/views/SinglePost/Comments.jsx:318
+#: src/views/SinglePost/Comments.jsx:319
 msgid "Internal Server Error"
 msgstr "인터넷 서버 에러"
 
@@ -528,7 +532,7 @@ msgid "Leave Community"
 msgstr "커뮤니티를 떠나다"
 
 #: src/Components/Sidebar.jsx:318
-#: src/views/Profile/ProfileHeader.jsx:745
+#: src/views/Profile/ProfileHeader.jsx:763
 msgid "Level {0}"
 msgstr "레벨 {0}"
 
@@ -598,17 +602,17 @@ msgstr "로그인"
 #: src/Components/Hsuggestedacc.jsx:41
 #: src/Components/NestedCommentMenu.jsx:87
 #: src/Components/Post/common/functions.js:16
-#: src/Components/Post/components/PostBody/PostPolls.jsx:34
+#: src/Components/Post/components/PostBody/components/PostPolls.jsx:34
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:75
 #: src/views/Chat/Chatrooms.jsx:437
-#: src/views/Profile/ProfileHeader.jsx:119
-#: src/views/Profile/ProfileHeader.jsx:521
-#: src/views/Profile/ProfileHeader.jsx:563
+#: src/views/Profile/ProfileHeader.jsx:121
+#: src/views/Profile/ProfileHeader.jsx:523
+#: src/views/Profile/ProfileHeader.jsx:565
 #: src/views/Search/UserSearch.jsx:90
 #: src/views/singlecommunitypost/Comments.jsx:515
 #: src/views/singlecommunitypost/Comments.jsx:754
 #: src/views/singlecommunitypost/Reply.jsx:104
-#: src/views/SinglePost/Comments.jsx:236
+#: src/views/SinglePost/Comments.jsx:237
 #: src/views/SinglePost/Reply.jsx:104
 #: src/views/SuggestedAccounts/SuggestedAccs.jsx:96
 msgid "Login required"
@@ -639,8 +643,8 @@ msgstr "언급"
 msgid "Mentions of You"
 msgstr "당신을 언급함"
 
-#: src/views/Profile/ProfileHeader.jsx:538
-#: src/views/Profile/ProfileHeader.jsx:579
+#: src/views/Profile/ProfileHeader.jsx:540
+#: src/views/Profile/ProfileHeader.jsx:581
 msgid "Message"
 msgstr "메시지"
 
@@ -648,7 +652,7 @@ msgstr "메시지"
 msgid "Message deleted"
 msgstr "메시지 삭제됨"
 
-#: src/Components/CreatePostModal.jsx:715
+#: src/Components/CreatePostModal.jsx:744
 msgid "Minutes"
 msgstr "분"
 
@@ -721,7 +725,7 @@ msgstr "OP"
 
 #: src/views/singlecommunitypost/Comments.jsx:418
 #: src/views/singlecommunitypost/Comments.jsx:628
-#: src/views/SinglePost/Comments.jsx:634
+#: src/views/SinglePost/Comments.jsx:668
 msgid "Original poster"
 msgstr ""
 
@@ -738,6 +742,7 @@ msgid "Owner"
 msgstr "관리자"
 
 #: src/views/Login/Login.jsx:238
+#: src/views/Register/Register.jsx:207
 #: src/views/settingspage/components/ChangeEmail.jsx:100
 msgid "Password"
 msgstr "비밀번호"
@@ -750,11 +755,11 @@ msgstr "비밀번호 변경됨"
 msgid "Please note that this project is for educational purposes and may have bugs or unfinished features. If you encounter any issues or have any suggestions, please feel free to reach out or submit a pull request."
 msgstr "이 프로젝트는 교육적인 목적임을 확인하시고 버그나 불완전한 기능들이 있음을 인지하세요. 만약 어떤 문제점을 발견하거나 제안할 점이 있다면 언제든지 문의하시거나 깃헙에 Pull request를 남겨주세요."
 
-#: src/Components/Post/components/PostBody/PostPolls.jsx:286
+#: src/Components/Post/components/PostBody/components/PostPolls.jsx:286
 msgid "Poll closed"
 msgstr "투표 종료"
 
-#: src/Components/CreatePostModal.jsx:655
+#: src/Components/CreatePostModal.jsx:684
 msgid "Poll duration"
 msgstr "투표 기간"
 
@@ -762,7 +767,7 @@ msgstr "투표 기간"
 msgid "Popular"
 msgstr "인기있는"
 
-#: src/Components/CreatePostModal.jsx:915
+#: src/Components/CreatePostModal.jsx:942
 msgid "Post"
 msgstr "글"
 
@@ -770,10 +775,10 @@ msgstr "글"
 msgid "Post added to Bookmarks"
 msgstr "북마크에 글이 추가됨"
 
-#: src/Components/CreatePostModal.jsx:172
-#: src/Components/CreatePostModal.jsx:207
-#: src/Components/CreatePostModal.jsx:237
-#: src/Components/CreatePostModal.jsx:263
+#: src/Components/CreatePostModal.jsx:174
+#: src/Components/CreatePostModal.jsx:209
+#: src/Components/CreatePostModal.jsx:239
+#: src/Components/CreatePostModal.jsx:265
 msgid "Post Created Successfully"
 msgstr "글이 성공적으로 게시됨"
 
@@ -785,7 +790,7 @@ msgstr "글 삭제됨"
 msgid "Post unsaved successfully"
 msgstr "글을 성공적으로 저장 해제했습니다"
 
-#: src/Components/CreatePostModal.jsx:924
+#: src/Components/CreatePostModal.jsx:951
 msgid "Posting"
 msgstr "작성 중"
 
@@ -826,7 +831,7 @@ msgstr "회원가입"
 msgid "Register Successful"
 msgstr "성공적으로 가입함"
 
-#: src/Components/CreatePostModal.jsx:794
+#: src/Components/CreatePostModal.jsx:823
 msgid "Remove Poll"
 msgstr "투표 삭제"
 
@@ -837,8 +842,8 @@ msgstr "답글"
 #: src/Components/NestedReplyModal.jsx:384
 #: src/views/singlecommunitypost/Comments.jsx:537
 #: src/views/singlecommunitypost/Comments.jsx:776
-#: src/views/SinglePost/Comments.jsx:547
-#: src/views/SinglePost/Comments.jsx:821
+#: src/views/SinglePost/Comments.jsx:581
+#: src/views/SinglePost/Comments.jsx:877
 msgid "Reply"
 msgstr "답글"
 
@@ -942,7 +947,7 @@ msgstr "다음을 통해 댓글 공유"
 msgid "Share Post via..."
 msgstr "글 외부 공유"
 
-#: src/views/Profile/ProfileHeader.jsx:500
+#: src/views/Profile/ProfileHeader.jsx:502
 msgid "Share profile"
 msgstr "프로필 공유"
 
@@ -997,7 +1002,7 @@ msgstr "리더보드 순위는 유저가 얻은 전체 포인트를 기반으로
 msgid "This can’t be undone and it will be removed from your profile, the timeline."
 msgstr "이 행위는 되돌릴 수 없으며 당신의 프로필, 타임라인에서 사라질 것입니다."
 
-#: src/views/Profile/ProfileHeader.jsx:903
+#: src/views/Profile/ProfileHeader.jsx:921
 msgid "This can’t be undone and this user will be removed from your following."
 msgstr "이 행위는 되돌릴 수 없으며 당신의 팔로잉 목록에서 유저가 제거됩니다."
 
@@ -1005,7 +1010,7 @@ msgstr "이 행위는 되돌릴 수 없으며 당신의 팔로잉 목록에서 �
 msgid "This cannot be changed later"
 msgstr "이것은 후에 변경되지 않습니다"
 
-#: src/Components/Post/components/PostBody/PostQuote.jsx:178
+#: src/Components/Post/components/PostBody/components/PostQuote.jsx:212
 msgid "This post was deleted by the author."
 msgstr "이 글은 작성자에 의해 지워졌습니다."
 
@@ -1046,7 +1051,7 @@ msgid "unfollow"
 msgstr "언팔로우"
 
 #: src/Components/Hsuggestedacc.jsx:175
-#: src/views/Profile/ProfileHeader.jsx:918
+#: src/views/Profile/ProfileHeader.jsx:936
 msgid "Unfollow"
 msgstr "언팔로우"
 
@@ -1059,7 +1064,7 @@ msgstr "팔로우 취소 {0}"
 msgid "Unfollow {commentuser}"
 msgstr "{commentuser} 언팔로우"
 
-#: src/views/Profile/ProfileHeader.jsx:900
+#: src/views/Profile/ProfileHeader.jsx:918
 msgid "Unfollow {userprofile}?"
 msgstr "{userprofile} 을 언팔로우 하시겠습니까?"
 
@@ -1085,7 +1090,7 @@ msgstr "사진 올리기"
 msgid "Username"
 msgstr "사용자명"
 
-#: src/Components/CreatePostModal.jsx:120
+#: src/Components/CreatePostModal.jsx:122
 msgid "Video size is too big. Max allowed size is 95MB"
 msgstr "비디오의 사이즈가 너무 큽니다. 최대 사이즈는 95MB입니다."
 
@@ -1167,7 +1172,7 @@ msgstr "당신은 이미 전체 커뮤니티의 멤버입니다."
 
 #: src/Components/CommentMenu.jsx:87
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:98
-#: src/views/Profile/ProfileHeader.jsx:149
+#: src/views/Profile/ProfileHeader.jsx:151
 msgid "You are no longer following {0}"
 msgstr "당신은 더이상 {0} 을 팔로우 하지 않습니다."
 
@@ -1186,7 +1191,7 @@ msgstr "당신은 더이상 ${username} 을 팔로우하지 않습니다"
 
 #: src/Components/CommentMenu.jsx:77
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:90
-#: src/views/Profile/ProfileHeader.jsx:141
+#: src/views/Profile/ProfileHeader.jsx:143
 msgid "You are now following {0}"
 msgstr "당신은 이제 {0} 을 팔로우합니다"
 
@@ -1239,14 +1244,13 @@ msgstr "이제 모든 알림을 확인하실 수 있습니다."
 msgid "You will see your joined communities here"
 msgstr "가입한 커뮤니티들을 전부 확인할 수 있습니다"
 
-#: src/Components/CreatePostModal.jsx:406
-#: src/Components/CreatePostModal.jsx:565
-#: src/Components/Post/components/PostBody/PostMedia.jsx:62
-#: src/Components/Post/components/PostBody/PostQuote.jsx:134
+#: src/Components/CreatePostModal.jsx:420
+#: src/Components/CreatePostModal.jsx:594
+#: src/Components/Post/components/PostBody/components/PostMedia.jsx:62
+#: src/Components/Post/components/PostBody/components/PostQuote.jsx:151
 msgid "Your browser does not support the video tag."
 msgstr "사용중인 브라우저가 비디오 태그를 지원하지 않습니다"
 
 #: src/Components/Sidebar.jsx:258
 msgid "Your level is based on how many points you have."
 msgstr "당신의 레벨은 당신이 얼마나 많은 포인트를 가졌냐에 따라 결정됩니다"
-

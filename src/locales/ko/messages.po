@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: momos\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-14 15:09\n"
+"PO-Revision-Date: 2024-01-20 08:46\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -24,78 +24,78 @@ msgstr ""
 #: src/views/SinglePost/Comments.jsx:447
 #: src/views/SinglePost/Comments.jsx:685
 msgid "(edited)"
-msgstr ""
+msgstr "(수정됨)"
 
 #: src/Components/About.jsx:221
 msgid "(feel free to reach out)"
-msgstr ""
+msgstr "(언제든지 문의하세요)"
 
 #: src/Components/Post/components/PostBody/PostPolls.jsx:271
 msgid "{0} {1}"
-msgstr ""
+msgstr "{0} {1}"
 
 #: src/views/bookmark/Bookmarks.jsx:81
 msgid "{0} Bookmarks"
-msgstr ""
+msgstr "{0} 북마크"
 
 #: src/Components/Post/components/PostFooter/PostFooter.jsx:272
 msgid "{0} comments"
-msgstr ""
+msgstr "{0} 댓글"
 
 #: src/Components/Post/components/PostBody/PostPolls.jsx:290
 msgid "{0} left"
-msgstr ""
+msgstr "{0} 떠남"
 
 #: src/Components/Post/components/PostFooter/PostFooter.jsx:231
 #: src/Components/Post/components/PostFooter/PostFooter.jsx:243
 msgid "{0} likes"
-msgstr ""
+msgstr "{0} 좋아요"
 
 #: src/Components/Sidebar/components/Leaderboard.jsx:158
 msgid "{0} points"
-msgstr ""
+msgstr "{0} 포인트"
 
 #: src/views/Discover/Discover.jsx:119
 msgid "{0} posts"
-msgstr ""
+msgstr "{0} 게시글"
 
 #: src/Components/Sidebar.jsx:327
 msgid "{0} pts to Level {1}"
-msgstr ""
+msgstr "레벨 {1} 까지 {0} 포인트"
 
 #: src/Components/Sidebar.jsx:286
 msgid "{0} Rank - {1} points"
-msgstr ""
+msgstr "{0} 위 - {1} 포인트"
 
 #: src/views/SinglePost/Comments.jsx:572
 msgid "{0} replies"
-msgstr ""
+msgstr "{0} 답글"
 
 #: src/Components/Post/components/PostFooter/PostFooter.jsx:294
 #: src/views/Reposts/Reposts.jsx:76
 msgid "{0} reposts"
-msgstr ""
+msgstr "{0} 리포스트"
 
 #: src/Components/Leaderboardhorizontal.jsx:95
 #: src/Components/Sidebar/components/Leaderboard.jsx:90
 #: src/Components/Sidebar/components/Leaderboard.jsx:251
 #: src/views/Leaderboard/Leaderboard.jsx:176
 msgid "*Self likes are not counted"
-msgstr ""
+msgstr "자신의 글에 한 좋아요는 계산되지 않습니다."
 
 #: src/Components/Post/components/PostBody/PostPolls.jsx:313
 msgid "`Poll Votes (${0})`"
-msgstr ""
+msgstr "`설문조사 투표 (${0})`"
 
 #: src/Components/Leaderboardhorizontal.jsx:91
 #: src/Components/Sidebar/components/Leaderboard.jsx:247
 #: src/views/Leaderboard/Leaderboard.jsx:172
 msgid "+1 point for each like on your posts"
-msgstr ""
+msgstr "글에 받은 좋아요 당 +1 포인트"
 
 #: src/views/Profile/ProfileHeader.jsx:750
 msgid "<0>{0} points to</0> Level {1}"
-msgstr ""
+msgstr "레벨 {1} 까지<0>{0} 포인트</0>"
 
 #: src/views/Profile/Profile.jsx:252
 msgid "<0>@{0} hasn't liked any posts</0><1>When they do, you'll see them here.</1>"
@@ -111,11 +111,11 @@ msgstr ""
 
 #: src/views/Profile/ProfileHeader.jsx:606
 msgid "<0>Joined</0>{0}"
-msgstr ""
+msgstr "{0}<0>가입함</0>"
 
 #: src/Components/Sidebar.jsx:447
 msgid "About"
-msgstr ""
+msgstr "정보"
 
 #: src/Components/About.jsx:81
 #: src/Components/ProfileMenu.jsx:159
@@ -125,32 +125,32 @@ msgstr "모모즈에 대하여"
 
 #: src/views/Notis/Notis.jsx:522
 msgid "Accept"
-msgstr ""
+msgstr "확인"
 
 #: src/views/settingspage/settingsPage.jsx:86
 msgid "Account"
-msgstr ""
+msgstr "계정"
 
 #: src/views/settingspage/settingsPage.jsx:122
 msgid "Account created"
-msgstr ""
+msgstr "계정 생성됨"
 
 #: src/views/Search/UserSearch.jsx:206
 msgid "Accounts"
-msgstr ""
+msgstr "계정 목록"
 
 #: src/views/Profile/ProfileHeader.jsx:344
 msgid "Active {0} ago"
-msgstr ""
+msgstr "{0} 전에 활성화됨"
 
 #: src/views/Chat/Chat.jsx:265
 msgid "Active now"
-msgstr ""
+msgstr "지금 활성화하기"
 
 #: src/views/singlecommunitypost/Reply.jsx:117
 #: src/views/SinglePost/Reply.jsx:117
 msgid "Add a comment..."
-msgstr ""
+msgstr "댓글 달기"
 
 #: src/Components/ProfileMenu.jsx:146
 #: src/views/communities/CommunityProfile.jsx:417
@@ -159,36 +159,36 @@ msgstr "관리자"
 
 #: src/views/Notis/Notis.jsx:160
 msgid "All activity"
-msgstr ""
+msgstr "모든 활동"
 
 #: src/views/communities/CommunityProfileMenu.jsx:76
 msgid "All posts and members of this community will be deleted forever. This action cannot be undone."
-msgstr ""
+msgstr "이 커뮤니티에 있는 모든 글들과 멤버들이 영구삭제될 것입니다. 다시 복구할 수 없습니다."
 
 #: src/views/Leaderboard/Leaderboard.jsx:222
 msgid "All-time"
-msgstr ""
+msgstr "전체 기간"
 
 #: src/views/Register/Register.jsx:161
 msgid "Already have an account?"
-msgstr ""
+msgstr "이미 계정이 있으신가요?"
 
 #: src/views/communities/CommunityProfileMenu.jsx:73
 msgid "Are you sure you want to delete this community?"
-msgstr ""
+msgstr "이 커뮤니티를 삭제하시려는게 맞나요?"
 
 #: src/views/Register/Register.jsx:213
 msgid "At least 6 characters"
-msgstr ""
+msgstr "최소 6글자 이상"
 
 #: src/views/singlecommunitypost/SinglePostFeed.jsx:93
 #: src/views/SinglePost/SinglePostFeed.jsx:92
 msgid "Be the first to share what you think!"
-msgstr ""
+msgstr "당신의 생각을 가장 먼저 공유하세요!"
 
 #: src/views/UserSettings/Editprofile.jsx:450
 msgid "Bio"
-msgstr ""
+msgstr "설명"
 
 #: src/Components/ProfileMenu.jsx:98
 msgid "Bookmarks"
@@ -204,82 +204,82 @@ msgstr "취소"
 #: src/views/settingspage/components/ChangeEmail.jsx:53
 #: src/views/settingspage/components/ChangeEmail.jsx:72
 msgid "Change email"
-msgstr ""
+msgstr "이메일 변경"
 
 #: src/views/settingspage/components/ChangePassword.jsx:56
 #: src/views/settingspage/components/ChangePassword.jsx:62
 msgid "Change password"
-msgstr ""
+msgstr "비밀번호 변경"
 
 #: src/views/Chat/Chatrooms.jsx:296
 msgid "Chat closed successfully"
-msgstr ""
+msgstr "채팅을 성공적으로 종료했습니다"
 
 #: src/views/Chat/Chatrooms.jsx:384
 msgid "Chat with other users in private"
-msgstr ""
+msgstr "다른 유저와 비밀 채팅 하기"
 
 #: src/views/Chat/Chatrooms.jsx:137
 msgid "Chats"
-msgstr ""
+msgstr "채팅"
 
 #: src/Components/CreatePostModal.jsx:605
 msgid "Choice 1"
-msgstr ""
+msgstr "항목 1"
 
 #: src/Components/CreatePostModal.jsx:613
 msgid "Choice 2"
-msgstr ""
+msgstr "항목 2"
 
 #: src/Components/CreatePostModal.jsx:623
 msgid "Choice 3(optional)"
-msgstr ""
+msgstr "항목 3(다른 선택 항목 추가)"
 
 #: src/Components/CreatePostModal.jsx:631
 msgid "Choice 4(optional)"
-msgstr ""
+msgstr "항목 4(다른 선택 항목 추가)"
 
 #: src/views/Login/ForgotPasswordUpdate.jsx:118
 msgid "Choose a new password"
-msgstr ""
+msgstr "새로운 비밀번호를 입력하세요"
 
 #: src/views/Chat/Chatrooms.jsx:318
 msgid "Close DM"
-msgstr ""
+msgstr "DM 종료"
 
 #: src/Components/Post/components/PostFooter/PostFooter.jsx:375
 msgid "Comment"
-msgstr ""
+msgstr "댓글"
 
 #: src/Components/NestedReplyModal.jsx:93
 msgid "Comment updated successfully"
-msgstr ""
+msgstr "댓글이 성공적으로 작성됨"
 
 #: src/views/Notis/Notis.jsx:178
 #: src/views/singlecommunitypost/Reply.jsx:35
 #: src/views/SinglePost/Reply.jsx:35
 msgid "Comments"
-msgstr ""
+msgstr "댓글"
 
 #: src/views/Notis/Notis.jsx:264
 msgid "Comments and replies"
-msgstr ""
+msgstr "댓글과 답글"
 
 #: src/views/Home/Home.jsx:271
 msgid "Community"
-msgstr ""
+msgstr "커뮤니티"
 
 #: src/views/Notis/Notis.jsx:314
 msgid "Community Join Requests"
-msgstr ""
+msgstr "커뮤니티 가입신청"
 
 #: src/views/communities/Createnewcommunity.jsx:139
 msgid "Community name"
-msgstr ""
+msgstr "커뮤니티 이름"
 
 #: src/views/settingspage/components/ChangePassword.jsx:93
 msgid "Confirm New Password"
-msgstr ""
+msgstr "새로운 비밀번호 확인"
 
 #: src/Components/Hero.jsx:78
 msgid "Connect with people around the world"
@@ -287,16 +287,16 @@ msgstr "전 세계 사람들과 연결"
 
 #: src/views/communities/CommunityProfile.jsx:323
 msgid "Content is only visible to community members"
-msgstr ""
+msgstr "콘텐츠는 오직 커뮤니티 멤버들만 확인 가능함"
 
 #: src/views/Login/Login.jsx:288
 #: src/views/Register/Register.jsx:252
 msgid "Continue with Google"
-msgstr ""
+msgstr "구글로 계속"
 
 #: src/Components/CommentMenu.jsx:173
 msgid "Copy link to comment"
-msgstr ""
+msgstr "댓글에 링크 복사"
 
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:208
 msgid "Copy link to Post"
@@ -304,34 +304,35 @@ msgstr "링크 글에 복사하기"
 
 #: src/Components/NestedCommentMenu.jsx:190
 msgid "Copy link to reply"
-msgstr ""
+msgstr "답글에 링크 복사"
 
 #: src/views/Chat/Chat.jsx:384
 #: src/views/Chat/Chat.jsx:457
 msgid "Copy message"
-msgstr ""
+msgstr "메시지 복사"
 
 #: src/views/communities/Createnewcommunity.jsx:87
 msgid "Create community"
-msgstr ""
+msgstr "커뮤니티 생성"
 
 #: src/views/communities/Createnewcommunity.jsx:94
 #: src/views/communities/Createnewcommunity.jsx:190
 msgid "Create Community"
-msgstr ""
+msgstr "커뮤니티 생성"
 
 #: src/views/Leaderboard/Leaderboard.jsx:231
 msgid "Current Month"
-msgstr ""
+msgstr "현재 월"
 
 #: src/views/settingspage/components/ChangePassword.jsx:82
 msgid "Current Password"
-msgstr ""
+msgstr "현재 비밀번호"
 
 #: src/views/settingspage/components/Apperance.jsx:26
 #: src/views/settingspage/components/Apperance.jsx:69
 #~ msgid "Dark"
 #~ msgstr ""
+
 
 #: src/Components/ProfileMenu.jsx:125
 #: src/views/settingspage/components/Apperance.jsx:26
@@ -341,15 +342,15 @@ msgstr "어두운 모드"
 
 #: src/Components/CreatePostModal.jsx:669
 msgid "Days"
-msgstr ""
+msgstr "일"
 
 #: src/views/Notis/Notis.jsx:532
 msgid "Decline"
-msgstr ""
+msgstr "거부"
 
 #: src/Components/CreatePostModal.jsx:781
 msgid "Default poll duration: 1 day if no selection made."
-msgstr ""
+msgstr "기본 투표 기간: 선택되지 않은 경우 1일"
 
 #: src/Components/CommentMenu.jsx:197
 #: src/Components/CommentMenu.jsx:229
@@ -362,11 +363,11 @@ msgstr "삭제"
 
 #: src/views/communities/CommunityProfileMenu.jsx:160
 msgid "Delete Community"
-msgstr ""
+msgstr "커뮤니티 삭제"
 
 #: src/views/Chat/Chat.jsx:504
 msgid "Delete message"
-msgstr ""
+msgstr "메시지 삭제"
 
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:236
 msgid "Delete Post?"
@@ -374,60 +375,60 @@ msgstr "글을 삭제하실건가요?"
 
 #: src/Components/NestedCommentMenu.jsx:230
 msgid "Delete reply"
-msgstr ""
+msgstr "답글 삭제"
 
 #: src/Components/CommentMenu.jsx:213
 msgid "Delete reply?"
-msgstr ""
+msgstr "답글을 삭제하시겠습니까?"
 
 #: src/views/communities/Createnewcommunity.jsx:156
 msgid "Description"
-msgstr ""
+msgstr "설명"
 
 #: src/views/settingspage/components/Apperance.jsx:16
 msgid "Display theme"
-msgstr ""
+msgstr "디스플레이 테마"
 
 #: src/views/Login/Login.jsx:200
 msgid "Do not have an account?"
-msgstr ""
+msgstr "계정이 없으신가요?"
 
 #: src/Components/CommentMenu.jsx:138
 #: src/Components/NestedCommentMenu.jsx:154
 msgid "Edit"
-msgstr ""
+msgstr "수정"
 
 #: src/views/Profile/ProfileHeader.jsx:484
 #: src/views/settingspage/settingsPage.jsx:90
 #: src/views/UserSettings/Editprofile.jsx:185
 msgid "Edit profile"
-msgstr ""
+msgstr "프로필 수정"
 
 #: src/views/Register/Register.jsx:186
 msgid "Email (optional)"
-msgstr ""
+msgstr "이메일 (추가사항)"
 
 #: src/views/settingspage/components/ChangeEmail.jsx:39
 msgid "Email updated"
-msgstr ""
+msgstr "이메일이 변경되었습니다."
 
 #: src/views/Login/ForgotPasswordModal.jsx:77
 msgid "Enter your email address, and you will recieve a password reset email."
-msgstr ""
+msgstr "이메일 주소를 입력하시면, 비밀번호 리셋 이메일이 발송됩니다"
 
 #: src/views/communities/Communities.jsx:128
 msgid "Find communities"
-msgstr ""
+msgstr "커뮤니티 찾기"
 
 #: src/views/Search/UserSearch.jsx:306
 #: src/views/SuggestedAccounts/SuggestedAccs.jsx:247
 msgid "follow"
-msgstr ""
+msgstr "팔로우"
 
 #: src/Components/Hsuggestedacc.jsx:159
 #: src/views/Profile/ProfileHeader.jsx:554
 msgid "Follow"
-msgstr ""
+msgstr "팔로우"
 
 #: src/Components/CommentMenu.jsx:158
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:190
@@ -436,85 +437,85 @@ msgstr "팔로우 {0}"
 
 #: src/Components/NestedCommentMenu.jsx:175
 msgid "Follow {commentuser}"
-msgstr ""
+msgstr "{commentuser} 팔로우"
 
 #: src/views/Profile/ProfileHeader.jsx:552
 msgid "Follow back"
-msgstr ""
+msgstr "맞팔로우"
 
 #: src/views/Notis/Notis.jsx:196
 #: src/views/Profile/ProfileHeader.jsx:665
 msgid "Followers"
-msgstr ""
+msgstr "팔로워"
 
 #: src/views/Home/Home.jsx:261
 #: src/views/Profile/ProfileHeader.jsx:514
 #: src/views/Profile/ProfileHeader.jsx:649
 msgid "Following"
-msgstr ""
+msgstr "팔로잉"
 
 #: src/Components/PostFeed.jsx:135
 msgid "found nothing"
-msgstr ""
+msgstr "아무것도 찾지 못함"
 
 #: src/views/communities/CommunityProfile.jsx:369
 msgid "Get the conversation started. Be the first to post in this community."
-msgstr ""
+msgstr "대화를 시작하세요. 이 커뮤니티에 가장 먼저 글을 올려보세요"
 
 #: src/Components/CreatePostModal.jsx:682
 msgid "Hours"
-msgstr ""
+msgstr "시간"
 
 #: src/Components/Sidebar.jsx:252
 msgid "How does levels work?"
-msgstr ""
+msgstr "레벨은 어떻게 작동하나요?"
 
 #: src/Components/Leaderboardhorizontal.jsx:88
 #: src/Components/Sidebar/components/Leaderboard.jsx:84
 #: src/Components/Sidebar/components/Leaderboard.jsx:243
 #: src/views/Leaderboard/Leaderboard.jsx:168
 msgid "How to earn points?"
-msgstr ""
+msgstr "포인트는 어떻게 얻나요?"
 
 #: src/views/Login/Login.jsx:254
 msgid "I forgot my password"
-msgstr ""
+msgstr "비밀번호를 잊어버렸습니다"
 
 #: src/views/Login/ForgotPasswordModal.jsx:43
 msgid "If an account matches<0>{email}</0>, you should receive an email with instructions on how to reset your password shortly."
-msgstr ""
+msgstr "만약 당신의 계정이 <0>{email}</0>라면, 당신은 비밀번호를 재설정하는 방법이 포함된 이메일을 곧 받게 될 것입니다."
 
 #: src/Components/CreatePostModal.jsx:110
 msgid "Image size is too big. Max allowed size is 9MB"
-msgstr ""
+msgstr "이미지의 사이즈가 너무 큽니다. 최대 사이즈는 9MB입니다."
 
 #: src/Components/Post/components/PostBody/PostPolls.jsx:76
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:58
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:113
 #: src/views/SinglePost/Comments.jsx:318
 msgid "Internal Server Error"
-msgstr ""
+msgstr "인터넷 서버 에러"
 
 #: src/views/communities/CommunityProfile.jsx:223
 msgid "Join"
-msgstr ""
+msgstr "가입하기"
 
 #: src/views/settingspage/components/Translation.jsx:20
 msgid "Language"
-msgstr ""
+msgstr "언어 (Language)"
 
 #: src/Components/Navbar.jsx:274
 #: src/Components/ProfileMenu.jsx:227
 #: src/views/settingspage/components/Translation.jsx:67
 msgid "Language changed to {0}"
-msgstr ""
+msgstr "언어가 {0} 로변경되었습니다."
 
 #: src/views/Home/Home.jsx:240
 #: src/views/Search/UserSearch.jsx:203
 #: src/views/singlecommunitypost/Reply.jsx:64
 #: src/views/SinglePost/Reply.jsx:53
 msgid "Latest"
-msgstr ""
+msgstr "최신순"
 
 #: src/Components/Leaderboardhorizontal.jsx:67
 #: src/Components/Sidebar/components/Leaderboard.jsx:64
@@ -525,21 +526,22 @@ msgstr "리더보드"
 
 #: src/views/communities/CommunityProfileMenu.jsx:150
 msgid "Leave Community"
-msgstr ""
+msgstr "커뮤니티를 떠나다"
 
 #: src/Components/Sidebar.jsx:318
 #: src/views/Profile/ProfileHeader.jsx:745
 msgid "Level {0}"
-msgstr ""
+msgstr "레벨 {0}"
 
 #: src/Components/Sidebar.jsx:264
 msgid "Leveling becomes more challenging with each new level."
-msgstr ""
+msgstr "새로운 레벨이 추가될 때마다 레벨링이 더 어려워집니다."
 
 #: src/views/settingspage/components/Apperance.jsx:26
 #: src/views/settingspage/components/Apperance.jsx:55
 #~ msgid "Light"
 #~ msgstr ""
+
 
 #: src/Components/ProfileMenu.jsx:123
 #: src/views/settingspage/components/Apperance.jsx:26
@@ -549,24 +551,24 @@ msgstr "라이트 모드"
 
 #: src/Components/Post/components/PostFooter/PostFooter.jsx:352
 msgid "Like"
-msgstr ""
+msgstr "좋아요"
 
 #: src/Components/Post/components/PostFooter/PostFooter.jsx:209
 msgid "Liked by <0>{0} </0> and <1>{1} others</1>"
-msgstr ""
+msgstr "<0>{0}</0>외 <1>{1}</1>명에게 좋아요 받음"
 
 #: src/views/Notis/Notis.jsx:169
 #: src/views/Profile/Profile.jsx:144
 msgid "Likes"
-msgstr ""
+msgstr "좋아요"
 
 #: src/Components/Post/components/PostModals/LikesUsersModal.jsx:18
 msgid "Likes ({0})"
-msgstr ""
+msgstr "좋아요 ({0})"
 
 #: src/views/Notis/Notis.jsx:237
 msgid "Likes on your posts and comments"
-msgstr ""
+msgstr "게시글 및 댓글에 좋아요"
 
 #: src/Components/CommentMenu.jsx:166
 #: src/Components/NestedCommentMenu.jsx:183
@@ -576,7 +578,7 @@ msgstr "링크가 클립보드에 복사됨"
 
 #: src/views/Chat/Chat.jsx:298
 msgid "Load older messages"
-msgstr ""
+msgstr "이전 메시지 불러오기"
 
 #: src/Components/ProfileMenu.jsx:168
 msgid "Log Out"
@@ -612,112 +614,112 @@ msgstr "로그인"
 #: src/views/SinglePost/Reply.jsx:104
 #: src/views/SuggestedAccounts/SuggestedAccs.jsx:96
 msgid "Login required"
-msgstr ""
+msgstr "로그인 필요"
 
 #: src/views/Login/Login.jsx:63
 #: src/views/Login/Login.jsx:98
 msgid "Login Successful"
-msgstr ""
+msgstr "성공적으로 로그인함"
 
 #: src/views/communities/Communities.jsx:142
 msgid "Login to see your communities"
-msgstr ""
+msgstr "커뮤니티를 보기 위해서는 로그인해야합니다."
 
 #: src/views/Login/ForgotPasswordModal.jsx:53
 msgid "Make sure to also check your spam folder if you don't see the email in your inbox."
-msgstr ""
+msgstr "메일함(Inbox) 에 보이지 않는다면 스팸 폴더를 체크해보세요"
 
 #: src/views/communities/CommunityProfile.jsx:289
 msgid "Members"
-msgstr ""
+msgstr "멤버"
 
 #: src/views/Notis/Notis.jsx:187
 msgid "Mentions"
-msgstr ""
+msgstr "언급"
 
 #: src/views/Notis/Notis.jsx:288
 msgid "Mentions of You"
-msgstr ""
+msgstr "당신을 언급함"
 
 #: src/views/Profile/ProfileHeader.jsx:538
 #: src/views/Profile/ProfileHeader.jsx:579
 msgid "Message"
-msgstr ""
+msgstr "메시지"
 
 #: src/views/Chat/Chat.jsx:472
 msgid "Message deleted"
-msgstr ""
+msgstr "메시지 삭제됨"
 
 #: src/Components/CreatePostModal.jsx:715
 msgid "Minutes"
-msgstr ""
+msgstr "분"
 
 #: src/Components/About.jsx:87
 msgid "Momos is a social network webapp where you can connect with people around the world. I built this project to learn more about full stack development and to improve my skills as a developer. The project is still in development and new features are being added regularly."
-msgstr ""
+msgstr "모모즈는 전세계 수많은 사람들과 소통할 수 있는 SNS입니다. 저는 이 프로젝트를 풀스택 개발을 보다더 배우려는 것 그리고 개발자로서 실력을 키우기 위해 만들었습니다. 이 프로젝트는 현재도 개발중이며 새로운 기능들이 정기적으로 추가됩니다."
 
 #: src/views/communities/Communities.jsx:125
 msgid "My communities"
-msgstr ""
+msgstr "내 커뮤니티"
 
 #: src/views/Register/Register.jsx:191
 msgid "Never shown to the public"
-msgstr ""
+msgstr "퍼블릭으로 공개하지 않기"
 
 #: src/views/settingspage/components/ChangeEmail.jsx:88
 msgid "New Email Address"
-msgstr ""
+msgstr "새로운 이메일 주소"
 
 #: src/views/Notis/Notis.jsx:338
 msgid "New Followers"
-msgstr ""
+msgstr "새로운 팔로워"
 
 #: src/views/settingspage/components/ChangePassword.jsx:88
 msgid "New Password"
-msgstr ""
+msgstr "새로운 비밀번호"
 
 #: src/views/settingspage/components/ChangePassword.jsx:101
 msgid "New Password must be minimum 6 Character"
-msgstr ""
+msgstr "새로운 비밀번호는 최소 6글자 이상이 되어야합니다."
 
 #: src/views/singlecommunitypost/SinglePostFeed.jsx:90
 #: src/views/SinglePost/SinglePostFeed.jsx:89
 msgid "No comments yet"
-msgstr ""
+msgstr "아직 댓글이 없습니다."
 
 #: src/views/Chat/Chatrooms.jsx:244
 msgid "No messages yet"
-msgstr ""
+msgstr "아직 받은 메시지가 없습니다."
 
 #: src/views/communities/CommunityProfileMenu.jsx:84
 msgid "No, don't delete it"
-msgstr ""
+msgstr "아니요, 삭제하지 않습니다."
 
 #: src/views/Notis/Notis.jsx:150
 msgid "Notifications"
-msgstr ""
+msgstr "알림"
 
 #: src/views/Login/ForgotPasswordModal.jsx:65
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: src/views/singlecommunitypost/Reply.jsx:75
 #: src/views/SinglePost/Reply.jsx:75
 msgid "Oldest"
-msgstr ""
+msgstr "오래된순"
 
 #: src/Components/Sidebar.jsx:367
 msgid "Online - {0}"
-msgstr ""
+msgstr "온라인 - {0}"
 
 #: src/views/Login/ForgotPasswordUpdate.jsx:174
 msgid "Oops! The link you used no longer works."
-msgstr ""
+msgstr "이런, 사용했던 링크가 더 이상 작동하지 않습니다."
 
 #: src/views/singlecommunitypost/Comments.jsx:411
 #: src/views/singlecommunitypost/Comments.jsx:621
 msgid "OP"
-msgstr ""
+msgstr "OP"
 
 #: src/views/singlecommunitypost/Comments.jsx:418
 #: src/views/singlecommunitypost/Comments.jsx:628
@@ -727,92 +729,92 @@ msgstr ""
 
 #: src/views/settingspage/settingsPage.jsx:112
 msgid "Other"
-msgstr ""
+msgstr "기타"
 
 #: src/Components/About.jsx:207
 msgid "Other links"
-msgstr ""
+msgstr "다른 링크"
 
 #: src/views/communities/CommunityProfile.jsx:253
 msgid "Owner"
-msgstr ""
+msgstr "관리자"
 
 #: src/views/Login/Login.jsx:238
 #: src/views/settingspage/components/ChangeEmail.jsx:100
 msgid "Password"
-msgstr ""
+msgstr "비밀번호"
 
 #: src/views/settingspage/components/ChangePassword.jsx:42
 msgid "Password Updated"
-msgstr ""
+msgstr "비밀번호 변경됨"
 
 #: src/Components/About.jsx:130
 msgid "Please note that this project is for educational purposes and may have bugs or unfinished features. If you encounter any issues or have any suggestions, please feel free to reach out or submit a pull request."
-msgstr ""
+msgstr "이 프로젝트는 교육적인 목적임을 확인하시고 버그나 불완전한 기능들이 있음을 인지하세요. 만약 어떤 문제점을 발견하거나 제안할 점이 있다면 언제든지 문의하시거나 깃헙에 Pull request를 남겨주세요."
 
 #: src/Components/Post/components/PostBody/PostPolls.jsx:286
 msgid "Poll closed"
-msgstr ""
+msgstr "투표 종료"
 
 #: src/Components/CreatePostModal.jsx:655
 msgid "Poll duration"
-msgstr ""
+msgstr "투표 기간"
 
 #: src/views/Home/Home.jsx:250
 msgid "Popular"
-msgstr ""
+msgstr "인기있는"
 
 #: src/Components/CreatePostModal.jsx:915
 msgid "Post"
-msgstr ""
+msgstr "글"
 
 #: src/Components/Post/components/PostModals/BookmarkNotiModal.jsx:33
 msgid "Post added to Bookmarks"
-msgstr ""
+msgstr "북마크에 글이 추가됨"
 
 #: src/Components/CreatePostModal.jsx:172
 #: src/Components/CreatePostModal.jsx:207
 #: src/Components/CreatePostModal.jsx:237
 #: src/Components/CreatePostModal.jsx:263
 msgid "Post Created Successfully"
-msgstr ""
+msgstr "글이 성공적으로 게시됨"
 
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:43
 msgid "Post Deleted"
-msgstr ""
+msgstr "글 삭제됨"
 
 #: src/Components/Post/common/functions.js:38
 msgid "Post unsaved successfully"
-msgstr ""
+msgstr "글을 성공적으로 저장 해제했습니다"
 
 #: src/Components/CreatePostModal.jsx:924
 msgid "Posting"
-msgstr ""
+msgstr "작성 중"
 
 #: src/views/communities/CommunityProfile.jsx:286
 #: src/views/Profile/Profile.jsx:138
 msgid "Posts"
-msgstr ""
+msgstr "글"
 
 #: src/views/communities/Createnewcommunity.jsx:160
 msgid "Privacy setting"
-msgstr ""
+msgstr "프라이버시 설정"
 
 #: src/views/communities/Createnewcommunity.jsx:182
 msgid "Private (Owner approval required)"
-msgstr ""
+msgstr "프라이빗 (관리자 승인이 필요합니다)"
 
 #: src/views/Chat/Chatrooms.jsx:286
 msgid "Profile"
-msgstr ""
+msgstr "프로필"
 
 #: src/views/UserSettings/Editprofile.jsx:100
 msgid "Profile updated successfully"
-msgstr ""
+msgstr "프로필이 성공적으로 변경됨"
 
 #: src/views/communities/Createnewcommunity.jsx:176
 msgid "Public (Anyone can join)"
-msgstr ""
+msgstr "공개 (누구나 참여할 수 있습니다)"
 
 #: src/Components/Hero.jsx:90
 #: src/Components/ProfileMenu.jsx:189
@@ -824,15 +826,15 @@ msgstr "회원가입"
 
 #: src/views/Login/Login.jsx:159
 msgid "Register Successful"
-msgstr ""
+msgstr "성공적으로 가입함"
 
 #: src/Components/CreatePostModal.jsx:794
 msgid "Remove Poll"
-msgstr ""
+msgstr "투표 삭제"
 
 #: src/views/Profile/Profile.jsx:141
 msgid "Replies"
-msgstr ""
+msgstr "답글"
 
 #: src/Components/NestedReplyModal.jsx:384
 #: src/views/singlecommunitypost/Comments.jsx:537
@@ -840,45 +842,45 @@ msgstr ""
 #: src/views/SinglePost/Comments.jsx:547
 #: src/views/SinglePost/Comments.jsx:821
 msgid "Reply"
-msgstr ""
+msgstr "답글"
 
 #: src/Components/NestedReplyModal.jsx:58
 #: src/Components/NestedReplyModal.jsx:170
 msgid "Reply added"
-msgstr ""
+msgstr "답글 추가됨"
 
 #: src/Components/CommentMenu.jsx:35
 #: src/Components/NestedCommentMenu.jsx:60
 msgid "Reply Deleted"
-msgstr ""
+msgstr "답글 삭제됨"
 
 #: src/Components/NestedReplyModal.jsx:136
 msgid "reply updated successfully"
-msgstr ""
+msgstr "답글이 성공적으로 추가됨"
 
 #: src/Components/RepliesFeed.jsx:222
 msgid "Replying to <0>@{0}</0>"
-msgstr ""
+msgstr "<0>@{0}</0> 에게 답변 중"
 
 #: src/Components/NestedReplyModal.jsx:213
 msgid "Replying to<0>{0}{1}{2}</0>"
-msgstr ""
+msgstr "<0>{0}{1}{2}</0> 에게 답변 중"
 
 #: src/Components/Post/components/PostFooter/PostFooter.jsx:397
 msgid "Repost"
-msgstr ""
+msgstr "리포스트"
 
 #: src/views/Notis/Notis.jsx:207
 msgid "Requests"
-msgstr ""
+msgstr "요청"
 
 #: src/views/Login/ForgotPasswordModal.jsx:101
 msgid "Reset Password"
-msgstr ""
+msgstr "비밀번호 재설정"
 
 #: src/Components/About.jsx:178
 msgid "Rules"
-msgstr ""
+msgstr "규칙"
 
 #: src/Components/Post/components/PostFooter/PostFooter.jsx:423
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:159
@@ -889,41 +891,41 @@ msgstr "저장"
 #: src/views/settingspage/components/ChangeEmail.jsx:115
 #: src/views/settingspage/components/ChangePassword.jsx:115
 msgid "Save changes"
-msgstr ""
+msgstr "변경 저장"
 
 #: src/Components/NestedReplyModal.jsx:371
 #: src/views/UserSettings/Editprofile.jsx:469
 msgid "Save Changes"
-msgstr ""
+msgstr "변경 저장"
 
 #: src/Components/Post/components/PostFooter/PostFooter.jsx:421
 msgid "Saved"
-msgstr ""
+msgstr "저장됨"
 
 #: src/App.js:220
 msgid "Scroll to top"
-msgstr ""
+msgstr "상단으로 스크롤"
 
 #: src/Components/Sidebar.jsx:494
 msgid "Search"
-msgstr ""
+msgstr "검색"
 
 #: src/views/Discover/Discover.jsx:81
 msgid "Search momos"
-msgstr ""
+msgstr "모모즈 검색"
 
 #: src/Components/Hsuggestedacc.jsx:202
 #: src/Components/PostFeed.jsx:80
 msgid "See all"
-msgstr ""
+msgstr "전체 보기"
 
 #: src/Components/Post/components/PostFooter/CommentPreview.jsx:170
 msgid "See all {0} comments"
-msgstr ""
+msgstr "모든 {0} 댓글 보기"
 
 #: src/views/Login/ForgotPasswordUpdate.jsx:144
 msgid "Set Password"
-msgstr ""
+msgstr "비밀번호 설정"
 
 #: src/Components/ProfileMenu.jsx:106
 #: src/views/settingspage/settingsPage.jsx:74
@@ -932,11 +934,11 @@ msgstr "설정"
 
 #: src/views/communities/CommunityProfileMenu.jsx:141
 msgid "Share"
-msgstr ""
+msgstr "공유"
 
 #: src/Components/CommentMenu.jsx:186
 msgid "Share comment via..."
-msgstr ""
+msgstr "다음을 통해 댓글 공유"
 
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:221
 msgid "Share Post via..."
@@ -944,29 +946,29 @@ msgstr "글 외부 공유"
 
 #: src/views/Profile/ProfileHeader.jsx:500
 msgid "Share profile"
-msgstr ""
+msgstr "프로필 공유"
 
 #: src/Components/NestedCommentMenu.jsx:203
 msgid "Share reply via..."
-msgstr ""
+msgstr "다음을 통해 답글 공유"
 
 #: src/views/Chat/Chatrooms.jsx:391
 #: src/views/Chat/Chatrooms.jsx:420
 msgid "Start a new chat"
-msgstr ""
+msgstr "새로운 채팅 시작"
 
 #: src/views/Chat/Chatrooms.jsx:294
 msgid "Success"
-msgstr ""
+msgstr "성공"
 
 #: src/views/Discover/Discover.jsx:156
 #: src/views/SuggestedAccounts/SuggestedAccs.jsx:164
 msgid "Suggested Accounts"
-msgstr ""
+msgstr "제안된 계정"
 
 #: src/Components/PostFeed.jsx:68
 msgid "Suggested for you"
-msgstr ""
+msgstr "당신을 위한 추천"
 
 #: src/Components/ProfileMenu.jsx:106
 #~ msgid "Switch to Dark Mode"
@@ -976,20 +978,21 @@ msgstr ""
 #~ msgid "Switch to Light Mode"
 #~ msgstr "라이트 모드 전환"
 
+
 #: src/Components/RouteError.jsx:78
 msgid "Take me back to home page"
-msgstr ""
+msgstr "홈화면으로 돌아가기"
 
 #: src/Components/About.jsx:103
 msgid "Technologies"
-msgstr ""
+msgstr "기술"
 
 #: src/Components/Leaderboardhorizontal.jsx:80
 #: src/Components/Sidebar/components/Leaderboard.jsx:77
 #: src/Components/Sidebar/components/Leaderboard.jsx:236
 #: src/views/Leaderboard/Leaderboard.jsx:160
 msgid "The leaderboard ranking is based on the total number of points earned by the user."
-msgstr ""
+msgstr "리더보드 순위는 유저가 얻은 전체 포인트를 기반으로 합니다"
 
 #: src/Components/CommentMenu.jsx:216
 #: src/Components/NestedCommentMenu.jsx:233
@@ -999,19 +1002,19 @@ msgstr "이 행위는 되돌릴 수 없으며 당신의 프로필, 타임라인�
 
 #: src/views/Profile/ProfileHeader.jsx:903
 msgid "This can’t be undone and this user will be removed from your following."
-msgstr ""
+msgstr "이 행위는 되돌릴 수 없으며 당신의 팔로잉 목록에서 유저가 제거됩니다."
 
 #: src/views/communities/Createnewcommunity.jsx:140
 msgid "This cannot be changed later"
-msgstr ""
+msgstr "이것은 후에 변경되지 않습니다"
 
 #: src/Components/Post/components/PostBody/PostQuote.jsx:178
 msgid "This post was deleted by the author."
-msgstr ""
+msgstr "이 글은 작성자에 의해 지워졌습니다."
 
 #: src/views/settingspage/components/ChangeEmail.jsx:103
 msgid "To confirm your new email, enter your current password."
-msgstr ""
+msgstr "새로운 이메일을 승인받으려면, 현재 비밀번호를 입력하세요"
 
 #: src/views/Search/UserSearch.jsx:200
 #: src/views/singlecommunitypost/Reply.jsx:53
@@ -1022,33 +1025,33 @@ msgstr ""
 #: src/Components/Sidebar/components/News.jsx:62
 #: src/Components/Sidebar/components/News.jsx:164
 msgid "Top News"
-msgstr ""
+msgstr "주요 뉴스"
 
 #: src/helper/Topuserbadge.js:25
 msgid "Top User badge"
-msgstr ""
+msgstr "상위 유저 뱃지"
 
 #: src/views/Discover/Discover.jsx:92
 msgid "Trending Topics"
-msgstr ""
+msgstr "현재 인기있는 주제"
 
 #: src/views/Login/Login.jsx:307
 msgid "Try Demo account"
-msgstr ""
+msgstr "데모 계정을 사용해보세요"
 
 #: src/views/UserSettings/Editprofile.jsx:479
 msgid "Undo all Changes"
-msgstr ""
+msgstr "모든 변경 사항 실행 취소"
 
 #: src/views/Search/UserSearch.jsx:319
 #: src/views/SuggestedAccounts/SuggestedAccs.jsx:261
 msgid "unfollow"
-msgstr ""
+msgstr "언팔로우"
 
 #: src/Components/Hsuggestedacc.jsx:175
 #: src/views/Profile/ProfileHeader.jsx:918
 msgid "Unfollow"
-msgstr ""
+msgstr "언팔로우"
 
 #: src/Components/CommentMenu.jsx:149
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:181
@@ -1057,19 +1060,19 @@ msgstr "팔로우 취소 {0}"
 
 #: src/Components/NestedCommentMenu.jsx:166
 msgid "Unfollow {commentuser}"
-msgstr ""
+msgstr "{commentuser} 언팔로우"
 
 #: src/views/Profile/ProfileHeader.jsx:900
 msgid "Unfollow {userprofile}?"
-msgstr ""
+msgstr "{userprofile} 을 언팔로우 하시겠습니까?"
 
 #: src/Components/RouteError.jsx:69
 msgid "Unfortunately, this is only a 404 page. You may have mistyped the address, or the page has been moved to another URL."
-msgstr ""
+msgstr "애석하게도, 이것은 404페이지입니다. 주소를 잘못 적었다던가, 해당 페이지가 주소를 변경했을 수 있습니다."
 
 #: src/views/Register/Register.jsx:202
 msgid "Unique, no spaces, short"
-msgstr ""
+msgstr "유니크하며, 공백없이, 짧은"
 
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:157
 msgid "Unsave"
@@ -1077,26 +1080,26 @@ msgstr "저장 취소"
 
 #: src/views/communities/Createnewcommunity.jsx:117
 msgid "Upload photo"
-msgstr ""
+msgstr "사진 올리기"
 
 #: src/views/Login/Login.jsx:230
 #: src/views/Register/Register.jsx:196
 #: src/views/UserSettings/Editprofile.jsx:428
 msgid "Username"
-msgstr ""
+msgstr "사용자명"
 
 #: src/Components/CreatePostModal.jsx:120
 msgid "Video size is too big. Max allowed size is 95MB"
-msgstr ""
+msgstr "비디오의 사이즈가 너무 큽니다. 최대 사이즈는 95MB입니다."
 
 #: src/Components/Leaderboardhorizontal.jsx:117
 #: src/Components/Sidebar/components/Leaderboard.jsx:202
 msgid "View all"
-msgstr ""
+msgstr "전체 보기"
 
 #: src/Components/Post/components/PostModals/BookmarkNotiModal.jsx:45
 msgid "View all Bookmarks"
-msgstr ""
+msgstr "전체 북마크 보기"
 
 #: src/Components/ProfileMenu.jsx:90
 msgid "View profile"
@@ -1108,26 +1111,26 @@ msgstr "프로필 확인"
 #: src/views/Login/Login.jsx:139
 #: src/views/Register/Register.jsx:100
 msgid "Welcome back {0}"
-msgstr ""
+msgstr "{0} 님 돌아온 것을 환영합니다"
 
 #: src/App.js:63
 msgid "Welcome back, {0}"
-msgstr ""
+msgstr "돌아온 것을 환영합니다, {0} 님"
 
 #: src/views/Login/Login.jsx:197
 #: src/views/Register/Register.jsx:158
 msgid "Welcome to Momos"
-msgstr ""
+msgstr "모모즈에 오신 것을 환영합니다"
 
 #: src/views/Login/Login.jsx:160
 #: src/views/Register/Register.jsx:63
 #: src/views/Register/Register.jsx:121
 msgid "Welcome to momos {0}"
-msgstr ""
+msgstr "{0} 님, 모모즈에 오신 것을 환영합니다"
 
 #: src/views/Chat/Chatrooms.jsx:381
 msgid "Welcome to your inbox!"
-msgstr ""
+msgstr "편지함에 오신 것을 환영합니다"
 
 #: src/Components/Hero.jsx:64
 msgid "Welcome to<0>momos</0>"
@@ -1135,117 +1138,117 @@ msgstr "<0>momos</0>에 오신 것을 환영합니다"
 
 #: src/Components/CreatePost.jsx:49
 msgid "What's on your mind, {0}?"
-msgstr ""
+msgstr "{0} 님, 지금 무슨 생각해요?"
 
 #: src/views/Notis/Notis.jsx:267
 msgid "When someone comments on your post or replies to you, you'll see it here"
-msgstr ""
+msgstr "당신의 글에 다른 유저가 댓글을 달거나 답글을 달 경우, 여기서 확인할 수 있습니다"
 
 #: src/views/Notis/Notis.jsx:341
 msgid "When someone follows you, you'll see it here"
-msgstr ""
+msgstr "만약 어떤 유저가 당신을 팔로우한다면 여기서 확인할 수 있습니다"
 
 #: src/views/Notis/Notis.jsx:240
 msgid "When someone likes your post or comment, you'll see it here"
-msgstr ""
+msgstr "만약 어떤 유저가 당신의 글에 좋아요를 누른다면, 여기서 확인할 수 있습니다"
 
 #: src/views/Notis/Notis.jsx:291
 msgid "When someone mentions you, you'll see it here"
-msgstr ""
+msgstr "만역 어떤 유저가 당신을 언급한다면, 여기서 확인할 수 있습니다"
 
 #: src/views/Notis/Notis.jsx:317
 msgid "When someone requests to join your community, you'll see it here"
-msgstr ""
+msgstr "만약 어떤 유저가 당신의 커뮤니티에 가입하려 한다면, 여기서 확인할 수 있습니다"
 
 #: src/views/communities/CommunityProfileMenu.jsx:83
 msgid "Yes, delete it"
-msgstr ""
+msgstr "네, 삭제합니다"
 
 #: src/views/communities/FindCommunity.jsx:21
 msgid "You are already a member of all communities"
-msgstr ""
+msgstr "당신은 이미 전체 커뮤니티의 멤버입니다."
 
 #: src/Components/CommentMenu.jsx:87
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:98
 #: src/views/Profile/ProfileHeader.jsx:149
 msgid "You are no longer following {0}"
-msgstr ""
+msgstr "당신은 더이상 {0} 을 팔로우 하지 않습니다."
 
 #: src/Components/NestedCommentMenu.jsx:107
 msgid "You are no longer following {commentuser}"
-msgstr ""
+msgstr "당신은 더이상 {commentuser} 을 팔로우 하지 않습니다"
 
 #: src/views/Search/UserSearch.jsx:112
 #: src/views/SuggestedAccounts/SuggestedAccs.jsx:118
 msgid "You are no longer following {username}"
-msgstr ""
+msgstr "당신은 더이상 {username} 을 팔로우하지 않습니다"
 
 #: src/Components/Hsuggestedacc.jsx:63
 msgid "You are no longer following ${username}"
-msgstr ""
+msgstr "당신은 더이상 ${username} 을 팔로우하지 않습니다"
 
 #: src/Components/CommentMenu.jsx:77
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:90
 #: src/views/Profile/ProfileHeader.jsx:141
 msgid "You are now following {0}"
-msgstr ""
+msgstr "당신은 이제 {0} 을 팔로우합니다"
 
 #: src/Components/NestedCommentMenu.jsx:101
 msgid "You are now following {commentuser}"
-msgstr ""
+msgstr "당신은 이제 {commentuser} 을 팔로우합니다"
 
 #: src/views/Search/UserSearch.jsx:105
 #: src/views/SuggestedAccounts/SuggestedAccs.jsx:111
 msgid "You are now following {username}"
-msgstr ""
+msgstr "당신은 이제 {username} 을 팔로우합니다"
 
 #: src/Components/Hsuggestedacc.jsx:56
 msgid "You are now following ${username}"
-msgstr ""
+msgstr "당신은 이제 ${username} 을 팔로우합니다"
 
 #: src/Components/Sidebar.jsx:271
 msgid "You can earn points by gaining likes on your content."
-msgstr ""
+msgstr "당신의 콘텐츠에서 받은 좋아요를 통해 포인트를 얻을 수 있습니다"
 
 #: src/views/communities/CommunityProfileMenu.jsx:96
 msgid "You have deleted the community"
-msgstr ""
+msgstr "커뮤니티를 삭제했습니다."
 
 #: src/Components/RouteError.jsx:61
 msgid "You have found a secret place."
-msgstr ""
+msgstr "비밀 공간을 찾았습니다."
 
 #: src/views/communities/CommunityProfileMenu.jsx:45
 msgid "You have left the community"
-msgstr ""
+msgstr "커뮤니티를 떠났습니다"
 
 #: src/views/Home/Home.jsx:304
 msgid "You have seen it all 😊 Come back later for more!"
-msgstr ""
+msgstr "다 보셨습니다 😊 나중에 다시 와서 더 많은 것을 확인하세요!"
 
 #: src/views/Login/ForgotPasswordUpdate.jsx:156
 msgid "You successfully changed your password and will now be logged in shortly."
-msgstr ""
+msgstr "성공적으로 비밀번호가 변경되었으며 곧 로그인 할 수 있습니다"
 
 #: src/views/communities/CommunityProfileMenu.jsx:29
 msgid "You will no longer be able to post or comment in this community. You can rejoin at any time."
-msgstr ""
+msgstr "더 이상 글이나 댓글을 이 커뮤니티에 작성할 수없습니다. 언제든지 재가입할 수 있습니다"
 
 #: src/views/Notis/Notis.jsx:220
 msgid "You will see all your notifications here"
-msgstr ""
+msgstr "이제 모든 알림을 확인하실 수 있습니다."
 
 #: src/views/communities/Communities.jsx:151
 msgid "You will see your joined communities here"
-msgstr ""
+msgstr "가입한 커뮤니티들을 전부 확인할 수 있습니다"
 
 #: src/Components/CreatePostModal.jsx:406
 #: src/Components/CreatePostModal.jsx:565
 #: src/Components/Post/components/PostBody/PostMedia.jsx:62
 #: src/Components/Post/components/PostBody/PostQuote.jsx:134
 msgid "Your browser does not support the video tag."
-msgstr ""
+msgstr "사용중인 브라우저가 비디오 태그를 지원하지 않습니다"
 
 #: src/Components/Sidebar.jsx:258
 msgid "Your level is based on how many points you have."
-msgstr ""
+msgstr "당신의 레벨은 당신이 얼마나 많은 포인트를 가졌냐에 따라 결정됩니다"

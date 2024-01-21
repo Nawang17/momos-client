@@ -4,7 +4,8 @@ export const updateprofileinfo = async (
   username,
   newavatar,
   description,
-  newbanner
+  newbanner,
+  website
 ) => {
   return await api.put(
     "/settingsinfo/updateprofileinfo",
@@ -13,6 +14,7 @@ export const updateprofileinfo = async (
       avatar: newavatar,
       description,
       banner: newbanner,
+      link: website,
     },
 
     {

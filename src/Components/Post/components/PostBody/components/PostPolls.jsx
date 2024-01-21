@@ -268,16 +268,14 @@ const PostPolls = ({ post }) => {
                 }}
                 color="dimmed"
               >
-                <Trans>
-                  {poll?.poll?.pollchoices?.reduce((acc, val) => {
-                    return acc + val?.pollvotes?.length;
-                  }, 0)}{" "}
-                  {poll?.poll?.pollchoices?.reduce((acc, val) => {
-                    return acc + val?.pollvotes?.length;
-                  }, 0) > 1
-                    ? "Votes"
-                    : "Vote"}
-                </Trans>
+                {poll?.poll?.pollchoices?.reduce((acc, val) => {
+                  return acc + val?.pollvotes?.length;
+                }, 0)}{" "}
+                {poll?.poll?.pollchoices?.reduce((acc, val) => {
+                  return acc + val?.pollvotes?.length;
+                }, 0) > 1
+                  ? "Votes"
+                  : "Vote"}
               </Text>
               <Text color="dimmed"> &#183; </Text>
               <Text color="dimmed">

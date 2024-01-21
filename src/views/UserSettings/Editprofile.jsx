@@ -51,6 +51,7 @@ export const Editprofile = () => {
   const { classes } = useStyles();
   const [username, setUsername] = useState("");
   const [description, setDescription] = useState("");
+  const [website, setWebsite] = useState("");
   const navigate = useNavigate();
   const [banner, setbanner] = useState("");
   const [newbanner, setnewbanner] = useState("");
@@ -92,7 +93,7 @@ export const Editprofile = () => {
   };
   const handleSave = () => {
     setbtndisabled(true);
-    updateprofileinfo(username, newavatar, description, newbanner)
+    updateprofileinfo(username, newavatar, description, newbanner, website)
       .then((res) => {
         setUserInfo(res.data.newUserInfo);
         showNotification({
@@ -128,6 +129,7 @@ export const Editprofile = () => {
     setDescription(profileinfo?.description);
     setavatar(profileinfo.avatar);
     setbanner(profileinfo?.profilebanner?.imageurl);
+    setWebsite(profileinfo?.link);
     setbtndisabled(true);
     setnewavatar("");
     setnewbanner("");
@@ -144,6 +146,7 @@ export const Editprofile = () => {
         setavatar(res.data.userInfo?.avatar);
         setprofileinfo(res.data?.userInfo);
         setbanner(res.data.userInfo?.profilebanner?.imageurl);
+        setWebsite(res.data.userInfo?.link);
         setloading(false);
       })
       .catch((err) => {
@@ -456,6 +459,27 @@ export const Editprofile = () => {
                   size={"xs"}
                 >
                   {description?.length} / 160
+                </Text>
+              </div>
+              <div>
+                <Textarea
+                  value={website}
+                  onChange={(e) => {
+                    seterror("");
+                    setWebsite(e.target.value);
+                    setbtndisabled(false);
+                  }}
+                  minRows={1}
+                  maxRows={1}
+                  label=<Trans>Website</Trans>
+                  maxLength={100}
+                />
+                <Text
+                  style={{ paddingTop: "5px" }}
+                  variant="dimmed"
+                  size={"xs"}
+                >
+                  {website?.length > 0 ? website?.length : 0} / 100
                 </Text>
               </div>
               <div

@@ -30,11 +30,6 @@ msgstr "(수정됨)"
 msgid "(feel free to reach out)"
 msgstr "(언제든지 문의하세요)"
 
-#: src/Components/Post/components/PostBody/components/PostPolls.jsx:271
-msgctxt "{1} is votes"
-msgid "{0} {1}"
-msgstr "{0} {1}"
-
 #: src/views/bookmark/Bookmarks.jsx:81
 msgid "{0} Bookmarks"
 msgstr "{0} 북마크"
@@ -43,7 +38,7 @@ msgstr "{0} 북마크"
 msgid "{0} comments"
 msgstr "{0} 댓글"
 
-#: src/Components/Post/components/PostBody/components/PostPolls.jsx:290
+#: src/Components/Post/components/PostBody/components/PostPolls.jsx:288
 msgid "{0} left"
 msgstr "{0} 떠남"
 
@@ -84,7 +79,7 @@ msgstr "{0} 리포스트"
 msgid "*Self likes are not counted"
 msgstr "자신의 글에 한 좋아요는 계산되지 않습니다."
 
-#: src/Components/Post/components/PostBody/components/PostPolls.jsx:313
+#: src/Components/Post/components/PostBody/components/PostPolls.jsx:311
 msgid "`Poll Votes (${0})`"
 msgstr "`설문조사 투표 (${0})`"
 
@@ -752,7 +747,7 @@ msgstr "비밀번호 변경됨"
 msgid "Please note that this project is for educational purposes and may have bugs or unfinished features. If you encounter any issues or have any suggestions, please feel free to reach out or submit a pull request."
 msgstr "이 프로젝트는 교육적인 목적임을 확인하시고 버그나 불완전한 기능들이 있음을 인지하세요. 만약 어떤 문제점을 발견하거나 제안할 점이 있다면 언제든지 문의하시거나 깃헙에 Pull request를 남겨주세요."
 
-#: src/Components/Post/components/PostBody/components/PostPolls.jsx:286
+#: src/Components/Post/components/PostBody/components/PostPolls.jsx:284
 msgid "Poll closed"
 msgstr "투표 종료"
 
@@ -1251,4 +1246,3 @@ msgstr "사용중인 브라우저가 비디오 태그를 지원하지 않습니�
 #: src/Components/Sidebar.jsx:258
 msgid "Your level is based on how many points you have."
 msgstr "당신의 레벨은 당신이 얼마나 많은 포인트를 가졌냐에 따라 결정됩니다"
-

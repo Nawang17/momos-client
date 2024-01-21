@@ -25,10 +25,6 @@ msgstr "(edited)"
 msgid "(feel free to reach out)"
 msgstr "(feel free to reach out)"
 
-#: src/Components/Post/components/PostBody/components/PostPolls.jsx:271
-msgid "{0} {1}"
-msgstr "{0} {1}"
-
 #: src/views/bookmark/Bookmarks.jsx:81
 msgid "{0} Bookmarks"
 msgstr "{0} Bookmarks"
@@ -37,7 +33,7 @@ msgstr "{0} Bookmarks"
 msgid "{0} comments"
 msgstr "{0} comments"
 
-#: src/Components/Post/components/PostBody/components/PostPolls.jsx:290
+#: src/Components/Post/components/PostBody/components/PostPolls.jsx:288
 msgid "{0} left"
 msgstr "{0} left"
 
@@ -78,7 +74,7 @@ msgstr "{0} reposts"
 msgid "*Self likes are not counted"
 msgstr "*Self likes are not counted"
 
-#: src/Components/Post/components/PostBody/components/PostPolls.jsx:313
+#: src/Components/Post/components/PostBody/components/PostPolls.jsx:311
 msgid "`Poll Votes (${0})`"
 msgstr "`Poll Votes (${0})`"
 
@@ -746,7 +742,7 @@ msgstr "Password Updated"
 msgid "Please note that this project is for educational purposes and may have bugs or unfinished features. If you encounter any issues or have any suggestions, please feel free to reach out or submit a pull request."
 msgstr "Please note that this project is for educational purposes and may have bugs or unfinished features. If you encounter any issues or have any suggestions, please feel free to reach out or submit a pull request."
 
-#: src/Components/Post/components/PostBody/components/PostPolls.jsx:286
+#: src/Components/Post/components/PostBody/components/PostPolls.jsx:284
 msgid "Poll closed"
 msgstr "Poll closed"
 

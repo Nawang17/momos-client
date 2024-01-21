@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: momos\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-20 14:59\n"
+"PO-Revision-Date: 2024-01-21 09:35\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -31,8 +31,9 @@ msgid "(feel free to reach out)"
 msgstr "(언제든지 문의하세요)"
 
 #: src/Components/Post/components/PostBody/components/PostPolls.jsx:271
+msgctxt "{1} is votes"
 msgid "{0} {1}"
-msgstr ""
+msgstr "{0} {1}"
 
 #: src/views/bookmark/Bookmarks.jsx:81
 msgid "{0} Bookmarks"
@@ -99,15 +100,15 @@ msgstr "레벨 {1} 까지<0>{0} 포인트</0>"
 
 #: src/views/Profile/Profile.jsx:252
 msgid "<0>@{0} hasn't liked any posts</0><1>When they do, you'll see them here.</1>"
-msgstr ""
+msgstr "<0>@{0} 은 어떠한 글도 좋아요를 누르지 않았습니다.</0><1>만약 좋아요가 눌렸다면 여기서 확인할 수 있습니다.</1>"
 
 #: src/views/Profile/Profile.jsx:155
 msgid "<0>@{0} hasn't posted anything yet</0><1>When they do, you'll see them here.</1>"
-msgstr ""
+msgstr "<0>@{0} 은 어떠한 글도 작성하지 않았습니다.</0><1>만약 글을 작성했다면 여기서 확인할 수 있습니다.</1>"
 
 #: src/views/Profile/Profile.jsx:198
 msgid "<0>@{0} hasn't replied to anything yet</0><1>When they do, you'll see them here.</1>"
-msgstr ""
+msgstr "<0>@{0} 은 어떠한 답글도 남기지 않았습니다.</0><1>만약 답글을 남겼다면 여기서 확인할 수 있습니다.</1>"
 
 #: src/views/Profile/ProfileHeader.jsx:624
 msgid "<0>Joined</0>{0}"
@@ -1018,7 +1019,7 @@ msgstr "새로운 이메일을 승인받으려면, 현재 비밀번호를 입력
 #: src/views/singlecommunitypost/Reply.jsx:53
 #: src/views/SinglePost/Reply.jsx:64
 msgid "Top"
-msgstr ""
+msgstr "인기순"
 
 #: src/Components/Sidebar/components/News.jsx:62
 #: src/Components/Sidebar/components/News.jsx:164
@@ -1250,3 +1251,4 @@ msgstr "사용중인 브라우저가 비디오 태그를 지원하지 않습니�
 #: src/Components/Sidebar.jsx:258
 msgid "Your level is based on how many points you have."
 msgstr "당신의 레벨은 당신이 얼마나 많은 포인트를 가졌냐에 따라 결정됩니다"
+

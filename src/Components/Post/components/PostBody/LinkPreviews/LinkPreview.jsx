@@ -38,7 +38,7 @@ const LinkPreview = ({ post, darkmode }) => {
         </div>
       )}
 
-      {post.previewlink && !videoId && (
+      {post.previewlink && !videoId && !post?.post && (
         <div
           style={{
             padding: "0rem 1rem",

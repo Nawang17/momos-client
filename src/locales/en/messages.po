@@ -177,7 +177,7 @@ msgstr "At least 6 characters"
 msgid "Be the first to share what you think!"
 msgstr "Be the first to share what you think!"
 
-#: src/views/UserSettings/Editprofile.jsx:450
+#: src/views/UserSettings/Editprofile.jsx:453
 msgid "Bio"
 msgstr "Bio"
 
@@ -390,7 +390,7 @@ msgstr "Edit"
 
 #: src/views/Profile/ProfileHeader.jsx:486
 #: src/views/settingspage/settingsPage.jsx:90
-#: src/views/UserSettings/Editprofile.jsx:185
+#: src/views/UserSettings/Editprofile.jsx:188
 msgid "Edit profile"
 msgstr "Edit profile"
 
@@ -798,7 +798,7 @@ msgstr "Private (Owner approval required)"
 msgid "Profile"
 msgstr "Profile"
 
-#: src/views/UserSettings/Editprofile.jsx:100
+#: src/views/UserSettings/Editprofile.jsx:101
 msgid "Profile updated successfully"
 msgstr "Profile updated successfully"
 
@@ -884,7 +884,7 @@ msgid "Save changes"
 msgstr "Save changes"
 
 #: src/Components/NestedReplyModal.jsx:371
-#: src/views/UserSettings/Editprofile.jsx:469
+#: src/views/UserSettings/Editprofile.jsx:493
 msgid "Save Changes"
 msgstr "Save Changes"
 
@@ -1028,7 +1028,7 @@ msgstr "Trending Topics"
 msgid "Try Demo account"
 msgstr "Try Demo account"
 
-#: src/views/UserSettings/Editprofile.jsx:479
+#: src/views/UserSettings/Editprofile.jsx:503
 msgid "Undo all Changes"
 msgstr "Undo all Changes"
 
@@ -1073,7 +1073,7 @@ msgstr "Upload photo"
 
 #: src/views/Login/Login.jsx:230
 #: src/views/Register/Register.jsx:196
-#: src/views/UserSettings/Editprofile.jsx:428
+#: src/views/UserSettings/Editprofile.jsx:431
 msgid "Username"
 msgstr "Username"
 
@@ -1093,6 +1093,10 @@ msgstr "View all Bookmarks"
 #: src/Components/ProfileMenu.jsx:90
 msgid "View profile"
 msgstr "View profile"
+
+#: src/views/UserSettings/Editprofile.jsx:474
+msgid "Website"
+msgstr "Website"
 
 #: src/views/Login/ForgotPasswordUpdate.jsx:89
 #: src/views/Login/Login.jsx:64

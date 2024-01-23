@@ -182,7 +182,7 @@ msgstr "최소 6글자 이상"
 msgid "Be the first to share what you think!"
 msgstr "당신의 생각을 가장 먼저 공유하세요!"
 
-#: src/views/UserSettings/Editprofile.jsx:450
+#: src/views/UserSettings/Editprofile.jsx:453
 msgid "Bio"
 msgstr "설명"
 
@@ -395,7 +395,7 @@ msgstr "수정"
 
 #: src/views/Profile/ProfileHeader.jsx:486
 #: src/views/settingspage/settingsPage.jsx:90
-#: src/views/UserSettings/Editprofile.jsx:185
+#: src/views/UserSettings/Editprofile.jsx:188
 msgid "Edit profile"
 msgstr "프로필 수정"
 
@@ -803,7 +803,7 @@ msgstr "프라이빗 (관리자 승인이 필요합니다)"
 msgid "Profile"
 msgstr "프로필"
 
-#: src/views/UserSettings/Editprofile.jsx:100
+#: src/views/UserSettings/Editprofile.jsx:101
 msgid "Profile updated successfully"
 msgstr "프로필이 성공적으로 변경됨"
 
@@ -889,7 +889,7 @@ msgid "Save changes"
 msgstr "변경 저장"
 
 #: src/Components/NestedReplyModal.jsx:371
-#: src/views/UserSettings/Editprofile.jsx:469
+#: src/views/UserSettings/Editprofile.jsx:493
 msgid "Save Changes"
 msgstr "변경 저장"
 
@@ -1033,7 +1033,7 @@ msgstr "현재 인기있는 주제"
 msgid "Try Demo account"
 msgstr "데모 계정을 사용해보세요"
 
-#: src/views/UserSettings/Editprofile.jsx:479
+#: src/views/UserSettings/Editprofile.jsx:503
 msgid "Undo all Changes"
 msgstr "모든 변경 사항 실행 취소"
 
@@ -1078,7 +1078,7 @@ msgstr "사진 올리기"
 
 #: src/views/Login/Login.jsx:230
 #: src/views/Register/Register.jsx:196
-#: src/views/UserSettings/Editprofile.jsx:428
+#: src/views/UserSettings/Editprofile.jsx:431
 msgid "Username"
 msgstr "사용자명"
 
@@ -1098,6 +1098,10 @@ msgstr "전체 북마크 보기"
 #: src/Components/ProfileMenu.jsx:90
 msgid "View profile"
 msgstr "프로필 확인"
+
+#: src/views/UserSettings/Editprofile.jsx:474
+msgid "Website"
+msgstr "웹사이트"
 
 #: src/views/Login/ForgotPasswordUpdate.jsx:89
 #: src/views/Login/Login.jsx:64
@@ -1246,4 +1250,3 @@ msgstr "사용중인 브라우저가 비디오 태그를 지원하지 않습니�
 #: src/Components/Sidebar.jsx:258
 msgid "Your level is based on how many points you have."
 msgstr "당신의 레벨은 당신이 얼마나 많은 포인트를 가졌냐에 따라 결정됩니다"
-

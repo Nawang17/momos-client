@@ -605,7 +605,17 @@ export const ProfileHeader = ({ profileInfo, profileloading, rankinfo }) => {
                     whiteSpace: "pre-wrap",
                   }}
                 >
-                  <Text>{formatText(profileInfo?.link, navigate)}</Text>
+                  <Text
+                    onClick={() => {
+                      window.open(profileInfo?.link, "_blank");
+                    }}
+                    className="link-style"
+                    style={{
+                      color: "#1d9bf0",
+                    }}
+                  >
+                    {profileInfo?.link}
+                  </Text>
                 </div>
               </Flex>
             )}

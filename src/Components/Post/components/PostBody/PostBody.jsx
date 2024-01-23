@@ -7,6 +7,7 @@ import PostQuote from "./components/PostQuote";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Text } from "@mantine/core";
 import { formatText } from "../../../../helper/FormatText";
+import { Trans } from "@lingui/macro";
 
 const PostBody = ({ post, darkmode }) => {
   const { pathname } = useLocation();
@@ -49,13 +50,20 @@ const PostBody = ({ post, darkmode }) => {
                 translation.language === localStorage.getItem("language")
             )?.translatedText && (
               <Text
+                style={{
+                  width: "fit-content",
+                }}
+                className="link-style addPointer"
                 onClick={() => setShowTranslation(!showTranslation)}
-                color="blue"
-                size="13px"
-                className="addPointer"
+                color="#1d9bf0"
+                size="14px"
                 p="0rem 1rem 0rem 1rem"
               >
-                Translate
+                {!showTranslation ? (
+                  <Trans>Translate</Trans>
+                ) : (
+                  <Trans>Translated</Trans>
+                )}
               </Text>
             )}
           {showTranslation && (

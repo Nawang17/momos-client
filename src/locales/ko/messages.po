@@ -89,7 +89,7 @@ msgstr "`설문조사 투표 (${0})`"
 msgid "+1 point for each like on your posts"
 msgstr "글에 받은 좋아요 당 +1 포인트"
 
-#: src/views/Profile/ProfileHeader.jsx:768
+#: src/views/Profile/ProfileHeader.jsx:778
 msgid "<0>{0} points to</0> Level {1}"
 msgstr "레벨 {1} 까지<0>{0} 포인트</0>"
 
@@ -105,7 +105,7 @@ msgstr "<0>@{0} 은 어떠한 글도 작성하지 않았습니다.</0><1>만약 
 msgid "<0>@{0} hasn't replied to anything yet</0><1>When they do, you'll see them here.</1>"
 msgstr "<0>@{0} 은 어떠한 답글도 남기지 않았습니다.</0><1>만약 답글을 남겼다면 여기서 확인할 수 있습니다.</1>"
 
-#: src/views/Profile/ProfileHeader.jsx:624
+#: src/views/Profile/ProfileHeader.jsx:634
 msgid "<0>Joined</0>{0}"
 msgstr "{0}<0>가입함</0>"
 
@@ -193,7 +193,7 @@ msgstr "북마크"
 #: src/Components/CommentMenu.jsx:237
 #: src/Components/NestedCommentMenu.jsx:254
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:261
-#: src/views/Profile/ProfileHeader.jsx:944
+#: src/views/Profile/ProfileHeader.jsx:954
 msgid "Cancel"
 msgstr "취소"
 
@@ -439,13 +439,13 @@ msgid "Follow back"
 msgstr "맞팔로우"
 
 #: src/views/Notis/Notis.jsx:196
-#: src/views/Profile/ProfileHeader.jsx:683
+#: src/views/Profile/ProfileHeader.jsx:693
 msgid "Followers"
 msgstr "팔로워"
 
 #: src/views/Home/Home.jsx:261
 #: src/views/Profile/ProfileHeader.jsx:516
-#: src/views/Profile/ProfileHeader.jsx:667
+#: src/views/Profile/ProfileHeader.jsx:677
 msgid "Following"
 msgstr "팔로잉"
 
@@ -524,7 +524,7 @@ msgid "Leave Community"
 msgstr "커뮤니티를 떠나다"
 
 #: src/Components/Sidebar.jsx:318
-#: src/views/Profile/ProfileHeader.jsx:763
+#: src/views/Profile/ProfileHeader.jsx:773
 msgid "Level {0}"
 msgstr "레벨 {0}"
 
@@ -994,7 +994,7 @@ msgstr "리더보드 순위는 유저가 얻은 전체 포인트를 기반으로
 msgid "This can’t be undone and it will be removed from your profile, the timeline."
 msgstr "이 행위는 되돌릴 수 없으며 당신의 프로필, 타임라인에서 사라질 것입니다."
 
-#: src/views/Profile/ProfileHeader.jsx:921
+#: src/views/Profile/ProfileHeader.jsx:931
 msgid "This can’t be undone and this user will be removed from your following."
 msgstr "이 행위는 되돌릴 수 없으며 당신의 팔로잉 목록에서 유저가 제거됩니다."
 
@@ -1025,6 +1025,14 @@ msgstr "주요 뉴스"
 msgid "Top User badge"
 msgstr "상위 유저 뱃지"
 
+#: src/Components/Post/components/PostBody/PostBody.jsx:63
+msgid "Translate"
+msgstr "번역하다"
+
+#: src/Components/Post/components/PostBody/PostBody.jsx:65
+msgid "Translated"
+msgstr "로 번역됨"
+
 #: src/views/Discover/Discover.jsx:92
 msgid "Trending Topics"
 msgstr "현재 인기있는 주제"
@@ -1043,7 +1051,7 @@ msgid "unfollow"
 msgstr "언팔로우"
 
 #: src/Components/Hsuggestedacc.jsx:175
-#: src/views/Profile/ProfileHeader.jsx:936
+#: src/views/Profile/ProfileHeader.jsx:946
 msgid "Unfollow"
 msgstr "언팔로우"
 
@@ -1056,7 +1064,7 @@ msgstr "팔로우 취소 {0}"
 msgid "Unfollow {commentuser}"
 msgstr "{commentuser} 언팔로우"
 
-#: src/views/Profile/ProfileHeader.jsx:918
+#: src/views/Profile/ProfileHeader.jsx:928
 msgid "Unfollow {userprofile}?"
 msgstr "{userprofile} 을 언팔로우 하시겠습니까?"
 

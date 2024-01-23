@@ -84,7 +84,7 @@ msgstr "`Poll Votes (${0})`"
 msgid "+1 point for each like on your posts"
 msgstr "+1 point for each like on your posts"
 
-#: src/views/Profile/ProfileHeader.jsx:768
+#: src/views/Profile/ProfileHeader.jsx:778
 msgid "<0>{0} points to</0> Level {1}"
 msgstr "<0>{0} points to</0> Level {1}"
 
@@ -100,7 +100,7 @@ msgstr "<0>@{0} hasn't posted anything yet</0><1>When they do, you'll see them h
 msgid "<0>@{0} hasn't replied to anything yet</0><1>When they do, you'll see them here.</1>"
 msgstr "<0>@{0} hasn't replied to anything yet</0><1>When they do, you'll see them here.</1>"
 
-#: src/views/Profile/ProfileHeader.jsx:624
+#: src/views/Profile/ProfileHeader.jsx:634
 msgid "<0>Joined</0>{0}"
 msgstr "<0>Joined</0>{0}"
 
@@ -188,7 +188,7 @@ msgstr "Bookmarks"
 #: src/Components/CommentMenu.jsx:237
 #: src/Components/NestedCommentMenu.jsx:254
 #: src/Components/Post/components/PostHeader/PostMenu.jsx:261
-#: src/views/Profile/ProfileHeader.jsx:944
+#: src/views/Profile/ProfileHeader.jsx:954
 msgid "Cancel"
 msgstr "Cancel"
 
@@ -434,13 +434,13 @@ msgid "Follow back"
 msgstr "Follow back"
 
 #: src/views/Notis/Notis.jsx:196
-#: src/views/Profile/ProfileHeader.jsx:683
+#: src/views/Profile/ProfileHeader.jsx:693
 msgid "Followers"
 msgstr "Followers"
 
 #: src/views/Home/Home.jsx:261
 #: src/views/Profile/ProfileHeader.jsx:516
-#: src/views/Profile/ProfileHeader.jsx:667
+#: src/views/Profile/ProfileHeader.jsx:677
 msgid "Following"
 msgstr "Following"
 
@@ -519,7 +519,7 @@ msgid "Leave Community"
 msgstr "Leave Community"
 
 #: src/Components/Sidebar.jsx:318
-#: src/views/Profile/ProfileHeader.jsx:763
+#: src/views/Profile/ProfileHeader.jsx:773
 msgid "Level {0}"
 msgstr "Level {0}"
 
@@ -989,7 +989,7 @@ msgstr "The leaderboard ranking is based on the total number of points earned by
 msgid "This can’t be undone and it will be removed from your profile, the timeline."
 msgstr "This can’t be undone and it will be removed from your profile, the timeline."
 
-#: src/views/Profile/ProfileHeader.jsx:921
+#: src/views/Profile/ProfileHeader.jsx:931
 msgid "This can’t be undone and this user will be removed from your following."
 msgstr "This can’t be undone and this user will be removed from your following."
 
@@ -1020,6 +1020,14 @@ msgstr "Top News"
 msgid "Top User badge"
 msgstr "Top User badge"
 
+#: src/Components/Post/components/PostBody/PostBody.jsx:63
+msgid "Translate"
+msgstr "Translate"
+
+#: src/Components/Post/components/PostBody/PostBody.jsx:65
+msgid "Translated"
+msgstr "Translated"
+
 #: src/views/Discover/Discover.jsx:92
 msgid "Trending Topics"
 msgstr "Trending Topics"
@@ -1038,7 +1046,7 @@ msgid "unfollow"
 msgstr "unfollow"
 
 #: src/Components/Hsuggestedacc.jsx:175
-#: src/views/Profile/ProfileHeader.jsx:936
+#: src/views/Profile/ProfileHeader.jsx:946
 msgid "Unfollow"
 msgstr "Unfollow"
 
@@ -1051,7 +1059,7 @@ msgstr "Unfollow {0}"
 msgid "Unfollow {commentuser}"
 msgstr "Unfollow {commentuser}"
 
-#: src/views/Profile/ProfileHeader.jsx:918
+#: src/views/Profile/ProfileHeader.jsx:928
 msgid "Unfollow {userprofile}?"
 msgstr "Unfollow {userprofile}?"
 

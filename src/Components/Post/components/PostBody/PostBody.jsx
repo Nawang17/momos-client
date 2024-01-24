@@ -8,7 +8,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Text } from "@mantine/core";
 import { formatText } from "../../../../helper/FormatText";
 import { Trans } from "@lingui/macro";
-
+import { lngs } from "../../../../i18n";
 const PostBody = ({ post, darkmode }) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -19,53 +19,34 @@ const PostBody = ({ post, darkmode }) => {
       {/* if post has text value and no poll */}
       {post?.text && !post?.poll && (
         <>
-          <div
-            style={{
-              cursor: "pointer",
-              padding: "0rem 1rem 0rem 1rem",
-              wordBreak: "break-word",
-              whiteSpace: "pre-wrap",
-              paddingTop: "0.5rem",
-            }}
-            onClick={() => {
-              const isTextSelection =
-                window.getSelection().toString().length > 0;
-              if (isTextSelection) return;
-              if (
-                pathname.substring(0, pathname.indexOf("/", 1)) ===
-                  "/community" ||
-                post?.community?.name
-              ) {
-                navigate(`/communitypost/${post.id}`);
-              } else {
-                navigate(`/post/${post.id}`);
-              }
-            }}
-          >
-            <Text size="15px">{formatText(post?.text, navigate)}</Text>
-          </div>
-          {localStorage.getItem("language") !== (post?.language || "en") &&
-            post?.translations?.find(
-              (translation) =>
-                translation.language === localStorage.getItem("language")
-            )?.translatedText && (
-              <Text
-                style={{
-                  width: "fit-content",
-                }}
-                className="link-style addPointer"
-                onClick={() => setShowTranslation(!showTranslation)}
-                color="#1d9bf0"
-                size="14px"
-                p="0rem 1rem 0rem 1rem"
-              >
-                {!showTranslation ? (
-                  <Trans>Translate</Trans>
-                ) : (
-                  <Trans>Translated</Trans>
-                )}
-              </Text>
-            )}
+          {!showTranslation && (
+            <div
+              style={{
+                cursor: "pointer",
+                padding: "0rem 1rem 0rem 1rem",
+                wordBreak: "break-word",
+                whiteSpace: "pre-wrap",
+                paddingTop: "0.5rem",
+              }}
+              onClick={() => {
+                const isTextSelection =
+                  window.getSelection().toString().length > 0;
+                if (isTextSelection) return;
+                if (
+                  pathname.substring(0, pathname.indexOf("/", 1)) ===
+                    "/community" ||
+                  post?.community?.name
+                ) {
+                  navigate(`/communitypost/${post.id}`);
+                } else {
+                  navigate(`/post/${post.id}`);
+                }
+              }}
+            >
+              <Text size="15px">{formatText(post?.text, navigate)}</Text>
+            </div>
+          )}
+
           {showTranslation && (
             <div
               style={{
@@ -73,6 +54,21 @@ const PostBody = ({ post, darkmode }) => {
                 padding: "0rem 1rem 0rem 1rem",
                 wordBreak: "break-word",
                 whiteSpace: "pre-wrap",
+                paddingTop: "0.5rem",
+              }}
+              onClick={() => {
+                const isTextSelection =
+                  window.getSelection().toString().length > 0;
+                if (isTextSelection) return;
+                if (
+                  pathname.substring(0, pathname.indexOf("/", 1)) ===
+                    "/community" ||
+                  post?.community?.name
+                ) {
+                  navigate(`/communitypost/${post.id}`);
+                } else {
+                  navigate(`/post/${post.id}`);
+                }
               }}
             >
               <Text size="15px">
@@ -89,6 +85,31 @@ const PostBody = ({ post, darkmode }) => {
               </Text>
             </div>
           )}
+          {localStorage.getItem("language") !== (post?.language || "en") &&
+            post?.translations?.find(
+              (translation) =>
+                translation.language === localStorage.getItem("language")
+            )?.translatedText && (
+              <Text
+                style={{
+                  width: "fit-content",
+                }}
+                className="link-style addPointer"
+                onClick={() => setShowTranslation(!showTranslation)}
+                color="dimmed"
+                size="13px"
+                p="0rem 1rem 0rem 1rem"
+              >
+                {!showTranslation ? (
+                  <Trans>
+                    Translate to{" "}
+                    {lngs[localStorage.getItem("language")]?.nativeName}
+                  </Trans>
+                ) : (
+                  <Trans>See original &#40;Translated by Google&#41;</Trans>
+                )}
+              </Text>
+            )}
         </>
       )}
       {/* image, video and gif display */}

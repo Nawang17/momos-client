@@ -913,6 +913,10 @@ msgstr "See all"
 msgid "See all {0} comments"
 msgstr "See all {0} comments"
 
+#: src/Components/Post/components/PostBody/PostBody.jsx:109
+msgid "See original (Translated by Google)"
+msgstr "See original (Translated by Google)"
+
 #: src/views/Login/ForgotPasswordUpdate.jsx:144
 msgid "Set Password"
 msgstr "Set Password"
@@ -1021,12 +1025,16 @@ msgid "Top User badge"
 msgstr "Top User badge"
 
 #: src/Components/Post/components/PostBody/PostBody.jsx:63
-msgid "Translate"
-msgstr "Translate"
+#~ msgid "Translate"
+#~ msgstr "Translate"
+
+#: src/Components/Post/components/PostBody/PostBody.jsx:104
+msgid "Translate to {0}"
+msgstr "Translate to {0}"
 
 #: src/Components/Post/components/PostBody/PostBody.jsx:65
-msgid "Translated"
-msgstr "Translated"
+#~ msgid "Translated"
+#~ msgstr "Translated"
 
 #: src/views/Discover/Discover.jsx:92
 msgid "Trending Topics"

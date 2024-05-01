@@ -10,8 +10,74 @@ const PostMedia = ({ post }) => {
   const [dimensions] = useImageSize(
     post?.filetype === "image" ? post?.image : post?.gif
   );
+  const imagesWithDimensions = [
+    {
+      url: "https://res.cloudinary.com/dwzjfylgh/image/upload/v1713674230/wz42vm1ze8xfmzw39et7.jpg",
+      dimensions: { width: 600, height: 300 },
+    },
+    {
+      url: "https://picsum.photos/200/200",
+      dimensions: { width: 100, height: 200 },
+    },
+    {
+      url: "https://res.cloudinary.com/dwzjfylgh/image/upload/v1713246038/ybuwt00ftoslbqkxw0a4.jpg",
+      dimensions: { width: 900, height: 500 },
+    },
+    {
+      url: "https://res.cloudinary.com/dwzjfylgh/image/upload/v1713460207/ukgnnhzvhtkxf7ohgxj5.jpg",
+      dimensions: { width: 500, height: 100 },
+    },
+  ];
+
   return (
     <>
+      {/* testing multiple image */}
+
+      {/* <div
+        style={{
+          padding: "0.5rem 1rem 0rem 1rem",
+        }}
+      >
+        <div className="flex-container">
+          {imagesWithDimensions.slice(0, 4).map((data) => {
+            return (
+              <div
+                style={{
+                  position: "relative",
+                  paddingBottom:
+                    imagesWithDimensions.length === 2
+                      ? "70%"
+                      : imagesWithDimensions.length === 3
+                      ? "65%"
+                      : imagesWithDimensions.length === 4
+                      ? "60%"
+                      : "75%",
+                  overflow: "hidden",
+                  cursor: "pointer",
+                }}
+                className="flex-item"
+              >
+                <img
+                  onClick={() => {
+                    setviewimg(data.url);
+                    setOpened(true);
+                  }}
+                  style={{
+                    position: "absolute",
+                    objectFit: "cover",
+
+                    width: "100%",
+                    height: "100%",
+                  }}
+                  src={data.url}
+                  alt=""
+                />
+              </div>
+            );
+          })}
+        </div>
+      </div>  */}
+
       {/* if media is an image or video */}
       {post.image && (
         <div

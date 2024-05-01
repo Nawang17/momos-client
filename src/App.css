@@ -126,3 +126,35 @@
     transform: rotate(5deg);
   }
 }
+
+/* post image container  */
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flex-item {
+  flex-grow: 1;
+}
+
+/* For one item */
+.flex-container .flex-item:nth-child(1) {
+  width: 100%;
+}
+
+/* For two items */
+.flex-container .flex-item:nth-child(2n) {
+  width: 50%;
+}
+
+/* For three items */
+.flex-container .flex-item:nth-child(3n-2) {
+  width: 100%;
+}
+
+.flex-container .flex-item:nth-child(4n-3),
+.flex-container .flex-item:nth-child(4n-2),
+.flex-container .flex-item:nth-child(4n-1),
+.flex-container .flex-item:nth-child(4n) {
+  width: 50%;
+}

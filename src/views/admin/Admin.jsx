@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { useDisclosure } from "@mantine/hooks";
 import { updateUserStatus } from "../../api/UPDATE";
 import { deleteUser } from "../../api/DELETE";
+import StoriesMode from "../../Components/Stories";
 
 export function Admin() {
   const [opened, { open, close }] = useDisclosure(false);
@@ -78,6 +79,7 @@ export function Admin() {
         marginTop: "0.5rem",
       }}
     >
+      <StoriesMode />
       <ScrollArea>
         <div
           style={{

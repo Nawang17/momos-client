@@ -26,6 +26,7 @@
     "react-ga4": "^2.1.0",
     "react-image-size": "^2.0.2",
     "react-infinite-scroll-component": "^6.1.0",
+    "react-insta-stories": "^2.6.2",
     "react-linkify": "^1.0.0-alpha",
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",

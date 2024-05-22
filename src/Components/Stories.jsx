@@ -3,6 +3,7 @@ import Stories from "react-insta-stories";
 import { Flex, Text } from "@mantine/core";
 import { AuthContext } from "../context/Auth";
 import { useViewportSize } from "@mantine/hooks";
+import { X } from "@phosphor-icons/react";
 const StoriesMode = () => {
   const { darkmode } = useContext(AuthContext);
   const [storyMode, setstoryMode] = useState(false);
@@ -18,7 +19,7 @@ const StoriesMode = () => {
       },
     },
     {
-      url: "https://res.cloudinary.com/dwzjfylgh/image/upload/v1714012548/bvpz1w8tiduldcdxfegw.jpg",
+      url: "https://picsum.photos/200/300",
       duration: 5000,
       header: {
         heading: "berrybee",
@@ -28,7 +29,7 @@ const StoriesMode = () => {
       },
     },
     {
-      url: "https://res.cloudinary.com/dwzjfylgh/image/upload/v1713460207/ukgnnhzvhtkxf7ohgxj5.jpg",
+      url: "https://picsum.photos/400/600",
       duration: 5000,
       header: {
         heading: "berrybee",
@@ -38,7 +39,7 @@ const StoriesMode = () => {
       },
     },
     {
-      url: "https://res.cloudinary.com/dwzjfylgh/image/upload/v1713026613/ahnlaij3j17osgrrq3ib.jpg",
+      url: "https://picsum.photos/800/1200",
       duration: 5000,
       header: {
         heading: "berrybee",
@@ -48,17 +49,67 @@ const StoriesMode = () => {
       },
     },
     {
-      url: "https://res.cloudinary.com/dwzjfylgh/video/upload/v1668627162/pvpyslmmynzyqyzs9mne.mov",
+      url: "https://picsum.photos/500/700",
       duration: 5000,
-      type: "video",
       header: {
         heading: "berrybee",
-        subheading: "Posted 30m ago",
+        subheading: "Posted 10h ago",
+        profileImage:
+          "https://res.cloudinary.com/dwzjfylgh/image/upload/v1712801791/kqrvww4xuitbtmyz6zsh.jpg",
+      },
+    },
+    {
+      url: "https://picsum.photos/300/500",
+      duration: 5000,
+      header: {
+        heading: "berrybee",
+        subheading: "Posted 2d ago",
+        profileImage:
+          "https://res.cloudinary.com/dwzjfylgh/image/upload/v1712801791/kqrvww4xuitbtmyz6zsh.jpg",
+      },
+    },
+    {
+      url: "https://picsum.photos/600/800",
+      duration: 5000,
+      header: {
+        heading: "berrybee",
+        subheading: "Posted 6h ago",
+        profileImage:
+          "https://res.cloudinary.com/dwzjfylgh/image/upload/v1712801791/kqrvww4xuitbtmyz6zsh.jpg",
+      },
+    },
+    {
+      url: "https://picsum.photos/350/550",
+      duration: 5000,
+      header: {
+        heading: "berrybee",
+        subheading: "Posted 20h ago",
+        profileImage:
+          "https://res.cloudinary.com/dwzjfylgh/image/upload/v1712801791/kqrvww4xuitbtmyz6zsh.jpg",
+      },
+    },
+    {
+      url: "https://picsum.photos/700/1000",
+      duration: 5000,
+      header: {
+        heading: "berrybee",
+        subheading: "Posted 4h ago",
+        profileImage:
+          "https://res.cloudinary.com/dwzjfylgh/image/upload/v1712801791/kqrvww4xuitbtmyz6zsh.jpg",
+      },
+    },
+    {
+      url: "https://picsum.photos/450/650",
+      duration: 5000,
+      header: {
+        heading: "berrybee",
+        subheading: "Posted 15h ago",
         profileImage:
           "https://res.cloudinary.com/dwzjfylgh/image/upload/v1712801791/kqrvww4xuitbtmyz6zsh.jpg",
       },
     },
   ];
+
   const { height, width } = useViewportSize();
   return (
     <>
@@ -112,12 +163,65 @@ const StoriesMode = () => {
               height: "100%",
             }}
           >
-            <Stories
-              stories={storiesData}
-              defaultInterval={1500}
-              width={width < 691 && "100%"}
-              height="100%"
-            />
+            {width < 691 ? (
+              <Stories
+                stories={storiesData}
+                defaultInterval={1500}
+                width={"100%"}
+                height="100%"
+              />
+            ) : (
+              <Stories
+                onAllStoriesEnd={() => {
+                  setstoryMode(false);
+                }}
+                preventDefault={!storyMode}
+                stories={storiesData}
+                defaultInterval={1500}
+                height="100%"
+                header={() => {
+                  return (
+                    <div>
+                      <Flex
+                        align={"center"}
+                        gap={200}
+                        justify={"space-between"}
+                      >
+                        <Flex align={"center"} gap={10}>
+                          {" "}
+                          <img
+                            src="https://res.cloudinary.com/dwzjfylgh/image/upload/v1712801791/kqrvww4xuitbtmyz6zsh.jpg"
+                            alt=""
+                            style={{
+                              width: "40px",
+                              height: "40px",
+                              borderRadius: "100%",
+                            }}
+                          />
+                          <Flex direction={"column"}>
+                            <Text color="white">berrybee</Text>
+                            <Text color="dimmed" size={"10px"}>
+                              Posted 3h ago
+                            </Text>
+                          </Flex>
+                        </Flex>
+                        <div
+                          style={{
+                            cursor: "pointer",
+                          }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setstoryMode(false);
+                          }}
+                        >
+                          <X size={20} color="white" />
+                        </div>
+                      </Flex>
+                    </div>
+                  );
+                }}
+              />
+            )}
           </div>
         </div>
       )}

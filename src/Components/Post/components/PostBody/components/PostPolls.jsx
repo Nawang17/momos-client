@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Button, Modal, Progress, Text } from "@mantine/core";
 import { AuthContext } from "../../../../../context/Auth";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { formatDistanceToNowStrict } from "date-fns";
 import locale from "date-fns/locale/en-US";
@@ -13,6 +13,7 @@ import Verifiedbadge from "../../../../../helper/VerifiedBadge";
 import Topuserbadge from "../../../../../helper/Topuserbadge";
 import { formatText } from "../../../../../helper/FormatText";
 import { Trans } from "@lingui/macro";
+import { lngs } from "../../../../../i18n";
 const PostPolls = ({ post }) => {
   const [poll, setpoll] = useState(post);
   //check if post is closed
@@ -25,7 +26,7 @@ const PostPolls = ({ post }) => {
   const { UserInfo, darkmode, topUser } = useContext(AuthContext);
   const [votemodal, setvotemodal] = useState(false);
   const navigate = useNavigate();
-
+  const [showTranslation, setShowTranslation] = useState(false);
   const handlePollvote = async (pollchoice) => {
     if (!UserInfo) {
       return showNotification({
@@ -87,222 +88,307 @@ const PostPolls = ({ post }) => {
         });
     }
   };
+  const { pathname } = useLocation();
 
   return (
     <>
       {post?.poll && (
-        <div
-          style={{
-            padding: "0.5rem 1rem",
-            margin: "0.2rem 1rem",
+        <>
+          <div
+            style={{
+              padding: "0.5rem 1rem",
+              margin: "0.2rem 1rem",
 
-            border: darkmode ? "1px solid #3f4448" : "1px solid #e6ecf0",
-            borderRadius: "0.5rem",
-          }}
-        >
-          {post.text && (
-            <div
-              style={{
-                cursor: "pointer",
+              border: darkmode ? "1px solid #3f4448" : "1px solid #e6ecf0",
+              borderRadius: "0.5rem",
+            }}
+          >
+            {post.text && (
+              <>
+                {!showTranslation && (
+                  <div
+                    style={{
+                      cursor: "pointer",
 
-                wordBreak: "break-word",
-                whiteSpace: "pre-wrap",
-                paddingTop: "0.5rem",
-              }}
-            >
-              <Text weight={600} size="15px">
-                {formatText(post?.text, navigate)}
-              </Text>
-            </div>
-          )}
+                      wordBreak: "break-word",
+                      whiteSpace: "pre-wrap",
+                      paddingTop: "0.5rem",
+                    }}
+                    onClick={() => {
+                      const isTextSelection =
+                        window.getSelection().toString().length > 0;
+                      if (isTextSelection) return;
+                      if (
+                        pathname.substring(0, pathname.indexOf("/", 1)) ===
+                          "/community" ||
+                        post?.community?.name
+                      ) {
+                        navigate(`/communitypost/${post.id}`);
+                      } else {
+                        navigate(`/post/${post.id}`);
+                      }
+                    }}
+                  >
+                    <Text size="15px">{formatText(post?.text, navigate)}</Text>
+                  </div>
+                )}
 
-          {hasDatePassed(poll?.poll?.duration) ||
-          poll?.user?.username === UserInfo?.username ||
-          poll?.poll?.pollchoices?.find((val) => {
-            return val?.pollvotes?.find((vals) => {
-              return vals?.user?.username === UserInfo?.username;
-            });
-          }) ? (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "1rem",
-                marginTop: "0.5rem",
-              }}
-            >
-              {poll?.poll?.pollchoices
-                ?.sort((a, b) => a.id - b.id)
-                .map((val) => {
-                  return (
-                    <div
-                      key={val.id}
+                {showTranslation && (
+                  <div
+                    style={{
+                      cursor: "pointer",
+
+                      wordBreak: "break-word",
+                      whiteSpace: "pre-wrap",
+                      paddingTop: "0.5rem",
+                    }}
+                    onClick={() => {
+                      const isTextSelection =
+                        window.getSelection().toString().length > 0;
+                      if (isTextSelection) return;
+                      if (
+                        pathname.substring(0, pathname.indexOf("/", 1)) ===
+                          "/community" ||
+                        post?.community?.name
+                      ) {
+                        navigate(`/communitypost/${post.id}`);
+                      } else {
+                        navigate(`/post/${post.id}`);
+                      }
+                    }}
+                  >
+                    <Text size="15px">
+                      {formatText(
+                        localStorage.getItem("language") === post?.language
+                          ? post?.text
+                          : post?.translations?.find(
+                              (translation) =>
+                                translation.language ===
+                                localStorage.getItem("language")
+                            )?.translatedText || post?.text,
+                        navigate
+                      )}
+                    </Text>
+                  </div>
+                )}
+                {localStorage.getItem("language") !==
+                  (post?.language || "en") &&
+                  post?.translations?.find(
+                    (translation) =>
+                      translation.language === localStorage.getItem("language")
+                  )?.translatedText && (
+                    <Text
                       style={{
-                        display: "flex",
-                        gap: "0.8rem",
-                        fontSize: "14px",
+                        width: "fit-content",
                       }}
+                      className="link-style addPointer"
+                      onClick={() => setShowTranslation(!showTranslation)}
+                      color="dimmed"
+                      size="13px"
                     >
+                      {!showTranslation ? (
+                        <Trans>
+                          Translate to{" "}
+                          {lngs[localStorage.getItem("language")]?.nativeName}
+                        </Trans>
+                      ) : (
+                        <Trans>
+                          See original &#40;Translated by Google&#41;
+                        </Trans>
+                      )}
+                    </Text>
+                  )}
+              </>
+            )}
+
+            {hasDatePassed(poll?.poll?.duration) ||
+            poll?.user?.username === UserInfo?.username ||
+            poll?.poll?.pollchoices?.find((val) => {
+              return val?.pollvotes?.find((vals) => {
+                return vals?.user?.username === UserInfo?.username;
+              });
+            }) ? (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "1rem",
+                  marginTop: "0.5rem",
+                }}
+              >
+                {poll?.poll?.pollchoices
+                  ?.sort((a, b) => a.id - b.id)
+                  .map((val) => {
+                    return (
                       <div
+                        key={val.id}
                         style={{
                           display: "flex",
-                          flexDirection: "column",
-                          gap: "0.5rem",
-                          width: "100%",
+                          gap: "0.8rem",
+                          fontSize: "14px",
                         }}
                       >
-                        {/* put a check mark here if the user has voted for this option */}
                         <div
                           style={{
                             display: "flex",
-                            alignItems: "center",
-                            gap: "0.2rem",
+                            flexDirection: "column",
+                            gap: "0.5rem",
+                            width: "100%",
                           }}
                         >
-                          <Text>{val?.choice}</Text>
+                          {/* put a check mark here if the user has voted for this option */}
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "0.2rem",
+                            }}
+                          >
+                            <Text>{val?.choice}</Text>
 
-                          {val?.pollvotes?.find((val) => {
-                            return val?.user?.username === UserInfo?.username;
-                          }) && <CheckCircle size={16} />}
-                        </div>
-                        <Progress
-                          label={
-                            val?.pollvotes?.length === 0
-                              ? 0
-                              : Math.floor(
-                                  (val?.pollvotes?.length /
-                                    poll?.poll?.pollchoices
-                                      .map((val) => {
-                                        return val?.pollvotes?.length;
-                                      })
-                                      .reduce((a, b) => a + b)) *
-                                    100
-                                ) + "%"
-                          }
-                          color={
-                            val?.pollvotes?.length ===
-                            poll?.poll?.pollchoices
+                            {val?.pollvotes?.find((val) => {
+                              return val?.user?.username === UserInfo?.username;
+                            }) && <CheckCircle size={16} />}
+                          </div>
+                          <Progress
+                            label={
+                              val?.pollvotes?.length === 0
+                                ? 0
+                                : Math.floor(
+                                    (val?.pollvotes?.length /
+                                      poll?.poll?.pollchoices
+                                        .map((val) => {
+                                          return val?.pollvotes?.length;
+                                        })
+                                        .reduce((a, b) => a + b)) *
+                                      100
+                                  ) + "%"
+                            }
+                            color={
+                              val?.pollvotes?.length ===
+                              poll?.poll?.pollchoices
 
-                              .map((val) => {
-                                return val?.pollvotes?.length;
-                              })
-                              .reduce((a, b) => {
-                                return Math.max(a, b);
-                              })
-                              ? "green"
-                              : "blue"
-                          }
-                          value={
-                            val?.pollvotes?.length === 0
-                              ? 0
-                              : Math.floor(
-                                  (val?.pollvotes?.length /
-                                    poll?.poll?.pollchoices
-                                      .map((val) => {
-                                        return val?.pollvotes?.length;
-                                      })
-                                      .reduce((a, b) => a + b)) *
-                                    100
-                                )
-                          }
-                          size="xl"
-                        />
-                      </div>{" "}
-                    </div>
-                  );
-                })}
-            </div>
-          ) : (
+                                .map((val) => {
+                                  return val?.pollvotes?.length;
+                                })
+                                .reduce((a, b) => {
+                                  return Math.max(a, b);
+                                })
+                                ? "green"
+                                : "blue"
+                            }
+                            value={
+                              val?.pollvotes?.length === 0
+                                ? 0
+                                : Math.floor(
+                                    (val?.pollvotes?.length /
+                                      poll?.poll?.pollchoices
+                                        .map((val) => {
+                                          return val?.pollvotes?.length;
+                                        })
+                                        .reduce((a, b) => a + b)) *
+                                      100
+                                  )
+                            }
+                            size="xl"
+                          />
+                        </div>{" "}
+                      </div>
+                    );
+                  })}
+              </div>
+            ) : (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "0.8rem",
+                  marginTop: "0.5rem",
+                }}
+              >
+                {poll?.poll?.pollchoices
+                  ?.sort((a, b) => a.id - b.id)
+                  .map((val) => {
+                    return (
+                      <Button
+                        onClick={() => handlePollvote(val)}
+                        radius={20}
+                        key={val.id}
+                        variant="outline"
+                      >
+                        {val?.choice}
+                      </Button>
+                    );
+                  })}
+              </div>
+            )}
             <div
               style={{
                 display: "flex",
-                flexDirection: "column",
-                gap: "0.8rem",
+                justifyContent: "space-between",
+                alignItems: "center",
                 marginTop: "0.5rem",
               }}
             >
-              {poll?.poll?.pollchoices
-                ?.sort((a, b) => a.id - b.id)
-                .map((val) => {
-                  return (
-                    <Button
-                      onClick={() => handlePollvote(val)}
-                      radius={20}
-                      key={val.id}
-                      variant="outline"
-                    >
-                      {val?.choice}
-                    </Button>
-                  );
-                })}
-            </div>
-          )}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginTop: "0.5rem",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                gap: "0.4rem",
-                fontSize: "14px",
-              }}
-            >
-              <Text
-                className="hoveru"
-                onClick={() => {
-                  if (
-                    poll?.poll?.pollchoices?.reduce((acc, val) => {
-                      return acc + val?.pollvotes?.length;
-                    }, 0) > 0
-                  ) {
-                    setvotemodal(true);
-                  }
-                }}
+              <div
                 style={{
-                  cursor: "pointer",
+                  display: "flex",
+                  gap: "0.4rem",
+                  fontSize: "14px",
                 }}
-                color="dimmed"
               >
-                {poll?.poll?.pollchoices?.reduce((acc, val) => {
-                  return acc + val?.pollvotes?.length;
-                }, 0)}{" "}
-                {poll?.poll?.pollchoices?.reduce((acc, val) => {
-                  return acc + val?.pollvotes?.length;
-                }, 0) > 1
-                  ? "Votes"
-                  : "Vote"}
-              </Text>
-              <Text color="dimmed"> &#183; </Text>
-              <Text color="dimmed">
-                {new Date() > new Date(post?.poll?.duration) ? (
-                  <Text color="dimmed">
-                    <Trans>Poll closed</Trans>
-                  </Text>
-                ) : (
-                  <Text>
-                    <Trans>
-                      {formatDistanceToNowStrict(
-                        new Date(post?.poll?.duration),
-                        {
-                          locale: {
-                            ...locale,
-                            formatDistance,
-                          },
-                        }
-                      )}{" "}
-                      left{" "}
-                    </Trans>
-                  </Text>
-                )}
-              </Text>
+                <Text
+                  className="hoveru"
+                  onClick={() => {
+                    if (
+                      poll?.poll?.pollchoices?.reduce((acc, val) => {
+                        return acc + val?.pollvotes?.length;
+                      }, 0) > 0
+                    ) {
+                      setvotemodal(true);
+                    }
+                  }}
+                  style={{
+                    cursor: "pointer",
+                  }}
+                  color="dimmed"
+                >
+                  {poll?.poll?.pollchoices?.reduce((acc, val) => {
+                    return acc + val?.pollvotes?.length;
+                  }, 0)}{" "}
+                  {poll?.poll?.pollchoices?.reduce((acc, val) => {
+                    return acc + val?.pollvotes?.length;
+                  }, 0) > 1
+                    ? "Votes"
+                    : "Vote"}
+                </Text>
+                <Text color="dimmed"> &#183; </Text>
+                <Text color="dimmed">
+                  {new Date() > new Date(post?.poll?.duration) ? (
+                    <Text color="dimmed">
+                      <Trans>Poll closed</Trans>
+                    </Text>
+                  ) : (
+                    <Text>
+                      <Trans>
+                        {formatDistanceToNowStrict(
+                          new Date(post?.poll?.duration),
+                          {
+                            locale: {
+                              ...locale,
+                              formatDistance,
+                            },
+                          }
+                        )}{" "}
+                        left{" "}
+                      </Trans>
+                    </Text>
+                  )}
+                </Text>
+              </div>
             </div>
           </div>
-        </div>
+        </>
       )}
 
       <Modal

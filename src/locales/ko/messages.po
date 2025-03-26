@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: momos\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-23 21:16\n"
+"PO-Revision-Date: 2025-03-26 14:48\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -1031,7 +1031,7 @@ msgstr "상위 유저 뱃지"
 
 #: src/Components/Post/components/PostBody/PostBody.jsx:63
 #~ msgid "Translate"
-#~ msgstr "번역하다"
+#~ msgstr "Translate"
 
 #: src/Components/Post/components/PostBody/PostBody.jsx:104
 msgid "Translate to {0}"
@@ -1039,7 +1039,7 @@ msgstr "{0}로 번역"
 
 #: src/Components/Post/components/PostBody/PostBody.jsx:65
 #~ msgid "Translated"
-#~ msgstr "로 번역됨"
+#~ msgstr "Translated"
 
 #: src/views/Discover/Discover.jsx:92
 msgid "Trending Topics"
@@ -1266,3 +1266,4 @@ msgstr "사용중인 브라우저가 비디오 태그를 지원하지 않습니�
 #: src/Components/Sidebar.jsx:258
 msgid "Your level is based on how many points you have."
 msgstr "당신의 레벨은 당신이 얼마나 많은 포인트를 가졌냐에 따라 결정됩니다"
+
